@@ -11,6 +11,12 @@ interface [IMediaPlayer](index.md)
 | [ExoPlayerImpl](../-exo-player-impl/index.md) |
 | [NativePlayerImpl](../-native-player-impl/index.md) |
 
+## Types
+
+| Name | Summary |
+|---|---|
+| [Companion](-companion/index.md) | [androidJvm]<br>object [Companion](-companion/index.md) |
+
 ## Functions
 
 | Name | Summary |

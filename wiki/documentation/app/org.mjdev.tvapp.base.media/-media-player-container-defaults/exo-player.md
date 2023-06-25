@@ -6,4 +6,4 @@
 
 @get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)
 
-val [exoPlayer](exo-player.md): [ExoPlayerImpl](../-exo-player-impl/index.md)
+val [exoPlayer](exo-player.md): [IMediaPlayer](../-i-media-player/index.md)

@@ -6,4 +6,4 @@
 
 @get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)
 
-val [internalPlayer](internal-player.md): [NativePlayerImpl](../-native-player-impl/index.md)
+val [internalPlayer](internal-player.md): [IMediaPlayer](../-i-media-player/index.md)

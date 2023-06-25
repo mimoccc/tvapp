@@ -18,7 +18,7 @@ class [ExoPlayerImpl](index.md)(exoPlayer: [ExoPlayer](https://developer.android
 | [dispose](dispose.md) | [androidJvm]<br>open override fun [dispose](dispose.md)() |
 | [pause](pause.md) | [androidJvm]<br>open override fun [pause](pause.md)() |
 | [play](play.md) | [androidJvm]<br>open override fun [play](play.md)() |
-| [PlayerView](-player-view.md) | [androidJvm]<br>@[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>open override fun [PlayerView](-player-view.md)() |
+| [PlayerView](-player-view.md) | [androidJvm]<br>@[UnstableApi](https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html)<br>@[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>open override fun [PlayerView](-player-view.md)() |
 | [prepare](prepare.md) | [androidJvm]<br>open override fun [prepare](prepare.md)() |
 | [resume](resume.md) | [androidJvm]<br>open override fun [resume](resume.md)() |
 | [seekTo](seek-to.md) | [androidJvm]<br>open override fun [seekTo](seek-to.md)(value: [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)) |

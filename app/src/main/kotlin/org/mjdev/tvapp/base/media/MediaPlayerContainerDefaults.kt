@@ -13,27 +13,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.media3.exoplayer.ExoPlayer
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object MediaPlayerContainerDefaults {
 
-    val engines
+    val engines: Array<IMediaPlayer?>
         @Composable
         get() = arrayOf(
-            exoPlayer, internalPlayer
+            exoPlayer,
+            internalPlayer
         )
 
-    val exoPlayer
+    val exoPlayer: IMediaPlayer
         @Composable
         get() = run {
             val context = LocalContext.current
-            remember { ExoPlayerImpl(ExoPlayer.Builder(context).build()) }
+            val isEdit = isEditMode()
+            remember {
+                if (isEdit) IMediaPlayer.EMPTY
+                else ExoPlayerImpl(ExoPlayer.Builder(context).build())
+            }
         }
 
-    val internalPlayer
+    val internalPlayer: IMediaPlayer
         @Composable
         get() = run {
-            remember { NativePlayerImpl(MediaPlayer()) }
+            val isEdit = isEditMode()
+            remember {
+                if (isEdit) IMediaPlayer.EMPTY
+                else NativePlayerImpl(MediaPlayer())
+            }
         }
 
 }

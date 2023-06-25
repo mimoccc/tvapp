@@ -9,6 +9,6 @@ object [MediaPlayerContainerDefaults](index.md)
 
 | Name | Summary |
 |---|---|
-| [engines](engines.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [engines](engines.md): [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)&lt;[IMediaPlayer](../-i-media-player/index.md)&gt; |
-| [exoPlayer](exo-player.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [exoPlayer](exo-player.md): [ExoPlayerImpl](../-exo-player-impl/index.md) |
-| [internalPlayer](internal-player.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [internalPlayer](internal-player.md): [NativePlayerImpl](../-native-player-impl/index.md) |
+| [engines](engines.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [engines](engines.md): [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)&lt;[IMediaPlayer](../-i-media-player/index.md)?&gt; |
+| [exoPlayer](exo-player.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [exoPlayer](exo-player.md): [IMediaPlayer](../-i-media-player/index.md) |
+| [internalPlayer](internal-player.md) | [androidJvm]<br>@get:[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)<br>val [internalPlayer](internal-player.md): [IMediaPlayer](../-i-media-player/index.md) |

@@ -73,6 +73,7 @@ $dokka.location:org.mjdev.tvapp.base.interfaces/ItemWithVideoUri///PointingToDec
 $dokka.location:org.mjdev.tvapp.base.interfaces/ItemWithVideoUri/videoUri/#/PointingToDeclaration/app/org.mjdev.tvapp.base.interfaces/-item-with-video-uri/video-uri.md
 $dokka.location:org.mjdev.tvapp.base.media////PointingToDeclaration/app/org.mjdev.tvapp.base.media/index.md
 $dokka.location:org.mjdev.tvapp.base.media//MediaPlayerContainer/#androidx.compose.ui.Modifier#android.net.Uri?#kotlin.Boolean#kotlin.Long#org.mjdev.tvapp.base.media.IMediaPlayer#kotlin.Function1[org.mjdev.tvapp.base.media.MediaPlayerState,kotlin.Unit]#kotlin.Function1[org.mjdev.tvapp.base.media.MediaPlayerState,kotlin.Unit]#kotlin.Function1[org.mjdev.tvapp.base.media.MediaPlayerState,kotlin.Unit]/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-media-player-container.md
+$dokka.location:org.mjdev.tvapp.base.media//PlayerControls/#/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-player-controls.md
 $dokka.location:org.mjdev.tvapp.base.media//SimpleMediaPlayerView/#androidx.compose.ui.Modifier#android.net.Uri?#kotlin.Boolean#kotlin.Function1[androidx.media3.exoplayer.ExoPlayer,kotlin.Unit]#kotlin.Function1[androidx.media3.exoplayer.ExoPlayer,kotlin.Unit]#kotlin.Function1[androidx.media3.exoplayer.ExoPlayer,kotlin.Unit]/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-simple-media-player-view.md
 $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl///PointingToDeclaration/app/org.mjdev.tvapp.base.media/-exo-player-impl/index.md
 $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl/ExoPlayerImpl/#androidx.media3.exoplayer.ExoPlayer/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-exo-player-impl/-exo-player-impl.md
@@ -85,6 +86,8 @@ $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl/resume/#/PointingToDecl
 $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl/seekTo/#kotlin.Long/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-exo-player-impl/seek-to.md
 $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl/setMediaUri/#android.net.Uri/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-exo-player-impl/set-media-uri.md
 $dokka.location:org.mjdev.tvapp.base.media/ExoPlayerImpl/stop/#/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-exo-player-impl/stop.md
+$dokka.location:org.mjdev.tvapp.base.media/IMediaPlayer.Companion///PointingToDeclaration/app/org.mjdev.tvapp.base.media/-i-media-player/-companion/index.md
+$dokka.location:org.mjdev.tvapp.base.media/IMediaPlayer.Companion/EMPTY/#/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-i-media-player/-companion/-e-m-p-t-y.md
 $dokka.location:org.mjdev.tvapp.base.media/IMediaPlayer///PointingToDeclaration/app/org.mjdev.tvapp.base.media/-i-media-player/index.md
 $dokka.location:org.mjdev.tvapp.base.media/IMediaPlayer/PlayerView/#/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-i-media-player/-player-view.md
 $dokka.location:org.mjdev.tvapp.base.media/IMediaPlayer/dispose/#/PointingToDeclaration/app/org.mjdev.tvapp.base.media/-i-media-player/dispose.md
