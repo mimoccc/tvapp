@@ -50,7 +50,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.mjdev.tvapp.tvcomposeintroduction"
+        applicationId = "org.mjdev.tvapp"
 
         minSdk = 21
         targetSdk = 33
@@ -127,7 +127,7 @@ dependencies {
     implementation(kotlin("reflect", "1.8.21"))
     // compose base libs
     implementation(
-        platform("androidx.compose:compose-bom:2023.06.00")
+        platform("androidx.compose:compose-bom:2023.06.01")
     )
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")

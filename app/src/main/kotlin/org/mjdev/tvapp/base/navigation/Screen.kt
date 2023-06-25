@@ -102,7 +102,7 @@ open class Screen {
 
     /**
      * Compose function for compose screen.
-     * This should be only a method overriden in super classes.
+     * This should be only a method overridden in super classes.
      *
      * @param navController Nav controller
      * @param backStackEntry Back stack entry

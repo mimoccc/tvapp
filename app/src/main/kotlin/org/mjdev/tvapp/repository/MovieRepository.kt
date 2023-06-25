@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.mjdev.tvapp.api.MovieAPI
-import org.mjdev.tvapp.base.helpers.Option.Companion.unwrapOr
+import org.mjdev.tvapp.base.helpers.Result.Companion.unwrapOr
 import org.mjdev.tvapp.data.Category
 import org.mjdev.tvapp.data.Movie
 import java.lang.Integer.max
@@ -39,7 +39,7 @@ class MovieRepository @Inject constructor(
     private val categoryListMutex = Mutex()
 
     override suspend fun getFeaturedMovieList(): List<Movie> {
-        val movieList = dataSource.loadFeaturedMovieList().unwrapOr(listOf<Movie>())
+        val movieList = dataSource.loadFeaturedMovieList().unwrapOr(listOf())
         updateCache(movieList)
         return movieList
     }
@@ -76,7 +76,7 @@ class MovieRepository @Inject constructor(
         if (force || !categoryMovieListMap.contains(category)) {
             updateCache(
                 category = category,
-                movieList = dataSource.getMovieListByCategory(category.name).unwrapOr(listOf<Movie>())
+                movieList = dataSource.getMovieListByCategory(category.name).unwrapOr(listOf())
             )
         }
     }

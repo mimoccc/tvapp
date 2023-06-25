@@ -24,8 +24,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
@@ -48,10 +50,19 @@ fun ImageAny(
     modifier = modifier
 ) {
 
+    val width = constraints.maxWidth
+    val height = constraints.maxHeight
+
+    val context = LocalContext.current
+
+    val placeholderDrawable : Drawable = (placeholder?.let { ph ->
+        ContextCompat.getDrawable(context, ph)
+    } ?: ColorDrawable(0))
+
     when (src) {
 
         null -> Image(
-            ColorDrawable(0).asImageBitmap(),
+            placeholderDrawable.asImageBitmap(width, height),
             contentDescription,
             modifier,
             alignment,

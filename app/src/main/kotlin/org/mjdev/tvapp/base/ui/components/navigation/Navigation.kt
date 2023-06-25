@@ -84,7 +84,6 @@ fun Navigation(
 
                         NavigationRow(
                             id = SETTINGS_ITEM,
-                            focused = (focused.value == SETTINGS_ITEM),
                             drawerValue = state,
                             icon = Icons.Outlined.Settings,
                             text = "Settings",
@@ -110,7 +109,6 @@ fun Navigation(
 
                         NavigationRow(
                             id = SEARCH_ITEM,
-                            focused = (focused.value == SEARCH_ITEM),
                             drawerValue = state,
                             icon = Icons.Outlined.Search,
                             text = "Search",
@@ -136,7 +134,6 @@ fun Navigation(
                     items.forEachIndexed { idx, menuItem ->
                         NavigationRow(
                             id = idx,
-                            focused = (focused.value == idx),
                             drawerValue = state,
                             text = menuItem.menuText,
                             icon = menuItem.menuIcon,

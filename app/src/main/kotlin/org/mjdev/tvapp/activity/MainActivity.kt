@@ -15,11 +15,13 @@ import org.mjdev.tvapp.ui.screens.AboutScreen
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
+import org.mjdev.tvapp.ui.screens.SplashScreen
 import org.mjdev.tvapp.ui.screens.SubscriptionScreen
 
 @AndroidEntryPoint
 class MainActivity : ComposableActivity ({
 
+    screen(route = SplashScreen()) // todo start screen
     screen(route = MainScreen(), isHomeScreen = true)
     screen(route = DetailScreen())
     screen(route = PlayerScreen())

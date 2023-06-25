@@ -62,13 +62,11 @@ class PlayerScreen : Screen() {
 
         val viewModel = appViewModel<DetailViewModel>()
         val movieId: Long? = remember { args[movieId] as Long? }
-        val movieState = remember {
-            viewModel?.detailsLoadingState(movieId)
-        }?.collectAsState()
+        val movieState = remember { viewModel.detailsLoadingState(movieId) }.collectAsState()
 
-        fun postError(error: String) = viewModel?.postError(error.asException())
+        fun postError(error: String) = viewModel.postError(error.asException())
 
-        when (movieState?.value) {
+        when (movieState.value) {
             is DetailsLoadingState.Ready -> MediaPlayer(
                 modifier = Modifier.fillMaxSize(),
                 movie = (movieState.value as DetailsLoadingState.Ready).movie

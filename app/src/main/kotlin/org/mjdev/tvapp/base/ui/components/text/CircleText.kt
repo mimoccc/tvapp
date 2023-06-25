@@ -43,7 +43,7 @@ fun CircleText(
     borderSize: Dp = 2.dp,
     text: String = "0",
     textColor: Color = Color.White,
-    textSize: TextUnit = 40.sp
+    textSize: TextUnit = 26.sp
 ) {
 
     Box(
@@ -78,7 +78,8 @@ fun CircleText(
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             color = textColor,
-            text = text
+            text = text,
+            fontSize = textSize
         )
 
     }

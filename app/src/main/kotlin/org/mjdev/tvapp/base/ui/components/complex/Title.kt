@@ -27,7 +27,6 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@Suppress("LocalVariableName")
 @TvPreview
 @Composable
 fun Title(

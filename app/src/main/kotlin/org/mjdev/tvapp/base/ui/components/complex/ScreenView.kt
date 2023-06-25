@@ -28,7 +28,7 @@ import org.mjdev.tvapp.base.state.ActivityViewState
 import org.mjdev.tvapp.base.state.ActivityViewState.Companion.rememberActivityViewState
 import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 
-@Suppress("TrailingComma", "UNUSED_ANONYMOUS_PARAMETER")
+@Suppress("TrailingComma", "UNUSED_ANONYMOUS_PARAMETER", "unused")
 @TvPreview
 @Composable
 fun ScreenView(

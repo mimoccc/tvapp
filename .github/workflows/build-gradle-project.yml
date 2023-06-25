@@ -1,0 +1,75 @@
+name: Build Gradle project
+# on settings
+on:
+  push:
+    branches:
+      - main
+# jobs
+jobs:
+  build-gradle-project:
+    runs-on: ubuntu-latest
+#permissions
+    permissions:
+      contents: write
+      deployments: write
+      pages: write
+# job steps
+    steps:
+      - name: Checkout project sources
+        id: checkout_project
+        uses: actions/checkout@v3
+# setup jdk 17
+      - name: Set up JDK 17
+        id: setup_java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+# setup gradle
+      - name: Setup Gradle
+        id: setup_gradle
+        uses: gradle/gradle-build-action@v2
+# be sure it is executable
+      - name: Grant execute permission for gradlew
+        id: grant_gradle
+        run: chmod +x gradlew
+# generate version number to env
+      - name: Prepare Version Number
+        id: prepare_version
+        run: |
+          export GRADLE_PATH="./config/version.properties";
+          export GRADLE_FIELD_VMAJ="majorVersion"
+          export GRADLE_FIELD_VMIN="minorVersion"
+          export GRADLE_FIELD_VPAT="patchVersion"
+          export VERSION_VMAJ_TMP=$(grep $GRADLE_FIELD_VMAJ $GRADLE_PATH | cat $2)
+          export VERSION_VMIN_TMP=$(grep $GRADLE_FIELD_VMIN $GRADLE_PATH | cat $2)
+          export VERSION_VMPAT_TMP=$(grep $GRADLE_FIELD_VPAT $GRADLE_PATH | cat $2)
+          export VERSION_MAJOR=$(echo $VERSION_VMAJ_TMP | sed -e 's/^majorVersion=//'  -e 's/"$//')
+          export VERSION_MINOR=$(echo $VERSION_VMIN_TMP | sed -e 's/^minorVersion=//'  -e 's/"$//')
+          export VERSION_PATCH=$(echo $VERSION_VMPAT_TMP | sed -e 's/^patchVersion=//'  -e 's/"$//')
+          export APP_VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
+          echo "Release Version : $APP_VERSION"
+          echo "GITHUB_APP_VERSION_NAME=$(echo $APP_VERSION)" >> $GITHUB_ENV
+# build apk for release
+      - name: Build Release APK
+        id: build_release_apk
+        run: ./gradlew assembleRelease
+# publish github release
+      - name: Create Release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Release v ${{ env.GITHUB_APP_VERSION_NAME }}
+          allowUpdates: true
+          token: ${{ secrets.TOKEN }}
+          tag: release-${{ env.GITHUB_APP_VERSION_NAME }}
+          artifacts: './app/build/outputs/apk/release/app-release.apk, ./release-notes.txt'
+# update wiki pages
+      - name: Update wiki pages
+        id: update_wiki_pages
+        uses: OrlovM/Wiki-Action@v1
+        with:
+          path: 'wiki'
+          token: ${{ secrets.TOKEN }}
+# done

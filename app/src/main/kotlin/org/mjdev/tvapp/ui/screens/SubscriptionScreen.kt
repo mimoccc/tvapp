@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.ui.screens
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavBackStackEntry
@@ -25,7 +25,7 @@ class SubscriptionScreen : Screen() {
 
     override val menuTitleResId: Int = R.string.title_subscription
 
-    override val menuIcon: ImageVector get() = Icons.Filled.ArrowBack
+    override val menuIcon: ImageVector get() = Icons.Filled.ShoppingCart
 
     @TvPreview
     @Composable

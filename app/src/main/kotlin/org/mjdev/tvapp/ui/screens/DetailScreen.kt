@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.ui.screens
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -44,7 +44,7 @@ class DetailScreen : Screen() {
 
     override val menuTitleResId: Int = -1
 
-    override val menuIcon: ImageVector get() = Icons.Filled.ArrowBack
+    override val menuIcon: ImageVector get() = Icons.Filled.Info
 
     @TvPreview
     @Composable

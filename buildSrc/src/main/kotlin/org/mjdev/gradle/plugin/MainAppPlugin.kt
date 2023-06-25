@@ -22,6 +22,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
 
+// todo
 @Suppress("UsePropertyAccessSyntax", "UnusedReceiverParameter")
 abstract class MainAppPlugin : Plugin<Project> {
 
@@ -245,10 +246,10 @@ abstract class MainAppPlugin : Plugin<Project> {
         // tasks after build
         project.afterEvaluate {
             listOf(
-//                TASK_ASSEMBLE_DEBUG,
+                TASK_ASSEMBLE_DEBUG,
                 TASK_ASSEMBLE_MOCK,
                 TASK_ASSEMBLE_RELEASE,
-//                TASK_ASSEMBLE_MINIFIED
+                TASK_ASSEMBLE_MINIFIED
             ).forEach { taskName ->
                 tasks.findByName(taskName)
                     ?.finalizedBy(TASK_PREPARE_RELEASE_NOTES, TASK_DOKKA)
