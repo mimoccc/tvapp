@@ -1,0 +1,24 @@
+<!--
+/*
+ * Copyright (c) Milan Jurkulák 2023.
+ * Contact:
+ * e: mimoccc@gmail.com
+ * e: mj@mjdev.org
+ * w: https://mjdev.org
+ */
+-->
+
+<resources>
+
+    <string name="app_name">Tv App</string>
+    <string name="error">error</string>
+    <string name="error_unknown">Unknown error.</string>
+    <string name="dismiss">dismiss</string>
+    <string name="menu_item_home">home</string>
+    <string name="title_movie_detail">movie detail</string>
+    <string name="title_about">about</string>
+    <string name="title_movie_player">movie player</string>
+    <string name="title_subscription">subscription</string>
+    <string name="no_network">Internet connection is missing.</string>
+
+</resources>
