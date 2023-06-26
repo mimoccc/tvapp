@@ -1,6 +1,20 @@
 # Gradle files
 .gradle/
+/.gradle/
+/.gradle
+
+# build src folders
+buildSrc/.gradle
+buildSrc/.gradle/
+/buildSrc/.gradle
+/buildSrc/.gradle/
+
+# any build folder
+build
 build/
+/build/
+/buildSrc/build
+/buildSrc/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -18,6 +32,10 @@ output.json
 # IntelliJ
 *.iml
 .idea/
+/.idea/
+buildSrc/.idea
+buildSrc/.idea/
+/buildSrc/.idea
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
@@ -31,15 +49,3 @@ google-services.json
 
 # Android Profiling
 *.hprof
-/.gradle/
-/.idea/
-
-# buildSrc
-/buildSrc/.gradle/
-/buildSrc/build/
-buildSrc/.gradle/
-buildSrc/build/
-buildSrc/.gradle
-buildSrc/build
-/buildSrc/.gradle
-/buildSrc/build
