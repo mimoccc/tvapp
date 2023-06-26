@@ -8,10 +8,18 @@
 
 package org.mjdev.tvapp.base.ui.components.complex
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -19,10 +27,12 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.card.CarouselCard
 import org.mjdev.tvapp.data.Movie
 
 // todo swipe left and swipe right
+@SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
@@ -30,32 +40,45 @@ fun BigCarousel(
     modifier: Modifier = Modifier,
     items: List<Movie> = emptyList(),
     height: Dp = 260.dp,
-    onItemSelected: (Movie?) -> Unit = {},
-    onItemClicked: (Movie?) -> Unit = {},
+    onItemSelected: (movie: Movie?) -> Unit = {},
+    onItemClicked: (movie: Movie?) -> Unit = {},
 ) {
+
+    val focusRequester = remember { FocusRequester() }
+    val itemIndex = remember { mutableIntStateOf(0) }
+    val selectedMovie: () -> Movie? = { items[itemIndex.value] }
+    val isFocused: MutableState<Boolean> = remember { mutableStateOf(false) }
 
     Carousel(
         itemCount = items.size,
         modifier = modifier
+            .focusRequester(focusRequester)
             .fillMaxWidth()
-//            .pointerInput(Unit) {
-//                detectHorizontalDragGestures { change, dragAmount ->
-                    // todo
-//                }
-//            }
-            .height(height),
+            .height(height)
+            .onFocusChanged { focusState ->
+                isFocused.value = focusState.isFocused || focusState.hasFocus
+            },
     ) { indexOfCarouselItem ->
-        val movie = items[indexOfCarouselItem]
 
-        onItemSelected(movie)
+        itemIndex.value = indexOfCarouselItem
 
         CarouselCard(
-            modifier = modifier.fillMaxWidth().height(height),
+            modifier = modifier
+                .touchable {
+                    if (isFocused.value)
+                        onItemClicked(selectedMovie())
+                    else {
+                        onItemSelected(selectedMovie())
+                        focusRequester.requestFocus()
+                    }
+                }
+                .fillMaxWidth()
+                .height(height),
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
-            movie = movie,
-            onClick = { clickedItem ->
-                onItemClicked(clickedItem)
+            movie = items[indexOfCarouselItem],
+            onClick = {
+                onItemClicked(selectedMovie())
             }
         )
 

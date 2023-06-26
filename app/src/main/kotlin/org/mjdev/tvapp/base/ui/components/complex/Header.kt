@@ -38,7 +38,7 @@ fun Header(
     color: Color = Color.White,
     backgroundColor: Color = Color.DarkGray,
     roundSize: Dp = 0.dp,
-    padding: Dp = 4.dp,
+    padding: Dp = 0.dp,
     contentPadding: Dp = 2.dp,
     messagesCount: Int = 0,
     onTitleClick: () -> Unit = {},
@@ -59,7 +59,7 @@ fun Header(
         Title(
             modifier = Modifier.constrainAs(_title) {
                 top.linkTo(parent.top)
-                start.linkTo(parent.start, margin = contentPadding)
+                start.linkTo(parent.start)
                 bottom.linkTo(parent.bottom)
             },
             title = title ?: R.string.app_name,

@@ -244,19 +244,6 @@ open class Screen : NavController.OnDestinationChangedListener {
             get() = currentDestination?.route
 
         /**
-         * Open route.
-         *
-         * @param route Route
-         * @receiver [NavHostController]
-         */
-        fun NavHostController.open(route: String) {
-            val equals = currentRoute?.equals(route)
-            if (equals != true) {
-                navigate(route)
-            }
-        }
-
-        /**
          * Custom function to generate screen in nav graph.
          *
          * @param route Route route expected

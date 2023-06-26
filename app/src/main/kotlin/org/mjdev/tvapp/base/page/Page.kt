@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.state.ScreenState
 
 @TvPreview
@@ -22,7 +23,9 @@ fun Page(
     Column(
         Modifier
             .fillMaxSize()
-            .background(Color.DarkGray, RectangleShape)
+            .background(Color.DarkGray, RectangleShape).touchable {
+               freeFocus()
+            }
     ) {
 
         screenState?.titleState?.value = title

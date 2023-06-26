@@ -35,6 +35,7 @@ import org.mjdev.tvapp.data.Movie
 fun FocusableCard(
     movie: Movie? = null,
     modifier: Modifier = Modifier,
+    focused: Boolean = false,
     contentScale: ContentScale = ContentScale.Crop,
     placeHolder: Int = R.drawable.placeholder,
     scale: CardScale = CardDefaults.scale(),
@@ -43,8 +44,8 @@ fun FocusableCard(
     border: CardBorder = CardDefaults.border(),
     glow: CardGlow = CardDefaults.glow(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    onFocus: () -> Unit = {},
-    onClick: (Movie?) -> Unit = {},
+    onFocus: (movie: Movie?) -> Unit = {},
+    onClick: (movie: Movie?) -> Unit = {},
 ) {
     val focusState = remember { mutableStateOf<FocusState?>(null) }
     val isFocused: () -> Boolean = {
@@ -52,12 +53,16 @@ fun FocusableCard(
     }
 
     CompactCard(
+        interactionSource = interactionSource,
         modifier = modifier
             .onFocusChanged { state ->
                 focusState.value = state
             }
             .touchable {
-                if (isFocused()) onClick(movie) else onFocus()
+                if (isFocused())
+                    onClick(movie)
+                else
+                    onFocus(movie)
             },
         image = {
             ImageAny(

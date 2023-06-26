@@ -77,7 +77,12 @@ fun Title(
                 )
 
                 TextAny(
-                    modifier = modifier.padding(shadowSize),
+                    modifier = modifier.padding(
+                        10.dp,
+                        shadowSize,
+                        shadowSize,
+                        shadowSize
+                    ),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         shadow = Shadow(
                             color = if (focused) focusShadowColor else unfocusedShadowColor,

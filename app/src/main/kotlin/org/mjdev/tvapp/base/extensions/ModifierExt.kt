@@ -20,7 +20,7 @@ import timber.log.Timber
 object ModifierExt {
 
     fun Modifier.touchable(
-        onTouch: () -> Unit = {}
+        onTouch: FocusRequester.() -> Unit = {}
     ): Modifier = composed {
         val focusRequester = remember { FocusRequester() }
         this
@@ -28,7 +28,7 @@ object ModifierExt {
             .pointerInput(Unit) {
                 detectTapGestures {
                     try {
-                        onTouch()
+                        onTouch(focusRequester)
                         focusRequester.requestFocus()
                     } catch (e: Exception) {
                         Timber.e(e)

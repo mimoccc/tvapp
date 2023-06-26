@@ -12,17 +12,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Text
+import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.navigation.Screen.Companion.open
+import org.mjdev.tvapp.base.network.NetworkStatus
 import org.mjdev.tvapp.base.page.Page
 import org.mjdev.tvapp.base.state.ScreenState
 import org.mjdev.tvapp.base.ui.components.complex.BigCarousel
@@ -30,6 +33,8 @@ import org.mjdev.tvapp.base.ui.components.complex.ScrollableTvLazyRow
 import org.mjdev.tvapp.base.ui.components.complex.Tabs
 import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.base.ui.components.card.MovieCard
+import org.mjdev.tvapp.base.ui.components.complex.ErrorMessage
+import org.mjdev.tvapp.base.ui.components.complex.Header
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
@@ -45,15 +50,23 @@ fun MainPage(
 
     val categoryList = remember { viewModel.categoryList }.collectAsState()
     val featuredMovieList = remember { viewModel.featuredMovieList }.collectAsState()
+    val messages = remember { viewModel.messages }.collectAsState()
+    val networkState = remember {
+        viewModel.networkInfo.networkStatus
+    }.collectAsState(null)
 
     val onItemClick: (movie: Movie?) -> Unit = { movie ->
         if (movie == null) {
             viewModel.postError("No media found.".asException())
         } else if (movie.hasVideoUri) {
-            navController?.open<PlayerScreen>(navController, movie.id)
+            navController?.open<PlayerScreen>(movie.id)
         } else {
-            navController?.open<DetailScreen>(navController, movie.id)
+            navController?.open<DetailScreen>(movie.id)
         }
+    }
+
+    viewModel.handleError { error ->
+        screenState?.error(error)
     }
 
     ScrollableTvLazyRow(
@@ -63,6 +76,23 @@ fun MainPage(
         verticalArrangement = Arrangement.spacedBy(32.dp),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
+
+        item {
+
+            Header(
+                title = screenState?.titleState?.value,
+                messagesCount = messages.value.size
+            )
+
+        }
+
+        if (networkState.value !is NetworkStatus.Connected) item {
+            ErrorMessage(
+                error = stringResource(R.string.error_no_network).asException(),
+                backgroundColor = Color.Black,
+                dismissible = false
+            )
+        }
 
 
         if (categoryList.value.isNotEmpty()) item {
