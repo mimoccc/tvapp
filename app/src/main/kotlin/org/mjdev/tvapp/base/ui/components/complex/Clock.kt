@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -46,9 +47,8 @@ fun Clock(
     dateTextColor: Color = Color.White,
     horizontalAlignment: Alignment.Horizontal = Alignment.End,
     backgroundColor: Color = Color.Transparent,
-    borderColor: Color = Color.White,
-    borderSize: Dp = 0.dp,
     roundSize: Dp = 8.dp,
+    contentPadding: Dp = 2.dp,
     showTime: Boolean = true,
     showDate: Boolean = true,
     onClick: () -> Unit = {},
@@ -87,44 +87,41 @@ fun Clock(
     }.collectAsState(initial = "1.1.1970") else null
 
     FocusableBox(
-        modifier = modifier.padding(2.dp),
+        modifier = modifier.padding(contentPadding),
         shape = RoundedCornerShape(roundSize),
         onClick = onClick
     ) {
 
-        Column(
-            horizontalAlignment = horizontalAlignment,
+        Box(
+            Modifier
+                .background(backgroundColor, RoundedCornerShape(roundSize))
+                .wrapContentSize()
+                .clip(RoundedCornerShape(roundSize))
         ) {
 
-            if (showTime) TextAny(
-                modifier = modifier
-                    .wrapContentSize()
-                    .apply {
-                        if (borderSize > 0.dp) {
-                            border(borderSize, borderColor)
-                        }
-                    }
-                    .background(backgroundColor, RoundedCornerShape(roundSize)),
-                text = timeFlow?.value,
-                fontWeight = timeTextWeight,
-                fontSize = timeTextSize,
-                color = timeTextColor
-            )
+            Column(
+                modifier = Modifier.padding(8.dp, 2.dp, 8.dp, 2.dp),
+                horizontalAlignment = horizontalAlignment,
+            ) {
 
-            if (showDate) TextAny(
-                modifier = modifier
-                    .apply {
-                        if (borderSize > 0.dp) {
-                            border(borderSize, borderColor)
-                        }
-                    }
-                    .background(backgroundColor, RoundedCornerShape(roundSize)),
-                text = dateFlow?.value,
-                textAlign = TextAlign.End,
-                fontWeight = dateTextWeight,
-                fontSize = dateTextSize,
-                color = dateTextColor
-            )
+                if (showTime) TextAny(
+                    modifier = modifier.wrapContentSize(),
+                    text = timeFlow?.value,
+                    fontWeight = timeTextWeight,
+                    fontSize = timeTextSize,
+                    color = timeTextColor
+                )
+
+                if (showDate) TextAny(
+                    modifier = modifier.wrapContentSize(),
+                    text = dateFlow?.value,
+                    textAlign = TextAlign.End,
+                    fontWeight = dateTextWeight,
+                    fontSize = dateTextSize,
+                    color = dateTextColor
+                )
+
+            }
 
         }
 

@@ -11,14 +11,21 @@
 <resources>
 
     <string name="app_name">Tv App</string>
-    <string name="error">error</string>
-    <string name="error_unknown">Unknown error.</string>
-    <string name="dismiss">dismiss</string>
-    <string name="menu_item_home">home</string>
+
     <string name="title_movie_detail">movie detail</string>
     <string name="title_about">about</string>
     <string name="title_movie_player">movie player</string>
     <string name="title_subscription">subscription</string>
-    <string name="no_network">Internet connection is missing.</string>
+    <string name="title_error">error</string>
+
+    <string name="error_unknown">Unknown error.</string>
+
+    <string name="dismiss">dismiss</string>
+
+    <string name="menu_item_home">home</string>
+
+    <string name="error_no_network">Internet connection is missing.</string>
+
+    <string name="author">Created by Milan Jurkulak (C) 2023</string>
 
 </resources>

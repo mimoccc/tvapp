@@ -11,19 +11,17 @@ package org.mjdev.tvapp.activity
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.base.activity.ComposableActivity
 import org.mjdev.tvapp.base.navigation.Screen.Companion.screen
-import org.mjdev.tvapp.ui.screens.AboutScreen
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
-import org.mjdev.tvapp.ui.screens.SubscriptionScreen
+import org.mjdev.tvapp.ui.screens.SplashScreen
 
 @AndroidEntryPoint
 class MainActivity : ComposableActivity ({
 
+    screen(route = SplashScreen(), isStartScreen = true)
     screen(route = MainScreen(), isHomeScreen = true)
     screen(route = DetailScreen())
     screen(route = PlayerScreen())
-    screen(route = SubscriptionScreen())
-    screen(route = AboutScreen())
 
 })

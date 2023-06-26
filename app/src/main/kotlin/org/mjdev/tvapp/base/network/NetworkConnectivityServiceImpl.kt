@@ -27,7 +27,7 @@ class NetworkConnectivityServiceImpl constructor(
         .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     override val networkStatus: Flow<NetworkStatus> = callbackFlow {
-        val connectivityCallback = ConectivityCallback { status ->
+        val connectivityCallback = ConnectivityCallback { status ->
             trySend(status)
         }
         val request = NetworkRequest.Builder()

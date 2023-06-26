@@ -19,38 +19,43 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 
 class ExoPlayerImpl(
     private val exoPlayer: ExoPlayer
 ) : IMediaPlayer {
 
+    @UnstableApi
     @Composable
     override fun PlayerView() {
 
         val isEdit = ComposeExt.isEditMode()
         val context = LocalContext.current
+        val isAtv = context.isATv
 
-        if (!isEdit) {
-
-            AndroidView(
+        if (isEdit) {
+            Box(
                 modifier = Modifier
-                    .background(Color.Transparent, RectangleShape)
-                    .fillMaxSize(),
-                factory = {
-                    androidx.media3.ui.PlayerView(context).apply {
-                        this.player = exoPlayer
-                    }
-                }
+                    .fillMaxSize()
+                    .background(Color.Black, RectangleShape)
             )
 
         } else {
 
-            Box(
+            AndroidView(
                 modifier = Modifier
-                    .background(Color.Black, RectangleShape)
                     .fillMaxSize()
+                    .background(Color.Transparent, RectangleShape),
+                factory = {
+                    androidx.media3.ui.PlayerView(context).apply {
+                        player = exoPlayer
+                        controllerAutoShow = !isAtv
+                        controllerHideOnTouch = !isAtv
+                    }
+                }
             )
 
         }

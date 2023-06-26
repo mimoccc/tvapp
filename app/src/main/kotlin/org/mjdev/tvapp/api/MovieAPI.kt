@@ -8,8 +8,8 @@
 
 package org.mjdev.tvapp.api
 
-import org.mjdev.tvapp.base.helpers.Option
-import org.mjdev.tvapp.base.helpers.Option.Companion.unwrapOr
+import org.mjdev.tvapp.base.helpers.Result
+import org.mjdev.tvapp.base.helpers.Result.Companion.unwrapOr
 import org.mjdev.tvapp.data.Category
 import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.mock.MovieList
@@ -17,8 +17,8 @@ import org.mjdev.tvapp.mock.MovieList
 @Suppress("RedundantSuspendModifier")
 class MovieAPI {
 
-    suspend fun loadCategoryList(): Option<List<Category>> {
-        return Option.Some(MovieList.categories.map { name ->
+    suspend fun loadCategoryList(): Result<List<Category>> {
+        return Result.Success(MovieList.categories.map { name ->
             Category(
                 name = name,
                 movieList = getMovieListByCategory(name).unwrapOr(emptyList())
@@ -26,22 +26,22 @@ class MovieAPI {
         })
     }
 
-    suspend fun loadFeaturedMovieList(): Option<List<Movie>> {
-        return Option.Some(MovieList.featured)
+    suspend fun loadFeaturedMovieList(): Result<List<Movie>> {
+        return Result.Success(MovieList.featured)
     }
 
     suspend fun getMovieListByCategory(
         category: String
-    ): Option<List<Movie>> {
-        return Option.Some(MovieList.getByCategory(category))
+    ): Result<List<Movie>> {
+        return Result.Success(MovieList.getByCategory(category))
     }
 
     suspend fun findMovieById(
         id: Long
-    ): Option<Movie> {
+    ): Result<Movie> {
         return MovieList.findById(id).let { movie ->
-            if (movie == null) Option.None
-            else Option.Some(movie)
+            if (movie == null) Result.Empty
+            else Result.Success(movie)
         }
     }
 

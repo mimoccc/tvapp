@@ -9,8 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.LocalTextStyle
@@ -42,108 +40,108 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 @Composable
 fun ErrorMessage(
     error: Throwable? = null,
+    contentPadding: Dp = 8.dp,
     title: Any? = null,
     fontSizeTitle: TextUnit = 24.sp,
     fontSizeMessage: TextUnit = 14.sp,
     fontWeight: FontWeight = FontWeight.Bold,
     color: Color = Color.White,
-    paddingTitle: PaddingValues = PaddingValues(4.dp),
-    paddingMessage: PaddingValues = PaddingValues(4.dp),
+    paddingTitle:Dp = 4.dp,
+    paddingMessage: Dp = paddingTitle,
     backgroundColor: Color = Color.Red,
     roundSize: Dp = 8.dp,
-    borderSize: Dp = 1.dp,
-    borderColor: Color = Color.White,
     cancelText: Any? = stringResource(id = R.string.dismiss),
+    dismissible: Boolean = true,
     onDismiss: () -> Unit = {}
 ) {
-    ConstraintLayout(
+    Box(
         modifier = Modifier
-            .apply {
-                if (borderSize > 0.dp) {
-                    border(borderSize, borderColor, RoundedCornerShape(roundSize))
-                }
-            }
             .fillMaxWidth()
-            .background(backgroundColor, RoundedCornerShape(roundSize))
+            .background(Color.DarkGray)
     ) {
 
-        val style = LocalTextStyle.current
+        ConstraintLayout(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(contentPadding)
+                .background(backgroundColor, RoundedCornerShape(roundSize))
+        ) {
 
-        val (_title, _message, _button) = createRefs()
+            val style = LocalTextStyle.current
 
-        val textColor = color.takeOrElse {
-            style.color.takeOrElse {
-                LocalContentColor.current
+            val (_title, _message, _button) = createRefs()
+
+            val textColor = color.takeOrElse {
+                style.color.takeOrElse {
+                    LocalContentColor.current
+                }
             }
-        }
 
-        TextAny(
-            modifier = Modifier
-                .wrapContentSize()
-                .constrainAs(_title) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start, margin = roundSize)
-                    bottom.linkTo(parent.bottom)
-                }
-                .padding(paddingTitle),
-            text = title ?: stringResource(id = R.string.error),
-            fontWeight = fontWeight,
-            fontSize = fontSizeTitle,
-            color = color
-        )
-
-        BasicText(
-            modifier = Modifier
-                .wrapContentSize()
-                .constrainAs(_message) {
-                    top.linkTo(parent.top)
-                    start.linkTo(_title.end)
-                    end.linkTo(_button.start)
-                    bottom.linkTo(parent.bottom)
-                }
-                .padding(paddingMessage),
-            style = style.merge(
-                color = textColor,
-                fontSize = fontSizeMessage,
+            TextAny(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .constrainAs(_title) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start, margin = roundSize)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(paddingTitle),
+                text = title ?: stringResource(id = R.string.title_error),
                 fontWeight = fontWeight,
-                textAlign = TextAlign.Left,
-            ),
-            minLines = 1,
-            maxLines = 4,
-            text =
-            error?.message ?: (stringResource(id = R.string.error_unknown) +
+                fontSize = fontSizeTitle,
+                color = color
+            )
+
+            BasicText(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .constrainAs(_message) {
+                        top.linkTo(parent.top)
+                        start.linkTo(_title.end)
+                        end.linkTo(_button.start)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(paddingMessage),
+                style = style.merge(
+                    color = textColor,
+                    fontSize = fontSizeMessage,
+                    fontWeight = fontWeight,
+                    textAlign = TextAlign.Left,
+                ),
+                minLines = 1,
+                maxLines = 4,
+                text =
+                error?.message ?: (stringResource(id = R.string.error_unknown) +
                     "\nType: " +
                     (error?.javaClass?.simpleName ?: Exception::class.simpleName))
-        )
-// todo touchable
-        if (cancelText != null) {
-            Button(
-                modifier = Modifier
-                    .apply {
-                        if (borderSize > 0.dp) {
-                            border(borderSize, borderColor, RoundedCornerShape(roundSize))
-                        }
-                    }
-                    .background(
-                        Color.White.copy(
-                            alpha = 0.5f
-                        ),
-                        RoundedCornerShape(roundSize)
-                    )
-                    .constrainAs(_button) {
-                        top.linkTo(parent.top, margin = 4.dp)
-                        end.linkTo(parent.end, margin = roundSize)
-                        bottom.linkTo(parent.bottom, margin = 4.dp)
-                    },
-                onClick = {
-                    onDismiss()
-                }
-            ) {
+            )
 
-                TextAny(
-                    text = cancelText,
-                    color = color
-                )
+            if (dismissible && (cancelText != null)) {
+
+                Button(
+                    modifier = Modifier
+                        .background(
+                            Color.White.copy(
+                                alpha = 0.5f
+                            ),
+                            RoundedCornerShape(roundSize)
+                        )
+                        .constrainAs(_button) {
+                            top.linkTo(parent.top, margin = 4.dp)
+                            end.linkTo(parent.end, margin = roundSize)
+                            bottom.linkTo(parent.bottom, margin = 4.dp)
+                        },
+                    onClick = {
+                        onDismiss()
+                    }
+                ) {
+
+                    TextAny(
+                        text = cancelText,
+                        color = color
+                    )
+
+                }
 
             }
 
@@ -152,6 +150,3 @@ fun ErrorMessage(
     }
 
 }
-
-@Suppress("unused")
-fun TvLazyListScope.errorMessage(error: Throwable?) = item { ErrorMessage(error) }

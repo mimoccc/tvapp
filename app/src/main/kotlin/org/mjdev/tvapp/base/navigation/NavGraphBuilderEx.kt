@@ -30,16 +30,18 @@ class NavGraphBuilderEx(
     val navHostController: NavHostController
 ) : NavGraphBuilder(provider, "none", route) {
 
-    var startDestinationRouteEx: String? = null
-
+    var splashDestinationRoute: String? = null
+    var homeDestinationRoute : String? = null
     var menuItems: MutableList<MenuItem> = mutableListOf()
 
     override fun build(): NavGraph {
         val navGraph = super.build()
-        if (startDestinationRouteEx == null) {
+        if (splashDestinationRoute == null && homeDestinationRoute == null) {
             throw(RuntimeException("One class in ComposeActivity should have start property set."))
         }
-        navGraph.setStartDestination(startDestinationRouteEx!!)
+        (splashDestinationRoute ?: homeDestinationRoute)?.also { route ->
+            navGraph.setStartDestination(route)
+        }
         return navGraph
     }
 

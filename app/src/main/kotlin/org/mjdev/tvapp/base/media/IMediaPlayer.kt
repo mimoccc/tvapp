@@ -32,4 +32,31 @@ interface IMediaPlayer {
 
     fun seekTo(value: Long)
 
+    companion object {
+
+        val EMPTY = object : IMediaPlayer {
+
+            @Composable
+            override fun PlayerView() {
+            }
+
+            override fun setMediaUri(uri: Uri) {}
+
+            override fun prepare() {}
+
+            override fun play() {}
+
+            override fun pause() {}
+
+            override fun resume() {}
+
+            override fun stop() {}
+
+            override fun dispose() {}
+
+            override fun seekTo(value: Long) {}
+        }
+
+    }
+
 }

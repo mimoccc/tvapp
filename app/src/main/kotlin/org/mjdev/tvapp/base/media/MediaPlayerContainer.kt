@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
+import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
+@TvPreview
 @Composable
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,

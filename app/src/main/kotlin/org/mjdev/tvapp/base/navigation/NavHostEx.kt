@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
 
 /**
@@ -30,15 +31,15 @@ fun NavHostEx(
     navController: NavHostController,
     builder: NavGraphBuilderEx.() -> Unit
 ) {
-    androidx.navigation.compose.NavHost(
-        navController,
-        remember(route, builder) {
+    NavHost(
+        navController = navController,
+        graph = remember(route, builder) {
             navController.createGraph(
                 route,
                 navController,
                 builder
             )
         },
-        modifier
+        modifier = modifier
     )
 }

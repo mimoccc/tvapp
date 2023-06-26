@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NavigationDrawer
@@ -43,6 +44,7 @@ const val SEARCH_ITEM = 65534
 @Composable
 fun Navigation(
     modifier: Modifier = Modifier,
+    navController: NavHostController? = null,
     items: List<MenuItem> = listOf(),
     backgroundColor: Color = Color(0xFF202020),
     roundSize: Dp = 8.dp,
@@ -52,7 +54,10 @@ fun Navigation(
     showSettings: Boolean = true,
     searchArrangement: Arrangement.Vertical = Arrangement.Top,
     settingsArrangement: Arrangement.Vertical = Arrangement.Bottom,
+    onSettingsItemFocused: () -> Unit = {},
+    onSearchItemFocused: () -> Unit = {},
     onDrawerItemClick: (id: Int) -> Unit = {},
+    onDrawerItemFocused: (id: Int) -> Unit = {},
     content: @Composable () -> Unit = {}
 ) {
 
@@ -84,13 +89,13 @@ fun Navigation(
 
                         NavigationRow(
                             id = SETTINGS_ITEM,
-                            focused = (focused.value == SETTINGS_ITEM),
                             drawerValue = state,
                             icon = Icons.Outlined.Settings,
                             text = "Settings",
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
+                                onDrawerItemFocused(id)
                             },
                             onClick = { id ->
                                 onDrawerItemClick(id)
@@ -110,13 +115,13 @@ fun Navigation(
 
                         NavigationRow(
                             id = SEARCH_ITEM,
-                            focused = (focused.value == SEARCH_ITEM),
                             drawerValue = state,
                             icon = Icons.Outlined.Search,
                             text = "Search",
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
+                                onDrawerItemFocused(id)
                             },
                             onClick = { id ->
                                 onDrawerItemClick(id)
@@ -136,13 +141,13 @@ fun Navigation(
                     items.forEachIndexed { idx, menuItem ->
                         NavigationRow(
                             id = idx,
-                            focused = (focused.value == idx),
                             drawerValue = state,
                             text = menuItem.menuText,
                             icon = menuItem.menuIcon,
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
+                                onDrawerItemFocused(id)
                             },
                             onClick = { id ->
                                 onDrawerItemClick(id)

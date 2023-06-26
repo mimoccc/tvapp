@@ -30,13 +30,11 @@ import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@Suppress("LocalVariableName")
 @Preview
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun NavigationRow(
     id: Int = -1,
-    focused: Boolean = false,
     drawerValue: DrawerValue = DrawerValue.Open,
     text: Any? = "test",
     icon: Any? = Icons.Default.AccountCircle,

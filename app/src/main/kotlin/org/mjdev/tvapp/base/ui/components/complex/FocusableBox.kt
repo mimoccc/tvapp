@@ -53,8 +53,6 @@ fun FocusableBox(
     content: @Composable BoxScope.() -> Unit = {}
 ) {
 
-
-
     Surface(
         onClick,
         modifier

@@ -8,12 +8,17 @@
 
 package org.mjdev.tvapp.base.ui.components.complex
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -25,9 +30,9 @@ import androidx.compose.ui.unit.sp
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.ui.components.image.CircleImage
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@Suppress("LocalVariableName")
 @TvPreview
 @Composable
 fun Title(
@@ -49,6 +54,7 @@ fun Title(
     }
 
     FocusableBox(
+        modifier = modifier,
         isFocused = isFocused,
         onTouched = onTouched,
         focusedColor = Color.Transparent,
@@ -56,20 +62,36 @@ fun Title(
 
         isFocused.value.also { focused ->
 
-            TextAny(
-                modifier = modifier.padding(shadowSize),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    shadow = Shadow(
-                        color = if (focused) focusShadowColor else unfocusedShadowColor,
-                        offset = Offset(shadowSize.value, shadowSize.value),
-                        blurRadius = shadowSize.value
-                    )
-                ),
-                text = title ?: R.string.app_name,
-                fontWeight = fontWeight,
-                fontSize = fontSize,
-                color = color
-            )
+            Row(
+                modifier = modifier,
+                verticalAlignment = CenterVertically,
+            ) {
+
+                CircleImage(
+                    modifier = Modifier
+                        .height((fontSize.value * 1.4).dp)
+                        .aspectRatio(1f).scale(1.3f),
+                    borderColor = Color.White,
+                    borderSize = (-8).dp,
+                    src = R.mipmap.ic_launcher
+                )
+
+                TextAny(
+                    modifier = modifier.padding(shadowSize),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        shadow = Shadow(
+                            color = if (focused) focusShadowColor else unfocusedShadowColor,
+                            offset = Offset(shadowSize.value, shadowSize.value),
+                            blurRadius = shadowSize.value
+                        )
+                    ),
+                    text = title ?: R.string.app_name,
+                    fontWeight = fontWeight,
+                    fontSize = fontSize,
+                    color = color
+                )
+
+            }
 
         }
 

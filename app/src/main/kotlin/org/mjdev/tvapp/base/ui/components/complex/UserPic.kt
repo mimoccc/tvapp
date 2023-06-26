@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,15 +27,15 @@ import org.mjdev.tvapp.base.ui.components.image.CircleImage
 @Composable
 fun UserPic(
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(100),
+    shape: Shape = CircleShape,
     src: Any? = R.drawable.milanj,
     backGroundColor: Color = MaterialTheme.colorScheme.secondary,
     borderColor: Color = Color.White,
     borderSize: Dp = 2.dp,
+    contentPadding: Dp = 2.dp,
     onClick: () -> Unit = {}
 ) = FocusableBox(
-    modifier = modifier
-        .wrapContentSize(),
+    modifier = modifier.wrapContentSize(),
     shape = shape,
     onClick = onClick
 ) {
@@ -45,6 +45,7 @@ fun UserPic(
         backGroundColor = backGroundColor,
         borderSize = borderSize,
         borderColor = borderColor,
+        contentPadding = contentPadding + borderSize,
         src = src,
     )
 

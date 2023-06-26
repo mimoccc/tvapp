@@ -18,14 +18,18 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
@@ -48,10 +52,29 @@ fun ImageAny(
     modifier = modifier
 ) {
 
+    val width = if(constraints.minWidth  ==0) 1 else constraints.minWidth
+    val height = if(constraints.minHeight  ==0) 1 else constraints.minHeight
+
+    val context = LocalContext.current
+
+    val placeholderDrawable : Drawable = (placeholder?.let { ph ->
+        ContextCompat.getDrawable(context, ph)
+    } ?: ColorDrawable(0))
+
     when (src) {
 
         null -> Image(
-            ColorDrawable(0).asImageBitmap(),
+            placeholderDrawable.asImageBitmap(width, height),
+            contentDescription,
+            modifier,
+            alignment,
+            contentScale,
+            alpha,
+            colorFilter
+        )
+
+        Color -> Image(
+            ColorDrawable((src as Color).toArgb()).asImageBitmap(width, height),
             contentDescription,
             modifier,
             alignment,
