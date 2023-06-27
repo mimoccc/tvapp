@@ -34,6 +34,8 @@ class NetworkConnectivityServiceImpl constructor(
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
             .build()
         connectivityManager.registerNetworkCallback(request, connectivityCallback)
         awaitClose {
