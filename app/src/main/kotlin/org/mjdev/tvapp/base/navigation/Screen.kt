@@ -38,7 +38,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.tv.material3.Text
-import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import kotlin.reflect.full.createInstance
 
@@ -75,7 +74,7 @@ open class Screen : NavController.OnDestinationChangedListener {
     /**
      * Screen title
      */
-    open val titleResId: Int = R.string.app_name
+    open val titleResId: Int = -1
 
     /**
      * Screen arguments if any

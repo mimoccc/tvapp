@@ -8,10 +8,8 @@
 
 package org.mjdev.tvapp.ui.screens
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -22,17 +20,13 @@ import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.base.page.Pager
 import org.mjdev.tvapp.base.ui.components.complex.ScreenView
+import org.mjdev.tvapp.ui.pages.AboutPage
 import org.mjdev.tvapp.ui.pages.MainPage
+import org.mjdev.tvapp.ui.pages.SubscriptionPage
 
 class MainScreen : Screen() {
 
-    override val titleResId = R.string.app_name
-
     override val args = listOf<NamedNavArgument>()
-
-    override val menuTitleResId: Int = R.string.menu_item_home
-
-    override val menuIcon: ImageVector get() = Icons.Filled.Home
 
     @TvPreview
     @Composable
@@ -46,17 +40,23 @@ class MainScreen : Screen() {
         args: Map<String, Any?>
     ) {
 
+        val menuState = remember { mutableListOf<MenuItem>().apply { addAll(menuItems) } }
+
         ScreenView(
             navController = navController,
-            title = stringResource(titleResId),
-            menuItems = menuItems
+            title = if (titleResId > -1) stringResource(titleResId) else R.string.app_name,
+            menuItems = menuState
         ) { screenState ->
 
             Pager(
-                screenState = screenState
+                navController,
+                screenState,
+                menuState
             ) {
 
-                MainPage(navController, screenState)
+                page(MainPage())
+                page(AboutPage())
+                page(SubscriptionPage())
 
             }
 

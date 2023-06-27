@@ -12,17 +12,15 @@
 
     <string name="app_name">Tv App</string>
 
-    <string name="title_movie_detail">movie detail</string>
-    <string name="title_about">about</string>
-    <string name="title_movie_player">movie player</string>
-    <string name="title_subscription">subscription</string>
-    <string name="title_error">error</string>
+    <string name="title_movie_detail">Movie detail</string>
+    <string name="title_about">About</string>
+    <string name="title_movie_player">Movie player</string>
+    <string name="title_subscription">Subscription</string>
+    <string name="title_error">Error</string>
 
     <string name="error_unknown">Unknown error.</string>
 
-    <string name="dismiss">dismiss</string>
-
-    <string name="menu_item_home">home</string>
+    <string name="dismiss">Dismiss</string>
 
     <string name="error_no_network">Internet connection is missing.</string>
 

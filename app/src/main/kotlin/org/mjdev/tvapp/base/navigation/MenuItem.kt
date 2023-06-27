@@ -21,8 +21,9 @@ package org.mjdev.tvapp.base.navigation
  */
 data class MenuItem(
 
-    val menuText: Any?,
-    val menuIcon: Any?,
-    var route: String
+    val menuText: Any? = null,
+    val menuIcon: Any? = null,
+    var route: String? = null,
+    var pagerIndex: Int? = null
 
 )
