@@ -63,16 +63,17 @@ fun Title(
         isFocused.value.also { focused ->
 
             Row(
-                modifier = modifier,
+                modifier = modifier.padding(8.dp, 0.dp, 0.dp, 0.dp),
                 verticalAlignment = CenterVertically,
             ) {
 
                 CircleImage(
                     modifier = Modifier
-                        .height((fontSize.value * 1.4).dp)
-                        .aspectRatio(1f).scale(1.3f),
+                        .height((fontSize.value).dp)
+                        .aspectRatio(1f)
+                        .scale(1.3f),
                     borderColor = Color.White,
-                    borderSize = (-8).dp,
+                    borderSize = 1.dp,
                     src = R.mipmap.ic_launcher
                 )
 

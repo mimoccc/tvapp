@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.data.Movie
-import org.mjdev.tvapp.ui.components.FocusableCard
+import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview

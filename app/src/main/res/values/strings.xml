@@ -25,5 +25,6 @@
     <string name="error_no_network">Internet connection is missing.</string>
 
     <string name="author">Created by Milan Jurkulak (C) 2023</string>
+    <string name="title_home">Home</string>
 
 </resources>

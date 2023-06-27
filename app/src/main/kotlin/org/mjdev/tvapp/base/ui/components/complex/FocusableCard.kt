@@ -1,4 +1,4 @@
-package org.mjdev.tvapp.ui.components
+package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource

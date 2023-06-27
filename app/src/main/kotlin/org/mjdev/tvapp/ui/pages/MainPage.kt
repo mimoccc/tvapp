@@ -44,7 +44,7 @@ import org.mjdev.tvapp.viewmodel.MainViewModel
 @SuppressLint("ComposableNaming")
 class MainPage: Page() {
 
-    override val title: Int = R.string.app_name
+    override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
     @TvPreview
