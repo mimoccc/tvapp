@@ -11,8 +11,10 @@
 package org.mjdev.tvapp.base.extensions
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import kotlinx.coroutines.flow.Flow
 import org.mjdev.tvapp.BuildConfig
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -23,6 +25,9 @@ object ComposeExt {
 
     @Composable
     fun isEditMode() = LocalInspectionMode.current
+
+    @Composable
+    fun <T> Flow<T>?.collectAsState(): State<T>? = this?.collectAsState()
 
     /**
      * Helper function to return text from any object is given as input.

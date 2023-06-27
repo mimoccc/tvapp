@@ -21,10 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.savedstate.SavedStateRegistryOwner
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.helpers.StateContextWrapper
 import org.mjdev.tvapp.base.viewmodel.BaseViewModel
-import kotlin.reflect.full.companionObjectInstance
-import kotlin.reflect.full.memberFunctions
 
 object HiltExt {
 
@@ -33,7 +30,7 @@ object HiltExt {
     inline fun <reified VM : BaseViewModel> appViewModel(
         viewModelStoreOwner: ViewModelStoreOwner? = null,
         key: String? = null
-    ): VM {
+    ): VM? {
         return if (isEditMode())
             createMockModel()
         else {
@@ -52,17 +49,18 @@ object HiltExt {
 
     // todo
     @Composable
-    inline fun <reified VM : BaseViewModel> createMockModel(): VM {
-        val context = StateContextWrapper(LocalContext.current)
-        return VM::class.memberFunctions.first { fn ->
-            fn.name == "mock"
-        }.call(VM::class.companionObjectInstance, context) as? VM
-            ?: throw (RuntimeException(
-                "ViewModel ${
-                    VM::class.simpleName
-                } does not contain MOCK companion function." +
-                    "Please define companion function fun MOCK(context:Context)in this view model."
-            ))
+    inline fun <reified VM : BaseViewModel> createMockModel(): VM? {
+        return null
+//        val context = StateContextWrapper(LocalContext.current)
+//        return VM::class.memberFunctions.first { fn ->
+//            fn.name == "mock"
+//        }.call(VM::class.companionObjectInstance, context) as? VM
+//            ?: throw (RuntimeException(
+//                "ViewModel ${
+//                    VM::class.simpleName
+//                } does not contain MOCK companion function." +
+//                    "Please define companion function fun MOCK(context:Context)in this view model."
+//            ))
     }
 
     @Composable

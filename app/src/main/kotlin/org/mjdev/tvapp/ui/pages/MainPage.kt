@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
+
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -40,9 +41,10 @@ import org.mjdev.tvapp.base.ui.components.complex.Header
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
+import org.mjdev.tvapp.base.extensions.ComposeExt.collectAsState
 
 @SuppressLint("ComposableNaming")
-class MainPage: Page() {
+class MainPage : Page() {
 
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
@@ -53,16 +55,14 @@ class MainPage: Page() {
 
         val viewModel = appViewModel<MainViewModel>()
 
-        val categoryList = remember { viewModel.categoryList }.collectAsState()
-        val featuredMovieList = remember { viewModel.featuredMovieList }.collectAsState()
-        val messages = remember { viewModel.messages }.collectAsState()
-        val networkState = remember {
-            viewModel.networkInfo.networkStatus
-        }.collectAsState(null)
+        val categoryList = remember { viewModel?.categoryList }?.collectAsState()
+        val featuredMovieList = remember { viewModel?.featuredMovieList }?.collectAsState()
+        val messages = remember { viewModel?.messages }?.collectAsState()
+        val networkState = remember { viewModel?.networkInfo?.networkStatus }?.collectAsState()
 
         val onItemClick: (movie: Movie?) -> Unit = { movie ->
             if (movie == null) {
-                viewModel.postError("No media found.".asException())
+                viewModel?.postError("No media found.".asException())
             } else if (movie.hasVideoUri) {
                 navController?.open<PlayerScreen>(movie.id)
             } else {
@@ -70,7 +70,7 @@ class MainPage: Page() {
             }
         }
 
-        viewModel.handleError { error ->
+        viewModel?.handleError { error ->
             screenState?.error(error)
         }
 
@@ -86,12 +86,12 @@ class MainPage: Page() {
 
                 Header(
                     title = screenState?.titleState?.value,
-                    messagesCount = messages.value.size
+                    messagesCount = messages?.value?.size ?: 0
                 )
 
             }
 
-            if (networkState.value !is NetworkStatus.Connected) item {
+            if (networkState?.value !is NetworkStatus.Connected) item {
                 ErrorMessage(
                     error = stringResource(R.string.error_no_network).asException(),
                     backgroundColor = Color.Black,
@@ -100,7 +100,7 @@ class MainPage: Page() {
             }
 
 
-            if (categoryList.value.isNotEmpty()) item {
+            if (categoryList?.value?.isNotEmpty() == true) item {
 
                 Tabs(
                     items = categoryList.value.map { it.name }
@@ -108,7 +108,7 @@ class MainPage: Page() {
 
             }
 
-            if (featuredMovieList.value.isNotEmpty()) item {
+            if (featuredMovieList?.value?.isNotEmpty() == true) item {
 
                 BigCarousel(
                     modifier = Modifier.touchable(),
@@ -118,7 +118,7 @@ class MainPage: Page() {
 
             }
 
-            items(categoryList.value) { category ->
+            items(categoryList?.value ?: emptyList()) { category ->
 
                 Text(
                     modifier = Modifier
