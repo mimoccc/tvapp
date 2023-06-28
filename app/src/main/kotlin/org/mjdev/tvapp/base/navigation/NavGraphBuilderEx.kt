@@ -12,6 +12,7 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavigatorProvider
+import org.mjdev.tvapp.base.navigation.EmptyScreen.Companion.ROUTE_NONE
 
 /**
  * Custom nav graph builder.
@@ -26,20 +27,18 @@ import androidx.navigation.NavigatorProvider
  */
 class NavGraphBuilderEx(
     provider: NavigatorProvider,
-    route: String?,
+    route: String? = null,
+    startRoute: String? = null,
     val navHostController: NavHostController
-) : NavGraphBuilder(provider, "none", route) {
+) : NavGraphBuilder(provider, startRoute ?: "none", route) {
 
-    var splashDestinationRoute: String? = null
-    var homeDestinationRoute : String? = null
+    var splashDestinationRoute: String? = startRoute
+    var homeDestinationRoute: String = startRoute ?: ROUTE_NONE
     var menuItems: MutableList<MenuItem> = mutableListOf()
 
     override fun build(): NavGraph {
         val navGraph = super.build()
-        if (splashDestinationRoute == null && homeDestinationRoute == null) {
-            throw(RuntimeException("One class in ComposeActivity should have start property set."))
-        }
-        (splashDestinationRoute ?: homeDestinationRoute)?.also { route ->
+        (splashDestinationRoute ?: homeDestinationRoute).also { route ->
             navGraph.setStartDestination(route)
         }
         return navGraph

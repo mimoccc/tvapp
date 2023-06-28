@@ -23,17 +23,17 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.LocalContentColor
 import coil.compose.AsyncImage
-import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
 import java.net.URL
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
-@TvPreview
+@Preview
 @Composable
 fun IconAny(
     modifier: Modifier = Modifier,

@@ -21,12 +21,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.card.CarouselCard
 import org.mjdev.tvapp.data.Movie
@@ -34,7 +34,7 @@ import org.mjdev.tvapp.data.Movie
 // todo swipe left and swipe right
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Preview
 @Composable
 fun BigCarousel(
     modifier: Modifier = Modifier,

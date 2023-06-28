@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
@@ -21,13 +22,12 @@ import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 import org.mjdev.tvapp.data.Movie
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Preview
 @Composable
 @SuppressLint("ModifierParameter")
 fun CarouselCard(

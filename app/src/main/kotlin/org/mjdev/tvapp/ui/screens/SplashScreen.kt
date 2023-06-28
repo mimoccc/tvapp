@@ -34,6 +34,7 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
@@ -55,9 +56,8 @@ class SplashScreen : Screen() {
         args: Map<String, Any?>
     ) {
 
-        val scale = remember {
-            Animatable(0f)
-        }
+        val isEdit = isEditMode()
+        val scale = remember { Animatable(if (isEdit) 1f else 0f) }
 
         LaunchedEffect(key1 = true) {
             scale.animateTo(
@@ -111,7 +111,7 @@ class SplashScreen : Screen() {
 
             TextAny(
                 text = R.string.author,
-                fontSize = 18.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White.copy(alpha = 0.5f)
             )

@@ -24,6 +24,7 @@ import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.extensions.StringExt.asException
@@ -42,7 +43,7 @@ import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
 
 @SuppressLint("ComposableNaming")
-class MainPage: Page() {
+class MainPage : Page() {
 
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
@@ -51,14 +52,16 @@ class MainPage: Page() {
     @Composable
     override fun Content() {
 
-        val viewModel = appViewModel<MainViewModel>()
+        val isEdit = isEditMode()
+
+        val viewModel: MainViewModel = appViewModel { context ->
+            MainViewModel.mockMainViewModel(context)
+        }
 
         val categoryList = remember { viewModel.categoryList }.collectAsState()
         val featuredMovieList = remember { viewModel.featuredMovieList }.collectAsState()
         val messages = remember { viewModel.messages }.collectAsState()
-        val networkState = remember {
-            viewModel.networkInfo.networkStatus
-        }.collectAsState(null)
+        val networkState = remember { viewModel.networkInfo.networkStatus }.collectAsState(null)
 
         val onItemClick: (movie: Movie?) -> Unit = { movie ->
             if (movie == null) {
@@ -91,7 +94,7 @@ class MainPage: Page() {
 
             }
 
-            if (networkState.value !is NetworkStatus.Connected) item {
+            if (isEdit || (networkState.value !is NetworkStatus.Connected)) item {
                 ErrorMessage(
                     error = stringResource(R.string.error_no_network).asException(),
                     backgroundColor = Color.Black,
@@ -100,22 +103,18 @@ class MainPage: Page() {
             }
 
 
-            if (categoryList.value.isNotEmpty()) item {
-
+            if (isEdit || categoryList.value.isNotEmpty()) item {
                 Tabs(
                     items = categoryList.value.map { it.name }
                 )
-
             }
 
-            if (featuredMovieList.value.isNotEmpty()) item {
-
+            if (isEdit || featuredMovieList.value.isNotEmpty()) item {
                 BigCarousel(
                     modifier = Modifier.touchable(),
                     items = featuredMovieList.value,
                     onItemClicked = onItemClick
                 )
-
             }
 
             items(categoryList.value) { category ->

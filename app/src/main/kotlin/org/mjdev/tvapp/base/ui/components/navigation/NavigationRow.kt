@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -34,6 +36,7 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun NavigationRow(
+    modifier: Modifier = Modifier,
     id: Int = -1,
     drawerValue: DrawerValue = DrawerValue.Open,
     text: Any? = "test",
@@ -43,10 +46,18 @@ fun NavigationRow(
     focusedColor: Color = Color.Black,
     unFocusedColor: Color = Color.Transparent,
     expandedWidth: Dp = 150.dp,
+    contentPadding: Dp = 2.dp,
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
+    val isEdit = isEditMode()
+
     FocusableBox(
+        modifier = Modifier
+            .padding(contentPadding)
+            .background(
+                if (isEdit) Color.DarkGray else Color.Transparent
+            ),
         focusedColor = focusedColor,
         unFocusedColor = unFocusedColor,
         onFocus = {
@@ -55,7 +66,6 @@ fun NavigationRow(
         onClick = {
             onClick(id)
         },
-        modifier = Modifier.padding(2.dp)
     ) {
 
         Row(

@@ -60,7 +60,10 @@ class PlayerScreen : Screen() {
         args: Map<String, Any?>
     ) {
 
-        val viewModel = appViewModel<DetailViewModel>()
+        val viewModel : DetailViewModel = appViewModel { context ->
+            DetailViewModel.mockDetailViewModel(context)
+        }
+
         val movieId: Long? = remember { args[movieId] as Long? }
         val movieState = remember { viewModel.detailsLoadingState(movieId) }.collectAsState()
 
