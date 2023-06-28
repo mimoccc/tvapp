@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.base.navigation
 
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource

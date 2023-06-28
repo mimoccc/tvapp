@@ -16,6 +16,8 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,10 +61,18 @@ fun Pager(
         initialPage = startIndex,
     )
 
+    val lastItem = remember { mutableStateOf<MenuItem?>(null) }
+
     val listener = object : MenuItemClickListener {
         override fun onMenuItemClick(item: MenuItem) {
-            coroutineScope.launch {
-                pagerState.animateScrollToPage(menuItems.indexOf(item))
+            if (lastItem.value != item) {
+                lastItem.value = item
+                val itemIndex = menuItems.indexOf(item)
+                if (pagerState.currentPage != itemIndex) {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(itemIndex)
+                    }
+                }
             }
         }
     }
