@@ -48,9 +48,9 @@ class MainViewModel @Inject constructor(
     companion object {
 
         @Suppress("unused")
-        fun mock(context: Context) = MainViewModel(
+        fun mockMainViewModel(context: Context): MainViewModel = MainViewModel(
             MovieRepository(MovieAPI()),
-            NetworkConnectivityServiceImpl(context),
+            NetworkConnectivityServiceImpl(context)
         )
 
     }

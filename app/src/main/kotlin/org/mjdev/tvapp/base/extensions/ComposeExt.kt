@@ -29,15 +29,6 @@ object ComposeExt {
     @Composable
     fun <T> Flow<T>?.collectAsState(): State<T>? = this?.collectAsState()
 
-    /**
-     * Helper function to return text from any object is given as input.
-     * Mainly: Int -> is represented as resource text id String -> String null
-     * -> empty string other -> toString() call result
-     *
-     * @param text Text
-     * @param T T type of result
-     * @return String generated from any resource given
-     */
     @Composable
     inline fun <reified T> textFrom(text: T?): String = when (text) {
         null -> ""

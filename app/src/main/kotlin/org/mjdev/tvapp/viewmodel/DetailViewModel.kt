@@ -46,7 +46,10 @@ class DetailViewModel @Inject constructor(
     companion object {
 
         @Suppress("unused", "UNUSED_PARAMETER")
-        fun mock(context: Context) = DetailViewModel(MovieRepository(MovieAPI()))
+        fun mockDetailViewModel(
+            context: Context
+        ): DetailViewModel = DetailViewModel(MovieRepository(MovieAPI()))
 
     }
+
 }

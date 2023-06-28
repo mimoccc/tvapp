@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -32,11 +31,12 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.LocalTextStyle
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.ui.components.button.Button
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@Preview
+@TvPreview
 @Composable
 fun ErrorMessage(
     error: Throwable? = null,
@@ -46,7 +46,7 @@ fun ErrorMessage(
     fontSizeMessage: TextUnit = 14.sp,
     fontWeight: FontWeight = FontWeight.Bold,
     color: Color = Color.White,
-    paddingTitle:Dp = 4.dp,
+    paddingTitle: Dp = 4.dp,
     paddingMessage: Dp = paddingTitle,
     backgroundColor: Color = Color.Red,
     roundSize: Dp = 8.dp,
@@ -55,9 +55,7 @@ fun ErrorMessage(
     onDismiss: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.DarkGray)
+        modifier = Modifier.fillMaxWidth()
     ) {
 
         ConstraintLayout(

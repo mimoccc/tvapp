@@ -12,7 +12,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.CallSuper
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -23,9 +25,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
+import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
+import org.mjdev.tvapp.base.navigation.EmptyScreen
 import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.base.navigation.NavHostEx
+import org.mjdev.tvapp.base.navigation.Screen.Companion.screen
 import org.mjdev.tvapp.ui.theme.TVAppTheme
 import timber.log.Timber
 
@@ -38,50 +43,54 @@ import timber.log.Timber
  * @property navGraphBuilder
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-abstract class ComposableActivity(
-    val navGraphBuilder: NavGraphBuilderEx.() -> Unit
-) : ComponentActivity() {
+open class ComposableActivity : ComponentActivity() {
 
     /**
      * Custom activity result listeners
      */
     val activityResultListeners = mutableListOf<ActivityResultHandler<*>>()
 
-    /**
-     * {@inheritDoc}
-     */
+    open val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
+        screen(route = EmptyScreen())
+    }
+
+    @TvPreview
     @OptIn(ExperimentalTvMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @Composable
+    @CallSuper
+    open fun Compose() {
 
-        WindowCompat.setDecorFitsSystemWindows(window, !isATv)
+        TVAppTheme {
 
-        setContent {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                shape = RectangleShape,
+                colors = NonInteractiveSurfaceDefaults.colors(
+                    containerColor = Color.Black
+                )
+            ) {
 
-            TVAppTheme {
+                val navController = rememberNavController()
 
-                Surface(
+                NavHostEx(
                     modifier = Modifier.fillMaxSize(),
-                    shape = RectangleShape,
-                    colors = NonInteractiveSurfaceDefaults.colors(
-                        containerColor = Color.Black
-                    )
-                ) {
-
-                    val navController = rememberNavController()
-
-                    NavHostEx(
-                        modifier = Modifier.fillMaxSize(),
-                        navController = navController,
-                        builder = navGraphBuilder
-                    )
-
-                }
+                    navController = navController,
+                    builder = navGraphBuilder
+                )
 
             }
 
         }
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, !isATv)
+        setContent { Compose() }
     }
 
     /**

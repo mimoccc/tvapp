@@ -6,6 +6,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.page.Pager
 import org.mjdev.tvapp.base.page.PagerScope
 import org.mjdev.tvapp.base.page.PagerState
@@ -15,6 +16,7 @@ open class ScreenWithPages : Screen() {
 
     open val pages : @Composable PagerScope.(pagerState: PagerState) -> Unit = {}
 
+    @TvPreview
     @Composable
     override fun Compose() = super.Compose()
 

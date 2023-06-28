@@ -16,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.base.state.ScreenState
@@ -30,6 +32,7 @@ import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 @Composable
 fun ScreenView(
     navController: NavHostController? = null,
+    navigationBackgroundColor:Color = Color(0xff202020),
     actions: @Composable RowScope.() -> Unit = {},
     title: Any? = R.string.app_name,
     menuItems: List<MenuItem> = listOf(),
@@ -40,16 +43,18 @@ fun ScreenView(
     }
 ) {
 
+    val isEdit = isEditMode()
     val screenState = rememberScreenState(title)
     val errorState = remember { screenState.errorState }
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.BottomCenter,
     ) {
 
         Navigation(
             navController = navController,
+            backgroundColor = navigationBackgroundColor,
             items = menuItems,
             content = {
                 Column(
@@ -60,7 +65,7 @@ fun ScreenView(
             }
         )
 
-        if (errorState.value != null) {
+        if (isEdit || (errorState.value != null)) {
             ErrorMessage(errorState.value)
         }
 

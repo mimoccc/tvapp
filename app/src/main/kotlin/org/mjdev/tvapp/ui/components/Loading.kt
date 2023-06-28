@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.annotations.TvPreview
@@ -27,6 +28,7 @@ fun Loading(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = "Loading...",
+            color = Color.White,
             style = MaterialTheme.typography.headlineMedium
         )
     }

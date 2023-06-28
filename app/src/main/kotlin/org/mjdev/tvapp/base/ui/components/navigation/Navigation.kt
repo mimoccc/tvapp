@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -32,6 +31,7 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NavigationDrawer
 import androidx.tv.material3.rememberDrawerState
+import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.navigation.MenuItem
 
@@ -40,13 +40,13 @@ const val SEARCH_ITEM = 65534
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
-@Preview
+@TvPreview
 @Composable
 fun Navigation(
     modifier: Modifier = Modifier,
     navController: NavHostController? = null,
     items: List<MenuItem> = listOf(),
-    backgroundColor: Color = Color(0xFF202020),
+    backgroundColor: Color = Color.DarkGray,
     roundSize: Dp = 8.dp,
     borderSize: Dp = 0.dp,
     borderColor: Color = Color.White,

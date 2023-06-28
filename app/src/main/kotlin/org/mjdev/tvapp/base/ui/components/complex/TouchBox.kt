@@ -19,16 +19,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.foundation.lazy.list.TvLazyListState
 
 @SuppressLint("AutoboxingStateValueProperty")
+@Preview
 @Composable
 fun TouchBox(
-        modifier: Modifier = Modifier,
-        contentAlignment: Alignment = Alignment.TopStart,
-        propagateMinConstraints: Boolean = false,
-        state: TvLazyListState? = null,
-        content: @Composable BoxScope.() -> Unit
+    modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.TopStart,
+    propagateMinConstraints: Boolean = false,
+    state: TvLazyListState? = null,
+    content: @Composable BoxScope.() -> Unit = {}
 ) {
     val scrollDelta = remember { mutableFloatStateOf(0f) }
 

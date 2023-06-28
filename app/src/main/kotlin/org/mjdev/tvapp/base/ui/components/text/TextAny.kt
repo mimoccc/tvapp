@@ -20,14 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.tv.material3.LocalTextStyle
 import androidx.tv.material3.Text
-import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.textFrom
 
 @SuppressLint("ModifierParameter")
-@TvPreview
+@Preview
 @Composable
 fun TextAny(
     text: Any? = "",

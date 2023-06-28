@@ -6,8 +6,8 @@ import org.mjdev.tvapp.base.state.ScreenState
 
 class PagerScope(
     val navController: NavHostController? = null,
-    val screenState: ScreenState? = null,
-    val menuItems: MutableList<MenuItem> = mutableListOf(),
+    private val screenState: ScreenState? = null,
+    private val menuItems: MutableList<MenuItem> = mutableListOf(),
 ) : ArrayList<Page>() {
 
     fun page(page: Page) {

@@ -13,14 +13,14 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Preview
 @Composable
 @SuppressLint("ModifierParameter")
 fun MovieCard(
