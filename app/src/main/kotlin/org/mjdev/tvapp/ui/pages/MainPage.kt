@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) Milan Jurkulák 2023.
+ * Contact:
+ * e: mimoccc@gmail.com
+ * e: mj@mjdev.org
+ * w: https://mjdev.org
+ */
+
 package org.mjdev.tvapp.ui.pages
 
 import android.annotation.SuppressLint
@@ -42,7 +50,6 @@ import org.mjdev.tvapp.base.ui.components.complex.Header
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
-import org.mjdev.tvapp.base.extensions.ComposeExt.collectAsState
 
 @SuppressLint("ComposableNaming")
 class MainPage : Page() {
@@ -67,7 +74,7 @@ class MainPage : Page() {
 
         val onItemClick: (movie: Movie?) -> Unit = { movie ->
             if (movie == null) {
-                viewModel?.postError("No media found.".asException())
+                viewModel.postError("No media found.".asException())
             } else if (movie.hasVideoUri) {
                 navController?.open<PlayerScreen>(movie.id)
             } else {
@@ -75,7 +82,7 @@ class MainPage : Page() {
             }
         }
 
-        viewModel?.handleError { error ->
+        viewModel.handleError { error ->
             screenState?.error(error)
         }
 
@@ -91,7 +98,7 @@ class MainPage : Page() {
 
                 Header(
                     title = screenState?.titleState?.value,
-                    messagesCount = messages?.value?.size ?: 0
+                    messagesCount = messages.value.size
                 )
 
             }
@@ -119,7 +126,7 @@ class MainPage : Page() {
                 )
             }
 
-            items(categoryList?.value ?: emptyList()) { category ->
+            items(categoryList.value) { category ->
 
                 Text(
                     modifier = Modifier

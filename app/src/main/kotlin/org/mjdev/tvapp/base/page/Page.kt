@@ -1,10 +1,20 @@
+/*
+ * Copyright (c) Milan Jurkulák 2023.
+ * Contact:
+ * e: mimoccc@gmail.com
+ * e: mj@mjdev.org
+ * w: https://mjdev.org
+ */
+
 package org.mjdev.tvapp.base.page
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,22 +25,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
-import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.state.ScreenState
 
 @Suppress("LeakingThis")
 open class Page {
 
-    var navController: NavHostController? = null
+    var navController: NavHostControllerEx? = null
     var screenState: ScreenState? = null
 
+    @OptIn(ExperimentalFoundationApi::class)
     lateinit var pagerState: PagerState
-
-    val menuItem get() = title?.let { t -> MenuItem(t, icon) }
 
     open val title: Any? = null
     open val icon: Any? = null
@@ -69,6 +77,8 @@ open class Page {
         EMPTY_PAGE
 
     }
+
+    override fun toString(): String = title.toString()
 
     companion object {
 

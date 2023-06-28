@@ -17,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.base.state.ScreenState
 import org.mjdev.tvapp.base.state.ScreenState.Companion.rememberScreenState
@@ -31,7 +31,7 @@ import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 @TvPreview
 @Composable
 fun ScreenView(
-    navController: NavHostController? = null,
+    navController: NavHostControllerEx? = null,
     navigationBackgroundColor:Color = Color(0xff202020),
     actions: @Composable RowScope.() -> Unit = {},
     title: Any? = R.string.app_name,

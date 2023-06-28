@@ -98,7 +98,7 @@ open class Screen : NavController.OnDestinationChangedListener {
 
     @Composable
     open fun Compose(
-        navController: NavHostController?,
+        navController: NavHostControllerEx?,
         backStackEntry: NavBackStackEntry?,
         menuItems: List<MenuItem>,
         args: Map<String, Any?>

@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NavigationDrawer
@@ -34,17 +33,19 @@ import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 
 const val SETTINGS_ITEM = 65535
 const val SEARCH_ITEM = 65534
 
+@Suppress("LocalVariableName")
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
 fun Navigation(
     modifier: Modifier = Modifier,
-    navController: NavHostController? = null,
+    navController: NavHostControllerEx? = null,
     items: List<MenuItem> = listOf(),
     backgroundColor: Color = Color.DarkGray,
     roundSize: Dp = 8.dp,
@@ -56,6 +57,8 @@ fun Navigation(
     settingsArrangement: Arrangement.Vertical = Arrangement.Bottom,
     onSettingsItemFocused: () -> Unit = {},
     onSearchItemFocused: () -> Unit = {},
+    onSettingsItemClicked: () -> Unit = {},
+    onSearchItemClicked: () -> Unit = {},
     onDrawerItemClick: (id: Int) -> Unit = {},
     onDrawerItemFocused: (id: Int) -> Unit = {},
     content: @Composable () -> Unit = {}
@@ -64,6 +67,28 @@ fun Navigation(
     val isEdit = isEditMode()
     val drawerState = rememberDrawerState(if (isEdit) DrawerValue.Open else DrawerValue.Closed)
     val focused = remember { mutableIntStateOf(-1) }
+
+    val _onDrawerItemClick: (id: Int) -> Unit = { id ->
+        when (id) {
+            SETTINGS_ITEM -> onSettingsItemClicked()
+            SEARCH_ITEM -> onSearchItemClicked()
+            else -> items[id].let { menuItem ->
+                navController?.onMenuItemClick(menuItem)
+                onDrawerItemClick(id)
+            }
+        }
+    }
+
+    val _onDrawerItemFocus: (id: Int) -> Unit = { id ->
+        when (id) {
+            SETTINGS_ITEM -> onSettingsItemFocused()
+            SEARCH_ITEM -> onSearchItemFocused()
+            else -> items[id].let { menuItem ->
+                navController?.onMenuItemClick(menuItem)
+                onDrawerItemFocused(id)
+            }
+        }
+    }
 
     NavigationDrawer(
         modifier = modifier
@@ -95,10 +120,10 @@ fun Navigation(
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
-                                onDrawerItemFocused(id)
+                                _onDrawerItemFocus(id)
                             },
                             onClick = { id ->
-                                onDrawerItemClick(id)
+                                _onDrawerItemClick(id)
                             }
                         )
 
@@ -121,10 +146,10 @@ fun Navigation(
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
-                                onDrawerItemFocused(id)
+                                _onDrawerItemFocus(id)
                             },
                             onClick = { id ->
-                                onDrawerItemClick(id)
+                                _onDrawerItemClick(id)
                             }
                         )
 
@@ -147,10 +172,10 @@ fun Navigation(
                             onFocus = { id ->
                                 drawerState.setValue(DrawerValue.Open)
                                 focused.value = id
-                                onDrawerItemFocused(id)
+                                _onDrawerItemFocus(id)
                             },
                             onClick = { id ->
-                                onDrawerItemClick(id)
+                                _onDrawerItemClick(id)
                             }
                         )
                     }

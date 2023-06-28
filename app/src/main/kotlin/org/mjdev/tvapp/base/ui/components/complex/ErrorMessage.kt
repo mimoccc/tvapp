@@ -50,10 +50,11 @@ fun ErrorMessage(
     paddingMessage: Dp = paddingTitle,
     backgroundColor: Color = Color.Red,
     roundSize: Dp = 8.dp,
-    cancelText: Any? = stringResource(id = R.string.dismiss),
+    cancelText: Any? = stringResource(id = R.string.bt_dismiss),
     dismissible: Boolean = true,
     onDismiss: () -> Unit = {}
 ) {
+
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {

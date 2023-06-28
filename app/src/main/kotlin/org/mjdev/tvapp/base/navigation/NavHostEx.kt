@@ -19,11 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.Screen.Companion.screen
 
 @TvPreview
@@ -32,7 +31,7 @@ fun NavHostEx(
     modifier: Modifier = Modifier,
     route: String? = null,
     startRoute: String? = null,
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostControllerEx = rememberNavControllerEx(),
     contentAlignment: Alignment = Alignment.Center,
     enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = {
         fadeIn(animationSpec = tween(700))

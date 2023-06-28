@@ -1,11 +1,20 @@
+/*
+ * Copyright (c) Milan Jurkulák 2023.
+ * Contact:
+ * e: mimoccc@gmail.com
+ * e: mj@mjdev.org
+ * w: https://mjdev.org
+ */
+
 package org.mjdev.tvapp.base.page
 
-import androidx.navigation.NavHostController
+import org.mjdev.tvapp.base.extensions.ListExt.addUnique
 import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.state.ScreenState
 
 class PagerScope(
-    val navController: NavHostController? = null,
+    val navController: NavHostControllerEx? = null,
     private val screenState: ScreenState? = null,
     private val menuItems: MutableList<MenuItem> = mutableListOf(),
 ) : ArrayList<Page>() {
@@ -13,20 +22,14 @@ class PagerScope(
     fun page(page: Page) {
         page.navController = navController
         page.screenState = screenState
-        page.menuItem?.also { menuItem ->
-            menuItems.firstOrNull { mi -> mi.menuText == page.title }.also { duplicate ->
-                if (duplicate != null) menuItems.remove(duplicate)
-            }
-            menuItems.add(menuItem)
-        }
         addUnique(page)
+        page.let { p ->
+            MenuItem(p.title, p.icon)
+        }.also { menuItem ->
+            menuItems.addUnique(menuItem)
+        }
     }
 
-    private fun addUnique(page: Page) {
-        firstOrNull { p -> p.title == page.title }.also { duplicate ->
-            if (duplicate != null) remove(duplicate)
-        }
-        add(page)
-    }
+
 
 }

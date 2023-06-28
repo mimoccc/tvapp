@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
@@ -23,6 +22,7 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Details
@@ -52,7 +52,7 @@ class DetailScreen : Screen() {
 
     @Composable
     override fun Compose(
-        navController: NavHostController?,
+        navController: NavHostControllerEx?,
         backStackEntry: NavBackStackEntry?,
         menuItems: List<MenuItem>,
         args: Map<String, Any?>

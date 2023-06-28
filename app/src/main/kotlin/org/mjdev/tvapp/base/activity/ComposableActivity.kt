@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
@@ -70,11 +69,8 @@ open class ComposableActivity : ComponentActivity() {
                 )
             ) {
 
-                val navController = rememberNavController()
-
                 NavHostEx(
                     modifier = Modifier.fillMaxSize(),
-                    navController = navController,
                     builder = navGraphBuilder
                 )
 
