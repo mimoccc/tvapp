@@ -20,7 +20,7 @@ class MovieAPI {
     suspend fun loadCategoryList(): Result<List<Category>> {
         return Result.Success(MovieList.categories.map { name ->
             Category(
-                name = name,
+                title  = name,
                 movieList = getMovieListByCategory(name).unwrapOr(emptyList())
             )
         })
@@ -31,7 +31,7 @@ class MovieAPI {
     }
 
     suspend fun getMovieListByCategory(
-        category: String
+        category: String?
     ): Result<List<Movie>> {
         return Result.Success(MovieList.getByCategory(category))
     }

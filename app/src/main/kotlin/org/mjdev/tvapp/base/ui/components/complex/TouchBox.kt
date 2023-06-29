@@ -32,6 +32,7 @@ fun TouchBox(
     state: TvLazyListState? = null,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
+
     val scrollDelta = remember { mutableFloatStateOf(0f) }
 
     Box(
@@ -43,9 +44,7 @@ fun TouchBox(
         contentAlignment = contentAlignment,
         propagateMinConstraints = propagateMinConstraints,
     ) {
-
         content.invoke(this)
-
     }
 
     LaunchedEffect(scrollDelta.value) {

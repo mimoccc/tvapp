@@ -22,16 +22,19 @@ import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.interfaces.ItemWithBackground
+import org.mjdev.tvapp.base.interfaces.ItemWithDescription
+import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
+import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
-import org.mjdev.tvapp.data.Movie
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 @SuppressLint("ModifierParameter")
 fun CarouselCard(
-    movie: Movie? = null,
+    item: Any? = null,
     placeHolder: Int = R.drawable.placeholder,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
@@ -45,8 +48,8 @@ fun CarouselCard(
         image = {
             ImageAny(
                 modifier = modifier,
-                src = movie?.cardImageUrl,
-                contentDescription = movie?.description,
+                src = (item as? ItemWithBackground)?.backgroundImageUrl,
+                contentDescription = (item as? ItemWithDescription)?.description?.toString(),
                 contentScale = contentScale,
                 placeholder = placeHolder,
             )
@@ -54,16 +57,17 @@ fun CarouselCard(
         title = {
             TextAny(
                 modifier = Modifier.padding(4.dp),
-                text = movie?.title
+                text = (item as? ItemWithTitle)?.title
             )
         },
         subtitle = {
             TextAny(
                 modifier = Modifier.padding(4.dp),
-                text = movie?.studio
+                text = (item as? ItemWithSubtitle)?.subtitle
             )
         },
         description = {
+          // todo
         },
         glow = CardDefaults.glow(
             glow = Glow.None,

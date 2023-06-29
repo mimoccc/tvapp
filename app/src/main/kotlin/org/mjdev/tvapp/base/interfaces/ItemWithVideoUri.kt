@@ -12,6 +12,11 @@ import android.net.Uri
 
 interface ItemWithVideoUri {
 
-    val videoUri : Uri
+    var videoUri: Any?
+
+    val hasVideoUri
+        get() = (videoUri != null) &&
+            (videoUri != Uri.EMPTY) &&
+            (videoUri.toString().isNotEmpty())
 
 }

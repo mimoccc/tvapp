@@ -22,24 +22,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.ui.components.card.Card
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.card.CardContent
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 class SubscriptionPage : Page() {
 
-    override val title : Int = R.string.title_subscription
-    override val icon : ImageVector = Icons.Default.ShoppingCart
+    override val title: Int = R.string.title_subscription
+    override val icon: ImageVector = Icons.Default.ShoppingCart
 
     @OptIn(ExperimentalTvMaterial3Api::class)
     @TvPreview
     @Composable
-    override fun Content () {
+    override fun Content() {
         Box(
             modifier = Modifier
                 .fillMaxSize()

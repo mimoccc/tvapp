@@ -9,9 +9,16 @@
 package org.mjdev.tvapp.data
 
 import androidx.compose.runtime.Stable
+import org.mjdev.tvapp.base.interfaces.ItemWithId
+import org.mjdev.tvapp.base.interfaces.ItemWithTitle
+import java.io.Serializable
 
 @Stable
 data class Category(
-    var name: String,
-    var movieList: List<Movie>
-)
+
+    override var id: Long = 0L,
+    override var title: Any? = "",
+
+    var movieList: List<Movie> = emptyList(),
+
+) : Serializable, ItemWithTitle, ItemWithId

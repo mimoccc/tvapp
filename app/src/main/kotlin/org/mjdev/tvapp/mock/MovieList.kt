@@ -35,7 +35,7 @@ internal object MovieList {
         categories.associateWith { all.shuffled() }
     }
 
-    fun getByCategory(category: String): List<Movie> {
+    fun getByCategory(category: String?): List<Movie> {
         return categoryMoviesMap[category] ?: all
     }
 
@@ -96,7 +96,7 @@ internal object MovieList {
                 description = description,
                 studio = studio[it],
                 videoUri = Uri.parse(videoUrl[it]),
-                cardImageUrl = cardImageUrl[it],
+                imageUrl = cardImageUrl[it],
                 backgroundImageUrl = bgImageUrl[it],
             )
         }

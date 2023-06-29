@@ -16,30 +16,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 @SuppressLint("ModifierParameter")
-fun MovieCard(
-    movie: Movie? = null,
+fun ItemCard(
+    item: Any? = null,
     modifier: Modifier = Modifier,
-    onFocus: (movie: Movie?) -> Unit = {},
-    onClick: (movie: Movie?) -> Unit = {},
+    onFocus: (item: Any?) -> Unit = {},
+    onClick: (item: Any?) -> Unit = {},
 ) {
 
     FocusableCard(
         modifier = modifier
             .widthIn(max = 320.dp)
             .aspectRatio(16f / 9f),
-        movie = movie,
+        item = item,
         onFocus = {
-            onFocus(movie)
+            onFocus(item)
         },
         onClick = {
-            onClick(movie)
+            onClick(item)
         }
     )
 

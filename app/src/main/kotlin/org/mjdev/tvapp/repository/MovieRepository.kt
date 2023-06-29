@@ -76,7 +76,7 @@ class MovieRepository @Inject constructor(
         if (force || !categoryMovieListMap.contains(category)) {
             updateCache(
                 category = category,
-                movieList = dataSource.getMovieListByCategory(category.name).unwrapOr(listOf())
+                movieList = dataSource.getMovieListByCategory(category.title?.toString()).unwrapOr(listOf())
             )
         }
     }
