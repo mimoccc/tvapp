@@ -89,7 +89,6 @@ open class Screen : NavController.OnDestinationChangedListener {
     @Composable
     @CallSuper
     open fun Compose() {
-
         val navController = rememberNavControllerEx()
 
         Compose(

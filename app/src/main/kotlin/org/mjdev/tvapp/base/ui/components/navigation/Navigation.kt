@@ -11,6 +11,7 @@ package org.mjdev.tvapp.base.ui.components.navigation
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -50,7 +51,10 @@ fun Navigation(
 ) {
 
     val isEdit = isEditMode()
+
     if (isEdit) navigationState.openDrawer()
+    else navigationState.closeDrawer()
+
     navController.addMenuItem(*menuItems.toTypedArray())
 
     if (navController.menuState.value) {

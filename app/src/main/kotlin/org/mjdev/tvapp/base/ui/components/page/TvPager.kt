@@ -37,7 +37,7 @@ import org.mjdev.tvapp.base.ui.components.page.Page.Companion.EMPTY_PAGE
 @SuppressLint("AutoboxingStateValueProperty")
 @TvPreview
 @Composable
-fun Pager(
+fun TvPager(
     navController: NavHostControllerEx = rememberNavControllerEx(),
     startIndex: Int = 0,
     roundCornerSize: Dp = 0.dp,

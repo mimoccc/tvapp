@@ -40,13 +40,11 @@ class SubscriptionPage : Page() {
     @TvPreview
     @Composable
     override fun Content () {
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-
             Card(
                 onClick = {},
                 onLongClick = {},
@@ -56,7 +54,6 @@ class SubscriptionPage : Page() {
                     containerColor = Color(0xff242424)
                 ),
             ) {
-
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -64,7 +61,6 @@ class SubscriptionPage : Page() {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
                     content = {
-
                         CardContent(
                             modifier = Modifier.fillMaxWidth(),
                             title = {
@@ -82,12 +78,9 @@ class SubscriptionPage : Page() {
                             description = {
                             }
                         )
-
                     }
                 )
-
             }
-
         }
     }
 

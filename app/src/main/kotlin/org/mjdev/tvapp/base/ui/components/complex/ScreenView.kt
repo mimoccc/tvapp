@@ -41,7 +41,6 @@ fun ScreenView(
             .background(backgroundColor, shape),
         contentAlignment = Alignment.BottomCenter,
     ) {
-
         if (navController.menuState.value) {
             Navigation(
                 navController = navController,
@@ -53,6 +52,5 @@ fun ScreenView(
         } else {
             content()
         }
-
     }
 }

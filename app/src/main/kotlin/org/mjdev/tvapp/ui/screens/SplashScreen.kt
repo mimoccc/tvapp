@@ -36,7 +36,6 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.ui.components.complex.ScreenView
 import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -75,53 +74,49 @@ class SplashScreen : Screen() {
             navController.open<MainScreen>()
         }
 
-        ScreenView(
-            backgroundColor = backgroundColor
+        Box(
+            modifier = Modifier
+                .scale(scale.value)
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .scale(scale.value)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                IconAny(
-                    modifier = Modifier.size(128.dp),
-                    src = Icons.Sharp.Tv,
-                    tint = Color.White.copy(alpha = 0.5f)
-                )
-                TextAny(
-                    text = R.string.app_name,
-                    fontSize = 64.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.padding(10.dp),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        shadow = Shadow(
-                            color = Color.Gray,
-                            offset = Offset(5f, 5f),
-                            blurRadius = 10f
-                        )
-                    ),
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        0.dp,
-                        0.dp,
-                        0.dp,
-                        4.dp
-                    ),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                TextAny(
-                    text = R.string.author,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White.copy(alpha = 0.5f)
-                )
-            }
+            IconAny(
+                modifier = Modifier.size(128.dp),
+                src = Icons.Sharp.Tv,
+                tint = Color.White.copy(alpha = 0.5f)
+            )
+            TextAny(
+                text = R.string.app_name,
+                fontSize = 64.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(10.dp),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    shadow = Shadow(
+                        color = Color.Gray,
+                        offset = Offset(5f, 5f),
+                        blurRadius = 10f
+                    )
+                ),
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    0.dp,
+                    0.dp,
+                    0.dp,
+                    4.dp
+                ),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            TextAny(
+                text = R.string.author,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White.copy(alpha = 0.5f)
+            )
         }
 
     }

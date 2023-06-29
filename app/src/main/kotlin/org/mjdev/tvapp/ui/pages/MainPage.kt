@@ -91,7 +91,7 @@ class MainPage : Page() {
         ScrollableTvLazyRow(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.DarkGray),
+                .background(backgroundColor, background),
             verticalArrangement = Arrangement.spacedBy(32.dp),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
