@@ -1,12 +1,12 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.navigation.Screen.Companion.screen
+import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.screen
 
 @TvPreview
 @Composable

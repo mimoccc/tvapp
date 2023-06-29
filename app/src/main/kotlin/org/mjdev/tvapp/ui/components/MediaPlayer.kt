@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
-import org.mjdev.tvapp.base.media.MediaPlayerContainer
+import org.mjdev.tvapp.base.ui.components.media.MediaPlayerContainer
 
 @SuppressLint("ModifierParameter")
 @TvPreview

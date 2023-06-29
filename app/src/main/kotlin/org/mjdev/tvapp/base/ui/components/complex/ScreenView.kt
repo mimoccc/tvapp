@@ -8,67 +8,51 @@
 
 package org.mjdev.tvapp.base.ui.components.complex
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.mjdev.tvapp.R
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.Screen
-import org.mjdev.tvapp.base.state.ScreenState
-import org.mjdev.tvapp.base.state.ScreenState.Companion.rememberScreenState
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 
-@Suppress("TrailingComma", "UNUSED_ANONYMOUS_PARAMETER", "unused")
+@Suppress("TrailingComma", "unused")
 @TvPreview
 @Composable
 fun ScreenView(
-    navController: NavHostControllerEx? = null,
-    navigationBackgroundColor:Color = Color(0xff202020),
-    actions: @Composable RowScope.() -> Unit = {},
-    title: Any? = R.string.app_name,
-    menuItems: List<MenuItem> = listOf(),
-    content: @Composable (
-        state: ScreenState,
-    ) -> Unit = { state ->
-        Screen()
-    }
+    navController: NavHostControllerEx = rememberNavControllerEx(),
+    backgroundColor: Color = Color.DarkGray,
+    roundCornerSize: Dp = 16.dp,
+    shape: Shape = RoundedCornerShape(roundCornerSize),
+    content: @Composable () -> Unit = { EmptyScreen() }
 ) {
-
-    val isEdit = isEditMode()
-    val screenState = rememberScreenState(title)
-    val errorState = remember { screenState.errorState }
-
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor, shape),
         contentAlignment = Alignment.BottomCenter,
     ) {
 
-        Navigation(
-            navController = navController,
-            backgroundColor = navigationBackgroundColor,
-            items = menuItems,
-            content = {
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    content(screenState)
+        if (navController.menuState.value) {
+            Navigation(
+                navController = navController,
+                backgroundColor = backgroundColor,
+                content = {
+                    content()
                 }
-            }
-        )
-
-        if (isEdit || (errorState.value != null)) {
-            ErrorMessage(errorState.value)
+            )
+        } else {
+            content()
         }
 
     }
-
 }

@@ -1,14 +1,14 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
@@ -16,9 +16,6 @@ import androidx.annotation.MainThread
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,17 +40,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.AnimExt.FadeIn
+import org.mjdev.tvapp.base.extensions.AnimExt.FadeOut
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import kotlin.reflect.full.createInstance
 
-/**
- * Screen class.
- *
- * This is base of all screens in application and auto creation of route and nav graph.
- * This object represents one screen at time.
- * Can contain menu that is exported to navigation drawer.
- *
- * @constructor Create empty constructor for screen
- */
 @Suppress("unused", "LeakingThis")
 open class Screen : NavController.OnDestinationChangedListener {
 
@@ -69,44 +60,58 @@ open class Screen : NavController.OnDestinationChangedListener {
             routeImpl
         }
 
-    open val titleResId: Int = -1
-
     open val args: List<NamedNavArgument> = emptyList()
 
-    open val menuTitleResId: Int = -1
+    open val title: Any? = null
+
+    open val menuTitle: Any? = null
 
     open val menuIcon: ImageVector? = null
 
+    open val backgroundColor: Color = Color.DarkGray
+
+    open val roundRadius: Dp = 0.dp
+
+    open val background: Shape = RoundedCornerShape(roundRadius)
+
     open val showOnce = false
 
-    open val backgroundColor :Color = Color.DarkGray
-
-    open val roundRadius : Dp = 0.dp
-
-    open val background : Shape = RoundedCornerShape(roundRadius)
+    open val immersive: Boolean = false
 
     val menuItem
-        get() = if (menuTitleResId >= 0) MenuItem(menuTitleResId, menuIcon, completeRoute)
-        else null
+        get() = if (menuTitle != null) MenuItem(
+            menuText = menuTitle,
+            menuIcon = menuIcon,
+            menuRoute = completeRoute
+        ) else null
 
     @TvPreview
     @Composable
     @CallSuper
     open fun Compose() {
-        Compose(null, null, emptyList(), mapOf())
+
+        val navController = rememberNavControllerEx()
+
+        Compose(
+            navController,
+            null,
+            mapOf()
+        )
+
     }
 
     @Composable
     open fun Compose(
-        navController: NavHostControllerEx?,
+        navController: NavHostControllerEx,
         backStackEntry: NavBackStackEntry?,
-        menuItems: List<MenuItem>,
         args: Map<String, Any?>
     ) {
 
         if (showOnce) {
-            navController?.addOnDestinationChangedListener(this)
+            navController.addOnDestinationChangedListener(this)
         }
+
+        navController.menuState.value = !immersive
 
         Column(
             modifier = Modifier
@@ -115,14 +120,12 @@ open class Screen : NavController.OnDestinationChangedListener {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Text(
                 text = "Empty Screen",
                 fontSize = 64.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-
         }
 
     }
@@ -139,14 +142,24 @@ open class Screen : NavController.OnDestinationChangedListener {
 
     companion object {
 
-        val SlideInVertically = slideInVertically(animationSpec = tween(1000))
-        val SlideOutVertically = slideOutVertically(animationSpec = tween(1000))
-
         @Suppress("UNCHECKED_CAST", "DEPRECATION")
         private fun <T> NavBackStackEntry.arg(
             argId: String,
             defaultValue: T
         ): T = (arguments?.get(argId) as? T?) ?: defaultValue
+
+        @MainThread
+        fun NavHostController.open(
+            route: String?
+        ) {
+            if (route != null) {
+                val currentRoute = currentRoute
+                val equals = currentRoute?.equals(route)
+                if (equals != true) {
+                    navigate(route)
+                }
+            }
+        }
 
         @MainThread
         inline fun <reified T : Screen> NavHostController.open(
@@ -166,38 +179,7 @@ open class Screen : NavController.OnDestinationChangedListener {
                 val currentRoute = currentRoute
                 val equals = currentRoute?.equals(finalRoute)
                 if (equals != true) {
-//                    try {
-                        navigate(finalRoute)
-//                    } catch (e: Exception) {
-//                        Timber.e(e)
-//                    }
-                }
-            }
-        }
-
-        @MainThread
-        inline fun <reified T : Screen> NavHostController.openClear(
-            vararg values: Any?
-        ) {
-            val instance = T::class.createInstance()
-            instance.completeRoute.let { r ->
-                var routeImpl = r
-                instance.args.forEachIndexed { idx, arg ->
-                    routeImpl = routeImpl.replace(
-                        "{${arg.name}}",
-                        (values[idx] ?: "").toString()
-                    )
-                }
-                routeImpl
-            }.also { finalRoute ->
-                val currentRoute = currentRoute
-                val equals = currentRoute?.equals(finalRoute)
-                if (equals != true) {
-//                    try {
-                        navigate(finalRoute)
-//                    } catch (e: Exception) {
-//                        Timber.e(e)
-//                    }
+                    navigate(finalRoute)
                 }
             }
         }
@@ -212,11 +194,11 @@ open class Screen : NavController.OnDestinationChangedListener {
             deepLinks: List<NavDeepLink> = emptyList(),
             enterTransition: (@JvmSuppressWildcards
             AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = {
-                SlideInVertically
+                FadeIn
             },
             exitTransition: (@JvmSuppressWildcards
             AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = {
-                SlideOutVertically
+                FadeOut
             },
             popEnterTransition: (@JvmSuppressWildcards
             AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
@@ -232,7 +214,7 @@ open class Screen : NavController.OnDestinationChangedListener {
                 homeDestinationRoute = route.completeRoute
             }
             route.menuItem?.also { menuItem ->
-                menuItems.add(menuItem)
+                navHostController.addMenuItem(menuItem)
             }
             composable(
                 route = route.completeRoute,
@@ -248,7 +230,7 @@ open class Screen : NavController.OnDestinationChangedListener {
                         put(arg.name, be.arg(arg.name, null))
                     }
                 }
-                route.Compose(navHostController, be, menuItems, rArgs)
+                route.Compose(navHostController, be, rArgs)
             }
         }
 

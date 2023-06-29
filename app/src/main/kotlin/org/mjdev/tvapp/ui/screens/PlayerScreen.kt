@@ -21,11 +21,11 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Loading
 import org.mjdev.tvapp.ui.components.MediaPlayer
@@ -35,7 +35,9 @@ class PlayerScreen : Screen() {
 
     private val movieId = "movieId"
 
-    override val titleResId = R.string.title_movie_player
+    override val title = R.string.title_movie_player
+    override val menuIcon: ImageVector get() = Icons.Filled.PlayArrow
+    override val immersive: Boolean = true
 
     override val args = listOf(
         navArgument(movieId) {
@@ -44,23 +46,20 @@ class PlayerScreen : Screen() {
         }
     )
 
-    override val menuTitleResId: Int = -1
-
-    override val menuIcon: ImageVector get() = Icons.Filled.PlayArrow
-
     @TvPreview
     @Composable
     override fun Compose() = super.Compose()
 
     @Composable
     override fun Compose(
-        navController: NavHostControllerEx?,
+        navController: NavHostControllerEx,
         backStackEntry: NavBackStackEntry?,
-        menuItems: List<MenuItem>,
         args: Map<String, Any?>
     ) {
 
-        val viewModel : DetailViewModel = appViewModel { context ->
+        val isEdit = isEditMode()
+
+        val viewModel: DetailViewModel = appViewModel { context ->
             DetailViewModel.mockDetailViewModel(context)
         }
 
@@ -69,21 +68,17 @@ class PlayerScreen : Screen() {
 
         fun postError(error: String) = viewModel.postError(error.asException())
 
-        when (movieState.value) {
-            is DetailsLoadingState.Ready -> MediaPlayer(
+        if (isEdit || (movieState.value is DetailsLoadingState.Ready)) {
+            MediaPlayer(
                 modifier = Modifier.fillMaxSize(),
                 movie = (movieState.value as DetailsLoadingState.Ready).movie
             )
-
-            is DetailsLoadingState.NotFound -> {
-                postError("Movie for id: $movieId not found.")
-                Loading()
-            }
-
-            else -> {
-                postError("Movie for id: $movieId not found.")
-                Loading()
-            }
+        } else if (movieState.value is DetailsLoadingState.NotFound) {
+            postError("Movie for id: $movieId not found.")
+            Loading()
+        } else {
+            postError("Movie for id: $movieId not found.")
+            Loading()
         }
 
     }

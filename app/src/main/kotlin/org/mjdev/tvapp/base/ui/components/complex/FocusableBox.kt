@@ -11,6 +11,7 @@ package org.mjdev.tvapp.base.ui.components.complex
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -42,7 +42,8 @@ fun FocusableBox(
     unFocusedColor: Color = Color.Transparent,
     pressedColor: Color = focusedColor.copy(alpha = 0.5f),
     disabledColor: Color = Color.Gray.copy(alpha = 0.5f),
-    shape: Shape = RectangleShape,
+    roundCornerSize: Dp = 0.dp,
+    shape: Shape = RoundedCornerShape(roundCornerSize),
     borderColor: Color = Color.Transparent,
     borderSize: Dp = 0.dp,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },

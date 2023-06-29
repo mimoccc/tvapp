@@ -31,8 +31,8 @@ fun Badge(
     shape: Shape = CircleShape,
     count: Int = 0,
     backGroundColor: Color = MaterialTheme.colorScheme.secondary,
-    borderColor: Color = Color.White,
-    borderSize: Dp = 1.dp,
+    borderColor: Color = Color.Transparent,
+    borderSize: Dp = 0.dp,
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,
     contentPadding: Dp = 2.dp,
@@ -42,6 +42,9 @@ fun Badge(
 
     FocusableBox(
         modifier = modifier.clip(CircleShape),
+        shape = shape,
+        onFocus = onFocus,
+        onClick = onClick
     ) {
 
         CircleText(
@@ -49,6 +52,7 @@ fun Badge(
             contentPadding = contentPadding + borderSize,
             backGroundColor = backGroundColor,
             text = count.toString(),
+            textSize = textSize,
             textColor = textColor,
             borderColor = borderColor,
             borderSize = borderSize

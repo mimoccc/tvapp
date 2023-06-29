@@ -13,45 +13,43 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.CallSuper
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
+import org.mjdev.tvapp.activity.ActivityResultHandler
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
-import org.mjdev.tvapp.base.navigation.EmptyScreen
-import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
-import org.mjdev.tvapp.base.navigation.NavHostEx
-import org.mjdev.tvapp.base.navigation.Screen.Companion.screen
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen
+import org.mjdev.tvapp.base.ui.components.navigation.NavGraphBuilderEx
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostEx
+import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.screen
 import org.mjdev.tvapp.ui.theme.TVAppTheme
 import timber.log.Timber
 
-/**
- * Composable activity.
- *
- * Activity that holds all the logic for navigation, to simplify it.
- *
- * @constructor Create [ComposableActivity]
- * @property navGraphBuilder
- */
-@Suppress("MemberVisibilityCanBePrivate", "unused")
+@Suppress("MemberVisibilityCanBePrivate", "unused", "LeakingThis")
 open class ComposableActivity : ComponentActivity() {
 
-    /**
-     * Custom activity result listeners
-     */
     val activityResultListeners = mutableListOf<ActivityResultHandler<*>>()
 
     open val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
         screen(route = EmptyScreen())
     }
+
+    open val backgroundColor = Color(0xff202020)
+    open val roundCornerSize: Dp = 16.dp
+    open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
     @TvPreview
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -59,43 +57,36 @@ open class ComposableActivity : ComponentActivity() {
     @CallSuper
     open fun Compose() {
 
-        TVAppTheme {
+        val navController = rememberNavControllerEx()
 
+        TVAppTheme {
             Surface(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .background(backgroundColor, backgroundShape)
+                    .fillMaxSize(),
                 shape = RectangleShape,
                 colors = NonInteractiveSurfaceDefaults.colors(
-                    containerColor = Color.Black
+                    containerColor = backgroundColor
                 )
             ) {
-
                 NavHostEx(
                     modifier = Modifier.fillMaxSize(),
+                    navController = navController,
                     builder = navGraphBuilder
                 )
-
             }
-
         }
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, !isATv)
-        setContent { Compose() }
+        setContent {
+            Compose()
+        }
     }
 
-    /**
-     * On activity result handler.
-     *
-     * @param requestCode Request code
-     * @param resultCode Result code
-     * @param intent Intent
-     */
     @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
@@ -108,84 +99,14 @@ open class ComposableActivity : ComponentActivity() {
         }
     }
 
-    /**
-     * Register for activity result.
-     *
-     * Custom handler registration.
-     *
-     * @param onLaunch On launch method, to start custom activity.
-     * @param onActivityResult On activity result handler.
-     * @param T T result type
-     * @return [ActivityResultHandler] handler generated
-     */
     fun <T> registerForActivityResult(
         onLaunch: (args: List<T>) -> Unit,
         onActivityResult: (requestCode: Int, resultCode: Int, intent: Intent?) -> Unit
     ): ActivityResultHandler<T> = ActivityResultHandler(
+        this,
         lifecycle,
         onLaunch,
         onActivityResult
     )
-
-    /**
-     * Activity result handler.
-     *
-     * @param I
-     * @constructor Create [ActivityResultHandler]
-     * @property lifecycle lifecycle handler
-     * @property onLaunch function to start activity
-     * @property onActivityResult result handler
-     */
-    @Suppress("unused")
-    inner class ActivityResultHandler<I>(
-        val lifecycle: Lifecycle,
-        val onLaunch: (args: List<I>) -> Unit,
-        val onActivityResult: (requestCode: Int, resultCode: Int, intent: Intent?) -> Unit,
-    ) {
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_DESTROY -> {
-                    unregister()
-                }
-
-                else -> {}
-            }
-        }
-
-        init {
-            lifecycle.addObserver(observer)
-            activityResultListeners.add(this)
-        }
-
-        /**
-         * Function to register result handler.
-         * It is called automatically upon lifecycle state.
-         * */
-        fun unregister() {
-            lifecycle.removeObserver(observer)
-            activityResultListeners.remove(this)
-        }
-
-        /**
-         * Post result to handler.
-         *
-         * @param requestCode Request code
-         * @param resultCode Result code
-         * @param intent Intent result data
-         */
-        fun postResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-            onActivityResult(requestCode, resultCode, intent)
-        }
-
-        /**
-         * Launch the onLaunch handler.
-         *
-         * @param args Args
-         */
-        fun launch(vararg args: I) {
-            onLaunch(args.toList())
-        }
-
-    }
 
 }

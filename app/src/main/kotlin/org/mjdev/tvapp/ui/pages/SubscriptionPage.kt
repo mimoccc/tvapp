@@ -27,7 +27,7 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.page.Page
+import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.card.CardContent
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 

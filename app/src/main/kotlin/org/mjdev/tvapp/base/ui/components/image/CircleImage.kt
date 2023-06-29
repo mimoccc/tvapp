@@ -31,8 +31,8 @@ import org.mjdev.tvapp.R
 fun CircleImage(
     modifier: Modifier = Modifier,
     backGroundColor: Color = Color.Black,
-    borderColor: Color = Color.White,
-    borderSize: Dp = 2.dp,
+    borderColor: Color = Color.Transparent,
+    borderSize: Dp = 0.dp,
     contentDescription: String = "",
     contentPadding: Dp = 2.dp,
     src: Any? = R.drawable.milanj

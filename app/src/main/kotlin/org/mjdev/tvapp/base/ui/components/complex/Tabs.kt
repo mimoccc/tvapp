@@ -89,6 +89,9 @@ fun <T> Tabs(
                 onFocus = {
                     selectedTabIndex.value = index
                 },
+                onClick = {
+                    onItemClick(selectedTabIndex.value)
+                },
                 interactionSource = interactionSource
             ) {
 

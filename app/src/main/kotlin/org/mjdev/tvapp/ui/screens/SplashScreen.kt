@@ -11,7 +11,6 @@ package org.mjdev.tvapp.ui.screens
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,15 +35,17 @@ import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.ui.components.complex.ScreenView
+import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 class SplashScreen : Screen() {
 
     override val showOnce: Boolean = true
+    override val backgroundColor: Color = Color.Black
+    override val immersive: Boolean = true
 
     @TvPreview
     @Composable
@@ -53,9 +53,8 @@ class SplashScreen : Screen() {
 
     @Composable
     override fun Compose(
-        navController: NavHostControllerEx?,
+        navController: NavHostControllerEx,
         backStackEntry: NavBackStackEntry?,
-        menuItems: List<MenuItem>,
         args: Map<String, Any?>
     ) {
 
@@ -72,61 +71,57 @@ class SplashScreen : Screen() {
                     })
             )
             delay(3000L)
-            navController?.addOnDestinationChangedListener(this@SplashScreen)
-            navController?.openClear<MainScreen>()
+            navController.addOnDestinationChangedListener(this@SplashScreen)
+            navController.open<MainScreen>()
         }
 
-        Box(
-            modifier = Modifier
-                .scale(scale.value)
-                .fillMaxSize()
-                .background(Color.Black, RectangleShape),
-            contentAlignment = Alignment.Center
+        ScreenView(
+            backgroundColor = backgroundColor
         ) {
-
-
-            IconAny(
-                modifier = Modifier.size(128.dp),
-                src = Icons.Sharp.Tv,
-                tint = Color.White.copy(alpha = 0.5f)
-            )
-
-            TextAny(
-                text = R.string.app_name,
-                fontSize = 64.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(10.dp),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    shadow = Shadow(
-                        color = Color.Gray,
-                        offset = Offset(5f, 5f),
-                        blurRadius = 10f
-                    )
-                ),
-            )
-
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    0.dp,
-                    0.dp,
-                    0.dp,
-                    4.dp
-                ),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-
-            TextAny(
-                text = R.string.author,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White.copy(alpha = 0.5f)
-            )
-
+            Box(
+                modifier = Modifier
+                    .scale(scale.value)
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                IconAny(
+                    modifier = Modifier.size(128.dp),
+                    src = Icons.Sharp.Tv,
+                    tint = Color.White.copy(alpha = 0.5f)
+                )
+                TextAny(
+                    text = R.string.app_name,
+                    fontSize = 64.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(10.dp),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        shadow = Shadow(
+                            color = Color.Gray,
+                            offset = Offset(5f, 5f),
+                            blurRadius = 10f
+                        )
+                    ),
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        0.dp,
+                        0.dp,
+                        0.dp,
+                        4.dp
+                    ),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                TextAny(
+                    text = R.string.author,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White.copy(alpha = 0.5f)
+                )
+            }
         }
 
     }

@@ -1,12 +1,12 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.base.annotations.TvPreview

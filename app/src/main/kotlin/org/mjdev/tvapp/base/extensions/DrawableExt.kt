@@ -15,9 +15,13 @@ import androidx.core.graphics.drawable.toBitmap
 
 object DrawableExt {
 
+    // todo check width and height
     fun Drawable.asImageBitmap(
         width: Int = intrinsicWidth,
         height: Int = intrinsicHeight
-    ): ImageBitmap = toBitmap(width, height).asImageBitmap()
+    ): ImageBitmap = toBitmap(
+        if (width == 0) 1 else width,
+        if (height == 0) 1 else height
+    ).asImageBitmap()
 
 }

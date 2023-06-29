@@ -1,12 +1,12 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.page
+package org.mjdev.tvapp.base.ui.components.page
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,49 +27,44 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.navigation.MenuItemClickListener
-import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.page.Page.Companion.EMPTY_PAGE
-import org.mjdev.tvapp.base.state.ScreenState
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.MenuItemClickListener
+import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.ui.components.page.Page.Companion.EMPTY_PAGE
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("AutoboxingStateValueProperty")
 @TvPreview
 @Composable
 fun Pager(
-    navController: NavHostControllerEx? = null,
-    screenState: ScreenState? = null,
-    menuItems: MutableList<MenuItem> = mutableListOf(),
+    navController: NavHostControllerEx = rememberNavControllerEx(),
     startIndex: Int = 0,
     roundCornerSize: Dp = 0.dp,
     backGroundColor: Color = Color.Transparent,
     backGroundShape: Shape = RoundedCornerShape(roundCornerSize),
-    pages: @Composable PagerScope.() -> Unit = {}
+    pages: PagerScope.() -> Unit = {}
 ) {
-
-    val coroutineScope = rememberCoroutineScope()
 
     val isEdit = isEditMode()
 
-    val pagerScope = PagerScope(navController, screenState, menuItems).apply {
-        pages.invoke(this)
-    }
-
+    val currentPage = remember { mutableStateOf<Page?>(null) }
+    val coroutineScope = rememberCoroutineScope()
+    val pagerScope = rememberPagerScope(navController, pages)
     val pagerState = rememberPagerState(
         pageCount = { pagerScope.size },
         initialPage = startIndex,
     )
 
-    val lastItem = remember { mutableStateOf<MenuItem?>(null) }
-
-    val listener = object : MenuItemClickListener {
-        override fun onMenuItemClick(item: MenuItem) {
-            if (lastItem.value != item) {
-                lastItem.value = item
-                val itemIndex = menuItems.indexOf(item)
-                if (pagerState.currentPage != itemIndex) {
-                    coroutineScope.launch {
+    val goToPage: (
+        page: Page?
+    ) -> Unit = { page ->
+        coroutineScope.launch {
+            if (page != null) {
+                val itemIndex = pagerScope.indexOfPage(page)
+                if (itemIndex > -1) {
+                    if (currentPage.value != page) {
+                        currentPage.value = page
                         pagerState.animateScrollToPage(itemIndex)
                     }
                 }
@@ -77,7 +72,15 @@ fun Pager(
         }
     }
 
-    navController?.addMenuClickListener(listener)
+    val listener = object : MenuItemClickListener {
+        override fun onMenuItemClick(item: MenuItem) {
+            if (item.isPage) {
+                goToPage(item.menuPage)
+            }
+        }
+    }
+
+    navController.addMenuClickListener(listener)
 
     VerticalPager(
         modifier = Modifier
@@ -91,12 +94,7 @@ fun Pager(
         else if (isEdit) EMPTY_PAGE
         else null
 
-        page?.let { p ->
-            p.navController = navController
-            p.screenState = screenState
-            p.pagerState = pagerState
-            p.content()
-        }
+        page?.content()
 
     }
 

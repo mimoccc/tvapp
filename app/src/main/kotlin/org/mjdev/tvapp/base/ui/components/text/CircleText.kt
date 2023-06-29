@@ -38,8 +38,8 @@ import androidx.tv.material3.MaterialTheme
 fun CircleText(
     modifier: Modifier = Modifier,
     backGroundColor: Color = MaterialTheme.colorScheme.secondary,
-    borderColor: Color = Color.White,
-    borderSize: Dp = 1.dp,
+    borderColor: Color = Color.Transparent,
+    borderSize: Dp = 0.dp,
     text: String = "0",
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,

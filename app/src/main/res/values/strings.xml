@@ -12,20 +12,25 @@
 
     <string name="app_name">Tv App</string>
 
+    <string name="bt_dismiss">Dismiss</string>
+
+    <string name="error_no_network">Internet connection is missing.</string>
+    <string name="error_unknown">Unknown error.</string>
+
+    <string name="menu_title_search">Search</string>
+    <string name="menu_title_settings">Settings</string>
+    <string name="menu_title_exit">Exit</string>
+    <string name="menu_title_home">Home</string>
+
+    <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
+    <string name="text_unimplemented_yet">This feature is not yet implemented.</string>
+
     <string name="title_about">About</string>
     <string name="title_error">Error</string>
     <string name="title_home">Home</string>
     <string name="title_movie_detail">Movie detail</string>
     <string name="title_movie_player">Movie player</string>
     <string name="title_subscription">Subscription</string>
-
-    <string name="error_no_network">Internet connection is missing.</string>
-    <string name="error_unknown">Unknown error.</string>
-
-    <string name="bt_dismiss">Dismiss</string>
-
-    <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components\n\n\n</string>
-    <string name="text_unimplemented_yet">This feature is not yet implemented.</string>
 
     <string name="author">Created by Milan Jurkulak © 2023</string>
 

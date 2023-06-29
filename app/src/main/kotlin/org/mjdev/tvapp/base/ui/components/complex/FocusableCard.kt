@@ -43,7 +43,6 @@ import org.mjdev.tvapp.data.Movie
 fun FocusableCard(
     movie: Movie? = null,
     modifier: Modifier = Modifier,
-    focused: Boolean = false,
     contentScale: ContentScale = ContentScale.Crop,
     placeHolder: Int = R.drawable.placeholder,
     scale: CardScale = CardDefaults.scale(),
@@ -62,6 +61,18 @@ fun FocusableCard(
 
     CompactCard(
         interactionSource = interactionSource,
+        scale = scale,
+        shape = shape,
+        colors = colors,
+        border = border,
+        glow = CardDefaults.glow(
+            glow = Glow.None,
+            focusedGlow = Glow(
+                elevationColor = Color.Green,
+                elevation = 10.dp
+            ),
+            pressedGlow = Glow.None
+        ),
         modifier = modifier
             .onFocusChanged { state ->
                 focusState.value = state
@@ -98,15 +109,6 @@ fun FocusableCard(
         onClick = {
             onClick(movie)
         },
-        glow = CardDefaults.glow(
-            glow = Glow.None,
-            focusedGlow = Glow(
-                elevationColor = Color.Green,
-                elevation = 10.dp
-            ),
-            pressedGlow = Glow.None
-        ),
-        scale = scale,
     )
 
 }

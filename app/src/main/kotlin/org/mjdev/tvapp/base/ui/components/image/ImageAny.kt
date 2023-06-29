@@ -173,7 +173,7 @@ fun ImageAny(
             colorFilter
         )
 
-//        else -> throw (RuntimeException("Unknown image format."))
+        else -> throw (RuntimeException("Unknown image format $src."))
 
     }
 

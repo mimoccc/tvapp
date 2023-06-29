@@ -40,7 +40,7 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 @Composable
 fun ErrorMessage(
     error: Throwable? = null,
-    contentPadding: Dp = 8.dp,
+    contentPadding: Dp = 4.dp,
     title: Any? = null,
     fontSizeTitle: TextUnit = 24.sp,
     fontSizeMessage: TextUnit = 14.sp,

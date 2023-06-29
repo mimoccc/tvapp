@@ -1,17 +1,17 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavigatorProvider
-import org.mjdev.tvapp.base.navigation.EmptyScreen.Companion.ROUTE_NONE
+import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen.Companion.ROUTE_NONE
 
 class NavGraphBuilderEx(
     provider: NavigatorProvider,
@@ -22,7 +22,6 @@ class NavGraphBuilderEx(
 
     var splashDestinationRoute: String? = startRoute
     var homeDestinationRoute: String = startRoute ?: ROUTE_NONE
-    var menuItems: MutableList<MenuItem> = mutableListOf()
 
     override fun build(): NavGraph {
         val navGraph = super.build()

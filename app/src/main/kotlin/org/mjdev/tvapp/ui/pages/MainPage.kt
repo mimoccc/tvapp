@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,9 +38,9 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.navigation.Screen.Companion.open
+import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.open
 import org.mjdev.tvapp.base.network.NetworkStatus
-import org.mjdev.tvapp.base.page.Page
+import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.complex.BigCarousel
 import org.mjdev.tvapp.base.ui.components.complex.ScrollableTvLazyRow
 import org.mjdev.tvapp.base.ui.components.complex.Tabs
@@ -60,7 +61,6 @@ class MainPage : Page() {
     @TvPreview
     @Composable
     override fun Content() {
-
         val isEdit = isEditMode()
 
         val viewModel: MainViewModel = appViewModel { context ->
@@ -71,6 +71,8 @@ class MainPage : Page() {
         val featuredMovieList = remember { viewModel.featuredMovieList }.collectAsState()
         val messages = remember { viewModel.messages }.collectAsState()
         val networkState = remember { viewModel.networkInfo.networkStatus }.collectAsState(null)
+        val errorState = remember { mutableStateOf<Throwable?>(null) }
+        val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
 
         val onItemClick: (movie: Movie?) -> Unit = { movie ->
             if (movie == null) {
@@ -83,7 +85,7 @@ class MainPage : Page() {
         }
 
         viewModel.handleError { error ->
-            screenState?.error(error)
+            errorState.value = error
         }
 
         ScrollableTvLazyRow(
@@ -93,16 +95,12 @@ class MainPage : Page() {
             verticalArrangement = Arrangement.spacedBy(32.dp),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
-
             item {
-
                 Header(
-                    title = screenState?.titleState?.value,
+                    title = titleState.value,
                     messagesCount = messages.value.size
                 )
-
             }
-
             if (isEdit || (networkState.value !is NetworkStatus.Connected)) item {
                 ErrorMessage(
                     error = stringResource(R.string.error_no_network).asException(),
@@ -110,14 +108,17 @@ class MainPage : Page() {
                     dismissible = false
                 )
             }
-
-
+            if (isEdit || (errorState.value is Exception)) item {
+                ErrorMessage(
+                    error = errorState.value,
+                    dismissible = false
+                )
+            }
             if (isEdit || categoryList.value.isNotEmpty()) item {
                 Tabs(
                     items = categoryList.value.map { it.name }
                 )
             }
-
             if (isEdit || featuredMovieList.value.isNotEmpty()) item {
                 BigCarousel(
                     modifier = Modifier.touchable(),
@@ -125,9 +126,7 @@ class MainPage : Page() {
                     onItemClicked = onItemClick
                 )
             }
-
             items(categoryList.value) { category ->
-
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -136,7 +135,6 @@ class MainPage : Page() {
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
-
                 TvLazyRow(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.height(200.dp),
@@ -147,20 +145,14 @@ class MainPage : Page() {
                         end = 16.dp
                     )
                 ) {
-
                     items(category.movieList) { item ->
-
                         MovieCard(
                             movie = item,
                             onClick = onItemClick
                         )
-
                     }
-
                 }
-
             }
-
         }
 
     }

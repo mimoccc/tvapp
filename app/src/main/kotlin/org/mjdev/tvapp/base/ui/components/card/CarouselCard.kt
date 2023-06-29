@@ -41,13 +41,14 @@ fun CarouselCard(
 
     CompactCard(
         modifier = modifier,
+        scale = scale,
         image = {
             ImageAny(
                 modifier = modifier,
                 src = movie?.cardImageUrl,
                 contentDescription = movie?.description,
                 contentScale = contentScale,
-                placeholder = placeHolder
+                placeholder = placeHolder,
             )
         },
         title = {
@@ -72,7 +73,6 @@ fun CarouselCard(
             ),
             pressedGlow = Glow.None
         ),
-        scale = CardScale.None,
         onClick = onClick
     )
 

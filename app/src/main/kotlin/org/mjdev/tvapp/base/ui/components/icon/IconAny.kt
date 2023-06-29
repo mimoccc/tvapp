@@ -49,7 +49,7 @@ fun IconAny(
 
     when (src) {
         null -> Icon(
-            ColorDrawable(0).asImageBitmap(),
+            ColorDrawable(0).asImageBitmap(width, height),
             contentDescription,
             modifier,
             tint
@@ -121,7 +121,7 @@ fun IconAny(
             tint
         )
 
-        else -> throw (RuntimeException("Unknown image format."))
+        else -> throw (RuntimeException("Unknown image format $src."))
     }
 
 }

@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,8 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
@@ -38,8 +42,8 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 fun NavigationRow(
     modifier: Modifier = Modifier,
     id: Int = -1,
-    drawerValue: DrawerValue = DrawerValue.Open,
-    text: Any? = "test",
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+    text: Any? = "menu item 1",
     icon: Any? = Icons.Default.AccountCircle,
     textColor: Color = Color.White,
     iconColor: Color = Color.White,
@@ -50,13 +54,15 @@ fun NavigationRow(
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
+
     val isEdit = isEditMode()
+    val focused = remember { mutableStateOf(false) }
 
     FocusableBox(
-        modifier = Modifier
+        modifier = modifier
             .padding(contentPadding)
             .background(
-                if (isEdit) Color.DarkGray else Color.Transparent
+                if (isEdit || focused.value) focusedColor else unFocusedColor
             ),
         focusedColor = focusedColor,
         unFocusedColor = unFocusedColor,
@@ -67,26 +73,22 @@ fun NavigationRow(
             onClick(id)
         },
     ) {
-
         Row(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-
             Box(
                 modifier = Modifier.padding(4.dp)
             ) {
-
                 IconAny(
                     src = icon,
                     contentDescription = null,
                     tint = iconColor
                 )
-
             }
-
-            AnimatedVisibility(visible = (drawerValue == DrawerValue.Open)) {
-
+            AnimatedVisibility(
+                visible = (drawerState.currentValue == DrawerValue.Open)
+            ) {
                 TextAny(
                     text = text,
                     softWrap = false,
@@ -98,9 +100,7 @@ fun NavigationRow(
                 )
 
             }
-
         }
-
     }
 
 }

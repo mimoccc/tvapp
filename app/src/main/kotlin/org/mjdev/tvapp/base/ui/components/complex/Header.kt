@@ -65,7 +65,8 @@ fun Header(
             title = title ?: R.string.app_name,
             fontWeight = fontWeight,
             fontSize = fontSize,
-            color = color
+            color = color,
+            onClick = onTitleClick,
         )
 
         Clock(
@@ -78,6 +79,7 @@ fun Header(
             contentPadding = contentPadding,
             timeTextColor = color,
             dateTextColor = color,
+            onClick = onClockClick,
         )
 
         Badge(
@@ -95,9 +97,7 @@ fun Header(
             borderSize = 1.dp,
             textSize = 20.sp,
             textColor = Color.White,
-            onClick = {
-                onMessageBadgeClick()
-            }
+            onClick = onMessageBadgeClick,
         )
 
         UserPic(
@@ -112,9 +112,7 @@ fun Header(
             borderColor = Color.White,
             contentPadding = contentPadding,
             borderSize = 1.dp,
-            onClick = {
-                onUserPicClick()
-            }
+            onClick = onUserPicClick,
         )
 
     }

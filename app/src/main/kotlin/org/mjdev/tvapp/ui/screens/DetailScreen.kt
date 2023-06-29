@@ -21,9 +21,8 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Details
 import org.mjdev.tvapp.ui.components.Loading
@@ -33,7 +32,11 @@ class DetailScreen : Screen() {
 
     private val movieId = "movieId"
 
-    override val titleResId = R.string.title_movie_detail
+    override val title = R.string.title_movie_detail
+
+    override val menuIcon: ImageVector get() = Icons.Filled.Info
+
+    override val immersive: Boolean = true
 
     override val args = listOf(
         navArgument(movieId) {
@@ -42,19 +45,14 @@ class DetailScreen : Screen() {
         }
     )
 
-    override val menuTitleResId: Int = -1
-
-    override val menuIcon: ImageVector get() = Icons.Filled.Info
-
     @TvPreview
     @Composable
     override fun Compose() = super.Compose()
 
     @Composable
     override fun Compose(
-        navController: NavHostControllerEx?,
+        navController: NavHostControllerEx,
         backStackEntry: NavBackStackEntry?,
-        menuItems: List<MenuItem>,
         args: Map<String, Any?>
     ) {
 

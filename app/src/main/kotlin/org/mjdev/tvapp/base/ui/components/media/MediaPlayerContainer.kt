@@ -1,14 +1,14 @@
 /*
  * Copyright (c) Milan Jurkulák 2023. 
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 @file:Suppress("unused")
 
-package org.mjdev.tvapp.base.media
+package org.mjdev.tvapp.base.ui.components.media
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.media.MediaPlayerState.Companion.rememberMediaPlayerState
+import org.mjdev.tvapp.base.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 @TvPreview
 @Composable

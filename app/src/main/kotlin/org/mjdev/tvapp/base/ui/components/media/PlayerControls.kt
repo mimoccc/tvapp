@@ -6,7 +6,7 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.media
+package org.mjdev.tvapp.base.ui.components.media
 
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.base.annotations.TvPreview
