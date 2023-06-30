@@ -10,8 +10,10 @@ package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.text.CircleText
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -36,12 +39,14 @@ fun Badge(
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,
     contentPadding: Dp = 2.dp,
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
 
     FocusableBox(
         modifier = modifier.clip(CircleShape),
+        focusState = focusState,
         shape = shape,
         onFocus = onFocus,
         onClick = onClick

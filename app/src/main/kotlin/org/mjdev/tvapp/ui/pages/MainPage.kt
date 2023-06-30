@@ -30,17 +30,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
 import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.open
 import org.mjdev.tvapp.base.network.NetworkStatus
-import org.mjdev.tvapp.base.ui.components.card.ItemCard
+import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.complex.BigCarousel
 import org.mjdev.tvapp.base.ui.components.complex.ScrollableTvLazyRow
@@ -58,6 +58,7 @@ class MainPage : Page() {
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
+    @OptIn(ExperimentalTvMaterial3Api::class)
     @TvPreview
     @Composable
     override fun Content() {
@@ -124,7 +125,7 @@ class MainPage : Page() {
             }
             if (isEdit || featuredMovieList.value.isNotEmpty()) item {
                 BigCarousel(
-                    modifier = Modifier.touchable(),
+                    modifier = Modifier,
                     items = featuredMovieList.value,
                     onItemClicked = onItemClick
                 )
@@ -149,7 +150,7 @@ class MainPage : Page() {
                     )
                 ) {
                     items(category.movieList) { item ->
-                        ItemCard(
+                        PhotoCard(
                             item = item,
                             onClick = onItemClick
                         )

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawer
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.annotations.TvPreview
@@ -60,6 +61,9 @@ fun Navigation(
     navController.addMenuItem(*menuItems.toTypedArray())
 
     if (navController.menuState.value) {
+// todo right navigation with settings
+//        ModalNavigationDrawer(
+//            drawerContent = {}) {
         NavigationDrawer(
             modifier = modifier
                 .fillMaxHeight()
@@ -76,6 +80,7 @@ fun Navigation(
                 navigationState.drawerState.setValue(state)
             }
         )
+//        }
     } else {
         content()
     }

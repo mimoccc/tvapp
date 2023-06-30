@@ -12,7 +12,9 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
@@ -27,6 +29,7 @@ import androidx.tv.material3.ButtonGlow
 import androidx.tv.material3.ButtonScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -47,13 +50,14 @@ fun Button(
     shape: Shape = RectangleShape,
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     content: @Composable RowScope.() -> Unit = {
         TextAny(text = text)
     }
 ) {
 
     Button(
-        modifier = modifier.touchable(),
+        modifier = modifier.touchable(focusState),
         glow = glow,
         scale = scale,
         onClick = onClick,

@@ -52,9 +52,9 @@ open class Page {
             Modifier
                 .fillMaxSize()
                 .background(backgroundColor, background)
-                .touchable {
-                    freeFocus()
-                }
+//                .touchable {
+//                    freeFocus()
+//                }
         ) {
             TouchBox(
                 contentAlignment = Alignment.Center,

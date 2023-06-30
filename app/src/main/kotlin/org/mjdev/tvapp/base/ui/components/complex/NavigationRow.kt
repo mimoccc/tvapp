@@ -18,10 +18,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +34,8 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ModifierExt
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -46,10 +50,11 @@ fun NavigationRow(
     icon: Any? = Icons.Default.AccountCircle,
     textColor: Color = Color.White,
     iconColor: Color = Color.White,
-    focusedColor: Color = Color.Black,
+    focusedColor: Color = Color.Green,
     unFocusedColor: Color = Color.Transparent,
     expandedWidth: Dp = 150.dp,
     contentPadding: Dp = 2.dp,
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
@@ -63,6 +68,7 @@ fun NavigationRow(
             .background(
                 if (isEdit || focused.value) focusedColor else unFocusedColor
             ),
+        focusState = focusState,
         focusedColor = focusedColor,
         unFocusedColor = unFocusedColor,
         onFocus = {

@@ -11,7 +11,9 @@ package org.mjdev.tvapp.base.ui.components.card
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,8 +22,10 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.Glow
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.extensions.ModifierExt
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.interfaces.ItemWithBackground
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
@@ -39,20 +43,31 @@ fun CarouselCard(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
     scale: CardScale = CardScale.None,
+    placeholder: @Composable () -> Unit = {},
+    focusState: MutableState<FocusState?> = rememberFocusState(),
+    imageRenderer: @Composable (modifier: Modifier) -> Unit = {
+        ImageAny(
+            modifier = modifier,
+            src = (item as? ItemWithBackground)?.backgroundImageUrl,
+            contentDescription = (item as? ItemWithDescription)?.description?.toString(),
+            contentScale = contentScale,
+            placeholder = placeholder
+        )
+    },
+    onFocus: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
 
     CompactCard(
-        modifier = modifier,
+        modifier = modifier.touchable(
+            state = focusState,
+            onClick = onClick,
+            onFocus = onFocus,
+        ),
+        border = CardDefaults.colorFocusBorder(Color.Green),
         scale = scale,
         image = {
-            ImageAny(
-                modifier = modifier,
-                src = (item as? ItemWithBackground)?.backgroundImageUrl,
-                contentDescription = (item as? ItemWithDescription)?.description?.toString(),
-                contentScale = contentScale,
-                placeholder = placeHolder,
-            )
+            imageRenderer(modifier)
         },
         title = {
             TextAny(
@@ -67,16 +82,8 @@ fun CarouselCard(
             )
         },
         description = {
-          // todo
+            // todo
         },
-        glow = CardDefaults.glow(
-            glow = Glow.None,
-            focusedGlow = Glow(
-                elevationColor = Color.Green,
-                elevation = 10.dp
-            ),
-            pressedGlow = Glow.None
-        ),
         onClick = onClick
     )
 

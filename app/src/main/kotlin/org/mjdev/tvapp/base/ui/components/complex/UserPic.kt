@@ -11,7 +11,9 @@ package org.mjdev.tvapp.base.ui.components.complex
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.extensions.ModifierExt
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -33,9 +37,11 @@ fun UserPic(
     borderColor: Color = Color.White,
     borderSize: Dp = 2.dp,
     contentPadding: Dp = 2.dp,
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onClick: () -> Unit = {}
 ) = FocusableBox(
     modifier = modifier.wrapContentSize(),
+    focusState = focusState,
     shape = shape,
     onClick = onClick
 ) {

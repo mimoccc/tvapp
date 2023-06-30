@@ -8,40 +8,69 @@
 
 package org.mjdev.tvapp.base.extensions
 
-import androidx.compose.foundation.focusable
+import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
 import timber.log.Timber
 
 object ModifierExt {
 
+    @Composable
+    fun rememberMutableInteractionSource() = remember { MutableInteractionSource() }
+
+    @Composable
+    fun rememberFocusState(
+        initial: FocusState? = null
+    ) = remember {
+        mutableStateOf(initial)
+    }
+
+    val MutableState<FocusState?>.isFocused
+        get() = (value?.isFocused == true) || (value?.hasFocus == true)
+
+    @SuppressLint("ComposableModifierFactory")
+    @Composable
     fun Modifier.touchable(
-        focusable: Boolean = false,
-        onTouch: FocusRequester.() -> Unit = {},
-    ): Modifier = composed {
-        val focusRequester = remember { FocusRequester() }
-        this
-            .apply {
-                if (focusable) {
-                    this.focusable()
+        state: MutableState<FocusState?> = rememberFocusState(),
+        focusRequester: FocusRequester = remember { FocusRequester() },
+        onFocus:()->Unit={},
+        onClick:()->Unit={},
+    ): Modifier = focusRequester(
+        focusRequester
+    ).pointerInput(Unit) {
+        detectTapGestures {
+            if(state.isFocused) {
+                onClick()
+            } else {
+                try {
+                    focusRequester.requestFocus()
+                    onFocus()
+                } catch (e: Exception) {
+                    Timber.e(e)
                 }
             }
-            .focusRequester(focusRequester)
-            .pointerInput(Unit) {
-                detectTapGestures {
-                    try {
-                        onTouch(focusRequester)
-                        focusRequester.requestFocus()
-                    } catch (e: Exception) {
-                        Timber.e(e)
-                    }
-                }
+        }
+    }.onFocusChanged { fstate ->
+        state.value = fstate
+    }.apply {
+        if (state.isFocused) {
+            try {
+                focusRequester.requestFocus()
+            } catch (e: Exception) {
+                Timber.e(e)
             }
+        }
     }
 
 }

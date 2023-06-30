@@ -30,6 +30,7 @@ import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberMutableInteractionSource
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -42,10 +43,10 @@ fun <T> Tabs(
     items: List<T> = emptyList(),
     fontSize: TextUnit = 12.sp,
     itemsSpacing: Dp = 8.dp,
-    activeContentColor: Color = Color.Black,
+    activeContentColor: Color = Color.Green,
     selectedContentColor: Color = Color.White,
     focusedContentColor: Color = Color.White,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
     onItemClick: (index: Int) -> Unit = {}
 ) {
 
