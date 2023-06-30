@@ -27,7 +27,6 @@ import androidx.core.view.WindowCompat
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
-import org.mjdev.tvapp.activity.ActivityResultHandler
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx

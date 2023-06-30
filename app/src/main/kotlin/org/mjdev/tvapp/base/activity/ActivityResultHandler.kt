@@ -6,12 +6,11 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.activity
+package org.mjdev.tvapp.base.activity
 
 import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import org.mjdev.tvapp.base.activity.ComposableActivity
 
 /**
  * Activity result handler.

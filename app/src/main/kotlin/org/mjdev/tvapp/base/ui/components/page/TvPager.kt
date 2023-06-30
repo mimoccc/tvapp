@@ -9,11 +9,9 @@
 package org.mjdev.tvapp.base.ui.components.page
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.VerticalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +31,6 @@ import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
 import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.page.Page.Companion.EMPTY_PAGE
 
-@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("AutoboxingStateValueProperty")
 @TvPreview
 @Composable
@@ -51,10 +48,6 @@ fun TvPager(
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
     val pagerScope = rememberPagerScope(navController, pages)
-    val pagerState = rememberPagerState(
-        pageCount = { pagerScope.size },
-        initialPage = startIndex,
-    )
 
     val goToPage: (
         page: Page?
@@ -65,7 +58,7 @@ fun TvPager(
                 if (itemIndex > -1) {
                     if (currentPage.value != page) {
                         currentPage.value = page
-                        pagerState.animateScrollToPage(itemIndex)
+                        pagerScope.scrollToPage(itemIndex)
                     }
                 }
             }
@@ -82,20 +75,16 @@ fun TvPager(
 
     navController.addMenuClickListener(listener)
 
-    VerticalPager(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(backGroundColor, backGroundShape),
-        state = pagerState,
-        beyondBoundsPageCount = 0
-    ) { pageIndex ->
-
+    ) {
+        val pageIndex = pagerScope.currentPage.value
         val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
         else if (isEdit) EMPTY_PAGE
         else null
-
         page?.content()
-
     }
 
 }

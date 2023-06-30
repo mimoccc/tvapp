@@ -9,6 +9,9 @@
 package org.mjdev.tvapp.base.ui.components.page
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.mjdev.tvapp.base.extensions.ListExt.addUnique
 import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
@@ -16,16 +19,21 @@ import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 
 class PagerScope(
     val navController: NavHostControllerEx,
-    pages: PagerScope.() -> Unit = {}
+    pages: PagerScope.() -> Unit = {},
 ) : ArrayList<Page>() {
+
+    val currentPage: MutableState<Int> = mutableIntStateOf(0)
 
     init {
         pages.invoke(this)
     }
 
-    fun page(page: Page) {
+    fun page(page: Page, isStartPage: Boolean = false) {
         page.navController = navController
         addUnique(page)
+        if (isStartPage) {
+            currentPage.value = size - 1
+        }
         page.let { p ->
             MenuItem(
                 menuText = p.title,
@@ -47,6 +55,12 @@ class PagerScope(
         }
     }
 
+    fun scrollToPage(index: Int) {
+        if (size > index && size > -1) {
+            currentPage.value = index
+        }
+    }
+
 }
 
 @Composable
@@ -56,6 +70,6 @@ fun rememberPagerScope(
 ) = remember {
     PagerScope(
         navController,
-        pages
+        pages,
     )
 }

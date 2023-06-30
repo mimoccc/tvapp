@@ -39,7 +39,7 @@ class MainScreen : ScreenWithPages() {
         page(SearchPage())
 
         page(AboutPage())
-        page(MainPage())
+        page(MainPage(), isStartPage = true)
         page(SubscriptionPage())
 
         page(PluginsPage())
