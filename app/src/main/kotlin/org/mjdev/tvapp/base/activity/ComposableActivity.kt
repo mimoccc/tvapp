@@ -31,9 +31,9 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.ui.components.complex.ScreenView
-import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen
+import org.mjdev.tvapp.base.ui.components.complex.EmptyScreen
 import org.mjdev.tvapp.base.ui.components.navigation.NavGraphBuilderEx
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostEx
+import org.mjdev.tvapp.base.ui.components.complex.NavHostEx
 import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.screen
 import org.mjdev.tvapp.ui.theme.TVAppTheme
 import timber.log.Timber

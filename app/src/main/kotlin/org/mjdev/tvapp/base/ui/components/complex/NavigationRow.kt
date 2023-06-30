@@ -6,7 +6,7 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

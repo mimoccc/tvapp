@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
@@ -23,6 +23,8 @@ import androidx.navigation.compose.NavHost
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.ui.components.navigation.NavGraphBuilderEx
+import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.screen
 
 @TvPreview

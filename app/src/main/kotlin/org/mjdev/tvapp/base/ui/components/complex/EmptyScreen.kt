@@ -6,10 +6,11 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.ui.components.navigation.Screen
 
 internal class EmptyScreen : Screen() {
 

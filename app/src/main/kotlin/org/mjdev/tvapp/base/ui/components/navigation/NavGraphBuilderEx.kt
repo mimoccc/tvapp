@@ -11,7 +11,7 @@ package org.mjdev.tvapp.base.ui.components.navigation
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavigatorProvider
-import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen.Companion.ROUTE_NONE
+import org.mjdev.tvapp.base.ui.components.complex.EmptyScreen.Companion.ROUTE_NONE
 
 class NavGraphBuilderEx(
     provider: NavigatorProvider,

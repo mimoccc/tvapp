@@ -21,9 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.EmptyScreen
 import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 
 @Suppress("TrailingComma", "unused")
 @TvPreview
