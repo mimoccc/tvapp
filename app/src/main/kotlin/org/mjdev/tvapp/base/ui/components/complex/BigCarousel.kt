@@ -76,7 +76,7 @@ fun BigCarousel(
                 .height(height),
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
-            movie = items[indexOfCarouselItem],
+            item = items[indexOfCarouselItem],
             onClick = {
                 onItemClicked(selectedMovie())
             }

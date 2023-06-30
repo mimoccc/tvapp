@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.ui.pages
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -23,11 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.ui.components.card.Card
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.card.CardContent
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
@@ -48,9 +49,11 @@ class AboutPage : Page() {
                 .padding(16.dp)
         ) {
             Card(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(backgroundColor, background),
                 onClick = {},
                 onLongClick = {},
-                modifier = Modifier.fillMaxSize(),
                 shape = CardDefaults.shape(),
                 colors = CardDefaults.colors(
                     containerColor = Color(0xff242424)
@@ -63,13 +66,11 @@ class AboutPage : Page() {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
                     content = {
-
                         CircleImage(
                             modifier = Modifier.size(128.dp),
                             contentPadding = 10.dp,
                             src = R.drawable.milanj
                         )
-
                         CardContent(
                             modifier = Modifier.fillMaxWidth(),
                             title = {
@@ -91,12 +92,10 @@ class AboutPage : Page() {
                                 )
                             }
                         )
-
                     }
                 )
             }
         }
-
     }
 
 }

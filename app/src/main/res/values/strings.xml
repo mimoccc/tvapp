@@ -33,5 +33,6 @@
     <string name="title_subscription">Subscription</string>
 
     <string name="author">Created by Milan Jurkulak © 2023</string>
+    <string name="title_plugins">Plugins</string>
 
 </resources>

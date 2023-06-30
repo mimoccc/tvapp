@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
+import org.mjdev.tvapp.base.ui.components.complex.TouchBox
 import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
 import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -47,7 +48,6 @@ open class Page {
     @Composable
     @CallSuper
     fun content() {
-
         Column(
             Modifier
                 .fillMaxSize()
@@ -56,16 +56,16 @@ open class Page {
                     freeFocus()
                 }
         ) {
-
-            Content()
-
+            TouchBox(
+                contentAlignment = Alignment.Center,
+            ) {
+                Content()
+            }
         }
-
     }
 
     @Composable
     open fun Content() {
-
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -78,7 +78,6 @@ open class Page {
                 color = Color.White,
             )
         }
-
     }
 
     override fun toString(): String = this::class.simpleName ?: "Page[]"

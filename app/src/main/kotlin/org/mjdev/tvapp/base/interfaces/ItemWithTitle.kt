@@ -9,5 +9,5 @@
 package org.mjdev.tvapp.base.interfaces
 
 interface ItemWithTitle {
-    val title : String
+    var title : Any?
 }

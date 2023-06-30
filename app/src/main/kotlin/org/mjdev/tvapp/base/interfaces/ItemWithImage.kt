@@ -9,5 +9,5 @@
 package org.mjdev.tvapp.base.interfaces
 
 interface ItemWithImage {
-    val backgroundImageUrl : String
+    var imageUrl : Any?
 }

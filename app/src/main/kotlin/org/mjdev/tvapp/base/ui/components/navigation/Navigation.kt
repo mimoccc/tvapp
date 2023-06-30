@@ -37,7 +37,7 @@ fun Navigation(
     navigationState: NavigationState = rememberNavigationState(
         navController = navController,
         drawerState = rememberDrawerState(
-            initialValue = DrawerValue.Open
+            initialValue = DrawerValue.Closed
         )
     ),
     backgroundColor: Color = Color(0xff202020),
@@ -50,7 +50,9 @@ fun Navigation(
 ) {
 
     val isEdit = isEditMode()
+
     if (isEdit) navigationState.openDrawer()
+
     navController.addMenuItem(*menuItems.toTypedArray())
 
     if (navController.menuState.value) {

@@ -9,37 +9,47 @@
 package org.mjdev.tvapp.data
 
 import android.net.Uri
+import org.mjdev.tvapp.base.interfaces.ItemWithBackground
+import org.mjdev.tvapp.base.interfaces.ItemWithDescription
+import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
+import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
 import java.io.Serializable
 
 data class Movie(
 
-    var id: Long = 0,
-    override var title: String = "",
-    var description: String = "",
-    override var backgroundImageUrl: String = "",
-    var cardImageUrl: String = "",
-    override var videoUri: Uri = Uri.EMPTY,
-    var studio: String = ""
+    var studio: Any? = "",
 
-) : Serializable, ItemWithTitle, ItemWithImage, ItemWithVideoUri {
+    override var id: Long = 0,
+    override var title: Any? = "",
+    override var description: Any? = "",
+    override var backgroundImageUrl: Any? = "",
+    override var imageUrl: Any? = "",
+    override var videoUri: Any? = Uri.EMPTY,
 
-    val hasVideoUri get() = videoUri != Uri.EMPTY
+    ) : Serializable,
+    ItemWithId,
+    ItemWithTitle,
+    ItemWithSubtitle,
+    ItemWithImage,
+    ItemWithVideoUri,
+    ItemWithBackground,
+    ItemWithDescription {
+
+    override var subtitle: Any?
+        get() = studio
+        set(value) { studio = value }
 
     override fun toString(): String {
         return "Movie{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", videoUrl='" + videoUri.toString() + '\'' +
-                ", backgroundImageUrl='" + backgroundImageUrl + '\'' +
-                ", cardImageUrl='" + cardImageUrl + '\'' +
-                '}'
-    }
-
-    companion object {
-        internal const val serialVersionUID = 727566175075960653L
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", videoUrl='" + videoUri.toString() + '\'' +
+            ", backgroundImageUrl='" + backgroundImageUrl + '\'' +
+            ", cardImageUrl='" + imageUrl + '\'' +
+            '}'
     }
 
 }

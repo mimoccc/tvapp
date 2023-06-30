@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.base.ui.components.button
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
@@ -25,13 +26,18 @@ import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.ButtonGlow
 import androidx.tv.material3.ButtonScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.Glow
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
+import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Preview
 @Suppress("UNUSED_PARAMETER")
 @OptIn(ExperimentalTvMaterial3Api::class)
+@SuppressLint("ModifierParameter")
 @Composable
 fun Button(
+    text: Any? = null,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.Bold,
@@ -39,10 +45,11 @@ fun Button(
     containerColor: Color = Color.Transparent,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     shape: Shape = RectangleShape,
-    glow: ButtonGlow = ButtonDefaults.glow(),
-    scale: ButtonScale = ButtonDefaults.scale(),
-    onClick: () -> Unit = {},
-    content: @Composable RowScope.() -> Unit = {}
+    glow: ButtonGlow = ButtonDefaults.NO_GLOW,
+    scale: ButtonScale = ButtonDefaults.NO_SCALE,
+    content: @Composable RowScope.() -> Unit = {
+        TextAny(text = text)
+    }
 ) {
 
     Button(
@@ -57,3 +64,21 @@ fun Button(
     )
 
 }
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+val ButtonDefaults.NO_GLOW
+    get() = glow(
+        glow = Glow.None,
+        focusedGlow = Glow.None,
+        pressedGlow = Glow.None
+    )
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+val ButtonDefaults.NO_SCALE
+    get() = scale(
+        scale = 1f,
+        focusedScale = 1f,
+        pressedScale = 1f,
+        disabledScale = 1f,
+        focusedDisabledScale = 1f
+    )

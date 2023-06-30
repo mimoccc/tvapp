@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,23 +30,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
-import androidx.tv.material3.Text
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.extensions.StringExt.asException
+import org.mjdev.tvapp.base.interfaces.ItemWithId
+import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
 import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.open
 import org.mjdev.tvapp.base.network.NetworkStatus
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.complex.BigCarousel
 import org.mjdev.tvapp.base.ui.components.complex.ScrollableTvLazyRow
 import org.mjdev.tvapp.base.ui.components.complex.Tabs
-import org.mjdev.tvapp.data.Movie
-import org.mjdev.tvapp.base.ui.components.card.MovieCard
+import org.mjdev.tvapp.base.ui.components.card.ItemCard
 import org.mjdev.tvapp.base.ui.components.complex.ErrorMessage
 import org.mjdev.tvapp.base.ui.components.complex.Header
+import org.mjdev.tvapp.base.ui.components.text.TextAny
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
@@ -74,13 +74,16 @@ class MainPage : Page() {
         val errorState = remember { mutableStateOf<Throwable?>(null) }
         val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
 
-        val onItemClick: (movie: Movie?) -> Unit = { movie ->
-            if (movie == null) {
+        val onItemClick: (item: Any?) -> Unit = { item ->
+            val isVideo = ((item as? ItemWithVideoUri)?.hasVideoUri == true)
+            val isId = ((item as? ItemWithId)?.hasId == true)
+            val id = (item as? ItemWithId)?.id
+            if ((item == null) || (!isId)) {
                 viewModel.postError("No media found.".asException())
-            } else if (movie.hasVideoUri) {
-                navController?.open<PlayerScreen>(movie.id)
+            } else if (isVideo) {
+                navController?.open<PlayerScreen>(id)
             } else {
-                navController?.open<DetailScreen>(movie.id)
+                navController?.open<DetailScreen>(id)
             }
         }
 
@@ -91,7 +94,7 @@ class MainPage : Page() {
         ScrollableTvLazyRow(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.DarkGray),
+                .background(backgroundColor, background),
             verticalArrangement = Arrangement.spacedBy(32.dp),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
@@ -116,7 +119,7 @@ class MainPage : Page() {
             }
             if (isEdit || categoryList.value.isNotEmpty()) item {
                 Tabs(
-                    items = categoryList.value.map { it.name }
+                    items = categoryList.value.map { category -> category.title }
                 )
             }
             if (isEdit || featuredMovieList.value.isNotEmpty()) item {
@@ -127,11 +130,11 @@ class MainPage : Page() {
                 )
             }
             items(categoryList.value) { category ->
-                Text(
+                TextAny(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 16.dp),
-                    text = category.name,
+                    text = category.title,
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
@@ -146,8 +149,8 @@ class MainPage : Page() {
                     )
                 ) {
                     items(category.movieList) { item ->
-                        MovieCard(
-                            movie = item,
+                        ItemCard(
+                            item = item,
                             onClick = onItemClick
                         )
                     }

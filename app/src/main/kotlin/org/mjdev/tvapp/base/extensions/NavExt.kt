@@ -46,7 +46,10 @@ object NavExt {
         vararg navigators: Navigator<out NavDestination>
     ): NavHostControllerEx {
         val context = LocalContext.current
-        return rememberSaveable(inputs = navigators, saver = NavControllerSaver(context)) {
+        return rememberSaveable(
+            inputs = navigators,
+            saver = NavControllerSaver(context)
+        ) {
             createNavController(context)
         }.apply {
             for (navigator in navigators) {

@@ -20,6 +20,7 @@ import org.mjdev.tvapp.base.ui.components.page.SearchPage
 import org.mjdev.tvapp.base.ui.components.page.SettingsPage
 import org.mjdev.tvapp.ui.pages.AboutPage
 import org.mjdev.tvapp.ui.pages.MainPage
+import org.mjdev.tvapp.ui.pages.PluginsPage
 import org.mjdev.tvapp.ui.pages.SubscriptionPage
 
 class MainScreen : ScreenWithPages() {
@@ -41,6 +42,7 @@ class MainScreen : ScreenWithPages() {
         page(MainPage())
         page(SubscriptionPage())
 
+        page(PluginsPage())
         page(SettingsPage())
 
     }

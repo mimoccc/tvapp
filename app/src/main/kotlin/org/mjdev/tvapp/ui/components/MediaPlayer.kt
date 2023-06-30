@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.StringExt.parseUri
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
 import org.mjdev.tvapp.base.ui.components.media.MediaPlayerContainer
 
@@ -26,7 +27,7 @@ fun MediaPlayer(
 
     MediaPlayerContainer(
         modifier = modifier.fillMaxSize(),
-        uri = movie?.videoUri
+        uri = movie?.videoUri.toString().parseUri()
     )
 
 }

@@ -42,7 +42,7 @@ fun Details(
     ) {
 
         ImageAny(
-            src = movie?.cardImageUrl,
+            src = movie?.imageUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
