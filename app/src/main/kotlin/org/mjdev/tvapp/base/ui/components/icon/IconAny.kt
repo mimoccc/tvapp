@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -90,28 +91,25 @@ fun IconAny(
             tint
         )
 
-        // todo tint
         is URL -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
             modifier = modifier,
-//            tint = tint
+            colorFilter = ColorFilter.tint(tint)
         )
 
-        // todo tint
         is Uri -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
             modifier = modifier,
-//            tint = tint
+            colorFilter = ColorFilter.tint(tint)
         )
 
-// todo tint
         is String -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
             modifier = modifier,
-//            tint = tint
+            colorFilter = ColorFilter.tint(tint)
         )
 
         is ImageVector -> Icon(

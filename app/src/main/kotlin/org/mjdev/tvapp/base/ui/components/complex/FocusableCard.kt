@@ -52,8 +52,18 @@ fun FocusableCard(
     shape: CardShape = CardDefaults.shape(),
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.border(),
-    glow: CardGlow = CardDefaults.glow(),
+    glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
+    placeholder: @Composable () -> Unit = {},
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    imageRenderer: @Composable (modifier:Modifier) -> Unit = {
+        ImageAny(
+            modifier = modifier,
+            src = (item as? ItemWithImage)?.imageUrl,
+            contentDescription = (item as? ItemWithDescription)?.description?.toString(),
+            contentScale = contentScale,
+            placeholder = placeHolder
+        )
+    },
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
@@ -61,7 +71,6 @@ fun FocusableCard(
     val isFocused: () -> Boolean = {
         ((focusState.value?.isFocused == true) || (focusState.value?.hasFocus == true))
     }
-
     CompactCard(
         interactionSource = interactionSource,
         scale = scale,
@@ -80,13 +89,7 @@ fun FocusableCard(
                     onFocus(item)
             },
         image = {
-            ImageAny(
-                modifier = modifier,
-                src = (item as? ItemWithImage)?.imageUrl,
-                contentDescription = (item as? ItemWithDescription)?.description?.toString(),
-                contentScale = contentScale,
-                placeholder = placeHolder
-            )
+            imageRenderer(modifier)
         },
         title = {
             TextAny(
@@ -101,11 +104,10 @@ fun FocusableCard(
             )
         },
         description = {
-          // todo
+            // todo
         },
         onClick = {
             onClick(item)
         },
     )
-
 }

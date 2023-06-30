@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.image
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,8 +32,8 @@ import org.mjdev.tvapp.R
 fun CircleImage(
     modifier: Modifier = Modifier,
     backGroundColor: Color = Color.Black,
-    borderColor: Color = Color.Transparent,
-    borderSize: Dp = 0.dp,
+    borderColor: Color = Color.White,
+    borderSize: Dp = 3.dp,
     contentDescription: String = "",
     contentPadding: Dp = 2.dp,
     src: Any? = R.drawable.milanj
@@ -47,7 +48,13 @@ fun CircleImage(
             modifier = modifier
                 .clip(CircleShape)
                 .background(backGroundColor, CircleShape)
-                .border(borderSize, borderColor, CircleShape),
+                .border(
+                    BorderStroke(
+                        borderSize,
+                        borderColor
+                    ),
+                    CircleShape
+                ),
             src = src,
             contentDescription = contentDescription,
             contentScale = ContentScale.Crop,

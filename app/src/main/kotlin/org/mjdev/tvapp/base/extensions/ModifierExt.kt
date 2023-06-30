@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.base.extensions
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,10 +21,16 @@ import timber.log.Timber
 object ModifierExt {
 
     fun Modifier.touchable(
-        onTouch: FocusRequester.() -> Unit = {}
+        focusable: Boolean = false,
+        onTouch: FocusRequester.() -> Unit = {},
     ): Modifier = composed {
         val focusRequester = remember { FocusRequester() }
         this
+            .apply {
+                if (focusable) {
+                    this.focusable()
+                }
+            }
             .focusRequester(focusRequester)
             .pointerInput(Unit) {
                 detectTapGestures {

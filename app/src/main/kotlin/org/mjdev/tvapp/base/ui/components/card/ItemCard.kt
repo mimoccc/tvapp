@@ -34,12 +34,8 @@ fun ItemCard(
             .widthIn(max = 320.dp)
             .aspectRatio(16f / 9f),
         item = item,
-        onFocus = {
-            onFocus(item)
-        },
-        onClick = {
-            onClick(item)
-        }
+        onFocus = onFocus,
+        onClick = onClick,
     )
 
 }

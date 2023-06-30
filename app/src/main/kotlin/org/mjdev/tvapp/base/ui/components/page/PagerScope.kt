@@ -11,7 +11,6 @@ package org.mjdev.tvapp.base.ui.components.page
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.mjdev.tvapp.base.extensions.ListExt.addUnique
 import org.mjdev.tvapp.base.ui.components.navigation.MenuItem

@@ -38,4 +38,27 @@ object ComposeExt {
         else -> text.toString()
     }
 
+//    @Composable
+//    fun Any?.toDrawable(): Drawable {
+//        val context = LocalContext.current
+//        val coroutine = rememberCoroutineScope()
+//        return when (this) {
+//            is Int -> ContextCompat.getDrawable(context, this) ?: ColorDrawable(0)
+//            is Color -> ColorDrawable(this.toArgb())
+//            is Drawable -> this
+//            is Bitmap -> BitmapDrawable(context.resources, this)
+//            else -> {
+//                runBlocking {
+//                    withContext(coroutine.coroutineContext) {
+//                        ImageLoader(context).execute(
+//                            ImageRequest.Builder(context)
+//                                .data(this)
+//                                .build()
+//                        ).drawable
+//                    }!!
+//                }
+//            }
+//        }
+//    }
+
 }

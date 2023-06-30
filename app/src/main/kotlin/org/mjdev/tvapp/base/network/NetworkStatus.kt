@@ -10,11 +10,12 @@ package org.mjdev.tvapp.base.network
 
 import android.net.Network
 
+@Suppress("unused")
 sealed class NetworkStatus {
 
     object Unknown: NetworkStatus()
 
-    class Connected(val network: Network): NetworkStatus()
+    class Connected(val network: Network?): NetworkStatus()
 
     object Disconnected: NetworkStatus()
 

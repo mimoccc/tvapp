@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.text
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -38,8 +39,8 @@ import androidx.tv.material3.MaterialTheme
 fun CircleText(
     modifier: Modifier = Modifier,
     backGroundColor: Color = MaterialTheme.colorScheme.secondary,
-    borderColor: Color = Color.Transparent,
-    borderSize: Dp = 0.dp,
+    borderColor: Color = Color.White,
+    borderSize: Dp = 2.dp,
     text: String = "0",
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,
@@ -53,7 +54,13 @@ fun CircleText(
             .aspectRatio(1f)
             .clip(CircleShape)
             .background(backGroundColor, CircleShape)
-            .border(borderSize, borderColor, CircleShape),
+            .border(
+                BorderStroke(
+                    borderSize,
+                    borderColor
+                ),
+                CircleShape
+            ),
         contentAlignment = Alignment.Center,
     ) {
 

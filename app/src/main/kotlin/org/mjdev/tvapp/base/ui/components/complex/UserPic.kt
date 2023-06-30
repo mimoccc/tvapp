@@ -30,7 +30,7 @@ fun UserPic(
     shape: Shape = CircleShape,
     src: Any? = R.drawable.milanj,
     backGroundColor: Color = MaterialTheme.colorScheme.secondary,
-    borderColor: Color = Color.Transparent,
+    borderColor: Color = Color.White,
     borderSize: Dp = 2.dp,
     contentPadding: Dp = 2.dp,
     onClick: () -> Unit = {}

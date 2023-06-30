@@ -40,11 +40,11 @@ import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
 import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.open
 import org.mjdev.tvapp.base.network.NetworkStatus
+import org.mjdev.tvapp.base.ui.components.card.ItemCard
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.complex.BigCarousel
 import org.mjdev.tvapp.base.ui.components.complex.ScrollableTvLazyRow
 import org.mjdev.tvapp.base.ui.components.complex.Tabs
-import org.mjdev.tvapp.base.ui.components.card.ItemCard
 import org.mjdev.tvapp.base.ui.components.complex.ErrorMessage
 import org.mjdev.tvapp.base.ui.components.complex.Header
 import org.mjdev.tvapp.base.ui.components.text.TextAny
