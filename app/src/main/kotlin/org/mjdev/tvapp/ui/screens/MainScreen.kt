@@ -27,7 +27,6 @@ class MainScreen : ScreenWithPages() {
 
     override val title: Int = R.string.app_name
     override val menuIcon: ImageVector = Icons.Default.Home
-    override val startPageIndex: Int = 2
     override val immersive: Boolean = false
 
     @TvPreview

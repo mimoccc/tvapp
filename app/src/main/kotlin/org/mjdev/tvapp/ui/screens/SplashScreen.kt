@@ -29,13 +29,11 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavBackStackEntry
 import androidx.tv.material3.MaterialTheme
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -48,31 +46,10 @@ class SplashScreen : Screen() {
 
     @TvPreview
     @Composable
-    override fun Compose() = super.Compose()
-
-    @Composable
-    override fun Compose(
-        navController: NavHostControllerEx,
-        backStackEntry: NavBackStackEntry?,
-        args: Map<String, Any?>
-    ) {
+    override fun ComposeScreen() {
 
         val isEdit = isEditMode()
         val scale = remember { Animatable(if (isEdit) 1f else 0f) }
-
-        LaunchedEffect(key1 = true) {
-            scale.animateTo(
-                targetValue = 0.7f,
-                animationSpec = tween(
-                    durationMillis = 800,
-                    easing = {
-                        OvershootInterpolator(4f).getInterpolation(it)
-                    })
-            )
-            delay(3000L)
-            navController.addOnDestinationChangedListener(this@SplashScreen)
-            navController.open<MainScreen>()
-        }
 
         Box(
             modifier = Modifier
@@ -117,6 +94,19 @@ class SplashScreen : Screen() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White.copy(alpha = 0.5f)
             )
+        }
+
+        LaunchedEffect(key1 = true) {
+            scale.animateTo(
+                targetValue = 0.7f,
+                animationSpec = tween(
+                    durationMillis = 800,
+                    easing = {
+                        OvershootInterpolator(4f).getInterpolation(it)
+                    })
+            )
+            delay(3000L)
+            navController.openAsTop<MainScreen>()
         }
 
     }

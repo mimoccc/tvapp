@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
@@ -24,7 +23,6 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.navigation.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Loading
@@ -39,7 +37,7 @@ class PlayerScreen : Screen() {
     override val menuIcon: ImageVector get() = Icons.Filled.PlayArrow
     override val immersive: Boolean = true
 
-    override val args = listOf(
+    override val pageArgs = listOf(
         navArgument(movieId) {
             defaultValue = -1
             type = NavType.LongType
@@ -48,14 +46,7 @@ class PlayerScreen : Screen() {
 
     @TvPreview
     @Composable
-    override fun Compose() = super.Compose()
-
-    @Composable
-    override fun Compose(
-        navController: NavHostControllerEx,
-        backStackEntry: NavBackStackEntry?,
-        args: Map<String, Any?>
-    ) {
+    override fun ComposeScreen() {
 
         val isEdit = isEditMode()
 

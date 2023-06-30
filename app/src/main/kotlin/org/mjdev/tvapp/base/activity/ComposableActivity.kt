@@ -30,7 +30,6 @@ import androidx.tv.material3.Surface
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.ui.components.complex.ScreenView
 import org.mjdev.tvapp.base.ui.components.complex.EmptyScreen
 import org.mjdev.tvapp.base.ui.components.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.base.ui.components.complex.NavHostEx
@@ -69,16 +68,11 @@ open class ComposableActivity : ComponentActivity() {
                     containerColor = backgroundColor
                 )
             ) {
-                ScreenView(
+                NavHostEx(
+                    modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    backgroundColor = backgroundColor
-                ) {
-                    NavHostEx(
-                        modifier = Modifier.fillMaxSize(),
-                        navController = navController,
-                        builder = navGraphBuilder
-                    )
-                }
+                    builder = navGraphBuilder
+                )
             }
         }
 

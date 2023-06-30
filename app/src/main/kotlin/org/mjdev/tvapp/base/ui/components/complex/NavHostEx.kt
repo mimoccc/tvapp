@@ -49,23 +49,25 @@ fun NavHostEx(
         screen(route = EmptyScreen())
     }
 ) {
-
-    NavHost(
-        modifier = modifier,
+    ScreenView(
         navController = navController,
-        graph = remember(route, builder) {
-            navController.createGraph(
-                navController,
-                route,
-                startRoute,
-                builder
-            )
-        },
-        contentAlignment = contentAlignment,
-        enterTransition = enterTransition,
-        exitTransition = exitTransition,
-        popEnterTransition = popEnterTransition,
-        popExitTransition = popExitTransition,
-    )
-
+    ) {
+        NavHost(
+            modifier = modifier,
+            navController = navController,
+            graph = remember(route, builder) {
+                navController.createGraph(
+                    navController,
+                    route,
+                    startRoute,
+                    builder
+                )
+            },
+            contentAlignment = contentAlignment,
+            enterTransition = enterTransition,
+            exitTransition = exitTransition,
+            popEnterTransition = popEnterTransition,
+            popExitTransition = popExitTransition,
+        )
+    }
 }

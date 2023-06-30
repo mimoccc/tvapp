@@ -10,7 +10,6 @@
 
 package org.mjdev.tvapp.base.ui.components.navigation
 
-import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -33,11 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import androidx.navigation.navOptions
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.AnimExt.FadeIn
@@ -46,7 +44,7 @@ import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import kotlin.reflect.full.createInstance
 
 @Suppress("unused", "LeakingThis")
-open class Screen : NavController.OnDestinationChangedListener {
+open class Screen {
 
     private val routeBase: String
         get() = (this::class.simpleName ?: "-") + "?"
@@ -54,13 +52,13 @@ open class Screen : NavController.OnDestinationChangedListener {
     open val completeRoute: String
         get() = routeBase.let { rb ->
             var routeImpl = rb
-            args.forEach { arg ->
+            pageArgs.forEach { arg ->
                 routeImpl = routeImpl.plus("${arg.name}={${arg.name}}")
             }
             routeImpl
         }
 
-    open val args: List<NamedNavArgument> = emptyList()
+    open val pageArgs: List<NamedNavArgument> = emptyList()
 
     open val title: Any? = null
 
@@ -85,18 +83,20 @@ open class Screen : NavController.OnDestinationChangedListener {
             menuRoute = completeRoute
         ) else null
 
+    lateinit var navController: NavHostControllerEx
+    var backStackEntry: NavBackStackEntry? = null
+    lateinit var args: Map<String, Any?>
+
     @TvPreview
     @Composable
     @CallSuper
     open fun Compose() {
         val navController = rememberNavControllerEx()
-
         Compose(
             navController,
             null,
             mapOf()
         )
-
     }
 
     @Composable
@@ -105,13 +105,15 @@ open class Screen : NavController.OnDestinationChangedListener {
         backStackEntry: NavBackStackEntry?,
         args: Map<String, Any?>
     ) {
-
-        if (showOnce) {
-            navController.addOnDestinationChangedListener(this)
-        }
-
+        this.navController = navController
+        this.backStackEntry = backStackEntry
+        this.args = args
         navController.menuState.value = !immersive
+        ComposeScreen()
+    }
 
+    @Composable
+    open fun ComposeScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -125,17 +127,6 @@ open class Screen : NavController.OnDestinationChangedListener {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-        }
-
-    }
-
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
-        if (showOnce && destination.route == completeRoute) {
-            controller.popBackStack()
         }
     }
 
@@ -161,13 +152,43 @@ open class Screen : NavController.OnDestinationChangedListener {
         }
 
         @MainThread
+        inline fun <reified T : Screen> NavHostController.openAsTop(
+            vararg values: Any?
+        ) {
+            val instance = T::class.createInstance()
+            instance.completeRoute.let { r ->
+                var routeImpl = r
+                instance.pageArgs.forEachIndexed { idx, arg ->
+                    routeImpl = routeImpl.replace(
+                        "{${arg.name}}",
+                        (values[idx] ?: "").toString()
+                    )
+                }
+                routeImpl
+            }.also { finalRoute ->
+                val currentRoute = currentRoute
+                val equals = currentRoute?.equals(finalRoute)
+                if (equals != true) {
+                    navigate(
+                        finalRoute,
+                        navOptions {
+                            popBackStack()
+                            launchSingleTop = true
+                        },
+                        null
+                    )
+                }
+            }
+        }
+
+        @MainThread
         inline fun <reified T : Screen> NavHostController.open(
             vararg values: Any?
         ) {
             val instance = T::class.createInstance()
             instance.completeRoute.let { r ->
                 var routeImpl = r
-                instance.args.forEachIndexed { idx, arg ->
+                instance.pageArgs.forEachIndexed { idx, arg ->
                     routeImpl = routeImpl.replace(
                         "{${arg.name}}",
                         (values[idx] ?: "").toString()
@@ -217,7 +238,7 @@ open class Screen : NavController.OnDestinationChangedListener {
             }
             composable(
                 route = route.completeRoute,
-                arguments = route.args,
+                arguments = route.pageArgs,
                 enterTransition = enterTransition,
                 exitTransition = exitTransition,
                 deepLinks = deepLinks,
@@ -225,7 +246,7 @@ open class Screen : NavController.OnDestinationChangedListener {
                 popExitTransition = popExitTransition
             ) { be ->
                 val rArgs = mutableMapOf<String, Any?>().apply {
-                    route.args.forEach { arg ->
+                    route.pageArgs.forEach { arg ->
                         put(arg.name, be.arg(arg.name, null))
                     }
                 }

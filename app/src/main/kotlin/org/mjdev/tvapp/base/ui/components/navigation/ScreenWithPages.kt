@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.ui.components.page.TvPager
 import org.mjdev.tvapp.base.ui.components.page.PagerScope
@@ -22,14 +21,7 @@ open class ScreenWithPages : Screen() {
 
     @TvPreview
     @Composable
-    override fun Compose() = super.Compose()
-
-    @Composable
-    override fun Compose(
-        navController: NavHostControllerEx,
-        backStackEntry: NavBackStackEntry?,
-        args: Map<String, Any?>
-    ) {
+    override fun ComposeScreen() {
         TvPager(
             navController = navController,
             startIndex = startPageIndex,
