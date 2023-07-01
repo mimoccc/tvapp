@@ -36,6 +36,9 @@ class NavHostControllerEx(
     @OptIn(ExperimentalTvMaterial3Api::class)
     val settingsDrawerState: DrawerState = DrawerState(DrawerValue.Closed)
 
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    val menuDrawerState: DrawerState = DrawerState(DrawerValue.Closed)
+
     val menuState: MutableState<Boolean> = mutableStateOf(true)
 
     val menuItems: SnapshotStateList<MenuItem> = mutableStateListOf()
@@ -113,5 +116,17 @@ class NavHostControllerEx(
     fun closeSettings() {
         settingsDrawerState.setValue(DrawerValue.Closed)
     }
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    fun openMenu() {
+        menuDrawerState.setValue(DrawerValue.Open)
+    }
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    fun closeMenu() {
+        menuDrawerState.setValue(DrawerValue.Closed)
+    }
+
+    val isMenuEnabled: Boolean get() = menuState.value
 
 }

@@ -20,15 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.tv.material3.DrawerState
-import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.NavigationState
 import org.mjdev.tvapp.base.navigation.Screen.Companion.open
-import org.mjdev.tvapp.base.navigation.rememberNavigationState
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -36,10 +32,6 @@ import org.mjdev.tvapp.base.navigation.rememberNavigationState
 @Composable
 fun NavDrawerContent(
     navController: NavHostControllerEx = rememberNavControllerEx(),
-    navigationState: NavigationState = rememberNavigationState(
-        navController = navController,
-        drawerState = DrawerState(DrawerValue.Open)
-    ),
     backgroundColor: Color = Color(0xff202020),
     onDrawerItemClick: (id: Int) -> Unit = { id ->
         navController.menuItem(id).let { menuItem ->
@@ -62,25 +54,19 @@ fun NavDrawerContent(
         }
     },
 ) {
-
     val focusedIdx = remember { mutableIntStateOf(-1) }
-
     val topItems = navController.menuItems.filter { mi ->
         mi.menuGravity == MenuItem.Gravity.Top
     }
-
     val bottomItems = navController.menuItems.filter { mi ->
         mi.menuGravity == MenuItem.Gravity.Bottom
     }
-
     val centerItems = navController.menuItems.filter { mi ->
         mi.menuGravity == MenuItem.Gravity.Center
     }
-
     val itemId: (menuItem: MenuItem) -> Int = { menuItem ->
         navController.indexOfMenuItem(menuItem)
     }
-
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -92,11 +78,11 @@ fun NavDrawerContent(
             if (menuItem.isEnabled) {
                 NavigationRow(
                     id = itemId(menuItem),
-                    drawerState = navigationState.drawerState,
+                    drawerState = navController.menuDrawerState,
                     icon = menuItem.menuIcon,
                     text = menuItem.menuText,
                     onFocus = { id ->
-                        navigationState.openDrawer()
+                        navController.openMenu()
                         focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },
@@ -117,11 +103,11 @@ fun NavDrawerContent(
             if (menuItem.isEnabled) {
                 NavigationRow(
                     id = itemId(menuItem),
-                    drawerState = navigationState.drawerState,
+                    drawerState = navController.menuDrawerState,
                     icon = menuItem.menuIcon,
                     text = menuItem.menuText,
                     onFocus = { id ->
-                        navigationState.openDrawer()
+                        navController.openMenu()
                         focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },
@@ -142,11 +128,11 @@ fun NavDrawerContent(
             if (menuItem.isEnabled) {
                 NavigationRow(
                     id = itemId(menuItem),
-                    drawerState = navigationState.drawerState,
+                    drawerState = navController.menuDrawerState,
                     text = menuItem.menuText,
                     icon = menuItem.menuIcon,
                     onFocus = { id ->
-                        navigationState.openDrawer()
+                        navController.openMenu()
                         focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },

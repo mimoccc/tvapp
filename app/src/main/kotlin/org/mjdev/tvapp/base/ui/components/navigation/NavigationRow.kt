@@ -69,7 +69,7 @@ fun NavigationRow(
 //            0.9f to Color.Green,
 //        )
 //        .build(),
-    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
@@ -93,7 +93,9 @@ fun NavigationRow(
         focusedColor = focusedColor.copy(alpha = 0.5f),
         unFocusedColor = Color.Transparent,
         onFocus = {
-            onFocus(id)
+            if (focusState.isFocused) {
+                onFocus(id)
+            }
         },
         onClick = {
             onClick(id)

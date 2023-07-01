@@ -20,17 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NavigationDrawer
-import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.navigation.NavigationState
-import org.mjdev.tvapp.base.navigation.rememberNavigationState
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -39,28 +35,23 @@ import org.mjdev.tvapp.base.navigation.rememberNavigationState
 fun Navigation(
     modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
-    navigationState: NavigationState = rememberNavigationState(
-        navController = navController,
-        drawerState = rememberDrawerState(
-            initialValue = DrawerValue.Closed
-        )
-    ),
     backgroundColor: Color = Color(0xff202020),
     roundCornerSize: Dp = 8.dp,
     borderSize: Dp = 0.dp,
     borderColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(roundCornerSize),
     content: @Composable () -> Unit = {},
-    menuItems: List<MenuItem> = listOf()
+    menuItems: List<MenuItem> = listOf(),
+    isEdit: Boolean = isEditMode()
 ) {
 
-    val isEdit = isEditMode()
-
-    if (isEdit) navigationState.openDrawer()
+    if (isEdit) {
+        navController.openMenu()
+    }
 
     navController.addMenuItem(*menuItems.toTypedArray())
 
-    if (navController.menuState.value) {
+    if (navController.isMenuEnabled) {
         SettingsDrawer(
             drawerState = navController.settingsDrawerState,
             modifier = modifier
@@ -73,6 +64,7 @@ fun Navigation(
                     .fillMaxHeight()
                     .background(backgroundColor, shape)
                     .border(borderSize, borderColor, shape),
+                drawerState = navController.menuDrawerState,
                 content = {
                     Box(
                         modifier.fillMaxHeight()
@@ -80,14 +72,12 @@ fun Navigation(
                         content()
                     }
                 },
-                drawerState = navigationState.drawerState,
                 drawerContent = { state ->
                     NavDrawerContent(
                         backgroundColor = backgroundColor,
                         navController = navController,
-                        navigationState = navigationState,
                     )
-                    navigationState.drawerState.setValue(state)
+                    navController.menuDrawerState.setValue(state)
                 }
             )
         }

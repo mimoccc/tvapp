@@ -27,7 +27,7 @@ fun ScreenView(
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomCenter,
+        contentAlignment = Alignment.TopStart,
     ) {
         if (navController.menuState.value) {
             Navigation(

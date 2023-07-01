@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -33,7 +32,6 @@ fun CategoryRow(
     rowState: TvLazyListState = rememberTvLazyListState(),
     onItemClick: (item: Any?) -> Unit = {},
 ) {
-    val focusState = rememberFocusState()
     TextAny(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +47,6 @@ fun CategoryRow(
     ) {
         items(items) { item ->
             PhotoCard(
-                focusState = focusState,
                 item = item,
                 onClick = onItemClick,
             )
