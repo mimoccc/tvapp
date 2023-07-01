@@ -1,12 +1,12 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.tv
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -35,8 +35,8 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 import org.mjdev.tvapp.base.extensions.ContextExt.dateAsString
 import org.mjdev.tvapp.base.extensions.ContextExt.timeAsString
-import org.mjdev.tvapp.base.extensions.ModifierExt
 import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Preview

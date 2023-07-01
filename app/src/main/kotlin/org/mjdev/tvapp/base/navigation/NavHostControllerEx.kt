@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.navigation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -20,6 +20,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.navigation.NavHostController
+import androidx.tv.material3.DrawerState
+import androidx.tv.material3.DrawerValue
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ListExt.addUnique
 
 // todo apply lifecycle
@@ -29,6 +32,9 @@ class NavHostControllerEx(
 ) : NavHostController(
     context
 ), LifecycleOwner, DefaultLifecycleObserver {
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    val settingsDrawerState: DrawerState = DrawerState(DrawerValue.Closed)
 
     val menuState: MutableState<Boolean> = mutableStateOf(true)
 
@@ -96,6 +102,16 @@ class NavHostControllerEx(
         menuItems.forEachIndexed { idx, mi ->
             block.invoke(idx, mi)
         }
+    }
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    fun openSettings() {
+        settingsDrawerState.setValue(DrawerValue.Open)
+    }
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    fun closeSettings() {
+        settingsDrawerState.setValue(DrawerValue.Closed)
     }
 
 }

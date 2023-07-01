@@ -25,10 +25,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.complex.TouchBox
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Suppress("LeakingThis")

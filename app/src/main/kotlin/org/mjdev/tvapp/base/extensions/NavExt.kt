@@ -19,8 +19,8 @@ import androidx.navigation.Navigator
 import androidx.navigation.NavigatorProvider
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
-import org.mjdev.tvapp.base.ui.components.navigation.NavGraphBuilderEx
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 
 object NavExt {
 

@@ -8,7 +8,7 @@
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.navigation
 
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread

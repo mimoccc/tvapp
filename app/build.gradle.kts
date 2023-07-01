@@ -178,6 +178,8 @@ dependencies {
     implementation("androidx.media3:media3-decoder:1.0.2")
     implementation("androidx.media3:media3-datasource:1.0.2")
     implementation("androidx.media3:media3-common:1.0.2")
+//    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview:1.1.0-alpha02")
+//    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview-compose:1.1.0-alpha02")
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

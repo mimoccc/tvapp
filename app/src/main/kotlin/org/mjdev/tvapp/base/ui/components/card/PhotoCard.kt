@@ -11,11 +11,14 @@ package org.mjdev.tvapp.base.ui.components.card
 import android.annotation.SuppressLint
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.image.PhotoImage
@@ -37,11 +40,13 @@ fun PhotoCard(
     },
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = ItemCard(
     item = item,
     modifier = modifier,
+    focusState = focusState,
     contentScale = contentScale,
     scale = scale,
     imageRenderer = imageRenderer,

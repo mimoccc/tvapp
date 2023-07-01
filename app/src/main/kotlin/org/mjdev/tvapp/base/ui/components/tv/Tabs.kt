@@ -1,12 +1,12 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.tv
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,6 +32,7 @@ import androidx.tv.material3.TabRowDefaults
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ModifierExt.rememberMutableInteractionSource
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
+import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @SuppressLint("AutoboxingStateValueProperty")

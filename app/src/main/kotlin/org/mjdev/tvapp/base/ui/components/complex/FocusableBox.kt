@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -26,7 +25,6 @@ import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
 import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberMutableInteractionSource
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -46,7 +44,6 @@ fun FocusableBox(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     borderColor: Color = Color.Transparent,
     borderSize: Dp = 0.dp,
-    interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
     focusState: MutableState<FocusState?> = rememberFocusState(),
     content: @Composable BoxScope.() -> Unit = {}
 ) {
@@ -88,7 +85,6 @@ fun FocusableBox(
             shape = shape
         ).let { b -> ClickableSurfaceDefaults.border(b, b, b, b, b) },
         glow = ClickableSurfaceDefaults.glow(),
-        interactionSource = interactionSource,
         content = content
     )
 

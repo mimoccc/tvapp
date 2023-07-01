@@ -6,6 +6,8 @@
  *  w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvapp.base.extensions
 
 import androidx.annotation.FloatRange
@@ -30,7 +32,7 @@ object ColorFilterExt {
         )
     )
 
-    fun BW() = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+    fun bw() = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
 
     fun colorInvert() = ColorFilter.colorMatrix(
         ColorMatrix(
@@ -42,6 +44,5 @@ object ColorFilterExt {
             )
         )
     )
-
 
 }

@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp

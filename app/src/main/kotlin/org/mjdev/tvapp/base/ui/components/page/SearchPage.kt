@@ -14,7 +14,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.MenuItem
 
 open class SearchPage : Page() {
 

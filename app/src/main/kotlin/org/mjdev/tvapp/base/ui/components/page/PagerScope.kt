@@ -13,8 +13,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import org.mjdev.tvapp.base.extensions.ListExt.addUnique
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 
 class PagerScope(
     val navController: NavHostControllerEx,

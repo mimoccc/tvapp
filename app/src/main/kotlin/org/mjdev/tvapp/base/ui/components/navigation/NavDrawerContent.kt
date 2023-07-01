@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -24,11 +24,11 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.NavigationState
-import org.mjdev.tvapp.base.ui.components.navigation.Screen.Companion.open
-import org.mjdev.tvapp.base.ui.components.navigation.rememberNavigationState
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.NavigationState
+import org.mjdev.tvapp.base.navigation.Screen.Companion.open
+import org.mjdev.tvapp.base.navigation.rememberNavigationState
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -63,7 +63,7 @@ fun NavDrawerContent(
     },
 ) {
 
-    val focused = remember { mutableIntStateOf(-1) }
+    val focusedIdx = remember { mutableIntStateOf(-1) }
 
     val topItems = navController.menuItems.filter { mi ->
         mi.menuGravity == MenuItem.Gravity.Top
@@ -97,7 +97,7 @@ fun NavDrawerContent(
                     text = menuItem.menuText,
                     onFocus = { id ->
                         navigationState.openDrawer()
-                        focused.value = id
+                        focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },
                     onClick = { id ->
@@ -122,7 +122,7 @@ fun NavDrawerContent(
                     text = menuItem.menuText,
                     onFocus = { id ->
                         navigationState.openDrawer()
-                        focused.value = id
+                        focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },
                     onClick = { id ->
@@ -147,7 +147,7 @@ fun NavDrawerContent(
                     icon = menuItem.menuIcon,
                     onFocus = { id ->
                         navigationState.openDrawer()
-                        focused.value = id
+                        focusedIdx.value = id
                         onDrawerItemFocus(id)
                     },
                     onClick = { id ->

@@ -6,25 +6,26 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -34,8 +35,9 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.ModifierExt
+import org.mjdev.tvapp.base.extensions.ModifierExt.isFocused
 import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -45,7 +47,6 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 fun NavigationRow(
     modifier: Modifier = Modifier,
     id: Int = -1,
-    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
     text: Any? = "menu item 1",
     icon: Any? = Icons.Default.AccountCircle,
     textColor: Color = Color.White,
@@ -53,24 +54,44 @@ fun NavigationRow(
     focusedColor: Color = Color.Green,
     unFocusedColor: Color = Color.Transparent,
     expandedWidth: Dp = 150.dp,
-    contentPadding: Dp = 2.dp,
+    roundCornerSize: Dp = 32.dp,
+    shape: Shape = RoundedCornerShape(roundCornerSize),
+    strokeWidth: Dp = 2.dp,
+    margin: Dp = 2.dp,
+    padding: Dp = 4.dp,
+//    brush: Brush? = BrushBuilder()
+//        .type(BrushBuilder.Vertical)
+//        .colors(
+//            0.1f to Color.White,
+//            0.3f to Color.Green,
+//            0.4f to Color.Green,
+//            0.5f to Color.Green,
+//            0.9f to Color.Green,
+//        )
+//        .build(),
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
     focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
 
     val isEdit = isEditMode()
-    val focused = remember { mutableStateOf(false) }
 
     FocusableBox(
         modifier = modifier
-            .padding(contentPadding)
-            .background(
-                if (isEdit || focused.value) focusedColor else unFocusedColor
+            .padding(margin)
+            .border(
+                BorderStroke(
+                    strokeWidth,
+                    if (isEdit || focusState.isFocused) focusedColor
+                    else unFocusedColor
+                ),
+                shape
             ),
         focusState = focusState,
-        focusedColor = focusedColor,
-        unFocusedColor = unFocusedColor,
+        shape = shape,
+        focusedColor = focusedColor.copy(alpha = 0.5f),
+        unFocusedColor = Color.Transparent,
         onFocus = {
             onFocus(id)
         },
@@ -79,6 +100,9 @@ fun NavigationRow(
         },
     ) {
         Row(
+            modifier = Modifier
+                .padding(padding),
+//                .background(brush!!, shape),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {

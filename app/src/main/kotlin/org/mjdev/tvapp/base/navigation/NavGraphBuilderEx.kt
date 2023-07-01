@@ -6,12 +6,12 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.navigation
+package org.mjdev.tvapp.base.navigation
 
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavigatorProvider
-import org.mjdev.tvapp.base.ui.components.complex.EmptyScreen.Companion.ROUTE_NONE
+import org.mjdev.tvapp.base.ui.components.screen.EmptyScreen.Companion.ROUTE_NONE
 
 class NavGraphBuilderEx(
     provider: NavigatorProvider,

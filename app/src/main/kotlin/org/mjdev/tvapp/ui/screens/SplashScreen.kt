@@ -16,27 +16,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Tv
+import androidx.compose.material.icons.filled.Tv
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.material3.MaterialTheme
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.ui.components.navigation.Screen
+import org.mjdev.tvapp.base.navigation.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
+import org.mjdev.tvapp.base.ui.components.text.TextWithShadow
 
 class SplashScreen : Screen() {
 
@@ -59,22 +57,17 @@ class SplashScreen : Screen() {
         ) {
             IconAny(
                 modifier = Modifier.size(128.dp),
-                src = Icons.Sharp.Tv,
-                tint = Color.White.copy(alpha = 0.5f)
+                src = Icons.Default.Tv,
+                tint=Color.Black
             )
-            TextAny(
+            TextWithShadow(
                 text = R.string.app_name,
                 fontSize = 64.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 modifier = Modifier.padding(10.dp),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    shadow = Shadow(
-                        color = Color.Gray,
-                        offset = Offset(5f, 5f),
-                        blurRadius = 10f
-                    )
-                ),
+                shadowColor = Color.Green,
+                shadowSize = 18.dp
             )
         }
         Box(
@@ -90,7 +83,7 @@ class SplashScreen : Screen() {
         ) {
             TextAny(
                 text = R.string.author,
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White.copy(alpha = 0.5f)
             )

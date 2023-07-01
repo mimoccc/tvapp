@@ -6,7 +6,7 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.carousel
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +23,6 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.ui.components.card.CarouselCard
-import org.mjdev.tvapp.data.Movie
 
 // todo swipe left and swipe right
 @SuppressLint("AutoboxingStateValueProperty")
@@ -32,24 +31,22 @@ import org.mjdev.tvapp.data.Movie
 @Composable
 fun BigCarousel(
     modifier: Modifier = Modifier,
-    items: List<Movie> = emptyList(),
+    items: List<Any?> = emptyList(),
     height: Dp = 260.dp,
-    onItemSelected: (movie: Movie?) -> Unit = {},
-    onItemClicked: (movie: Movie?) -> Unit = {},
+    onItemSelected: (movie: Any?) -> Unit = {},
+    onItemClicked: (movie: Any?) -> Unit = {},
 ) {
-
     val itemIndex = remember { mutableIntStateOf(0) }
-    val selectedMovie: () -> Movie? = { items[itemIndex.value] }
-
+    val selectedItem: () -> Any? = {
+        items[itemIndex.value]
+    }
     Carousel(
         itemCount = items.size,
         modifier = modifier
             .fillMaxWidth()
             .height(height),
     ) { indexOfCarouselItem ->
-
         itemIndex.value = indexOfCarouselItem
-
         CarouselCard(
             modifier = modifier
                 .fillMaxWidth()
@@ -58,10 +55,8 @@ fun BigCarousel(
             scale = CardScale.None,
             item = items[indexOfCarouselItem],
             onClick = {
-                onItemClicked(selectedMovie())
+                onItemClicked(selectedItem())
             }
         )
-
     }
-
 }

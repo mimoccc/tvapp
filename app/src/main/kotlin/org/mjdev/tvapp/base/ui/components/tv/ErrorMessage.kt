@@ -6,7 +6,7 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.tv
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

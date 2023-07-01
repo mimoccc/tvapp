@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItemClickListener
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.MenuItemClickListener
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.page.Page.Companion.EMPTY_PAGE
 
 @SuppressLint("AutoboxingStateValueProperty")

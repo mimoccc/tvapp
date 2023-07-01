@@ -6,11 +6,12 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.complex
+package org.mjdev.tvapp.base.ui.components.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -21,16 +22,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawer
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.MenuItem
-import org.mjdev.tvapp.base.ui.components.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.ui.components.navigation.NavigationState
-import org.mjdev.tvapp.base.ui.components.navigation.rememberNavigationState
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
+import org.mjdev.tvapp.base.navigation.NavigationState
+import org.mjdev.tvapp.base.navigation.rememberNavigationState
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -61,28 +61,42 @@ fun Navigation(
     navController.addMenuItem(*menuItems.toTypedArray())
 
     if (navController.menuState.value) {
-// todo right navigation with settings
-//        ModalNavigationDrawer(
-//            drawerContent = {}) {
-        NavigationDrawer(
+        SettingsDrawer(
+            drawerState = navController.settingsDrawerState,
             modifier = modifier
                 .fillMaxHeight()
                 .background(backgroundColor, shape)
-                .border(borderSize, borderColor, shape),
-            content = content,
-            drawerState = navigationState.drawerState,
-            drawerContent = { state ->
-                NavDrawerContent(
-                    backgroundColor = backgroundColor,
-                    navController = navController,
-                    navigationState = navigationState,
-                )
-                navigationState.drawerState.setValue(state)
-            }
-        )
-//        }
+                .border(borderSize, borderColor, shape)
+        ) {
+            NavigationDrawer(
+                modifier = modifier
+                    .fillMaxHeight()
+                    .background(backgroundColor, shape)
+                    .border(borderSize, borderColor, shape),
+                content = {
+                    Box(
+                        modifier.fillMaxHeight()
+                    ) {
+                        content()
+                    }
+                },
+                drawerState = navigationState.drawerState,
+                drawerContent = { state ->
+                    NavDrawerContent(
+                        backgroundColor = backgroundColor,
+                        navController = navController,
+                        navigationState = navigationState,
+                    )
+                    navigationState.drawerState.setValue(state)
+                }
+            )
+        }
     } else {
-        content()
+        Box(
+            modifier.fillMaxHeight()
+        ) {
+            content()
+        }
     }
 
 }

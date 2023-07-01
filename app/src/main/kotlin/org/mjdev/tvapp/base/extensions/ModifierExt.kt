@@ -16,7 +16,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
@@ -36,21 +35,25 @@ object ModifierExt {
         mutableStateOf(initial)
     }
 
+    @Composable
+    fun rememberFocusRequester() = remember { FocusRequester() }
+
     val MutableState<FocusState?>.isFocused
         get() = (value?.isFocused == true) || (value?.hasFocus == true)
 
     @SuppressLint("ComposableModifierFactory")
     @Composable
+    // todo focus problem, requester not registered
     fun Modifier.touchable(
         state: MutableState<FocusState?> = rememberFocusState(),
-        focusRequester: FocusRequester = remember { FocusRequester() },
-        onFocus:()->Unit={},
-        onClick:()->Unit={},
+        focusRequester: FocusRequester = rememberFocusRequester(),
+        onFocus: () -> Unit = {},
+        onClick: () -> Unit = {},
     ): Modifier = focusRequester(
         focusRequester
     ).pointerInput(Unit) {
         detectTapGestures {
-            if(state.isFocused) {
+            if (state.isFocused) {
                 onClick()
             } else {
                 try {
@@ -63,6 +66,7 @@ object ModifierExt {
         }
     }.onFocusChanged { fstate ->
         state.value = fstate
+        onFocus()
     }.apply {
         if (state.isFocused) {
             try {
