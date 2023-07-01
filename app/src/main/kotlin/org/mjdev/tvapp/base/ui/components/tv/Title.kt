@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.ModifierExt.isFocused
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
 import org.mjdev.tvapp.base.ui.components.text.TextWithShadow

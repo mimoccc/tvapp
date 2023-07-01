@@ -12,9 +12,11 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -22,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.ui.components.card.CarouselCard
 
 // todo swipe left and swipe right
@@ -36,6 +40,7 @@ fun BigCarousel(
     onItemSelected: (movie: Any?) -> Unit = {},
     onItemClicked: (movie: Any?) -> Unit = {},
 ) {
+    val focusState: MutableState<FocusState?> = ComposeExt.rememberFocusState()
     val itemIndex = remember { mutableIntStateOf(0) }
     val selectedItem: () -> Any? = {
         items[itemIndex.value]
@@ -53,7 +58,13 @@ fun BigCarousel(
                 .height(height),
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
-            item = items[indexOfCarouselItem],
+            focusState = focusState,
+            onFocus = {
+                if (focusState.isFocused) {
+                    // todo check
+                    onItemSelected(selectedItem())
+                }
+            },
             onClick = {
                 onItemClicked(selectedItem())
             }

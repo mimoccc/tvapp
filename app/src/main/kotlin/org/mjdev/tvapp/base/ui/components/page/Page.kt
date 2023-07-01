@@ -11,6 +11,7 @@ package org.mjdev.tvapp.base.ui.components.page
 import android.annotation.SuppressLint
 import androidx.annotation.CallSuper
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.complex.TouchBox
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
@@ -51,9 +53,9 @@ open class Page {
             Modifier
                 .fillMaxSize()
                 .background(backgroundColor, background)
-//                .touchable {
-//                    freeFocus()
-//                }
+                .touchable {
+                    freeFocus()
+                }
         ) {
             TouchBox(
                 contentAlignment = Alignment.Center,
@@ -66,7 +68,7 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().focusable(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

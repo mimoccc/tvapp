@@ -31,7 +31,7 @@ import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 import org.mjdev.tvapp.base.ui.components.text.TextWithShadow
@@ -99,7 +99,7 @@ class SplashScreen : Screen() {
                     })
             )
             delay(3000L)
-            navController.openAsTop<MainScreen>()
+            navController?.openAsTop<MainScreen>()
         }
 
     }

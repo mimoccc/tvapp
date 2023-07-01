@@ -10,8 +10,14 @@
 
 package org.mjdev.tvapp.base.extensions
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import kotlinx.coroutines.flow.Flow
@@ -37,6 +43,26 @@ object ComposeExt {
         is String -> text
         else -> text.toString()
     }
+
+    @Composable
+    fun rememberMutableInteractionSource() = remember {
+        MutableInteractionSource()
+    }
+
+    @Composable
+    fun rememberFocusState(
+        initial: FocusState? = null
+    ) = remember {
+        mutableStateOf(initial)
+    }
+
+    @Composable
+    fun rememberFocusRequester() = remember {
+        FocusRequester()
+    }
+
+    val MutableState<FocusState?>.isFocused
+        get() = (value?.isFocused == true) || (value?.hasFocus == true)
 
 //    @Composable
 //    fun Any?.toDrawable(): Drawable {

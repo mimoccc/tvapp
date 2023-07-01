@@ -24,7 +24,7 @@ import androidx.tv.material3.Border
 import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -47,13 +47,12 @@ fun FocusableBox(
     focusState: MutableState<FocusState?> = rememberFocusState(),
     content: @Composable BoxScope.() -> Unit = {}
 ) {
-
     Surface(
         onClick = onClick,
         modifier = modifier.touchable(
             state = focusState,
-            onFocus = onFocus,
-            onClick = onClick,
+            onFocus = { onFocus() },
+            onClick = { onClick() },
         ),
         onLongClick = null,
         enabled = enabled,

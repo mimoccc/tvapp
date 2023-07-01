@@ -8,10 +8,11 @@
 
 package org.mjdev.tvapp.ui.pages
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.SettingsInputComponent
@@ -26,7 +27,9 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.ui.components.card.Card
+import org.mjdev.tvapp.base.ui.components.card.CardContent
 import org.mjdev.tvapp.base.ui.components.page.Page
+import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 class PluginsPage : Page() {
 
@@ -37,26 +40,48 @@ class PluginsPage : Page() {
     @TvPreview
     @Composable
     override fun Content() {
-        Card(
+
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(backgroundColor, background),
-            onClick = {},
-            onLongClick = {},
-            shape = CardDefaults.shape(),
-            colors = CardDefaults.colors(
-                containerColor = Color(0xff242424)
-            ),
+                .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically,
-                content = {
-                }
-            )
+            Card(
+                onClick = {},
+                onLongClick = {},
+                modifier = Modifier.fillMaxSize(),
+                shape = CardDefaults.shape(),
+                colors = CardDefaults.colors(
+                    containerColor = Color(0xff242424)
+                ),
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = {
+                        CardContent(
+                            modifier = Modifier.fillMaxWidth(),
+                            title = {
+                                TextAny(
+                                    color = Color.White,
+                                    text = title
+                                )
+                            },
+                            subtitle = {
+                                TextAny(
+                                    color = Color.White,
+                                    text = R.string.text_unimplemented_yet
+                                )
+                            },
+                            description = {
+                            }
+                        )
+                    }
+                )
+            }
         }
     }
 

@@ -38,10 +38,14 @@ fun BrowseView(
     showHeader: Boolean = true,
     showNetworkState: Boolean = true,
     title: Any? = "test",
-    messages: List<Any?> = emptyList(),
-    categories: List<Any?> = emptyList(),
-    featuredItems: List<Any?> = emptyList(),
-    categoriesAndItemsMap: Map<*, List<*>> = emptyMap<Any?, List<Any?>>(),
+    messages: List<Any?> = listOf(Unit, Unit, Unit),
+    categories: List<Any?> = listOf(Unit, Unit, Unit),
+    featuredItems: List<Any?> = listOf(Unit, Unit, Unit),
+    categoriesAndItemsMap: Map<*, List<*>> = mapOf<Any?, List<Any?>>(
+        Unit to listOf(Unit, Unit, Unit, Unit),
+        Unit to listOf(Unit, Unit, Unit, Unit),
+        Unit to listOf(Unit, Unit, Unit, Unit),
+    ),
     networkState: State<NetworkStatus?> = mutableStateOf(NetworkStatus.Unknown),
     errorState: State<Throwable?> = mutableStateOf(null),
     backgroundColor: Color = Color.DarkGray,
@@ -81,7 +85,7 @@ fun BrowseView(
         if (isEdit || categories.isNotEmpty()) item {
             Tabs(
                 items = categories.map { category ->
-                    (category as ItemWithTitle).title
+                    (category as? ItemWithTitle)?.title
                 }
             )
         }

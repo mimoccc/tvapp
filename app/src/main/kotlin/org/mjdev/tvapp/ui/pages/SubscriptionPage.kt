@@ -66,7 +66,7 @@ class SubscriptionPage : Page() {
                             title = {
                                 TextAny(
                                     color = Color.White,
-                                    text = R.string.app_name
+                                    text = title
                                 )
                             },
                             subtitle = {

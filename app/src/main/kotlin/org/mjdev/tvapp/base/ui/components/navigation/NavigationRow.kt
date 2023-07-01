@@ -35,8 +35,8 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.ModifierExt.isFocused
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -74,9 +74,7 @@ fun NavigationRow(
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
-
     val isEdit = isEditMode()
-
     FocusableBox(
         modifier = modifier
             .padding(margin)

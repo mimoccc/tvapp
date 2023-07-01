@@ -23,7 +23,7 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Loading
 import org.mjdev.tvapp.ui.components.MediaPlayer
@@ -62,7 +62,7 @@ class PlayerScreen : Screen() {
         if (isEdit || (movieState.value is DetailsLoadingState.Ready)) {
             MediaPlayer(
                 modifier = Modifier.fillMaxSize(),
-                movie = (movieState.value as DetailsLoadingState.Ready).movie
+                movie = (movieState.value as? DetailsLoadingState.Ready)?.movie
             )
         } else if (movieState.value is DetailsLoadingState.NotFound) {
             postError("Movie for id: $movieId not found.")

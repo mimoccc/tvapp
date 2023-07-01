@@ -12,6 +12,8 @@ import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +34,9 @@ import coil.ImageLoader
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.DrawableExt.asPhoto
+import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 
 @SuppressLint("ModifierParameter")
 @Preview
@@ -55,6 +59,7 @@ fun PhotoImage(
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
 ) {
+    val isEdit = isEditMode()
     val context = LocalContext.current
     CoilImage(
         imageLoader = {
@@ -63,10 +68,14 @@ fun PhotoImage(
                 .build()
         },
         imageModel = { src },
-        modifier = modifier.border(
-            BorderStroke(borderSize, borderColor),
-            shape
-        ),
+        modifier = modifier
+            .conditional(isEdit) {
+                aspectRatio(16f / 9f).defaultMinSize(80.dp)
+            }
+            .border(
+                BorderStroke(borderSize, borderColor),
+                shape
+            ),
         imageOptions = ImageOptions(
             contentScale = contentScale,
             alignment = alignment,

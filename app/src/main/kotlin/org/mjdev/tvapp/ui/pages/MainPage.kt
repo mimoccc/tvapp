@@ -25,7 +25,7 @@ import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
-import org.mjdev.tvapp.base.navigation.Screen.Companion.open
+import org.mjdev.tvapp.base.screen.Screen.Companion.open
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.tv.BrowseView
 import org.mjdev.tvapp.ui.screens.DetailScreen

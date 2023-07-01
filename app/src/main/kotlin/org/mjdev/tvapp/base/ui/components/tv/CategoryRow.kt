@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
@@ -25,10 +26,11 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Suppress("UNUSED_PARAMETER")
 @OptIn(ExperimentalTvMaterial3Api::class)
+@Preview
 @Composable
 fun CategoryRow(
     title: Any? = "category 1",
-    items: List<Any?> = listOf(),
+    items: List<Any?> = listOf(Unit, Unit, Unit),
     rowState: TvLazyListState = rememberTvLazyListState(),
     onItemClick: (item: Any?) -> Unit = {},
 ) {

@@ -30,7 +30,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.textFrom
 @Preview
 @Composable
 fun TextAny(
-    text: Any? = "",
+    text: Any? = "test",
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     fontSize: TextUnit = TextUnit.Unspecified,

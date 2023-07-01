@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -55,13 +57,14 @@ import kotlinx.coroutines.withContext
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Suppress("unused")
 @UnstableApi
+@Preview
 @Composable
 fun PreviewCard(
     modifier: Modifier = Modifier,
-    cardWidth: Dp,
-    cardHeight: Dp,
-    videoUrl: String,
-    hasFocus: Boolean,
+    cardWidth: Dp = 200.dp,
+    cardHeight: Dp = 140.dp,
+    videoUrl: String = "",
+    hasFocus: Boolean = false,
     clipStartPosition: Long = 2000000,
     clipEndPosition: Long = 8000000,
     thumbnailFrame: Long = 5000000,
@@ -114,15 +117,18 @@ fun PreviewCard(
                     Lifecycle.Event.ON_PAUSE -> {
                         exoPlayer.playWhenReady = false
                     }
+
                     Lifecycle.Event.ON_RESUME -> {
                         exoPlayer.playWhenReady = true
                     }
+
                     Lifecycle.Event.ON_DESTROY -> {
                         exoPlayer.run {
                             stop()
                             release()
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -169,14 +175,15 @@ fun PreviewCard(
     }
 }
 
+@Preview
 @Composable
 fun PreviewThumbnail(
-    thumbnail: String?,
-    thumbnailBitmap: Bitmap?,
-    thumbnailFrame: Long,
-    videoUrl: String,
-    isLoadingVideo: Boolean,
-    onBitmapLoaded: (bitmap: Bitmap?) -> Unit
+    thumbnail: String? = "",
+    thumbnailBitmap: Bitmap? = null,
+    thumbnailFrame: Long = 0,
+    videoUrl: String = "",
+    isLoadingVideo: Boolean = false,
+    onBitmapLoaded: (bitmap: Bitmap?) -> Unit = {}
 ) {
     if (thumbnail == null && thumbnailBitmap == null) {
         LaunchedEffect(videoUrl) {
@@ -200,7 +207,7 @@ fun PreviewThumbnail(
                 .border(2.dp, Color.White.copy(alpha = 0.4f)),
             contentAlignment = Alignment.Center
         ) {
-//            CircularProgressIndicator()
+            CircularProgressIndicator()
         }
     } else {
         Box(
@@ -226,7 +233,7 @@ fun PreviewThumbnail(
                 )
             }
             if (isLoadingVideo) {
-//                CircularProgressIndicator(strokeWidth = 4.dp)
+                CircularProgressIndicator(strokeWidth = 4.dp)
             }
         }
     }

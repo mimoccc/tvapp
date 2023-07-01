@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,9 +34,11 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ContextExt.dateAsString
 import org.mjdev.tvapp.base.extensions.ContextExt.timeAsString
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -58,7 +61,7 @@ fun Clock(
     focusState: MutableState<FocusState?> = rememberFocusState(),
     onClick: () -> Unit = {},
 ) {
-
+    val isEdit = isEditMode()
     val context = LocalContext.current
 
     val timeFlow = if (showTime) channelFlow {
@@ -92,7 +95,11 @@ fun Clock(
     }.collectAsState(initial = "1.1.1970") else null
 
     FocusableBox(
-        modifier = modifier.padding(contentPadding),
+        modifier = modifier
+            .padding(contentPadding)
+            .conditional(isEdit) {
+                background(Color.DarkGray, RectangleShape)
+            },
         focusState = focusState,
         shape = RoundedCornerShape(roundSize),
         onClick = onClick

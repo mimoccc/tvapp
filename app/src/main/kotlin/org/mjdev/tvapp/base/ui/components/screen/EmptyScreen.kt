@@ -10,7 +10,7 @@ package org.mjdev.tvapp.base.ui.components.screen
 
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.navigation.Screen
+import org.mjdev.tvapp.base.screen.Screen
 
 internal class EmptyScreen : Screen() {
 

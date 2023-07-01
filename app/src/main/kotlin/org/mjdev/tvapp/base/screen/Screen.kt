@@ -8,7 +8,7 @@
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.screen
 
 import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
@@ -41,6 +41,9 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.AnimExt.FadeIn
 import org.mjdev.tvapp.base.extensions.AnimExt.FadeOut
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.navigation.MenuItem
+import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
+import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import kotlin.reflect.full.createInstance
 
 @Suppress("unused", "LeakingThis")
@@ -83,9 +86,9 @@ open class Screen {
             menuRoute = completeRoute
         ) else null
 
-    lateinit var navController: NavHostControllerEx
+    var navController: NavHostControllerEx? = null
     var backStackEntry: NavBackStackEntry? = null
-    lateinit var args: Map<String, Any?>
+    var args: Map<String, Any?> = emptyMap()
 
     @TvPreview
     @Composable

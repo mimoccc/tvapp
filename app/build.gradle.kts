@@ -149,6 +149,7 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
     implementation("com.google.dagger:dagger:2.46.1")
+    implementation("androidx.compose.material3:material3:1.1.0")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
     // dagger android
     implementation("com.google.dagger:dagger-android:2.46.1")

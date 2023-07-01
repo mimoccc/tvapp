@@ -8,29 +8,24 @@
 
 package org.mjdev.tvapp.ui.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.darkColorScheme
-import androidx.tv.material3.lightColorScheme
+import org.mjdev.tvapp.base.ui.theme.ThemeHelper
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun TVAppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
     content: @Composable () -> Unit,
-) {
+) = ThemeHelper (useDarkTheme, dynamicColor, content)
 
-    val colorScheme = if (useDarkTheme) {
-        darkColorScheme()
-    } else {
-        lightColorScheme()
-    }
+// todo
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        content = content
-    )
-
-}
+//val backgroundColorDefault = Color.DarkGray
+//val backgroundColorMenu = Color(0xff202020)
+//
+//val textColorDefault = Color.White
+//
+//val roundCornerSize: Dp = 16.dp
+//val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)

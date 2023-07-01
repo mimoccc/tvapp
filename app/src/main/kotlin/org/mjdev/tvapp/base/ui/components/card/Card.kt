@@ -8,11 +8,13 @@
 
 package org.mjdev.tvapp.base.ui.components.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -37,6 +39,7 @@ import androidx.tv.material3.Glow
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
+@SuppressLint("ModifierParameter")
 fun Card(
     modifier: Modifier = Modifier,
     scale: CardScale = CardScale.None,
@@ -50,7 +53,9 @@ fun Card(
     content: @Composable ColumnScope.() -> Unit = {}
 ) = androidx.tv.material3.Card(
     onClick = onClick,
-    modifier = modifier,
+    modifier = modifier
+        .widthIn(max = 320.dp)
+        .aspectRatio(16f / 9f),
     onLongClick = onLongClick,
     shape = shape,
     colors = colors,
@@ -148,13 +153,15 @@ fun Modifier.rainbowBorder(
     borderSize: Dp = 4.dp,
     borderRound: Dp = 8.dp,
     shape: Shape = RoundedCornerShape(borderRound)
-) = composed { border(
-    BorderStroke(
-        borderSize,
-        rainbowColorsBrush()
-    ),
-    shape
-) }
+) = composed {
+    border(
+        BorderStroke(
+            borderSize,
+            rainbowColorsBrush()
+        ),
+        shape
+    )
+}
 
 @Suppress("unused")
 fun Modifier.tvAspectRatio() = aspectRatio(16f / 9f)

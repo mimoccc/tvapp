@@ -30,7 +30,7 @@ import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberMutableInteractionSource
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberMutableInteractionSource
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -39,9 +39,9 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
-fun <T> Tabs(
+fun Tabs(
     modifier: Modifier = Modifier,
-    items: List<T> = emptyList(),
+    items: List<Any?> = listOf(Unit, Unit, Unit),
     fontSize: TextUnit = 12.sp,
     itemsSpacing: Dp = 8.dp,
     activeContentColor: Color = Color.Green,

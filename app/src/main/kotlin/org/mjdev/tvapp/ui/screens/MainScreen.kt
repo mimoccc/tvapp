@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.navigation.ScreenWithPages
+import org.mjdev.tvapp.base.screen.ScreenWithPages
 import org.mjdev.tvapp.base.ui.components.page.PagerScope
 import org.mjdev.tvapp.base.ui.components.page.SearchPage
 import org.mjdev.tvapp.base.ui.components.page.SettingsPage

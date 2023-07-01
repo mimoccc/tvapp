@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.base.ui.components.tv
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -22,7 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
 
@@ -46,8 +49,12 @@ fun UserPic(
     onClick = onClick
 ) {
 
+    val isEdit = isEditMode()
     CircleImage(
-        modifier = modifier,
+        modifier = modifier
+            .conditional(isEdit) {
+                size(64.dp)
+            },
         backGroundColor = backGroundColor,
         borderSize = borderSize,
         borderColor = borderColor,

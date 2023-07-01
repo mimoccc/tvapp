@@ -10,36 +10,30 @@ package org.mjdev.tvapp.base.extensions
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import timber.log.Timber
 
 object ModifierExt {
 
-    @Composable
-    fun rememberMutableInteractionSource() = remember { MutableInteractionSource() }
-
-    @Composable
-    fun rememberFocusState(
-        initial: FocusState? = null
-    ) = remember {
-        mutableStateOf(initial)
+    fun Modifier.conditional(
+        condition: Boolean,
+        other: Modifier.() -> Modifier
+    ): Modifier {
+        return when(condition) {
+            true -> this.then(other.invoke(this))
+            else -> this
+        }
     }
-
-    @Composable
-    fun rememberFocusRequester() = remember { FocusRequester() }
-
-    val MutableState<FocusState?>.isFocused
-        get() = (value?.isFocused == true) || (value?.hasFocus == true)
 
     @SuppressLint("ComposableModifierFactory")
     @Composable
@@ -47,18 +41,18 @@ object ModifierExt {
     fun Modifier.touchable(
         state: MutableState<FocusState?> = rememberFocusState(),
         focusRequester: FocusRequester = rememberFocusRequester(),
-        onFocus: () -> Unit = {},
-        onClick: () -> Unit = {},
+        onFocus: FocusRequester.() -> Unit = {},
+        onClick: FocusRequester.() -> Unit = {},
     ): Modifier = focusRequester(
         focusRequester
     ).pointerInput(Unit) {
         detectTapGestures {
             if (state.isFocused) {
-                onClick()
+                onClick(focusRequester)
             } else {
                 try {
                     focusRequester.requestFocus()
-                    onFocus()
+                    onFocus(focusRequester)
                 } catch (e: Exception) {
                     Timber.e(e)
                 }
@@ -66,7 +60,7 @@ object ModifierExt {
         }
     }.onFocusChanged { fstate ->
         state.value = fstate
-        onFocus()
+        onFocus(focusRequester)
     }.apply {
         if (state.isFocused) {
             try {

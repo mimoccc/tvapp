@@ -9,6 +9,8 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -27,7 +29,9 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
@@ -65,6 +69,7 @@ fun FocusableCard(
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
+    val isEdit = ComposeExt.isEditMode()
     CompactCard(
         scale = scale,
         shape = shape,
@@ -72,6 +77,9 @@ fun FocusableCard(
         border = border,
         glow = glow,
         modifier = modifier
+            .conditional(isEdit) {
+                aspectRatio(16f / 9f).defaultMinSize(80.dp)
+            }
             .onFocusChanged { state ->
                 focusState.value = state
             }

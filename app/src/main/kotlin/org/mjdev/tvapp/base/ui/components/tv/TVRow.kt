@@ -21,7 +21,9 @@ import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
+import org.mjdev.tvapp.base.annotations.TvPreview
 
+@TvPreview
 @Composable
 fun TVRow(
     modifier: Modifier = Modifier,
@@ -33,7 +35,7 @@ fun TVRow(
     verticalAlignment: Alignment.Vertical = Alignment.Top,
     userScrollEnabled: Boolean = true,
     pivotOffsets: PivotOffsets = PivotOffsets(),
-    content: TvLazyListScope.() -> Unit
+    content: TvLazyListScope.() -> Unit = {}
 ) {
     TvLazyRow(
         modifier = modifier,

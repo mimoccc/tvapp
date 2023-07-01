@@ -17,8 +17,10 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.rememberDrawerState
+import org.mjdev.tvapp.base.annotations.TvPreview
 
 @OptIn(ExperimentalTvMaterial3Api::class)
+@TvPreview
 @Composable
 fun SettingsDrawer(
     modifier: Modifier = Modifier,

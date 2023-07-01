@@ -6,10 +6,11 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.navigation
+package org.mjdev.tvapp.base.screen
 
 import androidx.compose.runtime.Composable
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.ui.components.page.TvPager
 import org.mjdev.tvapp.base.ui.components.page.PagerScope
 
@@ -22,6 +23,7 @@ open class ScreenWithPages : Screen() {
     @TvPreview
     @Composable
     override fun ComposeScreen() {
+        val navController = navController ?: rememberNavControllerEx()
         TvPager(
             navController = navController,
             startIndex = startPageIndex,

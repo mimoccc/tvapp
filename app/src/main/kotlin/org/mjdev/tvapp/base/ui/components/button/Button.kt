@@ -9,17 +9,20 @@
 package org.mjdev.tvapp.base.ui.components.button
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,7 +32,7 @@ import androidx.tv.material3.ButtonGlow
 import androidx.tv.material3.ButtonScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
-import org.mjdev.tvapp.base.extensions.ModifierExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -39,7 +42,7 @@ import org.mjdev.tvapp.base.ui.components.text.TextAny
 @SuppressLint("ModifierParameter")
 @Composable
 fun Button(
-    text: Any? = null,
+    text: Any? = "test",
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 24.sp,
@@ -47,7 +50,10 @@ fun Button(
     color: Color = Color.White,
     containerColor: Color = Color.Transparent,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    shape: Shape = RectangleShape,
+    roundRectSize: Dp = 8.dp,
+    shape: Shape = RoundedCornerShape(roundRectSize),
+    borderSize: Dp = 2.dp,
+    borderColor: Color = Color.White,
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
     focusState: MutableState<FocusState?> = rememberFocusState(),
@@ -57,9 +63,11 @@ fun Button(
 ) {
 
     Button(
-        modifier = modifier.touchable(
-            state = focusState,
-        ),
+        modifier = modifier
+            .touchable(
+                state = focusState,
+            )
+            .border(BorderStroke(borderSize, borderColor), shape),
         glow = glow,
         scale = scale,
         onClick = onClick,
