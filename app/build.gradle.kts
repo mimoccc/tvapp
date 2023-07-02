@@ -125,6 +125,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.11.0-beta02")
     // reflect / debug purposes only
     implementation(kotlin("reflect", "1.8.21"))
+    // window manager
+    implementation("androidx.window:window:1.0.0")
     // compose base libs
     implementation(
         platform("androidx.compose:compose-bom:2023.06.01")
