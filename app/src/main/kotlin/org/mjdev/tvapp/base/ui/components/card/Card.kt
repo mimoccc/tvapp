@@ -13,7 +13,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -35,6 +34,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
+import org.mjdev.tvapp.base.extensions.ModifierExt.aspectRatio
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
@@ -54,13 +54,14 @@ fun Card(
         focusGlowColor,
         unFocusGlowColor
     ),
+    aspectRatio : Float? =  16f / 9f,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit = {}
 ) = androidx.tv.material3.Card(
     onClick = onClick,
     modifier = modifier
         .widthIn(max = 320.dp)
-        .aspectRatio(16f / 9f),
+        .aspectRatio(aspectRatio),
     onLongClick = onLongClick,
     shape = shape,
     colors = colors,

@@ -30,6 +30,10 @@ object ModifierExt {
         }
     }
 
+    fun Modifier.aspectRatio(ratio: Float?): Modifier = conditional(ratio != null) {
+        aspectRatio(ratio!!)
+    }
+
     fun Modifier.focusState(
         focusState: MutableState<FocusState?>
     ): Modifier = onFocusChanged { state ->

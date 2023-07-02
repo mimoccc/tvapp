@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -64,7 +63,6 @@ fun FocusableCard(
             placeholder = placeholder
         )
     },
-    aspectRatio: Float? = 16f / 9f,
     focusRequester : FocusRequester = ComposeExt.rememberFocusRequester(),
     onFocusChange: (state: FocusState) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
@@ -79,11 +77,8 @@ fun FocusableCard(
         modifier = modifier
             .onFocusChanged { state -> onFocusChange(state) }
             .requestFocusOnTouch(focusRequester)
-            .conditional(aspectRatio != null) {
-                aspectRatio(aspectRatio!!)
-            }
             .conditional(isEdit) {
-                aspectRatio(16f / 9f).defaultMinSize(80.dp)
+                defaultMinSize(80.dp)
             },
         image = {
             imageRenderer(modifier)

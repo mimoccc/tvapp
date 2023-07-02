@@ -17,8 +17,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,7 +27,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -53,6 +50,7 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.mjdev.tvapp.base.extensions.ModifierExt.aspectRatio
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Suppress("unused")
@@ -61,9 +59,8 @@ import kotlinx.coroutines.withContext
 @Composable
 fun PreviewCard(
     modifier: Modifier = Modifier,
-    cardWidth: Dp = 200.dp,
-    cardHeight: Dp = 140.dp,
     videoUrl: String = "",
+    aspectRatio: Float? = 16f / 9f,
     hasFocus: Boolean = false,
     clipStartPosition: Long = 2000000,
     clipEndPosition: Long = 8000000,
@@ -71,9 +68,7 @@ fun PreviewCard(
     thumbnailUrl: String? = null
 ) {
     Card(
-        modifier = modifier
-            .width(if (hasFocus) cardWidth.times(1.2f) else cardWidth)
-            .height(if (hasFocus) cardHeight.times(1.2f) else cardHeight)
+        modifier = modifier.aspectRatio(aspectRatio)
     ) {
         val context = LocalContext.current
         var currentlyPlaying by remember { mutableStateOf(false) }

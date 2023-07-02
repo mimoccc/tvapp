@@ -43,12 +43,12 @@ fun PhotoCard(
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
     onClick: (item: Any?) -> Unit = {},
-)  {
+) {
     ItemCard(
         item = item,
-        modifier  = modifier,
+        modifier = modifier,
         contentScale = contentScale,
-        aspectRatio=aspectRatio,
+        aspectRatio = aspectRatio,
         scale = scale,
         imageRenderer = imageRenderer,
         placeholder = placeholder,
