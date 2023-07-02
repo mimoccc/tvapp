@@ -44,7 +44,7 @@ fun CircleText(
     text: String = "0",
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,
-    contentPadding: Dp = 2.dp,
+    contentPadding: Dp = 0.dp,
 ) {
 
     Box(
