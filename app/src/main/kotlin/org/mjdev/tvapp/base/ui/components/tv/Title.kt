@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,19 +43,17 @@ fun Title(
     unfocusedShadowColor: Color = Color.Transparent,
     shadowSize: Dp = 6.dp,
     title: Any? = R.string.app_name,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
-    onFocus: () -> Unit = {},
     onClick: () -> Unit = {},
 ) {
     val isEdit = isEditMode()
+    val focusState = rememberFocusState()
 
     FocusableBox(
         modifier = modifier,
-        focusState = focusState,
-        onFocus = onFocus,
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         focusedColor = Color.Transparent,
+        onFocusChange = { state -> focusState.value = state }
     ) {
         Row(
             modifier = modifier.padding(8.dp, 8.dp, 8.dp, 8.dp),

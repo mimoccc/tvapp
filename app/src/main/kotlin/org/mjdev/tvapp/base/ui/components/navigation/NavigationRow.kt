@@ -37,6 +37,7 @@ import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -85,13 +86,13 @@ fun NavigationRow(
                     else unFocusedColor
                 ),
                 shape
-            ),
-        focusState = focusState,
+            )
+            .focusState(focusState),
         shape = shape,
         focusedColor = focusedColor.copy(alpha = 0.5f),
         unFocusedColor = Color.Transparent,
-        onFocus = {
-            if (focusState.isFocused) {
+        onFocusChange = { state ->
+            if (state.isFocused || state.hasFocus) {
                 onFocus(id)
             }
         },

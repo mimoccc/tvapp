@@ -64,6 +64,15 @@ object ComposeExt {
     val MutableState<FocusState?>.isFocused
         get() = (value?.isFocused == true) || (value?.hasFocus == true)
 
+    val MutableState<FocusState?>.isNotFocused
+        get() = !isFocused
+
+    val FocusState?.isFocused
+        get() = (this?.isFocused == true) || (this?.hasFocus == true)
+
+    val FocusState?.isNotFocused
+        get() = !isFocused
+
 //    @Composable
 //    fun Any?.toDrawable(): Drawable {
 //        val context = LocalContext.current

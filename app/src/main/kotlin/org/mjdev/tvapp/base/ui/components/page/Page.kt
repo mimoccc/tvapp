@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.complex.TouchBox
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
@@ -53,9 +52,6 @@ open class Page {
             Modifier
                 .fillMaxSize()
                 .background(backgroundColor, background)
-                .touchable {
-                    freeFocus()
-                }
         ) {
             TouchBox(
                 contentAlignment = Alignment.Center,
@@ -68,7 +64,9 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize().focusable(),
+            modifier = Modifier
+                .fillMaxSize()
+                .focusable(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

@@ -15,12 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
@@ -35,7 +33,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ContextExt.dateAsString
 import org.mjdev.tvapp.base.extensions.ContextExt.timeAsString
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
@@ -58,7 +55,6 @@ fun Clock(
     contentPadding: Dp = 2.dp,
     showTime: Boolean = true,
     showDate: Boolean = true,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
     onClick: () -> Unit = {},
 ) {
     val isEdit = isEditMode()
@@ -100,7 +96,6 @@ fun Clock(
             .conditional(isEdit) {
                 background(Color.DarkGray, RectangleShape)
             },
-        focusState = focusState,
         shape = RoundedCornerShape(roundSize),
         onClick = onClick
     ) {

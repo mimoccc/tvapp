@@ -131,10 +131,10 @@ fun NavDrawerContent(
                     drawerState = navController.menuDrawerState,
                     text = menuItem.menuText,
                     icon = menuItem.menuIcon,
-                    onFocus = { id ->
+                    onFocus = { focusId ->
                         navController.openMenu()
-                        focusedIdx.value = id
-                        onDrawerItemFocus(id)
+                        focusedIdx.value = focusId
+                        onDrawerItemFocus(focusId)
                     },
                     onClick = { id ->
                         onDrawerItemClick(id)

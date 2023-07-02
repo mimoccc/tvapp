@@ -30,6 +30,8 @@ import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberMutableInteractionSource
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
@@ -48,7 +50,7 @@ fun Tabs(
     selectedContentColor: Color = Color.White,
     focusedContentColor: Color = Color.White,
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
-    onItemClick: (index: Int) -> Unit = {}
+    onItemClick: (item: Any?) -> Unit = {}
 ) {
 
     val selectedTabIndex = remember { mutableIntStateOf(0) }
@@ -96,12 +98,15 @@ fun Tabs(
                 },
                 interactionSource = interactionSource
             ) {
-
+                val focusState = rememberFocusState()
                 FocusableBox(
                     focusedColor = Color.Transparent,
-                    onFocus = {
-                        selectedTabIndex.value = index
-                    }
+                    onFocusChange = {
+                        if (focusState.isFocused) {
+                            selectedTabIndex.value = index
+                        }
+                    },
+                    onClick = { onItemClick(items[selectedTabIndex.value]) }
                 ) {
 
                     TextAny(

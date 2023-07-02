@@ -12,9 +12,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,16 +25,14 @@ import androidx.tv.material3.Border
 import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
-import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 fun FocusableBox(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    onFocus: () -> Unit = {},
     enabled: Boolean = true,
     tonalElevation: Dp = 0.dp,
     focusedColor: Color = Color.Green,
@@ -44,16 +43,16 @@ fun FocusableBox(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     borderColor: Color = Color.Transparent,
     borderSize: Dp = 0.dp,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusRequester :FocusRequester= rememberFocusRequester(),
+    onFocusChange: (state: FocusState) -> Unit = {},
+    onClick: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     Surface(
         onClick = onClick,
-        modifier = modifier.touchable(
-            focusState = focusState,
-            onFocus = { onFocus() },
-            onClick = { onClick() },
-        ),
+        modifier = modifier
+            .onFocusChanged { state -> onFocusChange(state) }
+            .requestFocusOnTouch(focusRequester),
         onLongClick = null,
         enabled = enabled,
         tonalElevation = tonalElevation,

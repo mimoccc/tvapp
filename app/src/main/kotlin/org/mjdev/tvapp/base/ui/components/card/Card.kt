@@ -48,7 +48,12 @@ fun Card(
     shape: CardShape = CardDefaults.shape(),
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.NO_BORDER,
-    glow: CardGlow = CardDefaults.NO_GLOW,
+    focusGlowColor: Color = Color.Green,
+    unFocusGlowColor: Color = Color.Transparent,
+    glow: CardGlow = CardDefaults.colorFocusGlow(
+        focusGlowColor,
+        unFocusGlowColor
+    ),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit = {}
 ) = androidx.tv.material3.Card(
@@ -75,6 +80,7 @@ val CardDefaults.NO_BORDER: CardBorder
         pressedBorder = Border.None
     )
 
+@Suppress("unused")
 @OptIn(ExperimentalTvMaterial3Api::class)
 val CardDefaults.NO_GLOW: CardGlow
     @Composable
@@ -87,15 +93,22 @@ val CardDefaults.NO_GLOW: CardGlow
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CardDefaults.colorFocusGlow(
-    color: Color = Color.Gray,
+    focusColor: Color = Color.Green,
+    onUnFocusColor: Color = Color.Transparent,
     elevation: Dp = 10.dp
 ): CardGlow = glow(
-    glow = Glow.None,
-    focusedGlow = Glow(
-        elevationColor = color,
+    glow = Glow(
+        elevationColor = onUnFocusColor,
         elevation = elevation
     ),
-    pressedGlow = Glow.None
+    focusedGlow = Glow(
+        elevationColor = focusColor,
+        elevation = elevation
+    ),
+    pressedGlow = Glow(
+        elevationColor = onUnFocusColor,
+        elevation = elevation
+    )
 )
 
 @Suppress("UNUSED_PARAMETER")

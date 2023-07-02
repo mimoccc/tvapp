@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +28,6 @@ import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.ui.components.card.CarouselCard
 
 // todo swipe left and swipe right
@@ -58,16 +58,15 @@ fun BigCarousel(
                 item = items[indexOfCarouselItem],
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(height),
+                    .height(height)
+                    .onFocusChanged { state ->
+                        if (state.isFocused || state.hasFocus) {
+                            onItemSelected(selectedItem())
+                        }
+                    },
                 contentScale = ContentScale.Crop,
                 scale = CardScale.None,
                 focusState = focusState,
-                onFocus = {
-                    if (focusState.isFocused) {
-                        // todo check
-                        onItemSelected(selectedItem())
-                    }
-                },
                 onClick = {
                     onItemClicked(selectedItem())
                 }

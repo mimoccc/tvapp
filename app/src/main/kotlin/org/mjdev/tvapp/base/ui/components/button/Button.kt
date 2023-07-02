@@ -33,7 +33,6 @@ import androidx.tv.material3.ButtonScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Preview
@@ -64,9 +63,9 @@ fun Button(
 
     Button(
         modifier = modifier
-            .touchable(
-                focusState = focusState,
-            )
+//            .touchable(
+//                focusState = focusState,
+//            )
             .border(BorderStroke(borderSize, borderColor), shape),
         glow = glow,
         scale = scale,

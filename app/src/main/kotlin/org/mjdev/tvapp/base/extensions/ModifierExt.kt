@@ -8,19 +8,16 @@
 
 package org.mjdev.tvapp.base.extensions
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
-import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
-import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import androidx.compose.ui.input.pointer.pointerInput
 
+@Suppress("MemberVisibilityCanBePrivate")
 object ModifierExt {
 
     fun Modifier.conditional(
@@ -33,28 +30,24 @@ object ModifierExt {
         }
     }
 
-    @SuppressLint("ComposableModifierFactory")
-    @Composable
-    // todo focus problem, requester not registered
-    fun Modifier.touchable(
-        focusState: MutableState<FocusState?> = rememberFocusState(),
-        focusRequester: FocusRequester = rememberFocusRequester(),
-        onFocus: FocusRequester.() -> Unit = {},
-        onClick: FocusRequester.() -> Unit = {},
-    ): Modifier = this then focusRequester(
+    fun Modifier.focusState(
+        focusState: MutableState<FocusState?>
+    ): Modifier = onFocusChanged { state ->
+        focusState.value = state
+    }
+
+    fun Modifier.onTouch(onTouch: () -> Unit) = pointerInput(this) {
+        detectTapGestures {
+            onTouch()
+        }
+    }
+
+    fun Modifier.requestFocusOnTouch(
+        focusRequester: FocusRequester
+    ): Modifier = focusRequester(
         focusRequester
-    ).onFocusChanged { state ->
-            focusState.value = state
-            if (focusState.isFocused) {
-                onFocus(focusRequester)
-            }
-        }
-        .clickable {
-            if (focusState.isFocused) {
-                onClick(focusRequester)
-            } else {
-                focusRequester.requestFocus()
-            }
-        }
+    ).onTouch {
+        focusRequester.requestFocus()
+    }
 
 }
