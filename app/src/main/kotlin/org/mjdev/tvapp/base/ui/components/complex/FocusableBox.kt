@@ -50,7 +50,7 @@ fun FocusableBox(
     Surface(
         onClick = onClick,
         modifier = modifier.touchable(
-            state = focusState,
+            focusState = focusState,
             onFocus = { onFocus() },
             onClick = { onClick() },
         ),

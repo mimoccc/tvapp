@@ -9,31 +9,22 @@
 package org.mjdev.tvapp.base.ui.components.card
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
-import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.interfaces.ItemWithBackground
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
-import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
-import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
-import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
@@ -59,37 +50,19 @@ fun CarouselCard(
     onClick: () -> Unit = {}
 ) {
     val isEdit = isEditMode()
-    CompactCard(
-        modifier = modifier
-            .touchable(
-                state = focusState,
-                onClick = { onClick() },
-                onFocus = { onFocus() },
-            )
-            .conditional(isEdit) {
-                aspectRatio(16f / 9f).defaultMinSize(260.dp)
-            },
-        border = CardDefaults.colorFocusBorder(Color.Green),
+    PhotoCard(
+        item = item,
+        modifier = modifier.conditional(isEdit) {
+            defaultMinSize(260.dp)
+        },
+        aspectRatio = null,
+        contentScale = contentScale,
         scale = scale,
-        image = {
-            imageRenderer(modifier)
-        },
-        title = {
-            TextAny(
-                modifier = Modifier.padding(4.dp),
-                text = (item as? ItemWithTitle)?.title
-            )
-        },
-        subtitle = {
-            TextAny(
-                modifier = Modifier.padding(4.dp),
-                text = (item as? ItemWithSubtitle)?.subtitle
-            )
-        },
-        description = {
-            // todo
-        },
-        onClick = onClick
+        focusState = focusState,
+        placeholder = placeholder,
+        imageRenderer = imageRenderer,
+        onFocus = { onFocus() },
+        onClick = { onClick() }
     )
 
 }

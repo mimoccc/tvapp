@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.base.ui.components.card
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -46,6 +45,7 @@ fun ItemCard(
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
     placeholder: @Composable () -> Unit = {},
+    aspectRatio: Float? = 16f / 9f,
     imageRenderer: @Composable (modifier: Modifier) -> Unit = {
         ImageAny(
             modifier = modifier,
@@ -59,9 +59,8 @@ fun ItemCard(
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
-    modifier = modifier
-        .widthIn(max = 320.dp)
-        .aspectRatio(16f / 9f),
+    modifier = modifier.widthIn(max = 320.dp),
+    aspectRatio = aspectRatio,
     item = item,
     focusState = focusState,
     contentScale = contentScale,

@@ -65,7 +65,7 @@ fun Button(
     Button(
         modifier = modifier
             .touchable(
-                state = focusState,
+                focusState = focusState,
             )
             .border(BorderStroke(borderSize, borderColor), shape),
         glow = glow,

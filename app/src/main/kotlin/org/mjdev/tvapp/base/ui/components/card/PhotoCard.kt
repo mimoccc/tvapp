@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ComposeExt
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.image.PhotoImage
@@ -31,6 +31,7 @@ fun PhotoCard(
     item: Any? = null,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
+    focusState: MutableState<FocusState?> = ComposeExt.rememberFocusState(),
     imageRenderer: @Composable (modifier: Modifier) -> Unit = { m ->
         PhotoImage(
             modifier = m,
@@ -38,19 +39,22 @@ fun PhotoCard(
             contentDescription = (item as? ItemWithDescription)?.description?.toString(),
         )
     },
+    aspectRatio: Float? = 16f / 9f,
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
-    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
-) = ItemCard(
-    item = item,
-    modifier = modifier,
-    focusState = focusState,
-    contentScale = contentScale,
-    scale = scale,
-    imageRenderer = imageRenderer,
-    placeholder = placeholder,
-    onClick = onClick,
-    onFocus = onFocus
-)
+)  {
+    ItemCard(
+        item = item,
+        modifier  = modifier,
+        focusState = focusState,
+        contentScale = contentScale,
+        aspectRatio=aspectRatio,
+        scale = scale,
+        imageRenderer = imageRenderer,
+        placeholder = placeholder,
+        onClick = onClick,
+        onFocus = onFocus
+    )
+}

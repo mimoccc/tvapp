@@ -9,13 +9,16 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -30,9 +33,9 @@ import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
-import org.mjdev.tvapp.base.extensions.ModifierExt.touchable
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
@@ -66,10 +69,12 @@ fun FocusableCard(
             placeholder = placeholder
         )
     },
+    aspectRatio: Float? = 16f / 9f,
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
     val isEdit = ComposeExt.isEditMode()
+    val focusRequester = FocusRequester()
     CompactCard(
         scale = scale,
         shape = shape,
@@ -77,17 +82,23 @@ fun FocusableCard(
         border = border,
         glow = glow,
         modifier = modifier
+            .conditional(aspectRatio != null) {
+                aspectRatio(aspectRatio!!)
+            }
             .conditional(isEdit) {
                 aspectRatio(16f / 9f).defaultMinSize(80.dp)
             }
             .onFocusChanged { state ->
                 focusState.value = state
             }
-            .touchable(
-                state = focusState,
-                onClick = { onClick(item) },
-                onFocus = { onFocus(item) }
-            ),
+            .focusRequester(focusRequester)
+            .clickable {
+                if (focusState.isFocused) {
+                    onClick(item)
+                } else {
+                    focusRequester.requestFocus()
+                }
+            },
         image = {
             imageRenderer(modifier)
         },
