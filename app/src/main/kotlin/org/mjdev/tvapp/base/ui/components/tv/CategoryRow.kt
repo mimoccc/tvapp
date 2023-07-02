@@ -10,8 +10,8 @@ package org.mjdev.tvapp.base.ui.components.tv
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,7 +44,7 @@ fun CategoryRow(
     )
     TVRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.height(200.dp),
+        modifier = Modifier.wrapContentSize(),
         contentPadding = 16.dp,
     ) {
         items(items) { item ->

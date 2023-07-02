@@ -9,8 +9,10 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
@@ -19,6 +21,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardBorder
@@ -73,6 +76,10 @@ fun FocusableCard(
     onClick: (item: Any?) -> Unit = {},
 ) {
     val isEdit = ComposeExt.isEditMode()
+    val width = LocalConfiguration.current.let { config ->
+        if (config.orientation == ORIENTATION_PORTRAIT) config.screenWidthDp * 0.5f
+        else config.screenHeightDp * 0.5f
+    }
     CompactCard(
         scale = scale,
         shape = shape,
@@ -80,6 +87,7 @@ fun FocusableCard(
         border = border,
         glow = glow,
         modifier = modifier
+            .width(width.dp)
             .focusState(focusState)
             .onFocusChanged { state ->
                 onFocusChange(state)

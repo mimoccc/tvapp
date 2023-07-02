@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.base.ui.components.carousel
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,8 +28,6 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt
-import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.ui.components.card.CarouselCard
 
 // todo swipe left and swipe right
 @SuppressLint("AutoboxingStateValueProperty")
@@ -41,8 +40,10 @@ fun BigCarousel(
     onItemSelected: (movie: Any?) -> Unit = {},
     onItemClicked: (movie: Any?) -> Unit = {},
 ) {
-    val isEdit = isEditMode()
-    val height = if (isEdit) 128.dp else (LocalConfiguration.current.screenHeightDp / 2).dp
+    val height = LocalConfiguration.current.let { config ->
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
+        else config.screenHeightDp * 0.4f
+    }
     val focusState: MutableState<FocusState?> = ComposeExt.rememberFocusState()
     val itemIndex = remember { mutableIntStateOf(0) }
     val selectedItem: () -> Any? = { items[itemIndex.value] }
@@ -51,14 +52,14 @@ fun BigCarousel(
             itemCount = items.size,
             modifier = modifier
                 .fillMaxWidth()
-                .height(height),
+                .height(height.dp),
         ) { indexOfCarouselItem ->
             itemIndex.value = indexOfCarouselItem
             CarouselCard(
                 item = items[indexOfCarouselItem],
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(height)
+                    .height(height.dp)
                     .onFocusChanged { state ->
                         if (state.isFocused || state.hasFocus) {
                             onItemSelected(selectedItem())

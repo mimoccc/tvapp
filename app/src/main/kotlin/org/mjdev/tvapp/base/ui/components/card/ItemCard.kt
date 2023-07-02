@@ -9,13 +9,11 @@
 package org.mjdev.tvapp.base.ui.components.card
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardBorder
 import androidx.tv.material3.CardColors
 import androidx.tv.material3.CardDefaults
@@ -55,7 +53,7 @@ fun ItemCard(
     },
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
-    modifier = modifier.widthIn(max = 320.dp),
+    modifier = modifier,
     item = item,
     contentScale = contentScale,
     scale = scale,

@@ -9,6 +9,9 @@
 package org.mjdev.tvapp.base.ui.components.tv
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +19,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,15 +28,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.ui.components.badge.Badge
 
 @TvPreview
 @Composable
 fun Header(
-    modifier: Modifier = Modifier,
     title: Any? = R.string.app_name,
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.Bold,
@@ -47,75 +50,63 @@ fun Header(
     onMessageBadgeClick: () -> Unit = {},
     onUserPicClick: () -> Unit = {},
 ) {
-
-    ConstraintLayout(
-        modifier = modifier
+    val isEdit = isEditMode()
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor, RoundedCornerShape(roundSize))
             .padding(padding + roundSize)
     ) {
-
-        val (_title, _clock, _badge, _settings) = createRefs()
-
-        Title(
-            modifier = Modifier.constrainAs(_title) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                bottom.linkTo(parent.bottom)
-            },
-            title = title ?: R.string.app_name,
-            fontWeight = fontWeight,
-            fontSize = fontSize,
-            color = color,
-            onClick = onTitleClick,
-        )
-
-        Clock(
-            modifier = Modifier.constrainAs(_clock) {
-                top.linkTo(parent.top)
-                end.linkTo(_badge.start)
-                bottom.linkTo(parent.bottom)
-            },
-            backgroundColor = Color.Black.copy(alpha = 0.2f),
-            contentPadding = contentPadding,
-            timeTextColor = color,
-            dateTextColor = color,
-            onClick = onClockClick,
-        )
-
-        Badge(
-            modifier = Modifier
-                .constrainAs(_badge) {
-                    top.linkTo(parent.top)
-                    end.linkTo(_settings.start)
-                    bottom.linkTo(parent.bottom)
-                }
-                .wrapContentSize()
-                .clip(CircleShape),
-            contentPadding = contentPadding,
-            count = messagesCount,
-            borderColor = Color.White,
-            borderSize = 1.dp,
-            textSize = 20.sp,
-            textColor = Color.White,
-            onClick = onMessageBadgeClick,
-        )
-
-        UserPic(
-            modifier = Modifier
-                .size(56.dp)
-                .constrainAs(_settings) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-                .clip(CircleShape),
-            borderColor = Color.White,
-            contentPadding = contentPadding,
-            borderSize = 1.dp,
-            onClick = onUserPicClick,
-        )
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Clock(
+                modifier = Modifier.wrapContentSize(),
+                backgroundColor = Color.Black.copy(alpha = 0.2f),
+                contentPadding = contentPadding,
+                timeTextColor = color,
+                dateTextColor = color,
+                onClick = onClockClick,
+            )
+            if (isEdit || (messagesCount > 0)) {
+                Badge(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clip(CircleShape),
+                    contentPadding = contentPadding,
+                    count = messagesCount,
+                    borderColor = Color.White,
+                    borderSize = 1.dp,
+                    textSize = 20.sp,
+                    textColor = Color.White,
+                    onClick = onMessageBadgeClick,
+                )
+            }
+            UserPic(
+                modifier = Modifier
+                    .size(56.dp)
+                    .clip(CircleShape),
+                borderColor = Color.White,
+                contentPadding = contentPadding,
+                borderSize = 1.dp,
+                onClick = onUserPicClick,
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Title(
+                modifier = Modifier.wrapContentSize(),
+                title = title ?: R.string.app_name,
+                fontWeight = fontWeight,
+                fontSize = fontSize,
+                color = color,
+                onClick = onTitleClick,
+            )
+        }
     }
-
 }
