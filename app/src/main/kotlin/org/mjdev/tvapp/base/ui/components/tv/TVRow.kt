@@ -23,6 +23,7 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.base.annotations.TvPreview
 
+// scroll horizontally
 @TvPreview
 @Composable
 fun TVRow(

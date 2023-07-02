@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
@@ -32,20 +33,21 @@ fun CategoryRow(
     title: Any? = "category 1",
     items: List<Any?> = listOf(Unit, Unit, Unit),
     rowState: TvLazyListState = rememberTvLazyListState(),
+    padding: Dp = 16.dp,
     onItemClick: (item: Any?) -> Unit = {},
-) {
+) { // todo better design & scroll horizontally
     TextAny(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp, 16.dp),
+            .padding(0.dp, padding / 2),
         text = title,
         color = Color.White,
         fontWeight = FontWeight.Bold
     )
     TVRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(padding),
         modifier = Modifier.wrapContentSize(),
-        contentPadding = 16.dp,
+        contentPadding = padding,
     ) {
         items(items) { item ->
             PhotoCard(
