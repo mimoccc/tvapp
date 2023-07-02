@@ -12,6 +12,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
@@ -25,7 +26,10 @@ import androidx.tv.material3.Border
 import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -43,7 +47,8 @@ fun FocusableBox(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     borderColor: Color = Color.Transparent,
     borderSize: Dp = 0.dp,
-    focusRequester :FocusRequester= rememberFocusRequester(),
+    focusRequester: FocusRequester = rememberFocusRequester(),
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocusChange: (state: FocusState) -> Unit = {},
     onClick: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit = {}
@@ -51,8 +56,13 @@ fun FocusableBox(
     Surface(
         onClick = onClick,
         modifier = modifier
+            .focusState(focusState)
             .onFocusChanged { state -> onFocusChange(state) }
-            .requestFocusOnTouch(focusRequester),
+            .requestFocusOnTouch(focusRequester) {
+                if (focusState.isFocused) {
+                    onClick()
+                }
+            },
         onLongClick = null,
         enabled = enabled,
         tonalElevation = tonalElevation,

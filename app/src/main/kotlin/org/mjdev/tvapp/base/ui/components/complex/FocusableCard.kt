@@ -12,6 +12,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
@@ -29,7 +30,10 @@ import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
@@ -63,7 +67,8 @@ fun FocusableCard(
             placeholder = placeholder
         )
     },
-    focusRequester : FocusRequester = ComposeExt.rememberFocusRequester(),
+    focusRequester: FocusRequester = ComposeExt.rememberFocusRequester(),
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     onFocusChange: (state: FocusState) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
@@ -75,8 +80,15 @@ fun FocusableCard(
         border = border,
         glow = glow,
         modifier = modifier
-            .onFocusChanged { state -> onFocusChange(state) }
-            .requestFocusOnTouch(focusRequester)
+            .focusState(focusState)
+            .onFocusChanged { state ->
+                onFocusChange(state)
+            }
+            .requestFocusOnTouch(focusRequester) {
+                if (focusState.isFocused) {
+                    onClick(item)
+                }
+            }
             .conditional(isEdit) {
                 defaultMinSize(80.dp)
             },

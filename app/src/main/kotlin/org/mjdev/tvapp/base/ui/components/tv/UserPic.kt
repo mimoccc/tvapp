@@ -43,7 +43,6 @@ fun UserPic(
     shape = shape,
     onClick = onClick
 ) {
-
     val isEdit = isEditMode()
     CircleImage(
         modifier = modifier
@@ -56,5 +55,4 @@ fun UserPic(
         contentPadding = contentPadding + borderSize,
         src = src,
     )
-
 }

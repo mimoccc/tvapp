@@ -13,7 +13,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
@@ -51,7 +51,7 @@ fun CircleText(
         modifier = modifier
             .size(textSize.value.dp * 2)
             .padding(contentPadding)
-            .aspectRatio(1f)
+            .tvAspectRatio(1f)
             .clip(CircleShape)
             .background(backGroundColor, CircleShape)
             .border(

@@ -38,7 +38,6 @@ fun CircleImage(
     contentPadding: Dp = 2.dp,
     src: Any? = R.drawable.milanj
 ) {
-
     Box(
         modifier = modifier.padding(contentPadding),
         contentAlignment = Alignment.Center,
@@ -59,7 +58,5 @@ fun CircleImage(
             contentDescription = contentDescription,
             contentScale = ContentScale.Crop,
         )
-
     }
-
 }

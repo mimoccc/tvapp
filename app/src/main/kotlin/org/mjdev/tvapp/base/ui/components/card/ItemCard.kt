@@ -23,7 +23,7 @@ import androidx.tv.material3.CardGlow
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ModifierExt.aspectRatio
+import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
@@ -46,7 +46,7 @@ fun ItemCard(
     aspectRatio: Float? = 16f / 9f,
     imageRenderer: @Composable (modifier: Modifier) -> Unit = {
         ImageAny(
-            modifier = modifier.aspectRatio(aspectRatio),
+            modifier = modifier.tvAspectRatio(aspectRatio),
             src = (item as? ItemWithImage)?.imageUrl,
             contentDescription = (item as? ItemWithDescription)?.description?.toString(),
             contentScale = contentScale,
