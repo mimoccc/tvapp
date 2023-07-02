@@ -11,14 +11,15 @@ package org.mjdev.tvapp.base.ui.components.page
 import android.annotation.SuppressLint
 import androidx.annotation.CallSuper
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +27,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvapp.base.ui.components.complex.TouchBox
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
@@ -48,15 +51,24 @@ open class Page {
     @Composable
     @CallSuper
     fun content() {
+        val focusRequester = rememberFocusRequester()
         Column(
-            Modifier
-                .fillMaxSize()
-                .background(backgroundColor, background)
+            Modifier.fillMaxSize()
         ) {
             TouchBox(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(backgroundColor, background)
+                    .requestFocusOnTouch(focusRequester),
                 contentAlignment = Alignment.Center,
             ) {
-                Content()
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .focusRequester(focusRequester)
+                ) {
+                    Content()
+                }
             }
         }
     }
@@ -64,9 +76,7 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .focusable(),
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
