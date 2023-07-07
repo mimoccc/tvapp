@@ -34,5 +34,6 @@
 
     <string name="author">Created by Milan Jurkulak © 2023</string>
     <string name="title_plugins">Plugins</string>
+    <string name="no_items">no items</string>
 
 </resources>

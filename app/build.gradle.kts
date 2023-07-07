@@ -136,6 +136,8 @@ dependencies {
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
     implementation("androidx.tv:tv-material:1.0.0-alpha07")
+    // paging
+    implementation("androidx.paging:paging-compose:3.2.0-rc01")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
