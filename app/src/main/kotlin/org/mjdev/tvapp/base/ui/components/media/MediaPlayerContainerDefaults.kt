@@ -18,6 +18,10 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object MediaPlayerContainerDefaults {
 
+    val isEdit: Boolean
+        @Composable
+        get() = isEditMode()
+
     val engines: Array<IMediaPlayer?>
         @Composable
         get() = arrayOf(
@@ -29,20 +33,18 @@ object MediaPlayerContainerDefaults {
         @Composable
         get() = run {
             val context = LocalContext.current
-            val isEdit = isEditMode()
-            remember {
-                if (isEdit) IMediaPlayer.EMPTY
-                else ExoPlayerImpl(ExoPlayer.Builder(context).build())
+            if (isEdit) IMediaPlayer.EMPTY
+            else remember {
+                ExoPlayerImpl(ExoPlayer.Builder(context).build())
             }
         }
 
     val internalPlayer: IMediaPlayer
         @Composable
         get() = run {
-            val isEdit = isEditMode()
-            remember {
-                if (isEdit) IMediaPlayer.EMPTY
-                else NativePlayerImpl(MediaPlayer())
+            if (isEdit) IMediaPlayer.EMPTY
+            else remember {
+                NativePlayerImpl(MediaPlayer())
             }
         }
 

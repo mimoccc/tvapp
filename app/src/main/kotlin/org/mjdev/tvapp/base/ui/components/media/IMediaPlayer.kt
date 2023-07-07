@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 interface IMediaPlayer {
 
     @Composable
-    fun PlayerView()
+    fun GetPlayerView()
 
     fun setMediaUri(uri: Uri)
 
@@ -37,7 +37,7 @@ interface IMediaPlayer {
         val EMPTY = object : IMediaPlayer {
 
             @Composable
-            override fun PlayerView() {
+            override fun GetPlayerView() {
             }
 
             override fun setMediaUri(uri: Uri) {}

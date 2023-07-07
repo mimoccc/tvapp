@@ -15,7 +15,7 @@ import timber.log.Timber
 
 open class BaseViewModel : ViewModel() {
 
-    private val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
+    val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
 
     private var errorHandler: (error: Throwable) -> Unit = {}
 

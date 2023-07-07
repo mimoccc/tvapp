@@ -32,8 +32,9 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
@@ -47,8 +48,8 @@ import org.mjdev.tvapp.base.ui.components.card.colorFocusGlow
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
+@OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 fun FocusableCard(
@@ -70,12 +71,12 @@ fun FocusableCard(
             placeholder = placeholder
         )
     },
-    focusRequester: FocusRequester = ComposeExt.rememberFocusRequester(),
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusRequester: FocusRequester = rememberFocusRequester(item),
+    focusState: MutableState<FocusState?> = rememberFocusState(item),
     onFocusChange: (state: FocusState) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
-    val isEdit = ComposeExt.isEditMode()
+    val isEdit = isEditMode()
     val width = LocalConfiguration.current.let { config ->
         if (config.orientation == ORIENTATION_PORTRAIT) config.screenWidthDp * 0.5f
         else config.screenHeightDp * 0.5f

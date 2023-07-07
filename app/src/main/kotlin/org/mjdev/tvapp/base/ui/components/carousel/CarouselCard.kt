@@ -27,16 +27,16 @@ import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 
+@SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
-@SuppressLint("ModifierParameter")
 fun CarouselCard(
     item: Any? = null,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
     scale: CardScale = CardScale.None,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusState: MutableState<FocusState?> = rememberFocusState(item),
     placeholder: @Composable () -> Unit = {}, // todo
     imageRenderer: @Composable (modifier: Modifier) -> Unit = {
         ImageAny(

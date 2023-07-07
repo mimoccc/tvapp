@@ -30,20 +30,14 @@ fun MediaPlayerContainer(
     mediaPlayerOverlay: @Composable (state: MediaPlayerState) -> Unit = {},
     mediaPlayerControls: @Composable (state: MediaPlayerState) -> Unit = {}
 ) {
-
     val state = rememberMediaPlayerState(uri ?: Uri.EMPTY, autoPlay, startSeek)
-
     Box(modifier = modifier) {
-
         background(state)
-        mediaPlayer.PlayerView()
+        mediaPlayer.GetPlayerView()
         mediaPlayerOverlay(state)
         mediaPlayerControls(state)
-
     }
-
     DisposableEffect(state) {
-
         if (state.hasMediaToPlay) {
             mediaPlayer.setMediaUri(state.mediaUri.value)
             mediaPlayer.prepare()
@@ -54,12 +48,9 @@ fun MediaPlayerContainer(
                 mediaPlayer.play()
             }
         }
-
         onDispose {
             mediaPlayer.stop()
             mediaPlayer.dispose()
         }
-
     }
-
 }

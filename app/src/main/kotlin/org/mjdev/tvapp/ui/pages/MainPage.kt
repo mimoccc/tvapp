@@ -45,12 +45,24 @@ class MainPage : Page() {
             MainViewModel.mockMainViewModel(context)
         }
 
-        val categoryList = remember { viewModel.categoryList }.collectAsState()
-        val featuredMovieList = remember { viewModel.featuredMovieList }.collectAsState()
-        val messages = remember { viewModel.messages }.collectAsState()
-        val networkState = remember { viewModel.networkInfo.networkStatus }.collectAsState(null)
-        val errorState = remember { mutableStateOf<Throwable?>(null) }
-        val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
+        val categoryList = remember(viewModel.categoryList) {
+            viewModel.categoryList
+        }.collectAsState()
+        val featuredMovieList = remember(viewModel.featuredMovieList) {
+            viewModel.featuredMovieList
+        }.collectAsState()
+        val messages = remember(viewModel.messages) {
+            viewModel.messages
+        }.collectAsState()
+        val networkState = remember(viewModel.networkInfo.networkStatus) {
+            viewModel.networkInfo.networkStatus
+        }.collectAsState(null)
+        val errorState = remember(viewModel.error) {
+            mutableStateOf(viewModel.error.value)
+        }
+        val titleState = remember {
+            mutableStateOf<Any?>(R.string.app_name)
+        }
 
         val onItemClick: (item: Any?) -> Unit = { item ->
             val isVideo = ((item as? ItemWithVideoUri)?.hasVideoUri == true)

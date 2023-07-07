@@ -13,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -44,20 +45,12 @@ fun Navigation(
     menuItems: List<MenuItem> = listOf(),
     isEdit: Boolean = isEditMode()
 ) {
-
-    if (isEdit) {
-        navController.openMenu()
-    }
-
+    if (isEdit) navController.openMenu()
     navController.addMenuItem(*menuItems.toTypedArray())
-
     if (navController.isMenuEnabled) {
         SettingsDrawer(
             drawerState = navController.settingsDrawerState,
-            modifier = modifier
-                .fillMaxHeight()
-                .background(backgroundColor, shape)
-                .border(borderSize, borderColor, shape)
+            modifier = Modifier.fillMaxHeight()
         ) {
             NavigationDrawer(
                 modifier = modifier
@@ -67,7 +60,7 @@ fun Navigation(
                 drawerState = navController.menuDrawerState,
                 content = {
                     Box(
-                        modifier.fillMaxHeight()
+                        modifier.fillMaxSize()
                     ) {
                         content()
                     }
@@ -88,5 +81,4 @@ fun Navigation(
             content()
         }
     }
-
 }

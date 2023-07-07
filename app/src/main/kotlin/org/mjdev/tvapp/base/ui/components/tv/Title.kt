@@ -46,7 +46,7 @@ fun Title(
     onClick: () -> Unit = {},
 ) {
     val isEdit = isEditMode()
-    val focusState = rememberFocusState()
+    val focusState = rememberFocusState(title)
 
     FocusableBox(
         modifier = modifier,

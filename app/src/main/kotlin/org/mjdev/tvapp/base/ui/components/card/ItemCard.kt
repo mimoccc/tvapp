@@ -27,10 +27,10 @@ import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 
+@SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
-@SuppressLint("ModifierParameter")
 fun ItemCard(
     item: Any? = null,
     modifier: Modifier = Modifier,

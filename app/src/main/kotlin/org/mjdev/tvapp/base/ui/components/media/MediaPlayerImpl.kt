@@ -11,17 +11,19 @@ package org.mjdev.tvapp.base.ui.components.media
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import org.mjdev.tvapp.base.extensions.ComposeExt
+import androidx.media3.ui.PlayerView
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 
 class ExoPlayerImpl(
@@ -30,36 +32,29 @@ class ExoPlayerImpl(
 
     @UnstableApi
     @Composable
-    override fun PlayerView() {
-
-        val isEdit = ComposeExt.isEditMode()
-        val context = LocalContext.current
-        val isAtv = context.isATv
-
-        if (isEdit) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black, RectangleShape)
-            )
-
-        } else {
-
-            AndroidView(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Transparent, RectangleShape),
-                factory = {
-                    androidx.media3.ui.PlayerView(context).apply {
-                        player = exoPlayer
-                        controllerAutoShow = !isAtv
-                        controllerHideOnTouch = !isAtv
+    override fun GetPlayerView() {
+        val width = LocalConfiguration.current.screenWidthDp
+        val height = LocalConfiguration.current.screenHeightDp
+        val isEdit = isEditMode()
+        Box(
+            modifier = Modifier
+                .size(width.dp, height.dp)
+                .background(Color.Black, RectangleShape)
+        ) {
+            if (!isEdit) {
+                AndroidView(
+                    modifier = Modifier.size(width.dp, height.dp),
+                    factory = { context ->
+                        val isAtv = context.isATv
+                        PlayerView(context).apply {
+                            controllerAutoShow = !isAtv
+                            controllerHideOnTouch = !isAtv
+                            player = exoPlayer
+                        }
                     }
-                }
-            )
-
+                )
+            }
         }
-
     }
 
     override fun setMediaUri(uri: Uri) {
@@ -87,6 +82,7 @@ class ExoPlayerImpl(
     }
 
     override fun dispose() {
+        exoPlayer.release()
     }
 
     override fun seekTo(value: Long) {

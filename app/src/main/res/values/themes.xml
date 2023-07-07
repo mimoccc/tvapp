@@ -10,9 +10,13 @@
 
 <resources>
 
-    <style name="Theme.TvApp" parent="">
+    <style name="Theme.TvApp" parent="android:Theme.Material.Light.NoActionBar.TranslucentDecor">
 
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">#FF444444</item>
+        <item name="android:navigationBarColor">#FF444444</item>
+        <item name="android:colorBackground">#FF444444</item>
+        <item name="android:windowTranslucentNavigation">true</item>
 
     </style>
 

@@ -52,9 +52,7 @@ fun Tabs(
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
     onItemClick: (item: Any?) -> Unit = {}
 ) {
-
     val selectedTabIndex = remember { mutableIntStateOf(0) }
-
     val colors = TabDefaults.pillIndicatorTabColors(
         activeContentColor = activeContentColor,
         contentColor = activeContentColor,
@@ -65,7 +63,6 @@ fun Tabs(
         disabledContentColor = activeContentColor.copy(alpha = 0.4f),
         disabledSelectedContentColor = selectedContentColor,
     )
-
     TabRow(
         modifier = modifier.fillMaxWidth(),
         selectedTabIndex = selectedTabIndex.value,
@@ -83,9 +80,7 @@ fun Tabs(
             }
         },
     ) {
-
         items.forEachIndexed { index, tab ->
-
             Tab(
                 modifier = Modifier,
                 colors = colors,
@@ -98,7 +93,7 @@ fun Tabs(
                 },
                 interactionSource = interactionSource
             ) {
-                val focusState = rememberFocusState()
+                val focusState = rememberFocusState(tab)
                 FocusableBox(
                     focusedColor = Color.Transparent,
                     onFocusChange = {
@@ -108,7 +103,6 @@ fun Tabs(
                     },
                     onClick = { onItemClick(items[selectedTabIndex.value]) }
                 ) {
-
                     TextAny(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         text = if (tab is ItemWithTitle) tab.title else tab.toString(),
@@ -116,13 +110,8 @@ fun Tabs(
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
-
                 }
-
             }
-
         }
-
     }
-
 }

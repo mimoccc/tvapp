@@ -57,7 +57,17 @@ object ComposeExt {
     }
 
     @Composable
-    fun rememberFocusRequester() = remember {
+    fun rememberFocusState(
+        key: Any?,
+        initial: FocusState? = null
+    ) = remember(key) {
+        mutableStateOf(initial)
+    }
+
+    @Composable
+    fun rememberFocusRequester(
+        key: Any? = Unit
+    ) = remember(key) {
         FocusRequester()
     }
 

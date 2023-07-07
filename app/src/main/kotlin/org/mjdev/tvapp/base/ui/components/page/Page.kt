@@ -51,7 +51,7 @@ open class Page {
     @Composable
     @CallSuper
     fun content() {
-        val focusRequester = rememberFocusRequester()
+        val focusRequester = rememberFocusRequester(title)
         Column(
             Modifier.fillMaxSize()
         ) {
@@ -82,7 +82,7 @@ open class Page {
         ) {
             TextAny(
                 text = title ?: "Empty Page",
-                fontSize = 64.sp,
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
             )

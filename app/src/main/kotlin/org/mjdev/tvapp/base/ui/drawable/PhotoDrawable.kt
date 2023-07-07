@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 
+@Suppress("unused", "DEPRECATION")
 class PhotoDrawable(
     d: Drawable?
 ) : LayerDrawable(arrayOf(d, getPDrawable(d), getLight(d))) {
@@ -32,6 +33,7 @@ class PhotoDrawable(
             return gd
         }
 
+        @Suppress("UNUSED_PARAMETER")
         private fun getLight(d: Drawable?): Drawable {
 //        ShapeDrawable sd = new ShapeDrawable(new OvalShape());
 //        sd.setIntrinsicHeight(d.getIntrinsicWidth());
@@ -54,9 +56,9 @@ class PhotoDrawable(
             return gd
         }
 
-        private val roundColor: Int = 0xd0000000.toInt()
-        private val lightColor: Int = 0x20ffffff
-        private val centerColor: Int = 0x00000000
+        private const val roundColor: Int = 0xd0000000.toInt()
+        private const val lightColor: Int = 0x20ffffff
+        private const val centerColor: Int = 0x00000000
 
     }
 

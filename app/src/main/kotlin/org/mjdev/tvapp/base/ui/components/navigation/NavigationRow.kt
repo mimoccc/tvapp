@@ -42,8 +42,8 @@ import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@Preview
 @OptIn(ExperimentalTvMaterial3Api::class)
+@Preview
 @Composable
 fun NavigationRow(
     modifier: Modifier = Modifier,
@@ -71,7 +71,7 @@ fun NavigationRow(
 //        )
 //        .build(),
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusState: MutableState<FocusState?> = rememberFocusState(text),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
@@ -128,9 +128,7 @@ fun NavigationRow(
                     color = textColor,
                     textAlign = TextAlign.Left
                 )
-
             }
         }
     }
-
 }

@@ -35,10 +35,11 @@ import androidx.tv.material3.Glow
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
-@Preview
+
 @Suppress("UNUSED_PARAMETER")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Preview
 @Composable
 fun Button(
     text: Any? = "test",
@@ -55,7 +56,7 @@ fun Button(
     borderColor: Color = Color.White,
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusState: MutableState<FocusState?> = rememberFocusState(text),
     content: @Composable RowScope.() -> Unit = {
         TextAny(text = text)
     }

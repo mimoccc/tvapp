@@ -22,7 +22,14 @@
 
 ## Description
 
-Just an test app to skills showcase of coding skills, using
+Just an test app as showcase of coding skills, using modern frameworks  
+and a new unstable tv compose framework for tv apps with the diferrence  
+that components in this example should be touchable and therefore this  
+example can be used on any device include tv, tablet or any mobile phone.
+
+Components should be responsive to display size.
+
+Technologies that will be used:
 
 - Compose
 - Dagger/Hilt

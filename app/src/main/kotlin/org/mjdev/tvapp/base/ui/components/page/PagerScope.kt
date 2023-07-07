@@ -16,6 +16,7 @@ import org.mjdev.tvapp.base.extensions.ListExt.addUnique
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 
+@Suppress("unused")
 class PagerScope(
     val navController: NavHostControllerEx,
     pages: PagerScope.() -> Unit = {},
@@ -25,6 +26,10 @@ class PagerScope(
 
     init {
         pages.invoke(this)
+    }
+
+    fun menuItem(vararg item: MenuItem) {
+        navController.addMenuItem(*item)
     }
 
     fun page(page: Page, isStartPage: Boolean = false) {

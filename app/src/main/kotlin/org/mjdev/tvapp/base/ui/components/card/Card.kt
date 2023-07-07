@@ -37,10 +37,10 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
+@SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
-@SuppressLint("ModifierParameter")
 fun Card(
     modifier: Modifier = Modifier,
     scale: CardScale = CardScale.None,

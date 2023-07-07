@@ -34,7 +34,7 @@ plugins {
 
 android {
     namespace = "org.mjdev.tvapp"
-    compileSdk = 33
+    compileSdk = 34
 
     signingConfigs {
         loadKeyStoreProperties(
@@ -53,7 +53,7 @@ android {
         applicationId = "org.mjdev.tvapp"
 
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
 
         versionCode = project.versionCode
         versionName = project.versionName
@@ -67,7 +67,6 @@ android {
             applicationIdSuffix = ".debug"
             isDebuggable = true
             isMinifyEnabled = false
-
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -78,7 +77,6 @@ android {
             applicationIdSuffix = ""
             isDebuggable = true
             isMinifyEnabled = false
-
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -122,11 +120,11 @@ android {
 dependencies {
 
     // base libs
-    implementation("androidx.core:core-ktx:1.11.0-beta02")
+    implementation("androidx.core:core-ktx:1.12.0-alpha05")
     // reflect / debug purposes only
     implementation(kotlin("reflect", "1.8.21"))
     // window manager
-    implementation("androidx.window:window:1.0.0")
+    implementation("androidx.window:window:1.1.0")
     // compose base libs
     implementation(
         platform("androidx.compose:compose-bom:2023.06.01")
@@ -134,14 +132,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha07")
+    implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
     implementation("androidx.tv:tv-material:1.0.0-alpha07")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0-beta01")
+    implementation("androidx.navigation:navigation-compose:2.7.0-beta02")
     // image loading
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.skydoves:landscapist-coil:2.2.2")
@@ -151,7 +149,7 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
     implementation("com.google.dagger:dagger:2.46.1")
-    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.compose.material3:material3:1.1.1")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
     // dagger android
     implementation("com.google.dagger:dagger-android:2.46.1")
@@ -162,25 +160,25 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     kapt("com.google.dagger:hilt-compiler:2.46.1")
     // exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.0.2")
-    implementation("androidx.media3:media3-exoplayer-dash:1.0.2")
-    implementation("androidx.media3:media3-exoplayer-hls:1.0.2")
-    implementation("androidx.media3:media3-exoplayer-rtsp:1.0.2")
-    implementation("androidx.media3:media3-exoplayer-ima:1.0.2")
-    implementation("androidx.media3:media3-datasource-cronet:1.0.2")
-    implementation("androidx.media3:media3-datasource-okhttp:1.0.2")
-    implementation("androidx.media3:media3-datasource-rtmp:1.0.2")
-    implementation("androidx.media3:media3-ui:1.0.2")
-    implementation("androidx.media3:media3-ui-leanback:1.0.2")
-    implementation("androidx.media3:media3-session:1.0.2")
-    implementation("androidx.media3:media3-extractor:1.0.2")
-    implementation("androidx.media3:media3-cast:1.0.2")
-    implementation("androidx.media3:media3-exoplayer-workmanager:1.0.2")
-    implementation("androidx.media3:media3-transformer:1.0.2")
-    implementation("androidx.media3:media3-database:1.0.2")
-    implementation("androidx.media3:media3-decoder:1.0.2")
-    implementation("androidx.media3:media3-datasource:1.0.2")
-    implementation("androidx.media3:media3-common:1.0.2")
+    implementation("androidx.media3:media3-exoplayer:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
+    implementation("androidx.media3:media3-datasource-cronet:1.1.0")
+    implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
+    implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
+    implementation("androidx.media3:media3-ui:1.1.0")
+    implementation("androidx.media3:media3-ui-leanback:1.1.0")
+    implementation("androidx.media3:media3-session:1.1.0")
+    implementation("androidx.media3:media3-extractor:1.1.0")
+    implementation("androidx.media3:media3-cast:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.0")
+    implementation("androidx.media3:media3-transformer:1.1.0")
+    implementation("androidx.media3:media3-database:1.1.0")
+    implementation("androidx.media3:media3-decoder:1.1.0")
+    implementation("androidx.media3:media3-datasource:1.1.0")
+    implementation("androidx.media3:media3-common:1.1.0")
 //    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview:1.1.0-alpha02")
 //    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview-compose:1.1.0-alpha02")
 

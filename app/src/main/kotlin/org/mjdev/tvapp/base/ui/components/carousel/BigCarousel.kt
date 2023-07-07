@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 
 // todo swipe left and swipe right
 @SuppressLint("AutoboxingStateValueProperty")
@@ -44,7 +44,7 @@ fun BigCarousel(
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
         else config.screenHeightDp * 0.4f
     }
-    val focusState: MutableState<FocusState?> = ComposeExt.rememberFocusState()
+    val focusState: MutableState<FocusState?> = rememberFocusState(items)
     val itemIndex = remember { mutableIntStateOf(0) }
     val selectedItem: () -> Any? = { items[itemIndex.value] }
     BoxWithConstraints {

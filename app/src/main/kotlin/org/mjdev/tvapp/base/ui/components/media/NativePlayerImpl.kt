@@ -19,7 +19,7 @@ class NativePlayerImpl(
 ) : IMediaPlayer {
 
     @Composable
-    override fun PlayerView() {
+    override fun GetPlayerView() {
     }
 
     override fun setMediaUri(uri: Uri) {
