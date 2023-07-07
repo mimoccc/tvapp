@@ -6,6 +6,8 @@
  *  w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvapp.base.ui.theme
 
 import android.app.Activity
@@ -15,11 +17,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.ViewCompat
 import androidx.tv.material3.ColorScheme
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -71,6 +79,40 @@ val LocalCardShape = staticCompositionLocalOf<Shape> {
     RoundedCornerShape(8.dp)
 }
 
+val LocalThemeProvider = compositionLocalOf {
+    ThemeProvider()
+}
+
+// todo
+@Suppress("MemberVisibilityCanBePrivate")
+class ThemeProvider {
+
+    val detailTextPaddingHorizontal: Dp = 48.dp
+    val detailTextPaddingVertical: Dp = 32.dp
+    val detailsTextColor: Color = Color.White
+    val detailTextBackgroundColor: Color = Color.Black
+    val detailsTitleTextStyle: TextStyle
+        @Composable
+        get() = MaterialTheme.typography.headlineLarge
+    val detailsTextStyle: TextStyle
+        @Composable
+        get() = MaterialTheme.typography.headlineMedium
+
+    val headerTitleTextSize: TextUnit = 0.sp
+    val headerTextSize: TextUnit = 0.sp
+    val headerClockTextSize: TextUnit = 0.sp
+
+    val backgroundColorDefault = Color.DarkGray
+    val backgroundColorMenu = Color(0xff202020)
+
+    val textColorDefault = Color.White
+
+    val roundCornerSize: Dp = 16.dp
+
+    val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
+
+}
+
 @Suppress("unused")
 object ThemeHelper {
 
@@ -78,5 +120,10 @@ object ThemeHelper {
         @Composable
         @ReadOnlyComposable
         get() = LocalCardShape.current
+
+    val themeProvider
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalThemeProvider.current
 
 }

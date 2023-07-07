@@ -19,13 +19,3 @@ fun TVAppTheme(
     dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
     content: @Composable () -> Unit,
 ) = ThemeHelper (useDarkTheme, dynamicColor, content)
-
-// todo
-
-//val backgroundColorDefault = Color.DarkGray
-//val backgroundColorMenu = Color(0xff202020)
-//
-//val textColorDefault = Color.White
-//
-//val roundCornerSize: Dp = 16.dp
-//val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
