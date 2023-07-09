@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithDescription {
-    var description: Any?
+interface ItemWithDescription<T> {
+    val description: T?
 }

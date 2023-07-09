@@ -6,19 +6,25 @@
  * w: https://mjdev.org
  */
 
+@file:Suppress("PrivatePropertyName")
+
 package org.mjdev.tvapp.module
 
 import android.content.Context
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.api.MovieAPI
+import org.mjdev.tvapp.base.network.CacheInterceptor
 import org.mjdev.tvapp.base.network.NetworkConnectivityService
 import org.mjdev.tvapp.base.network.NetworkConnectivityServiceImpl
-import org.mjdev.tvapp.repository.IRepository
+import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
 import javax.inject.Singleton
 
@@ -28,6 +34,7 @@ import javax.inject.Singleton
 class ProvideModule {
 
     private val isDebug = BuildConfig.DEBUG
+    private val BASE_URL = ""
 
     @Singleton
     @Provides
@@ -38,34 +45,43 @@ class ProvideModule {
 
     @Singleton
     @Provides
-    fun providesMovieRepository(movieApi: MovieAPI): IRepository = MovieRepository(movieApi)
+    fun providesMovieRepository(
+        dao: DAO
+    ): IMovieRepository = MovieRepository(dao)
 
     @Singleton
     @Provides
-    fun providesMovieAPI() = MovieAPI()
+    fun providesHttpLoggingInterceptor(
+    ) = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
-//    @Singleton
-//    @Provides
-//    fun providesHttpLoggingInterceptor(
-//    ) = HttpLoggingInterceptor().apply {
-//        level = HttpLoggingInterceptor.Level.BODY
-//    }
+    @Singleton
+    @Provides
+    fun providesCacheInterceptor() = CacheInterceptor()
 
-//    @Singleton
-//    @Provides
-//    fun providesCacheInterceptor() = CacheInterceptor()
+    @Singleton
+    @Provides
+    fun providesOkHttpClient(
+        cacheInterceptor: CacheInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient = OkHttpClient.Builder().apply {
+        addNetworkInterceptor(cacheInterceptor)
+        if (isDebug) {
+            addInterceptor(httpLoggingInterceptor)
+        }
+    }.build()
 
-//    @Singleton
-//    @Provides
-//    fun providesOkHttpClient(
-//        cacheInterceptor: CacheInterceptor,
-//        httpLoggingInterceptor: HttpLoggingInterceptor
-//    ): OkHttpClient = OkHttpClient.Builder().apply {
-//        addNetworkInterceptor(cacheInterceptor)
-//        if (isDebug) {
-//            addInterceptor(httpLoggingInterceptor)
-//        }
-//    }.build()
+    @Singleton
+    @Provides
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
+
+    @Singleton
+    @Provides
+    fun provideDAO(
+        @ApplicationContext
+        context: Context
+    ): DAO = DAO(context)
 
 //    @Singleton
 //    @Provides
@@ -84,22 +100,10 @@ class ProvideModule {
 //        retrofit: Retrofit
 //    ): ApiService = retrofit.create(ApiService::class.java)
 
-
-//    @Singleton
-//    @Provides
-//    fun providesMoshi(): Moshi = Moshi.Builder().build()
-
 //    @Singleton
 //    @Provides
 //    fun providesApiRepository(
 //        apiService: ApiService
 //    ): INetworkRepository = ApiRepository(apiService)
-
-//    @Singleton
-//    @Provides
-//    fun provideDAO(
-//        @ApplicationContext
-//        context: Context
-//    ): DAO = OpenHelperManager.getHelper(context, DAO::class.java)
 
 }

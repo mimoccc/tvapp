@@ -14,7 +14,7 @@ import org.mjdev.tvapp.base.screen.Screen
 
 internal class EmptyScreen : Screen() {
 
-    override val completeRoute: String = ROUTE_NONE
+    override val route: String = ROUTE_NONE
 
     @TvPreview
     @Composable

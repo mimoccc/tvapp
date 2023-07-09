@@ -10,17 +10,21 @@
 
 package org.mjdev.tvapp.base.extensions
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.content.res.Configuration
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
-import kotlinx.coroutines.flow.Flow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.BuildConfig
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -31,9 +35,6 @@ object ComposeExt {
 
     @Composable
     fun isEditMode() = LocalInspectionMode.current
-
-    @Composable
-    fun <T> Flow<T>?.collectAsState(): State<T>? = this?.collectAsState()
 
     @Composable
     inline fun <reified T> textFrom(text: T?): String = when (text) {
@@ -83,27 +84,21 @@ object ComposeExt {
     val FocusState?.isNotFocused
         get() = !isFocused
 
-//    @Composable
-//    fun Any?.toDrawable(): Drawable {
-//        val context = LocalContext.current
-//        val coroutine = rememberCoroutineScope()
-//        return when (this) {
-//            is Int -> ContextCompat.getDrawable(context, this) ?: ColorDrawable(0)
-//            is Color -> ColorDrawable(this.toArgb())
-//            is Drawable -> this
-//            is Bitmap -> BitmapDrawable(context.resources, this)
-//            else -> {
-//                runBlocking {
-//                    withContext(coroutine.coroutineContext) {
-//                        ImageLoader(context).execute(
-//                            ImageRequest.Builder(context)
-//                                .data(this)
-//                                .build()
-//                        ).drawable
-//                    }!!
-//                }
-//            }
-//        }
-//    }
+    @Composable
+    fun computeCardHeight(): Dp = LocalConfiguration.current.let { config ->
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
+            config.screenHeightDp / 7f
+        else
+            config.screenWidthDp / 7f
+    }.dp
+
+    @SuppressLint("RememberReturnType", "ComposableNaming")
+    @Composable
+    fun rememberContentResolver() : ContentResolver {
+        val context = LocalContext.current
+        return remember {
+            context.contentResolver
+        }
+    }
 
 }

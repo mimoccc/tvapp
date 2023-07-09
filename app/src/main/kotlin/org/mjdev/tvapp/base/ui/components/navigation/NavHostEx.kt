@@ -23,9 +23,9 @@ import androidx.navigation.compose.NavHost
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.screen.Screen.Companion.screen
 import org.mjdev.tvapp.base.ui.components.screen.EmptyScreen
 import org.mjdev.tvapp.base.ui.components.screen.ScreenView
 

@@ -20,7 +20,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.ui.components.complex.TouchBox
+import org.mjdev.tvapp.base.ui.components.complex.VerticalScrollableBox
 
 @TvPreview
 @Composable
@@ -36,12 +36,10 @@ fun ScrollableTvLazyRow(
     state: TvLazyListState = rememberTvLazyListState(),
     content: TvLazyListScope.() -> Unit = {}
 ) {
-
-    TouchBox(
+    VerticalScrollableBox(
         modifier = modifier,
         state = state
     ) {
-
         TvLazyColumn(
             modifier = modifier,
             state = state,
@@ -55,8 +53,5 @@ fun ScrollableTvLazyRow(
                 content.invoke(this)
             }
         )
-
     }
-
-
 }

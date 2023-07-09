@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Wallpapers.GREEN_DOMINATED_EXAMPLE
     uiMode = UI_MODE_TYPE_TELEVISION,
     showBackground = true,
     device = Devices.TV_720p,
-    showSystemUi = true,
+    showSystemUi = false,
     backgroundColor = 0xFF444444,
     wallpaper = GREEN_DOMINATED_EXAMPLE
 )

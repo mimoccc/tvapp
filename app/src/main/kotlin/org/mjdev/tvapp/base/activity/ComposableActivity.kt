@@ -32,10 +32,10 @@ import androidx.tv.material3.Surface
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvapp.base.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvapp.base.ui.components.screen.EmptyScreen
 import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.base.ui.components.navigation.NavHostEx
-import org.mjdev.tvapp.base.screen.Screen.Companion.screen
 import org.mjdev.tvapp.ui.theme.TVAppTheme
 import timber.log.Timber
 

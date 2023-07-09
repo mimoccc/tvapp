@@ -1,0 +1,45 @@
+<!--
+/*
+ * Copyright (c) Milan Jurkulák 2023.
+ * Contact:
+ * e: mimoccc@gmail.com
+ * e: mj@mjdev.org
+ * w: https://mjdev.org
+ */
+-->
+
+<resources>
+
+    <string name="app_name">Tv App</string>
+
+    <string name="bt_dismiss">Zrušiť</string>
+
+    <string name="error_no_network">Internet nie je pripojený.</string>
+    <string name="error_unknown">Neznáma chyba.</string>
+
+    <string name="menu_title_search">Hľadať</string>
+    <string name="menu_title_settings">Nastavenia</string>
+    <string name="menu_title_exit">Ukončiť</string>
+    <string name="menu_title_home">Domov</string>
+
+    <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
+    <string name="text_unimplemented_yet">Táto funkcia žiaľ ešte nie je implementovaná.</string>
+
+    <string name="title_about">O aplikácií</string>
+    <string name="title_apps">Aplikácie</string>
+    <string name="title_error">Chyba</string>
+    <string name="title_home">Domov</string>
+    <string name="title_movie_detail">Detail videa</string>
+    <string name="title_movie_player">Prehrávač videa</string>
+    <string name="title_plugins">Doplnky</string>
+    <string name="title_subscription">Nákup</string>
+
+    <string name="author">Vytvorené autorom Milan Jurkulák © 2023</string>
+
+    <string name="no_items">Žiadne položky …</string>
+    <string name="title_audio_local">Lokálne audio súbory</string>
+    <string name="title_video_local">Lokálne video súbory</string>
+    <string name="title_photo_local">Lokálne fotografie</string>
+
+
+</resources>

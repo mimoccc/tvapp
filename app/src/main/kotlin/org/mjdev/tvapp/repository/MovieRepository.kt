@@ -1,120 +1,39 @@
 /*
  * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 package org.mjdev.tvapp.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import org.mjdev.tvapp.api.MovieAPI
-import org.mjdev.tvapp.base.helpers.Result.Companion.unwrapOr
-import org.mjdev.tvapp.data.Category
+import org.mjdev.tvapp.base.extensions.GlobalExt.runSafe
+import org.mjdev.tvapp.data.Message
 import org.mjdev.tvapp.data.Movie
-import java.lang.Integer.max
-import java.lang.Integer.min
+import org.mjdev.tvapp.database.DAO
 import javax.inject.Inject
 
-@Suppress("unused")
 class MovieRepository @Inject constructor(
-    private val dataSource: MovieAPI
-) : IRepository {
+    var dao: DAO
+) : IMovieRepository {
 
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-
-    private val categoryMovieListMap: MutableMap<Category, List<Movie>> = mutableMapOf()
-    private val idMovieMap: MutableMap<Long, Movie?> = mutableMapOf()
-
-    private var categoryList: List<Category> = listOf()
-
-    private val categoryMovieListMapMutex = Mutex()
-    private val idMovieMapMutex = Mutex()
-    private val categoryListMutex = Mutex()
-
-    override suspend fun getFeaturedMovieList(): List<Movie> {
-        val movieList = dataSource.loadFeaturedMovieList().unwrapOr(listOf())
-        updateCache(movieList)
-        return movieList
+    override fun getMovies(
+        page: Int,
+        count: Int
+    ): Result<List<Movie>> = runSafe {
+        dao.movieDao.all.subList(page * count, page)
     }
 
-    override suspend fun getCategoryList(): List<Category> {
-        if (categoryList.isEmpty()) {
-            categoryListMutex.withLock {
-                categoryList = dataSource.loadCategoryList().unwrapOr(categoryList)
-            }
-        }
-        prefetchMovieListByCategory(category = categoryList[0])
-        return categoryListMutex.withLock { categoryList }
+    override fun findMovieById(
+        id: Long?
+    ): Result<Movie> = runSafe {
+        if ((id != null) && (id > 0)) dao.movieDao.get(id)
+        else throw (Exception("Movie not found."))
     }
 
-    override suspend fun findMovieById(id: Long?): Movie? {
-        idMovieMapMutex.withLock {
-            if (id == null) return null
-            if (!idMovieMap.contains(id)) {
-                idMovieMap[id] = dataSource.findMovieById(id).unwrapOr(null)
-            }
-        }
-        return idMovieMapMutex.withLock { idMovieMap[id] }
-    }
-
-    suspend fun getMovieListByCategory(category: Category): List<Movie> {
-        loadMovieListByCategory(category)
-        prefetchNeighborCategories(category = category)
-        return categoryMovieListMapMutex.withLock {
-            categoryMovieListMap[category] ?: emptyList()
-        }
-    }
-
-    private suspend fun loadMovieListByCategory(category: Category, force: Boolean = false) {
-        if (force || !categoryMovieListMap.contains(category)) {
-            updateCache(
-                category = category,
-                movieList = dataSource.getMovieListByCategory(category.title?.toString()).unwrapOr(listOf())
-            )
-        }
-    }
-
-    private suspend fun updateCache(category: Category, movieList: List<Movie>) {
-        categoryMovieListMapMutex.withLock {
-            categoryMovieListMap[category] = movieList
-        }
-        updateCache(movieList)
-    }
-
-    private suspend fun updateCache(movieList: List<Movie>) {
-        idMovieMapMutex.withLock {
-            movieList.forEach {
-                idMovieMap[it.id] = it
-            }
-        }
-    }
-
-    private fun prefetchMovieListByCategory(category: Category) {
-        CoroutineScope(dispatcher).launch {
-            loadMovieListByCategory(category)
-        }
-    }
-
-    private fun prefetchNeighborCategories(
-        category: Category,
-        neighborCount: Int = 1,
-    ) {
-        val indexForCategory = max(categoryList.indexOf(category), 0)
-        val neighbors =
-            (indexForCategory..min(
-                indexForCategory + neighborCount,
-                categoryList.size - 1
-            )).map { categoryList[it] }
-        CoroutineScope(dispatcher).launch {
-            neighbors.forEach { loadMovieListByCategory(it) }
-        }
+    override fun getMessages(): Result<List<Message>> = runSafe {
+        dao.messagesDao.all
     }
 
 }

@@ -37,6 +37,10 @@ fun BrowseView(
     modifier: Modifier = Modifier,
     showHeader: Boolean = true,
     showNetworkState: Boolean = true,
+    showApps: Boolean = true,
+    showLocalAudio: Boolean = true,
+    showLocalVideo: Boolean = true,
+    showLocalPhotos: Boolean = true,
     title: Any? = "test",
     messages: List<Any?> = listOf(Unit, Unit, Unit),
     categories: List<Any?> = listOf(Unit, Unit, Unit),
@@ -53,11 +57,15 @@ fun BrowseView(
     backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+    onTitleClick : () ->Unit = {},
+    onClockClick: () -> Unit = {},
+    onMessageBadgeClick: () -> Unit = {},
+    onUserPicClick: () -> Unit = {},
     onItemClick: (item: Any?) -> Unit = {}
 ) {
     val isEdit = isEditMode()
     ScrollableTvLazyRow(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(backgroundColor, backgroundShape),
         verticalArrangement = verticalArrangement,
@@ -66,7 +74,11 @@ fun BrowseView(
         if (isEdit || showHeader) item {
             Header(
                 title = title,
-                messagesCount = messages.size
+                messagesCount = messages.size,
+                onTitleClick = onTitleClick,
+                onClockClick = onClockClick,
+                onMessageBadgeClick = onMessageBadgeClick,
+                onUserPicClick = onUserPicClick
             )
         }
         if (showNetworkState && (isEdit || networkState.isNotConnected)) item {
@@ -85,7 +97,10 @@ fun BrowseView(
         if (isEdit || categories.isNotEmpty()) item {
             Tabs(
                 items = categories.map { category ->
-                    (category as? ItemWithTitle)?.title
+                    (category as? ItemWithTitle<*>)?.title
+                },
+                onItemClick = { category ->
+                    // todo
                 }
             )
         }
@@ -96,11 +111,29 @@ fun BrowseView(
                 onItemClicked = onItemClick
             )
         }
-        items(categoriesAndItemsMap.map {
-            Pair(it.key, it.value)
+        if (showApps) item {
+            AppsRow()
+        }
+        if (showLocalAudio) item {
+            LocalAudioRow(
+                openItem = { item -> onItemClick(item) }
+            )
+        }
+        if (showLocalVideo) item {
+            LocalVideoRow(
+                openItem = { item -> onItemClick(item) }
+            )
+        }
+        if (showLocalPhotos) item {
+            LocalPhotosRow(
+                openItem = { item -> onItemClick(item) }
+            )
+        }
+        items(categoriesAndItemsMap.map { entry ->
+            Pair(entry.key, entry.value)
         }) { entry ->
             CategoryRow(
-                title = (entry.first as? ItemWithTitle)?.title,
+                title = (entry.first as? ItemWithTitle<*>)?.title,
                 items = entry.second,
                 onItemClick = onItemClick
             )

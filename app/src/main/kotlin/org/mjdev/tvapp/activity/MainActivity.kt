@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.base.activity.ComposableActivity
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
-import org.mjdev.tvapp.base.screen.Screen.Companion.screen
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen

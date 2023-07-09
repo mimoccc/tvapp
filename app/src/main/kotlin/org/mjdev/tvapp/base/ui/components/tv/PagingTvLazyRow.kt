@@ -1,4 +1,4 @@
-package org.mjdev.tvapp.base.paging
+package org.mjdev.tvapp.base.ui.components.tv
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,6 +21,8 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.paging.ListPagingSource
+import org.mjdev.tvapp.base.paging.SOURCE
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
 @Suppress("ModifierParameter")
@@ -37,14 +39,10 @@ fun <T : Any> PagingTvLazyRow(
     userScrollEnabled: Boolean = true,
     pivotOffsets: PivotOffsets = PivotOffsets(),
     perPage: Int = 8,
-    source: SOURCE<T> = { _, _ ->
-        emptyList()
-    },
+    source: SOURCE<T> = { _, _ -> emptyList() },
     loadStateHandler: (state: LoadState) -> Unit = {},
     onItemClick: (data: T) -> Unit = { _ -> },
-    emptyContent: @Composable () -> Unit = {
-        TextAny(text = R.string.no_items)
-    },
+    emptyContent: @Composable () -> Unit = { TextAny(text = R.string.no_items) },
     itemBlock: @Composable (
         idx: Int, item: T, onItemClick: (data: T) -> Unit
     ) -> Unit = { _, _, _ -> }

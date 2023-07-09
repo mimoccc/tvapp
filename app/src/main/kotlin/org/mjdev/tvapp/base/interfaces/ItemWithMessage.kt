@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithMessage {
-    var message: Any?
+interface ItemWithMessage<T> {
+    val message: T?
 }

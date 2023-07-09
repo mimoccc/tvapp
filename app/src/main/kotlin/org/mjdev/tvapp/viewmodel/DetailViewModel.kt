@@ -9,34 +9,54 @@
 package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.mjdev.tvapp.api.MovieAPI
 import org.mjdev.tvapp.base.viewmodel.BaseViewModel
-import org.mjdev.tvapp.repository.IRepository
+import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
 import org.mjdev.tvapp.state.DetailsLoadingState
+import java.net.URL
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val movieRepository: IRepository
+    private val movieRepository: IMovieRepository
 ) : BaseViewModel() {
 
     fun detailsLoadingState(
-        movieId: Long?
+        data: Any?
     ): StateFlow<DetailsLoadingState> = flow {
-        val movie = movieRepository.findMovieById(id = movieId)
-        val state = if (movie == null) {
-            DetailsLoadingState.NotFound
-        } else {
-            DetailsLoadingState.Ready(movie = movie)
+        try {
+            when (data) {
+                is Int, is Long -> {
+                    val movieId: Long? = data as? Long
+                    val result = movieRepository.findMovieById(movieId)
+                    val state = if (result.isSuccess) {
+                        DetailsLoadingState.Ready(result.getOrThrow())
+                    } else {
+                        DetailsLoadingState.NotFound
+                    }
+                    emit(state)
+                }
+                is String -> {
+                    emit(DetailsLoadingState.Ready(data))
+                }
+                is Uri, is URL -> {
+                    emit(DetailsLoadingState.Ready(data))
+                }
+                else -> {
+                    emit(DetailsLoadingState.Ready(data))
+                }
+            }
+        } catch (e: Exception) {
+            emit(DetailsLoadingState.Error(e))
         }
-        emit(state)
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),
@@ -45,10 +65,10 @@ class DetailViewModel @Inject constructor(
 
     companion object {
 
-        @Suppress("unused", "UNUSED_PARAMETER")
+        @Suppress("unused")
         fun mockDetailViewModel(
             context: Context
-        ): DetailViewModel = DetailViewModel(MovieRepository(MovieAPI()))
+        ): DetailViewModel = DetailViewModel(MovieRepository(DAO(context)))
 
     }
 

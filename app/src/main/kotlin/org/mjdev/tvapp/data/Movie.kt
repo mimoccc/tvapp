@@ -8,48 +8,68 @@
 
 package org.mjdev.tvapp.data
 
-import android.net.Uri
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import io.objectbox.annotation.Entity
+import io.objectbox.annotation.Id
 import org.mjdev.tvapp.base.interfaces.ItemWithBackground
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
-import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
+import org.mjdev.tvapp.base.interfaces.ItemWithUri
 import java.io.Serializable
 
-data class Movie(
-
-    var studio: Any? = "",
-
-    override var id: Long = 0,
-    override var title: Any? = "",
-    override var description: Any? = "",
-    override var backgroundImageUrl: Any? = "",
-    override var imageUrl: Any? = "",
-    override var videoUri: Any? = Uri.EMPTY,
-
-    ) : Serializable,
+@Entity
+@JsonClass(generateAdapter = true)
+class Movie :
+    Serializable,
     ItemWithId,
-    ItemWithTitle,
-    ItemWithSubtitle,
-    ItemWithImage,
-    ItemWithVideoUri,
-    ItemWithBackground,
-    ItemWithDescription {
+    ItemWithTitle<String>,
+    ItemWithSubtitle<String>,
+    ItemWithImage<String>,
+    ItemWithUri<String>,
+    ItemWithBackground<String>,
+    ItemWithDescription<String> {
 
-    override var subtitle: Any?
+    @Id
+    @Json(name = "id")
+    override var id: Long = 0
+
+    @Json(name = "category")
+    var category: String? = ""
+
+    @Json(name = "studio")
+    var studio: String? = ""
+
+    @Json(name = "title")
+    override var title: String? = ""
+
+    @Json(name = "description")
+    override var description: String? = ""
+
+    @Json(name = "backgroundImageUrl")
+    override var background: String? = ""
+
+    @Json(name = "imageUrl")
+    override var image: String? = ""
+
+    @Json(name = "videoUri")
+    override var uri: String? = ""
+
+    override var subtitle: String?
         get() = studio
-        set(value) { studio = value }
+        set(value) {
+            studio = value
+        }
 
-    override fun toString(): String {
-        return "Movie{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", videoUrl='" + videoUri.toString() + '\'' +
-            ", backgroundImageUrl='" + backgroundImageUrl + '\'' +
-            ", cardImageUrl='" + imageUrl + '\'' +
-            '}'
-    }
+    override fun toString(): String = "Movie{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", videoUrl='" + uri.toString() + '\'' +
+        ", backgroundImageUrl='" + background + '\'' +
+        ", cardImageUrl='" + image + '\'' +
+        '}'
 
 }

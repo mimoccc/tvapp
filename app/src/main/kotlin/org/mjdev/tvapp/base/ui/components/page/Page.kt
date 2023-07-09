@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
-import org.mjdev.tvapp.base.ui.components.complex.TouchBox
+import org.mjdev.tvapp.base.ui.components.complex.VerticalScrollableBox
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -55,7 +55,7 @@ open class Page {
         Column(
             Modifier.fillMaxSize()
         ) {
-            TouchBox(
+            VerticalScrollableBox(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(backgroundColor, background)

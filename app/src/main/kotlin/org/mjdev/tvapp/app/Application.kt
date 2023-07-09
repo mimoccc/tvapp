@@ -10,6 +10,17 @@ package org.mjdev.tvapp.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import org.mjdev.tvapp.sync.SyncService
+import org.mjdev.tvapp.sync.SyncService.Companion.createSyncAccount
 
 @HiltAndroidApp
-class Application : Application()
+class Application : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        createSyncAccount()?.also { account ->
+            SyncService.requestSync(account)
+        }
+    }
+
+}

@@ -23,21 +23,21 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
-import org.mjdev.tvapp.base.extensions.ComposeExt
+import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("AutoboxingStateValueProperty")
 @Preview
 @Composable
-fun TouchBox(
+fun VerticalScrollableBox(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.TopStart,
     propagateMinConstraints: Boolean = false,
     state: TvLazyListState? = null,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
-    val isEdit = ComposeExt.isEditMode()
+    val isEdit = isEditMode()
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     Box(
         modifier = modifier

@@ -12,6 +12,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface NetworkConnectivityService {
 
-    val networkStatus: Flow<NetworkStatus>
+    val networkStatus: Flow<NetworkStatus?>
 
 }

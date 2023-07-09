@@ -22,10 +22,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
+import org.mjdev.tvapp.base.extensions.NavControllerExt.open
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.interfaces.ItemWithId
-import org.mjdev.tvapp.base.interfaces.ItemWithVideoUri
-import org.mjdev.tvapp.base.screen.Screen.Companion.open
+import org.mjdev.tvapp.base.interfaces.ItemWithUri
 import org.mjdev.tvapp.base.ui.components.page.Page
 import org.mjdev.tvapp.base.ui.components.tv.BrowseView
 import org.mjdev.tvapp.ui.screens.DetailScreen
@@ -65,15 +65,16 @@ class MainPage : Page() {
         }
 
         val onItemClick: (item: Any?) -> Unit = { item ->
-            val isVideo = ((item as? ItemWithVideoUri)?.hasVideoUri == true)
-            val isId = ((item as? ItemWithId)?.hasId == true)
-            val id = (item as? ItemWithId)?.id
-            if ((item == null) || (!isId)) {
+            val dataUri = (item as? ItemWithUri<*>)?.uri
+            val dataId = (item as? ItemWithId)?.id
+            if (item == null) {
                 viewModel.postError("No media found.".asException())
-            } else if (isVideo) {
-                navController?.open<PlayerScreen>(id)
+            } else if (dataId != null) {
+                navController?.open<PlayerScreen>(dataId)
+            } else if (dataUri != null) {
+                navController?.open<PlayerScreen>(dataUri)
             } else {
-                navController?.open<DetailScreen>(id)
+                navController?.open<DetailScreen>(item)
             }
         }
 
@@ -85,12 +86,15 @@ class MainPage : Page() {
             modifier = Modifier.fillMaxSize(),
             title = titleState.value,
             messages = messages.value,
-            categories = categoryList.value,
+            categories = categoryList.value.map { it.key }.distinct(),
             featuredItems = featuredMovieList.value,
-            categoriesAndItemsMap = categoryList.value.associateWith { it.movieList },
+            categoriesAndItemsMap = categoryList.value,
             networkState = networkState,
             errorState = errorState,
             backgroundColor = Color.DarkGray,
+            onTitleClick = {
+                navController?.openMenu()
+            },
             onItemClick = onItemClick
         )
 

@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithSubtitle {
-    var subtitle: Any?
+interface ItemWithSubtitle <T>{
+    val subtitle: T?
 }

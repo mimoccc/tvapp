@@ -11,10 +11,6 @@
 package org.mjdev.tvapp.base.screen
 
 import androidx.annotation.CallSuper
-import androidx.annotation.MainThread
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,34 +28,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDeepLink
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.navOptions
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.AnimExt.FadeIn
-import org.mjdev.tvapp.base.extensions.AnimExt.FadeOut
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
-import org.mjdev.tvapp.base.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import kotlin.reflect.full.createInstance
 
 @Suppress("unused", "LeakingThis")
 open class Screen {
 
-    private val routeBase: String
-        get() = (this::class.simpleName ?: "-") + "?"
-
-    open val completeRoute: String
-        get() = routeBase.let { rb ->
-            var routeImpl = rb
-            pageArgs.forEach { arg ->
-                routeImpl = routeImpl.plus("${arg.name}={${arg.name}}")
-            }
-            routeImpl
-        }
+    open val route: String
+        get() = (this::class.simpleName ?: "none")
 
     open val pageArgs: List<NamedNavArgument> = emptyList()
 
@@ -83,7 +62,7 @@ open class Screen {
         get() = if (menuTitle != null) MenuItem(
             menuText = menuTitle,
             menuIcon = menuIcon,
-            menuRoute = completeRoute
+            menuRoute = route
         ) else null
 
     var navController: NavHostControllerEx? = null
@@ -131,132 +110,6 @@ open class Screen {
                 color = Color.White
             )
         }
-    }
-
-    companion object {
-
-        @Suppress("UNCHECKED_CAST", "DEPRECATION")
-        private fun <T> NavBackStackEntry.arg(
-            argId: String,
-            defaultValue: T
-        ): T = (arguments?.get(argId) as? T?) ?: defaultValue
-
-        @MainThread
-        fun NavHostController.open(
-            route: String?
-        ) {
-            if (route != null) {
-                val currentRoute = currentRoute
-                val equals = currentRoute?.equals(route)
-                if (equals != true) {
-                    navigate(route)
-                }
-            }
-        }
-
-        @MainThread
-        inline fun <reified T : Screen> NavHostController.openAsTop(
-            vararg values: Any?
-        ) {
-            val instance = T::class.createInstance()
-            instance.completeRoute.let { r ->
-                var routeImpl = r
-                instance.pageArgs.forEachIndexed { idx, arg ->
-                    routeImpl = routeImpl.replace(
-                        "{${arg.name}}",
-                        (values[idx] ?: "").toString()
-                    )
-                }
-                routeImpl
-            }.also { finalRoute ->
-                val currentRoute = currentRoute
-                val equals = currentRoute?.equals(finalRoute)
-                if (equals != true) {
-                    navigate(
-                        finalRoute,
-                        navOptions {
-                            popBackStack()
-                            launchSingleTop = true
-                        },
-                        null
-                    )
-                }
-            }
-        }
-
-        @MainThread
-        inline fun <reified T : Screen> NavHostController.open(
-            vararg values: Any?
-        ) {
-            val instance = T::class.createInstance()
-            instance.completeRoute.let { r ->
-                var routeImpl = r
-                instance.pageArgs.forEachIndexed { idx, arg ->
-                    routeImpl = routeImpl.replace(
-                        "{${arg.name}}",
-                        (values[idx] ?: "").toString()
-                    )
-                }
-                routeImpl
-            }.also { finalRoute ->
-                val currentRoute = currentRoute
-                val equals = currentRoute?.equals(finalRoute)
-                if (equals != true) {
-                    navigate(finalRoute)
-                }
-            }
-        }
-
-        val NavHostController.currentRoute
-            get() = currentDestination?.route
-
-        fun <T : Screen> NavGraphBuilderEx.screen(
-            route: T,
-            isHomeScreen: Boolean = false,
-            isStartScreen: Boolean = false,
-            deepLinks: List<NavDeepLink> = emptyList(),
-            enterTransition: (@JvmSuppressWildcards
-            AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = {
-                FadeIn
-            },
-            exitTransition: (@JvmSuppressWildcards
-            AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = {
-                FadeOut
-            },
-            popEnterTransition: (@JvmSuppressWildcards
-            AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
-                enterTransition,
-            popExitTransition: (@JvmSuppressWildcards
-            AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? =
-                exitTransition,
-        ) {
-            if (isStartScreen) {
-                splashDestinationRoute = route.completeRoute
-            }
-            if (isHomeScreen) {
-                homeDestinationRoute = route.completeRoute
-            }
-            route.menuItem?.also { menuItem ->
-                navHostController.addMenuItem(menuItem)
-            }
-            composable(
-                route = route.completeRoute,
-                arguments = route.pageArgs,
-                enterTransition = enterTransition,
-                exitTransition = exitTransition,
-                deepLinks = deepLinks,
-                popEnterTransition = popEnterTransition,
-                popExitTransition = popExitTransition
-            ) { be ->
-                val rArgs = mutableMapOf<String, Any?>().apply {
-                    route.pageArgs.forEach { arg ->
-                        put(arg.name, be.arg(arg.name, null))
-                    }
-                }
-                route.Compose(navHostController, be, rArgs)
-            }
-        }
-
     }
 
 }

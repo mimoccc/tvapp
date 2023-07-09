@@ -16,13 +16,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
+import org.mjdev.tvapp.base.navigation.AnyType
 import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Loading
@@ -31,16 +31,16 @@ import org.mjdev.tvapp.viewmodel.DetailViewModel
 
 class PlayerScreen : Screen() {
 
-    private val movieId = "movieId"
+    private val data = "data"
 
     override val title = R.string.title_movie_player
     override val menuIcon: ImageVector get() = Icons.Filled.PlayArrow
     override val immersive: Boolean = true
 
     override val pageArgs = listOf(
-        navArgument(movieId) {
-            defaultValue = -1
-            type = NavType.LongType
+        navArgument(data) {
+            nullable = true
+            type = AnyType
         }
     )
 
@@ -54,21 +54,23 @@ class PlayerScreen : Screen() {
             DetailViewModel.mockDetailViewModel(context)
         }
 
-        val movieId: Long? = remember { args[movieId] as Long? }
-        val movieState = remember { viewModel.detailsLoadingState(movieId) }.collectAsState()
+        val data: Any? = remember { args[data] }
+        val dataState = remember {
+            viewModel.detailsLoadingState(data)
+        }.collectAsState()
 
         fun postError(error: String) = viewModel.postError(error.asException())
 
-        if (isEdit || (movieState.value is DetailsLoadingState.Ready)) {
+        if (isEdit || (dataState.value is DetailsLoadingState.Ready)) {
             MediaPlayer(
                 modifier = Modifier.fillMaxSize(),
-                movie = (movieState.value as? DetailsLoadingState.Ready)?.movie
+                data = (dataState.value as? DetailsLoadingState.Ready)?.data
             )
-        } else if (movieState.value is DetailsLoadingState.NotFound) {
-            postError("Movie for id: $movieId not found.")
+        } else if (dataState.value is DetailsLoadingState.NotFound) {
+            postError("Can not play: ${dataState.value}. File not found.")
             Loading()
         } else {
-            postError("Movie for id: $movieId not found.")
+            postError("Can not play: ${dataState.value}. File unknown type.")
             Loading()
         }
 

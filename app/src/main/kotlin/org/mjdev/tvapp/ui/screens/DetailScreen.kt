@@ -14,12 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
 import org.mjdev.tvapp.base.extensions.StringExt.asException
+import org.mjdev.tvapp.base.navigation.AnyType
 import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.state.DetailsLoadingState
 import org.mjdev.tvapp.ui.components.Details
@@ -28,7 +28,7 @@ import org.mjdev.tvapp.viewmodel.DetailViewModel
 
 class DetailScreen : Screen() {
 
-    private val movieId = "movieId"
+    private val data = "data"
 
     override val title = R.string.title_movie_detail
 
@@ -37,9 +37,9 @@ class DetailScreen : Screen() {
     override val immersive: Boolean = true
 
     override val pageArgs = listOf(
-        navArgument(movieId) {
-            defaultValue = -1
-            type = NavType.LongType
+        navArgument(data) {
+            nullable = true
+            type = AnyType
         }
     )
 
@@ -51,22 +51,23 @@ class DetailScreen : Screen() {
             DetailViewModel.mockDetailViewModel(context)
         }
 
-        val movieId: Long? = remember { args[movieId] as Long? }
-        val movieState = remember { viewModel.detailsLoadingState(movieId) }.collectAsState()
+        val data: Any? = args[data]
+        val dataState = remember {
+            viewModel.detailsLoadingState(data)
+        }.collectAsState()
 
         fun postError(error: String) = viewModel.postError(error.asException())
 
-        when (movieState.value) {
+        when (dataState.value) {
             is DetailsLoadingState.Ready ->
-                Details(movie = (movieState.value as DetailsLoadingState.Ready).movie)
+                Details((dataState.value as DetailsLoadingState.Ready).data)
 
             is DetailsLoadingState.NotFound -> {
-                postError("Movie for id: $movieId not found.")
+                postError("File or address $data not found.")
                 Loading()
             }
 
             else -> {
-                postError("Movie for id: $movieId not found.")
                 Loading()
             }
         }

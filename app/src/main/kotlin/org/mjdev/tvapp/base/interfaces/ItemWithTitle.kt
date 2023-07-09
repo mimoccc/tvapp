@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithTitle {
-    var title : Any?
+interface ItemWithTitle<T> {
+    val title : T?
 }

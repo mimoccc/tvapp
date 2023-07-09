@@ -47,7 +47,7 @@ fun TvPager(
 
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
-    val pagerScope = rememberPagerScope(navController, pages)
+    val pagerScope = rememberPagerScope(navController, startIndex, pages)
 
     val goToPage: (
         page: Page?

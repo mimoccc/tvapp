@@ -10,6 +10,7 @@ package org.mjdev.tvapp.base.ui.components.carousel
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
@@ -38,11 +39,11 @@ fun CarouselCard(
     scale: CardScale = CardScale.None,
     focusState: MutableState<FocusState?> = rememberFocusState(item),
     placeholder: @Composable () -> Unit = {}, // todo
-    imageRenderer: @Composable (modifier: Modifier) -> Unit = {
+    imageRenderer: @Composable () -> Unit = {
         ImageAny(
-            modifier = modifier,
-            src = (item as? ItemWithBackground)?.backgroundImageUrl,
-            contentDescription = (item as? ItemWithDescription)?.description?.toString(),
+            modifier = Modifier.fillMaxSize(),
+            src = (item as? ItemWithBackground<*>)?.background,
+            contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
             placeholder = placeholder
         )
@@ -55,7 +56,7 @@ fun CarouselCard(
         modifier = modifier.conditional(isEdit) {
             defaultMinSize(260.dp)
         },
-        aspectRatio = null,
+        aspectRatio = 1f,
         contentScale = contentScale,
         scale = scale,
         focusState = focusState,

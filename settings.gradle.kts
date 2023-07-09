@@ -13,7 +13,15 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven(url = "https://www.jitpack.io")
+        @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
+        jcenter()
+        maven(url = "https://plugins.gradle.org/m2/")
     }
+}
+
+plugins {
+    id("com.gradle.enterprise") version ("3.13.3")
 }
 
 dependencyResolutionManagement {
@@ -21,6 +29,21 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
+        maven(url = "https://www.jitpack.io")
+        @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
+        jcenter()
+        maven(url = "https://plugins.gradle.org/m2/")
+    }
+}
+
+gradleEnterprise {
+    if (System.getenv("CI") != null) {
+        buildScan {
+            publishAlways()
+            termsOfServiceUrl = "https://gradle.com/terms-of-service"
+            termsOfServiceAgree = "yes"
+        }
     }
 }
 

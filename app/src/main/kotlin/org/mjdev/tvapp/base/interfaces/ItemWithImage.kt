@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithImage {
-    var imageUrl : Any?
+interface ItemWithImage<T> {
+    val image : T?
 }

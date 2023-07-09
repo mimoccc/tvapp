@@ -19,10 +19,11 @@ import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 @Suppress("unused")
 class PagerScope(
     val navController: NavHostControllerEx,
+    startIndex:Int = 0,
     pages: PagerScope.() -> Unit = {},
 ) : ArrayList<Page>() {
 
-    val currentPage: MutableState<Int> = mutableIntStateOf(0)
+    val currentPage: MutableState<Int> = mutableIntStateOf(startIndex)
 
     init {
         pages.invoke(this)
@@ -70,10 +71,12 @@ class PagerScope(
 @Composable
 fun rememberPagerScope(
     navController: NavHostControllerEx,
+    startIndex:Int = 0,
     pages: PagerScope.() -> Unit = {}
 ) = remember {
     PagerScope(
         navController,
+        startIndex,
         pages,
     )
 }

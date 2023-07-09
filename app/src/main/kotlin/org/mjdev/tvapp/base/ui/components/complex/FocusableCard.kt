@@ -9,8 +9,9 @@
 package org.mjdev.tvapp.base.ui.components.complex
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -21,8 +22,8 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardBorder
 import androidx.tv.material3.CardColors
@@ -32,6 +33,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
@@ -46,7 +48,7 @@ import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.card.colorFocusBorder
 import org.mjdev.tvapp.base.ui.components.card.colorFocusGlow
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
-import org.mjdev.tvapp.base.ui.components.text.TextAny
+import org.mjdev.tvapp.base.ui.components.text.AutoHideEmptyText
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -62,11 +64,11 @@ fun FocusableCard(
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
     placeholder: @Composable () -> Unit = {},
-    imageRenderer: @Composable (modifier: Modifier) -> Unit = {
+    imageRenderer: @Composable () -> Unit = {
         ImageAny(
-            modifier = modifier,
-            src = (item as? ItemWithImage)?.imageUrl,
-            contentDescription = (item as? ItemWithDescription)?.description?.toString(),
+            modifier = Modifier.fillMaxSize(),
+            src = (item as? ItemWithImage<*>)?.image,
+            contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
             placeholder = placeholder
         )
@@ -74,13 +76,11 @@ fun FocusableCard(
     focusRequester: FocusRequester = rememberFocusRequester(item),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
     onFocusChange: (state: FocusState) -> Unit = {},
+    cardHeight: Dp = computeCardHeight(),
+    aspectRatio: Float = 16f / 9f,
     onClick: (item: Any?) -> Unit = {},
 ) {
     val isEdit = isEditMode()
-    val width = LocalConfiguration.current.let { config ->
-        if (config.orientation == ORIENTATION_PORTRAIT) config.screenWidthDp * 0.5f
-        else config.screenHeightDp * 0.5f
-    }
     CompactCard(
         scale = scale,
         shape = shape,
@@ -88,7 +88,8 @@ fun FocusableCard(
         border = border,
         glow = glow,
         modifier = modifier
-            .width(width.dp)
+            .height(cardHeight)
+            .width(cardHeight * aspectRatio)
             .focusState(focusState)
             .onFocusChanged { state ->
                 onFocusChange(state)
@@ -102,18 +103,18 @@ fun FocusableCard(
                 defaultMinSize(80.dp)
             },
         image = {
-            imageRenderer(modifier)
+            imageRenderer()
         },
         title = {
-            TextAny(
+            AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
-                text = (item as? ItemWithTitle)?.title
+                text = (item as? ItemWithTitle<*>)?.title
             )
         },
         subtitle = {
-            TextAny(
+            AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
-                text = (item as? ItemWithSubtitle)?.subtitle
+                text = (item as? ItemWithSubtitle<*>)?.subtitle
             )
         },
         description = {

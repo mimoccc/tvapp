@@ -46,7 +46,7 @@ fun PhotoImage(
     placeholder: @Composable () -> Unit = {},
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Fit,
+    contentScale: ContentScale = ContentScale.Crop,
     alpha: Float = DefaultAlpha,
     @FloatRange(from = 0.0, to = 10.0)
     contrast: Float = 5f,

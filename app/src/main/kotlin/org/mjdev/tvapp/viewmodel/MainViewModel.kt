@@ -16,40 +16,52 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.mjdev.tvapp.api.MovieAPI
+import org.mjdev.tvapp.base.extensions.ListExt.asMap
 import org.mjdev.tvapp.base.network.NetworkConnectivityService
 import org.mjdev.tvapp.base.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvapp.base.viewmodel.BaseViewModel
-import org.mjdev.tvapp.data.Category
 import org.mjdev.tvapp.data.Message
 import org.mjdev.tvapp.data.Movie
-import org.mjdev.tvapp.repository.IRepository
+import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val movieRepository: IRepository,
+    private val repository: IMovieRepository,
     var networkInfo: NetworkConnectivityService
 ) : BaseViewModel() {
 
-    val messages: StateFlow<List<Message>> = channelFlow<List<Message>> {
-        send(listOf())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), listOf())
+    val messages: StateFlow<List<Message>> = channelFlow {
+        send(repository.getMessages().getOrThrow())
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        listOf()
+    )
 
     val featuredMovieList: StateFlow<List<Movie>> = flow {
-        emit(movieRepository.getFeaturedMovieList())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), listOf())
+        emit(repository.getMovies().getOrThrow().takeLast(32))
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        listOf()
+    )
 
-    val categoryList: StateFlow<List<Category>> = flow {
-        emit(movieRepository.getCategoryList())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), listOf())
+    val categoryList: StateFlow<Map<String, List<Movie>>> = flow {
+        emit(repository.getMovies().getOrThrow().asMap { m -> Pair(m.category, m) })
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        mapOf()
+    )
 
     companion object {
 
         @Suppress("unused")
         fun mockMainViewModel(context: Context): MainViewModel = MainViewModel(
-            MovieRepository(MovieAPI()),
+            MovieRepository(DAO(context)),
             NetworkConnectivityServiceImpl(context)
         )
 

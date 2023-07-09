@@ -9,6 +9,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import org.mjdev.gradle.extensions.implementation
+import org.mjdev.gradle.extensions.kapt
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.loadKeyStoreProperties
@@ -29,6 +30,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.dokka") version "1.8.10"
+    id("io.objectbox")
     id("MainAppPlugin")
 }
 
@@ -59,6 +61,9 @@ android {
         versionName = project.versionName
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
+
+        buildConfigField("String", "SYNC_AUTH", "\"$applicationId.sync\"")
+        resValue("string", "sync_auth", "$applicationId.sync")
     }
 
     buildTypes {
@@ -111,9 +116,32 @@ android {
         checkReleaseBuilds = false
     }
 
+    subprojects {
+        apply(plugin = "org.jetbrains.dokka")
+    }
+
     tasks.dokkaGfm {
         outputDirectory.set(File(projectDir, "../wiki/documentation"))
     }
+
+//    tasks.register("prepareReleaseNotes") {
+//        doLast {
+//            exec {
+//                workingDir(rootDir)
+//                args(getVersionName())
+//                executable("./scripts/git_log.sh")
+//            }
+//        }
+//    }
+//
+//    afterEvaluate {
+//        // all versions release notes
+//        tasks.findByName("assembleDebug")?.finalizedBy("prepareReleaseNotes")
+//        tasks.findByName("assembleRelease")?.finalizedBy("prepareReleaseNotes")
+//
+//        // dokka documentation generation
+//        tasks.findByName("prepareReleaseNotes")?.finalizedBy("dokkaGfm")
+//    }
 
 }
 
@@ -143,6 +171,10 @@ dependencies {
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.0-beta02")
     // image loading
+    implementation("io.coil-kt:coil-base:2.4.0")
+    implementation("io.coil-kt:coil-gif:2.2.2")
+    implementation("io.coil-kt:coil-svg:1.2.2")
+    implementation("io.coil-kt:coil-video:1.2.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.skydoves:landscapist-coil:2.2.2")
     // constraint layout // todo remove
@@ -161,6 +193,23 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.46.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     kapt("com.google.dagger:hilt-compiler:2.46.1")
+    // okhttp
+    // define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    // moshi json
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    // database
+
+    // db encrypt data
+    implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
     implementation("androidx.media3:media3-exoplayer:1.1.0")
     implementation("androidx.media3:media3-exoplayer-dash:1.1.0")

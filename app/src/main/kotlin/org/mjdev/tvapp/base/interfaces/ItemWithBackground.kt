@@ -8,6 +8,6 @@
 
 package org.mjdev.tvapp.base.interfaces
 
-interface ItemWithBackground {
-    var backgroundImageUrl: Any?
+interface ItemWithBackground<T> {
+    val background: T?
 }

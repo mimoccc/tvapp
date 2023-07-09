@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.base.interfaces
 
 interface ItemWithId {
-    var id: Long
+    val id: Long
 
     val hasId: Boolean get() = (id != -1L)
 }

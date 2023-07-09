@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.NavControllerExt.open
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
-import org.mjdev.tvapp.base.screen.Screen.Companion.open
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)

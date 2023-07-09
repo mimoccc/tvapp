@@ -93,10 +93,10 @@ class ThemeProvider {
     val detailTextBackgroundColor: Color = Color.Black
     val detailsTitleTextStyle: TextStyle
         @Composable
-        get() = MaterialTheme.typography.headlineLarge
+        get() = MaterialTheme.typography.headlineMedium
     val detailsTextStyle: TextStyle
         @Composable
-        get() = MaterialTheme.typography.headlineMedium
+        get() = MaterialTheme.typography.headlineSmall
 
     val headerTitleTextSize: TextUnit = 0.sp
     val headerTextSize: TextUnit = 0.sp

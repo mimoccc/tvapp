@@ -105,7 +105,7 @@ fun Tabs(
                 ) {
                     TextAny(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                        text = if (tab is ItemWithTitle) tab.title else tab.toString(),
+                        text = if (tab is ItemWithTitle<*>) tab.title else tab.toString(),
                         fontSize = fontSize,
                         color = Color.White,
                         fontWeight = FontWeight.Bold

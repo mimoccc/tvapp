@@ -8,14 +8,14 @@
 
 package org.mjdev.tvapp.state
 
-import org.mjdev.tvapp.data.Movie
-
 sealed class DetailsLoadingState {
 
     object Loading : DetailsLoadingState()
 
     object NotFound : DetailsLoadingState()
 
-    class Ready(val movie: Movie) : DetailsLoadingState()
+    class Ready(val data: Any?) : DetailsLoadingState()
+
+    class Error(val error: Exception) : DetailsLoadingState()
 
 }
