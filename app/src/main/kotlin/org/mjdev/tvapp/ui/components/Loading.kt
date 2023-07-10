@@ -24,7 +24,6 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 @TvPreview
 @Composable
 fun Loading(modifier: Modifier = Modifier) {
-
     Box(
         modifier = modifier.fillMaxSize().background(
             Color.DarkGray,
@@ -39,5 +38,4 @@ fun Loading(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.headlineMedium
         )
     }
-
 }

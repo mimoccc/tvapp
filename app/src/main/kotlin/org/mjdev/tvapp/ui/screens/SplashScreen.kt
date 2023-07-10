@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +33,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.NavControllerExt.openAsTop
 import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.base.ui.components.text.TextAny
-import org.mjdev.tvapp.base.ui.components.text.TextWithShadow
+import org.mjdev.tvapp.base.ui.components.tv.Title
 
 class SplashScreen : Screen() {
 
@@ -48,26 +47,15 @@ class SplashScreen : Screen() {
 
         val isEdit = isEditMode()
         val scale = remember { Animatable(if (isEdit) 1f else 0f) }
-        val brush = Brush.radialGradient(
-            colors = listOf(Color.Black, Color.Black, Color.DarkGray, Color.Black),
-        )
 
         Box(
             modifier = Modifier
                 .scale(scale.value)
-                .background(brush, RectangleShape)
+                .background(backgroundColor, RectangleShape)
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            TextWithShadow(
-                text = R.string.app_name,
-                fontSize = 64.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Gray,
-                modifier = Modifier.padding(10.dp),
-                shadowColor = Color.DarkGray,
-                shadowSize = 18.dp
-            )
+            Title()
         }
         Box(
             modifier = Modifier
@@ -87,7 +75,6 @@ class SplashScreen : Screen() {
                 color = Color.White.copy(alpha = 0.5f)
             )
         }
-
         LaunchedEffect(key1 = true) {
             scale.animateTo(
                 targetValue = 1f,
@@ -97,10 +84,9 @@ class SplashScreen : Screen() {
                         OvershootInterpolator(4f).getInterpolation(it)
                     })
             )
-            delay(3000L)
+            delay(1000L)
             navController?.openAsTop<MainScreen>()
         }
-
     }
 
 }

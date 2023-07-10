@@ -49,7 +49,7 @@ fun Button(
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.Bold,
     color: Color = Color.White,
-    containerColor: Color = Color.Transparent,
+    containerColor: Color = Color.LightGray,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     roundRectSize: Dp = 8.dp,
     shape: Shape = RoundedCornerShape(roundRectSize),
@@ -64,7 +64,8 @@ fun Button(
 ) {
 
     Button(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
 //            .touchable(
 //                focusState = focusState,
 //            )

@@ -58,15 +58,16 @@ fun BrowseView(
     backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-    onTitleClick : () ->Unit = {},
-    onClockClick: () -> Unit = {},
-    onMessageBadgeClick: () -> Unit = {},
-    onUserPicClick: () -> Unit = {},
-    onItemClick: (item: Any?) -> Unit = {}
+    onTitleClicked: () -> Unit = {},
+    onClockClicked: () -> Unit = {},
+    onMessageBadgeClicked: () -> Unit = {},
+    onUserPicClicked: () -> Unit = {},
+    onItemClicked: (item: Any?) -> Unit = {}
 ) {
     val isEdit = isEditMode()
     ScrollableTvLazyRow(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
             .fillMaxSize()
             .background(backgroundColor, backgroundShape),
         verticalArrangement = verticalArrangement,
@@ -76,13 +77,13 @@ fun BrowseView(
             Header(
                 title = title,
                 messagesCount = messages.size,
-                onTitleClick = onTitleClick,
-                onClockClick = onClockClick,
-                onMessageBadgeClick = onMessageBadgeClick,
-                onUserPicClick = onUserPicClick
+                onTitleClick = onTitleClicked,
+                onClockClick = onClockClicked,
+                onMessageBadgeClick = onMessageBadgeClicked,
+                onUserPicClick = onUserPicClicked,
             )
         }
-        if (showNetworkState && (isEdit || networkState.isNotConnected)) item {
+        if (isEdit || (showNetworkState && networkState.isNotConnected)) item {
             ErrorMessage(
                 error = stringResource(R.string.error_no_network).asException(),
                 backgroundColor = Color.Black,
@@ -100,7 +101,7 @@ fun BrowseView(
                 items = categories.map { category ->
                     (category as? ItemWithTitle<*>)?.title
                 },
-                onItemClick = { category ->
+                onItemClick = { //category ->
                     // todo
                 }
             )
@@ -109,7 +110,7 @@ fun BrowseView(
             BigCarousel(
                 modifier = Modifier.recomposeHighlighter(),
                 items = featuredItems,
-                onItemClicked = onItemClick
+                onItemClicked = onItemClicked
             )
         }
         if (showApps) item {
@@ -117,17 +118,17 @@ fun BrowseView(
         }
         if (showLocalAudio) item {
             LocalAudioRow(
-                openItem = { item -> onItemClick(item) }
+                openItem = { item -> onItemClicked(item) }
             )
         }
         if (showLocalVideo) item {
             LocalVideoRow(
-                openItem = { item -> onItemClick(item) }
+                openItem = { item -> onItemClicked(item) }
             )
         }
         if (showLocalPhotos) item {
             LocalPhotosRow(
-                openItem = { item -> onItemClick(item) }
+                openItem = { item -> onItemClicked(item) }
             )
         }
         items(categoriesAndItemsMap.map { entry ->
@@ -136,7 +137,7 @@ fun BrowseView(
             CategoryRow(
                 title = (entry.first as? ItemWithTitle<*>)?.title,
                 items = entry.second,
-                onItemClick = onItemClick
+                onItemClick = onItemClicked
             )
         }
     }

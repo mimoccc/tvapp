@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -35,6 +36,7 @@ fun PhotoCard(
     item: Any? = null,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
+    textColor: Color = Color.White,
     focusState: MutableState<FocusState?> = rememberFocusState(item),
     imageRenderer: @Composable () -> Unit = {
         PhotoImage(
@@ -54,6 +56,7 @@ fun PhotoCard(
         item = item,
         modifier = modifier.recomposeHighlighter(),
         contentScale = contentScale,
+        textColor = textColor,
         focusState = focusState,
         aspectRatio = aspectRatio,
         cardWidth = cardWidth,

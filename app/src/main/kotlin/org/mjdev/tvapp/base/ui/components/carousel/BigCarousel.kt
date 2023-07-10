@@ -37,7 +37,7 @@ import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 @Composable
 fun BigCarousel(
     modifier: Modifier = Modifier,
-    items: List<Any?> = emptyList(),
+    items: List<Any?> = listOf(Unit, Unit, Unit),
     onItemSelected: (movie: Any?) -> Unit = {},
     onItemClicked: (movie: Any?) -> Unit = {},
 ) {
@@ -51,7 +51,8 @@ fun BigCarousel(
     BoxWithConstraints {
         Carousel(
             itemCount = items.size,
-            modifier = modifier.recomposeHighlighter()
+            modifier = modifier
+                .recomposeHighlighter()
                 .fillMaxWidth()
                 .height(height.dp),
         ) { indexOfCarouselItem ->

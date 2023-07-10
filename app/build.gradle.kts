@@ -251,6 +251,8 @@ dependencies {
     // permission
     implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
 
+    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
+
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")

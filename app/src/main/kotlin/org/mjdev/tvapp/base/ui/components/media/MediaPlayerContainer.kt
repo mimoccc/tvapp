@@ -12,6 +12,7 @@ package org.mjdev.tvapp.base.ui.components.media
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
@@ -33,7 +34,7 @@ fun MediaPlayerContainer(
 ) {
     val state = rememberMediaPlayerState(uri ?: Uri.EMPTY, autoPlay, startSeek)
     Box(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier.recomposeHighlighter().fillMaxSize()
     ) {
         background(state)
         mediaPlayer.GetPlayerView()

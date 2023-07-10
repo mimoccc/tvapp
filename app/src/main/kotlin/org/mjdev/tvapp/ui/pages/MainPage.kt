@@ -92,10 +92,10 @@ class MainPage : Page() {
             networkState = networkState,
             errorState = errorState,
             backgroundColor = Color.DarkGray,
-            onTitleClick = {
+            onTitleClicked = {
                 navController?.openMenu()
             },
-            onItemClick = onItemClick
+            onItemClicked = onItemClick
         )
 
     }

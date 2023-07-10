@@ -52,7 +52,6 @@ fun Details(
     val title = (data as? ItemWithTitle<*>)?.title
     val subtitle = (data as? ItemWithSubtitle<*>)?.subtitle
     val description = (data as? ItemWithDescription<*>)?.description
-
     var infoVisible by remember { mutableStateOf(true) }
 
     Box(

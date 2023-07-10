@@ -61,6 +61,7 @@ fun FocusableCard(
     contentScale: ContentScale = ContentScale.Crop,
     scale: CardScale = CardDefaults.scale(),
     shape: CardShape = CardDefaults.shape(),
+    textColor: Color = Color.White,
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
@@ -113,6 +114,7 @@ fun FocusableCard(
             AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
                 maxLines = 1,
+                color = textColor,
                 style = MaterialTheme.typography.titleSmall,
                 text = (item as? ItemWithTitle<*>)?.title
             )
@@ -121,6 +123,7 @@ fun FocusableCard(
             AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
                 maxLines = 1,
+                color = textColor,
                 style = MaterialTheme.typography.displaySmall,
                 text = (item as? ItemWithSubtitle<*>)?.subtitle
             )

@@ -61,16 +61,6 @@ fun NavigationRow(
     strokeWidth: Dp = 1.dp,
     margin: Dp = 0.dp,
     padding: Dp = 4.dp,
-//    brush: Brush? = BrushBuilder()
-//        .type(BrushBuilder.Vertical)
-//        .colors(
-//            0.1f to Color.White,
-//            0.3f to Color.Green,
-//            0.4f to Color.Green,
-//            0.5f to Color.Green,
-//            0.9f to Color.Green,
-//        )
-//        .build(),
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     focusState: MutableState<FocusState?> = rememberFocusState(text),
     onFocus: (id: Int) -> Unit = {},
@@ -78,7 +68,8 @@ fun NavigationRow(
 ) {
     val isEdit = isEditMode()
     FocusableBox(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
             .padding(margin)
             .border(
                 BorderStroke(
@@ -91,7 +82,7 @@ fun NavigationRow(
             .focusState(focusState),
         shape = shape,
         focusedColor = focusedColor.copy(alpha = 0.5f),
-        unFocusedColor = Color.Transparent,
+        unFocusedColor = unFocusedColor,
         onFocusChange = { state ->
             if (state.isFocused || state.hasFocus) {
                 onFocus(id)
@@ -102,14 +93,16 @@ fun NavigationRow(
         },
     ) {
         Row(
-            modifier = Modifier.recomposeHighlighter()
+            modifier = Modifier
+                .recomposeHighlighter()
                 .padding(padding),
-//                .background(brush!!, shape),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
-                modifier = Modifier.padding(4.dp).recomposeHighlighter()
+                modifier = Modifier
+                    .padding(4.dp)
+                    .recomposeHighlighter()
             ) {
                 IconAny(
                     src = icon,
@@ -118,12 +111,13 @@ fun NavigationRow(
                 )
             }
             AnimatedVisibility(
-                visible = (drawerState.currentValue == DrawerValue.Open)
+                visible = (isEdit || (drawerState.currentValue == DrawerValue.Open))
             ) {
                 TextAny(
                     text = text,
                     softWrap = false,
-                    modifier = Modifier.recomposeHighlighter()
+                    modifier = Modifier
+                        .recomposeHighlighter()
                         .padding(8.dp)
                         .width(expandedWidth),
                     color = textColor,

@@ -62,6 +62,7 @@ fun PhotoImage(
 ) {
     val isEdit = isEditMode()
     val context = LocalContext.current
+    // todo coil image does not shows
     CoilImage(
         imageLoader = {
             ImageLoader(context).newBuilder()

@@ -33,8 +33,8 @@ import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
+@OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 fun CircleText(

@@ -56,7 +56,8 @@ fun FocusableBox(
 ) {
     Surface(
         onClick = onClick,
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
             .focusState(focusState)
             .onFocusChanged { state -> onFocusChange(state) }
             .requestFocusOnTouch(focusRequester) {
