@@ -61,17 +61,8 @@ class VideoItem(
         val MEDIA_PROJECTION = arrayOf(
             MediaStore.Video.Media._ID,
             MediaStore.Video.Media.TITLE,
-            MediaStore.Video.Media.ARTIST,
-            MediaStore.Video.Media.ALBUM,
-            MediaStore.Video.Media.DATE_ADDED,
-            MediaStore.Video.Media.COMPOSER,
-            MediaStore.Video.Media.YEAR,
             MediaStore.Video.Media.DATA,
-            MediaStore.Video.Media.DURATION,
-            MediaStore.Video.Media.MIME_TYPE,
-            MediaStore.Video.Media.SIZE,
-            MediaStore.Video.Media.DATE_MODIFIED,
-            // todo
+            // todo more columns
         )
     }
 

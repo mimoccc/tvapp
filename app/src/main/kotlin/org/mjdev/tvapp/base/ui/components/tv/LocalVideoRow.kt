@@ -49,7 +49,7 @@ fun LocalVideoRow(
         selection = selection,
         selectionArgs = selectionArgs,
         sortOrder = sortOrder,
-        transform = { VideoItem(contentResolver, it) },
+        transform = { c -> VideoItem(contentResolver, c) },
         openItem = openItem,
     )
 }

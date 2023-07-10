@@ -18,6 +18,7 @@ import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import org.mjdev.tvapp.base.extensions.CursorExt.isNotEmpty
+import timber.log.Timber
 
 @SuppressLint("Recycle")
 @Composable
@@ -61,10 +62,15 @@ class PrefetchCursor(
     }
     private val cursor: Cursor? by lazy {
         if (uri != null) {
-            resolver.query(
-                uri, projection, selection, selectionArgs, sortOrder
-            ).apply {
-                if (this?.isNotEmpty == true) moveToFirst()
+            try {
+                resolver.query(
+                    uri, projection, selection, selectionArgs, sortOrder
+                ).apply {
+                    if (this?.isNotEmpty == true) moveToFirst()
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+                null
             }
         } else null
     }
@@ -74,11 +80,15 @@ class PrefetchCursor(
 
     fun get(idx: Int): Any? {
         var result: Any? = null
-        if (count > idx) {
-            cursor?.move(idx)
-            result = cursor?.let { c ->
-                transform(c)
+        try {
+            if (count > idx) {
+                cursor?.move(idx)
+                result = cursor?.let { c ->
+                    transform(c)
+                }
             }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
         return result
     }

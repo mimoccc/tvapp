@@ -46,6 +46,6 @@ fun LocalPhotosRow(
     selection = selection,
     selectionArgs = selectionArgs,
     sortOrder = sortOrder,
-    transform = { PhotoItem(it) },
+    transform = { c -> PhotoItem(c) },
     openItem = openItem,
 )

@@ -34,20 +34,8 @@ class PhotoItem(
         val MEDIA_PROJECTION = arrayOf(
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.TITLE,
-            MediaStore.Images.Media.ARTIST,
-            MediaStore.Images.Media.ALBUM,
-            MediaStore.Images.Media.DATE_ADDED,
-            MediaStore.Images.Media.COMPOSER,
-            MediaStore.Images.Media.YEAR,
             MediaStore.Images.Media.DATA,
-            MediaStore.Images.Media.DURATION,
-            MediaStore.Images.Media.MIME_TYPE,
-            MediaStore.Images.Media.SIZE,
-            MediaStore.Images.Media.DATE_MODIFIED,
-            MediaStore.Images.Media.ALBUM_ARTIST,
-            MediaStore.Images.Media.AUTHOR,
-            MediaStore.Images.Media.BITRATE,
-            // todo
+            // todo more columns
         )
     }
 
