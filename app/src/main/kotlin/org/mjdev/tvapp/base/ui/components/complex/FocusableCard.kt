@@ -88,7 +88,8 @@ fun FocusableCard(
         colors = colors,
         border = border,
         glow = glow,
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
             .height(cardHeight)
             .width(cardHeight * aspectRatio)
             .focusState(focusState)
@@ -109,12 +110,14 @@ fun FocusableCard(
         title = {
             AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
+                maxLines = 1,
                 text = (item as? ItemWithTitle<*>)?.title
             )
         },
         subtitle = {
             AutoHideEmptyText(
                 modifier = Modifier.padding(4.dp),
+                maxLines = 1,
                 text = (item as? ItemWithSubtitle<*>)?.subtitle
             )
         },
