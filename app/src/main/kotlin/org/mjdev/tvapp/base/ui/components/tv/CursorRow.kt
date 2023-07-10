@@ -35,7 +35,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.helpers.cursor.rememberCursor
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
@@ -50,7 +50,7 @@ fun CursorRow(
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 16.dp,
     backgroundColor: Color = Color.DarkGray,
-    cardHeight: Dp = computeCardHeight(),
+    cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
     uri: Uri? = null,
     projection: Array<String> = emptyArray(),
@@ -103,14 +103,14 @@ fun CursorRow(
             ) {
                 items(
                     count = cursor.count,
+                    key = { idx -> idx }
                 ) { idx ->
-                    val item = cursor.get(idx)
                     PhotoCard(
-                        item = item,
+                        item = cursor.get(idx),
                         contentScale = contentScale,
-                        cardHeight = cardHeight,
-                        onClick = {
-                            openItem(context, item)
+                        cardWidth = cardWidth,
+                        onClick = { i ->
+                            openItem(context, i)
                         },
                     )
                 }

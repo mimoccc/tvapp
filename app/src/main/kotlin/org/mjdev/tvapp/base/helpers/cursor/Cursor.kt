@@ -16,6 +16,11 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import org.mjdev.tvapp.base.extensions.CursorExt.isNotEmpty
 import timber.log.Timber
@@ -31,17 +36,29 @@ fun rememberCursor(
     prefetchItems: Int = 8,
     transform: (Cursor) -> Any?,
 ): PrefetchCursor? {
-    return if (uri == null) null
-    else PrefetchCursor(
-        LocalContext.current,
-        uri,
-        projection,
-        selection,
-        selectionArgs,
-        sortOrder,
-        prefetchItems,
-        transform,
-    )
+    if (uri == null) return null
+    else {
+        val context = LocalContext.current
+        var cursor by remember {
+            mutableStateOf<PrefetchCursor?>(null)
+        }
+        DisposableEffect(uri) {
+            cursor = PrefetchCursor(
+                context,
+                uri,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder,
+                prefetchItems,
+                transform,
+            )
+            onDispose {
+                cursor?.close()
+            }
+        }
+        return cursor
+    }
 }
 
 // todo prefetching & cache
@@ -81,16 +98,18 @@ class PrefetchCursor(
     fun get(idx: Int): Any? {
         var result: Any? = null
         try {
-            if (count > idx) {
-                cursor?.move(idx)
-                result = cursor?.let { c ->
-                    transform(c)
-                }
+            if (count >= idx) {
+                cursor?.moveToPosition(idx)
+                result = cursor?.let { c -> transform(c) }
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
         return result
+    }
+
+    fun close() {
+        cursor?.close()
     }
 
 }

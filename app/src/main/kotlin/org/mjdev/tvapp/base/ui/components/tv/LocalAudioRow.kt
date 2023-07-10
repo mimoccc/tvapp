@@ -18,7 +18,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
 import org.mjdev.tvapp.base.helpers.cursor.AudioItem
 
@@ -27,12 +27,12 @@ import org.mjdev.tvapp.base.helpers.cursor.AudioItem
 fun LocalAudioRow(
     title: Any? = R.string.title_audio_local,
     rowState: TvLazyListState = rememberTvLazyListState(),
-    padding: Dp = 16.dp,
+    padding: Dp = 8.dp,
     backgroundColor: Color = Color.DarkGray,
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
-    cardHeight: Dp = computeCardHeight(),
+    cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
     openItem: Context.(item: Any?) -> Unit = {},
 ) {
@@ -42,7 +42,7 @@ fun LocalAudioRow(
         rowState = rowState,
         padding = padding,
         backgroundColor = backgroundColor,
-        cardHeight = cardHeight,
+        cardWidth = cardWidth,
         contentScale = contentScale,
         uri = AudioItem.URI,
         projection = AudioItem.MEDIA_PROJECTION,

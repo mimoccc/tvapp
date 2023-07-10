@@ -20,6 +20,7 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.helpers.apps.App
 import org.mjdev.tvapp.base.helpers.apps.rememberAppsManager
 import org.mjdev.tvapp.base.ui.components.card.ItemCard
@@ -30,7 +31,7 @@ import org.mjdev.tvapp.base.ui.components.card.ItemCard
 fun AppsRow(
     title: Any? = R.string.title_apps,
     rowState: TvLazyListState = rememberTvLazyListState(),
-    padding: Dp = 16.dp,
+    padding: Dp = 8.dp,
     backgroundColor: Color = Color.DarkGray,
     startApp: Context.(app: App?) -> Unit = { app ->
         startActivity(app?.intent)
@@ -38,13 +39,14 @@ fun AppsRow(
 ) {
     val context: Context = LocalContext.current
     val apps = rememberAppsManager()
+    val cardWidth = computeCardWidth(3f)
     if (apps.isNotEmpty()) {
         CategoryRow(
             title = title,
             items = apps,
             rowState = rowState,
             padding = padding,
-            cardHeight = 80.dp,
+            cardWidth = cardWidth,
             contentScale = ContentScale.Fit,
             backgroundColor = backgroundColor,
             onItemClick = { app ->
@@ -54,7 +56,7 @@ fun AppsRow(
                 ItemCard(
                     item = item,
                     contentScale = ContentScale.Fit,
-                    cardHeight = 80.dp,
+                    cardWidth = cardWidth,
                     onClick = { app ->
                         startApp(context, app as? App)
                     },

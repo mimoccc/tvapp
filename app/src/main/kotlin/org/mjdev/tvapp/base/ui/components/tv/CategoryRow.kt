@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -44,8 +44,8 @@ fun CategoryRow(
     title: Any? = "category 1",
     items: List<Any?> = listOf(Unit, Unit, Unit),
     rowState: TvLazyListState = rememberTvLazyListState(),
-    padding: Dp = 16.dp,
-    cardHeight: Dp = computeCardHeight(),
+    padding: Dp = 8.dp,
+    cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
     backgroundColor: Color = Color.DarkGray,
     onItemClick: (item: Any?) -> Unit = {},
@@ -53,7 +53,7 @@ fun CategoryRow(
         PhotoCard(
             item = item,
             contentScale = contentScale,
-            cardHeight = cardHeight,
+            cardWidth = cardWidth,
             onClick = onItemClick,
         )
     },
