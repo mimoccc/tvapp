@@ -9,10 +9,12 @@
 package org.mjdev.tvapp.base.helpers.cursor
 
 import android.content.ContentResolver
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
+import org.mjdev.tvapp.base.extensions.CursorExt.asMap
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.interfaces.ItemWithUri
@@ -20,8 +22,8 @@ import timber.log.Timber
 
 class VideoItem(
     private val contentResolver: ContentResolver,
-    ci: CursorItem
-) : CursorItem(), ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
+    c: Cursor
+) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
 
     override val title: String?
         get() = this[MediaStore.Video.Media.TITLE]?.toString()
@@ -51,7 +53,7 @@ class VideoItem(
         }
 
     init {
-        putAll(ci)
+        putAll(c.asMap(MEDIA_PROJECTION))
     }
 
     companion object {

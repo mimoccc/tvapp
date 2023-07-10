@@ -19,7 +19,6 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
-import org.mjdev.tvapp.base.helpers.cursor.CursorItem
 import org.mjdev.tvapp.base.helpers.cursor.PhotoItem
 
 @TvPreview
@@ -34,7 +33,7 @@ fun LocalPhotosRow(
     sortOrder: String? = null,
     cardHeight: Dp = computeCardHeight(),
     contentScale: ContentScale = ContentScale.Crop,
-    openItem: Context.(item: CursorItem?) -> Unit = {},
+    openItem: Context.(item: Any?) -> Unit = {},
 ) = CursorRow(
     title = title,
     rowState = rowState,

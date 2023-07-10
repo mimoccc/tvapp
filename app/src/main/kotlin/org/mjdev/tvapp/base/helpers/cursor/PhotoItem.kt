@@ -8,17 +8,19 @@
 
 package org.mjdev.tvapp.base.helpers.cursor
 
+import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import org.mjdev.tvapp.base.extensions.CursorExt.asMap
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 
 class PhotoItem(
-    ci: CursorItem
-) : CursorItem(), ItemWithTitle<String>, ItemWithImage<Any> {
+    c: Cursor
+) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any> {
 
     init {
-        putAll(ci)
+        putAll(c.asMap(MEDIA_PROJECTION))
     }
 
     override val title: String?

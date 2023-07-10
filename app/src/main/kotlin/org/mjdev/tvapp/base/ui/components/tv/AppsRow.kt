@@ -10,7 +10,6 @@ package org.mjdev.tvapp.base.ui.components.tv
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -38,11 +37,11 @@ fun AppsRow(
     },
 ) {
     val context: Context = LocalContext.current
-    val apps = rememberAppsManager().collectAsState(emptyList())
-    if (apps.value.isNotEmpty()) {
+    val apps = rememberAppsManager()
+    if (apps.isNotEmpty()) {
         CategoryRow(
             title = title,
-            items = apps.value,
+            items = apps,
             rowState = rowState,
             padding = padding,
             cardHeight = 80.dp,

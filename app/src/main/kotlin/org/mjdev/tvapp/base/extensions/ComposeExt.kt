@@ -94,9 +94,11 @@ object ComposeExt {
 
     @SuppressLint("RememberReturnType", "ComposableNaming")
     @Composable
-    fun rememberContentResolver() : ContentResolver {
+    fun rememberContentResolver(
+        key: Any? = Unit
+    ): ContentResolver {
         val context = LocalContext.current
-        return remember {
+        return remember(key) {
             context.contentResolver
         }
     }

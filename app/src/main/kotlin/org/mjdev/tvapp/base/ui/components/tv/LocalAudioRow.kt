@@ -18,10 +18,9 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
 import org.mjdev.tvapp.base.helpers.cursor.AudioItem
-import org.mjdev.tvapp.base.helpers.cursor.CursorItem
 
 @TvPreview
 @Composable
@@ -35,9 +34,9 @@ fun LocalAudioRow(
     sortOrder: String? = null,
     cardHeight: Dp = computeCardHeight(),
     contentScale: ContentScale = ContentScale.Crop,
-    openItem: Context.(item: CursorItem?) -> Unit = {},
+    openItem: Context.(item: Any?) -> Unit = {},
 ) {
-    val contentResolver = ComposeExt.rememberContentResolver()
+    val contentResolver = rememberContentResolver()
     CursorRow(
         title = title,
         rowState = rowState,
@@ -50,7 +49,7 @@ fun LocalAudioRow(
         selection = selection,
         selectionArgs = selectionArgs,
         sortOrder = sortOrder,
-        transform = { AudioItem(contentResolver, it) },
+        transform = { c -> AudioItem(contentResolver, c) },
         openItem = openItem,
     )
 }

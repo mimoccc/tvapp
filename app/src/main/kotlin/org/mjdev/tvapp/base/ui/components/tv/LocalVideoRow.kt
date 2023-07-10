@@ -20,7 +20,6 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
-import org.mjdev.tvapp.base.helpers.cursor.CursorItem
 import org.mjdev.tvapp.base.helpers.cursor.VideoItem
 
 @TvPreview
@@ -35,7 +34,7 @@ fun LocalVideoRow(
     sortOrder: String? = null,
     cardHeight: Dp = computeCardHeight(),
     contentScale: ContentScale = ContentScale.Crop,
-    openItem: Context.(item: CursorItem?) -> Unit = {},
+    openItem: Context.(item: Any?) -> Unit = {},
 ) {
     val contentResolver = rememberContentResolver()
     CursorRow(

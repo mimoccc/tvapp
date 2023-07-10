@@ -11,57 +11,76 @@
 package org.mjdev.tvapp.base.helpers.cursor
 
 import android.annotation.SuppressLint
+import android.content.ContentResolver
 import android.content.Context
-import android.database.ContentObserver
+import android.database.Cursor
 import android.net.Uri
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOn
-import org.mjdev.tvapp.base.extensions.CursorExt.toList
-import timber.log.Timber
+import org.mjdev.tvapp.base.extensions.CursorExt.isNotEmpty
 
+@SuppressLint("Recycle")
 @Composable
-fun rememberMediaCursor(
+fun rememberCursor(
     uri: Uri?,
     projection: Array<String>,
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
-): Flow<List<CursorItem>> {
-    val context: Context = LocalContext.current
-    return remember {
-        callbackFlow {
-            val resolver = context.contentResolver
-            val observer = object : ContentObserver(null) {
-                @SuppressLint("Recycle")
-                override fun onChange(selfChange: Boolean) {
-                    if (uri != null) {
-                        try {
-                            resolver.query(
-                                uri, projection, selection, selectionArgs, sortOrder
-                            )?.toList(projection)?.let { data ->
-                                trySend(data)
-                            }
-                        } catch (e: Exception) {
-                            Timber.e(e)
-                        }
-                    } else {
-                        trySend(emptyList())
-                    }
-                }
-            }
-            if (uri != null) {
-                resolver.registerContentObserver(uri, true, observer)
-                observer.onChange(true)
-                awaitClose {
-                    resolver.unregisterContentObserver(observer)
-                }
-            }
-        }.flowOn(Dispatchers.IO)
+    prefetchItems: Int = 8,
+    transform: (Cursor) -> Any?,
+): PrefetchCursor? {
+    return if (uri == null) null
+    else PrefetchCursor(
+        LocalContext.current,
+        uri,
+        projection,
+        selection,
+        selectionArgs,
+        sortOrder,
+        prefetchItems,
+        transform,
+    )
+}
+
+// todo prefetching & cache
+@Suppress("UNUSED_PARAMETER")
+class PrefetchCursor(
+    context: Context,
+    uri: Uri?,
+    private val projection: Array<String>,
+    selection: String? = null,
+    selectionArgs: Array<String>? = null,
+    sortOrder: String? = null,
+    prefetchItems: Int = 8,
+    private val transform: (Cursor) -> Any? = { it },
+) {
+
+    private val resolver: ContentResolver by lazy {
+        context.contentResolver
     }
+    private val cursor: Cursor? by lazy {
+        if (uri != null) {
+            resolver.query(
+                uri, projection, selection, selectionArgs, sortOrder
+            ).apply {
+                if (this?.isNotEmpty == true) moveToFirst()
+            }
+        } else null
+    }
+
+    val count: Int get() = cursor?.count ?: 0
+    val isNotEmpty: Boolean get() = count > 0
+
+    fun get(idx: Int): Any? {
+        var result: Any? = null
+        if (count > idx) {
+            cursor?.move(idx)
+            result = cursor?.let { c ->
+                transform(c)
+            }
+        }
+        return result
+    }
+
 }
