@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
@@ -44,7 +44,7 @@ fun PhotoCard(
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
         )
     },
-    cardHeight: Dp = computeCardHeight(),
+    cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
@@ -56,7 +56,7 @@ fun PhotoCard(
         contentScale = contentScale,
         focusState = focusState,
         aspectRatio = aspectRatio,
-        cardHeight = cardHeight,
+        cardWidth = cardWidth,
         scale = scale,
         imageRenderer = imageRenderer,
         placeholder = placeholder,

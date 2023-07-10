@@ -125,7 +125,7 @@ fun CardDefaults.colorFocusBorder(
     colorFocused: Color = Color.Green,
     colorUnFocused: Color = Color.Black,
     colorPressed: Color = Color.Yellow,
-    width: Dp = 3.dp,
+    width: Dp = 1.dp,
     roundCornerSize: Dp = 8.dp
 ) = border(
 //    border = Border(

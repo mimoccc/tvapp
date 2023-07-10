@@ -58,8 +58,8 @@ fun NavigationRow(
     expandedWidth: Dp = 150.dp,
     roundCornerSize: Dp = 32.dp,
     shape: Shape = RoundedCornerShape(roundCornerSize),
-    strokeWidth: Dp = 2.dp,
-    margin: Dp = 2.dp,
+    strokeWidth: Dp = 1.dp,
+    margin: Dp = 0.dp,
     padding: Dp = 4.dp,
 //    brush: Brush? = BrushBuilder()
 //        .type(BrushBuilder.Vertical)

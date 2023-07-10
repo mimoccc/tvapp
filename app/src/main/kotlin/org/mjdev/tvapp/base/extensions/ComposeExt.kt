@@ -85,11 +85,13 @@ object ComposeExt {
         get() = !isFocused
 
     @Composable
-    fun computeCardHeight(): Dp = LocalConfiguration.current.let { config ->
+    fun computeCardWidth(
+        ratio: Float = 2.5f
+    ): Dp = LocalConfiguration.current.let { config ->
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
-            config.screenHeightDp / 7f
+            config.screenWidthDp / ratio
         else
-            config.screenWidthDp / 7f
+            config.screenHeightDp / ratio
     }.dp
 
     @SuppressLint("RememberReturnType", "ComposableNaming")

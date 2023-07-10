@@ -42,7 +42,7 @@ fun TVRow(
     TvLazyRow(
         modifier = modifier.recomposeHighlighter(),
         state = state,
-        contentPadding = PaddingValues(contentPadding),
+        contentPadding = PaddingValues(contentPadding * 2, contentPadding),
         reverseLayout = reverseLayout,
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment,

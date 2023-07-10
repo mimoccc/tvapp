@@ -53,7 +53,7 @@ fun PhotoImage(
     contrast: Float = 5f,
     @FloatRange(from = -255.0, to = 255.0)
     brightness: Float = -255f,
-    borderSize: Dp = 4.dp,
+    borderSize: Dp = 2.dp,
     borderColor: Color = Color.Black,
     roundCornerSize: Dp = 8.dp,
     shape: Shape = RoundedCornerShape(roundCornerSize),
