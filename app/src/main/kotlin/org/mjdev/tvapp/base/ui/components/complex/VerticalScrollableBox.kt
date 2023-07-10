@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("AutoboxingStateValueProperty")
@@ -40,7 +41,7 @@ fun VerticalScrollableBox(
     val isEdit = isEditMode()
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     Box(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .conditional(isEdit) {
                 tvAspectRatio(16f / 9f).defaultMinSize(80.dp)
             }

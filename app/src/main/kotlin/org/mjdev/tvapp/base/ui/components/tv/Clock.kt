@@ -36,6 +36,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ContextExt.dateAsString
 import org.mjdev.tvapp.base.extensions.ContextExt.timeAsString
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -91,7 +92,7 @@ fun Clock(
     }.collectAsState(initial = "1.1.1970") else null
 
     FocusableBox(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .padding(contentPadding)
             .conditional(isEdit) {
                 background(Color.DarkGray, RectangleShape)
@@ -101,19 +102,19 @@ fun Clock(
     ) {
 
         Box(
-            Modifier
+            Modifier.recomposeHighlighter()
                 .background(backgroundColor, RoundedCornerShape(roundSize))
                 .wrapContentSize()
                 .clip(RoundedCornerShape(roundSize))
         ) {
 
             Column(
-                modifier = Modifier.padding(8.dp, 2.dp, 8.dp, 2.dp),
+                modifier = Modifier.padding(8.dp, 2.dp, 8.dp, 2.dp).recomposeHighlighter(),
                 horizontalAlignment = horizontalAlignment,
             ) {
 
                 if (showTime) TextAny(
-                    modifier = modifier.wrapContentSize(),
+                    modifier = modifier.wrapContentSize().recomposeHighlighter(),
                     text = timeFlow?.value,
                     fontWeight = timeTextWeight,
                     fontSize = timeTextSize,
@@ -121,7 +122,7 @@ fun Clock(
                 )
 
                 if (showDate) TextAny(
-                    modifier = modifier.wrapContentSize(),
+                    modifier = modifier.wrapContentSize().recomposeHighlighter(),
                     text = dateFlow?.value,
                     textAlign = TextAlign.End,
                     fontWeight = dateTextWeight,

@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 // todo placeholder
@@ -60,7 +61,7 @@ fun ImageAny(
         Color -> Image(
             ColorDrawable((src as Color).toArgb()).asImageBitmap(width, height),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -70,7 +71,7 @@ fun ImageAny(
         is Bitmap -> Image(
             src.asImageBitmap(),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -80,7 +81,7 @@ fun ImageAny(
         is ImageBitmap -> Image(
             src,
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -90,7 +91,7 @@ fun ImageAny(
         is ColorDrawable -> Image(
             src.asImageBitmap(1, 1),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -100,7 +101,7 @@ fun ImageAny(
         is Drawable -> Image(
             src.asImageBitmap(),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -110,7 +111,7 @@ fun ImageAny(
         is Int -> Image(
             painterResource(src),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,
@@ -118,7 +119,7 @@ fun ImageAny(
         )
 
         is URL -> AsyncImage(
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             model = src,
             contentDescription = contentDescription,
             alignment = alignment,
@@ -128,7 +129,7 @@ fun ImageAny(
         )
 
         is Uri -> AsyncImage(
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             model = src,
             contentDescription = contentDescription,
             alignment = alignment,
@@ -138,7 +139,7 @@ fun ImageAny(
         )
 
         is String -> AsyncImage(
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             model = src,
             contentDescription = contentDescription,
             alignment = alignment,
@@ -150,7 +151,7 @@ fun ImageAny(
         is ImageVector -> Image(
             src,
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             alignment,
             contentScale,
             alpha,

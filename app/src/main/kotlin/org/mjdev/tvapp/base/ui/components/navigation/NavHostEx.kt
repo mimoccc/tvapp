@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.NavExt.createGraph
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.extensions.NavGraphBuilderExt.screen
@@ -55,7 +56,7 @@ fun NavHostEx(
         navController = navController,
     ) {
         NavHost(
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             navController = navController,
             graph = remember(route, builder) {
                 navController.createGraph(

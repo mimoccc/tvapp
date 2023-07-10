@@ -27,6 +27,7 @@ import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.complex.FocusableCard
@@ -60,7 +61,7 @@ fun ItemCard(
     focusState: MutableState<FocusState?> = rememberFocusState(item),
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     item = item,
     focusState = focusState,
     contentScale = contentScale,

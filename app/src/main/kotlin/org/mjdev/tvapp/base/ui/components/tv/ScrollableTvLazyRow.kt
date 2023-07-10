@@ -20,6 +20,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.complex.VerticalScrollableBox
 
 @TvPreview
@@ -37,11 +38,11 @@ fun ScrollableTvLazyRow(
     content: TvLazyListScope.() -> Unit = {}
 ) {
     VerticalScrollableBox(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         state = state
     ) {
         TvLazyColumn(
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             state = state,
             contentPadding = contentPadding,
             reverseLayout = reverseLayout,

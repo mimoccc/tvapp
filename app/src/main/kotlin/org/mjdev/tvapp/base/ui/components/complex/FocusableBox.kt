@@ -30,6 +30,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -55,7 +56,7 @@ fun FocusableBox(
 ) {
     Surface(
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .focusState(focusState)
             .onFocusChanged { state -> onFocusChange(state) }
             .requestFocusOnTouch(focusRequester) {

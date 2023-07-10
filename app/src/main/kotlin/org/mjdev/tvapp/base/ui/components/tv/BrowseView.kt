@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.network.NetworkStatus
@@ -65,7 +66,7 @@ fun BrowseView(
 ) {
     val isEdit = isEditMode()
     ScrollableTvLazyRow(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .fillMaxSize()
             .background(backgroundColor, backgroundShape),
         verticalArrangement = verticalArrangement,
@@ -106,7 +107,7 @@ fun BrowseView(
         }
         if (isEdit || featuredItems.isNotEmpty()) item {
             BigCarousel(
-                modifier = Modifier,
+                modifier = Modifier.recomposeHighlighter(),
                 items = featuredItems,
                 onItemClicked = onItemClick
             )

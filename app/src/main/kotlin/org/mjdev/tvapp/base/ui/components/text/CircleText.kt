@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -48,7 +49,7 @@ fun CircleText(
 ) {
 
     Box(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .size(textSize.value.dp * 2)
             .padding(contentPadding)
             .tvAspectRatio(1f)

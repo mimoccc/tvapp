@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 @TvPreview
@@ -31,7 +32,9 @@ fun MediaPlayerContainer(
     mediaPlayerControls: @Composable (state: MediaPlayerState) -> Unit = {}
 ) {
     val state = rememberMediaPlayerState(uri ?: Uri.EMPTY, autoPlay, startSeek)
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier.recomposeHighlighter()
+    ) {
         background(state)
         mediaPlayer.GetPlayerView()
         mediaPlayerOverlay(state)

@@ -32,6 +32,7 @@ import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.LocalTextStyle
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.button.Button
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -56,11 +57,11 @@ fun ErrorMessage(
 ) {
 
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().recomposeHighlighter()
     ) {
 
         ConstraintLayout(
-            modifier = Modifier
+            modifier = Modifier.recomposeHighlighter()
                 .fillMaxWidth()
                 .padding(contentPadding)
                 .background(backgroundColor, RoundedCornerShape(roundSize))
@@ -77,7 +78,7 @@ fun ErrorMessage(
             }
 
             TextAny(
-                modifier = Modifier
+                modifier = Modifier.recomposeHighlighter()
                     .wrapContentSize()
                     .constrainAs(_title) {
                         top.linkTo(parent.top)
@@ -92,7 +93,7 @@ fun ErrorMessage(
             )
 
             BasicText(
-                modifier = Modifier
+                modifier = Modifier.recomposeHighlighter()
                     .wrapContentSize()
                     .constrainAs(_message) {
                         top.linkTo(parent.top)
@@ -118,7 +119,7 @@ fun ErrorMessage(
             if (dismissible && (cancelText != null)) {
 
                 Button(
-                    modifier = Modifier
+                    modifier = Modifier.recomposeHighlighter()
                         .background(
                             Color.White.copy(
                                 alpha = 0.5f

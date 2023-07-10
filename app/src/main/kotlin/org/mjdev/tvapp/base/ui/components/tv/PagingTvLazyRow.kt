@@ -21,6 +21,7 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.paging.ListPagingSource
 import org.mjdev.tvapp.base.paging.SOURCE
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -59,7 +60,7 @@ fun <T : Any> PagingTvLazyRow(
     }
 
     TvLazyRow(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         state = state,
         contentPadding = PaddingValues(contentPadding),
         reverseLayout = reverseLayout,

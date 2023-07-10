@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItemClickListener
 import org.mjdev.tvapp.base.navigation.MenuItem
@@ -76,7 +77,7 @@ fun TvPager(
     navController.addMenuClickListener(listener)
 
     Box(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxSize()
             .background(backGroundColor, backGroundShape),
     ) {

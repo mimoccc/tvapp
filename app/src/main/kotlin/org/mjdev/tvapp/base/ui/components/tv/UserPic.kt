@@ -23,6 +23,7 @@ import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
 
@@ -45,7 +46,7 @@ fun UserPic(
 ) {
     val isEdit = isEditMode()
     CircleImage(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .conditional(isEdit) {
                 size(64.dp)
             },

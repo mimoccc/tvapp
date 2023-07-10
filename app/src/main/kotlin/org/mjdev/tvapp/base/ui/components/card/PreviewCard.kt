@@ -50,6 +50,7 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -68,7 +69,7 @@ fun PreviewCard(
     thumbnailUrl: String? = null
 ) {
     Card(
-        modifier = modifier.tvAspectRatio(aspectRatio)
+        modifier = modifier.tvAspectRatio(aspectRatio).recomposeHighlighter()
     ) {
         val context = LocalContext.current
         var currentlyPlaying by remember { mutableStateOf(false) }

@@ -32,6 +32,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
@@ -59,12 +60,12 @@ fun CategoryRow(
 ) {
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     Column(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxWidth()
             .background(backgroundColor, RectangleShape)
     ) {
         TextAny(
-            modifier = Modifier
+            modifier = Modifier.recomposeHighlighter()
                 .fillMaxWidth()
                 .padding(padding / 2, padding / 2),
             text = title,
@@ -77,7 +78,7 @@ fun CategoryRow(
                 detectDragGestures { _, dragAmount ->
                     scrollDelta.value = dragAmount.x
                 }
-            },
+            }.recomposeHighlighter(),
             state = rowState,
             contentPadding = (padding.value * 1.3).dp, // todo due border & glow
         ) {

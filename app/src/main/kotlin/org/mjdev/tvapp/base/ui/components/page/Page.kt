@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvapp.base.ui.components.complex.VerticalScrollableBox
 import org.mjdev.tvapp.base.navigation.MenuItem
@@ -53,17 +54,17 @@ open class Page {
     fun content() {
         val focusRequester = rememberFocusRequester(title)
         Column(
-            Modifier.fillMaxSize()
+            Modifier.fillMaxSize().recomposeHighlighter()
         ) {
             VerticalScrollableBox(
-                modifier = Modifier
+                modifier = Modifier.recomposeHighlighter()
                     .fillMaxSize()
                     .background(backgroundColor, background)
                     .requestFocusOnTouch(focusRequester),
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
-                    modifier = Modifier
+                    modifier = Modifier.recomposeHighlighter()
                         .fillMaxSize()
                         .focusRequester(focusRequester)
                 ) {
@@ -76,7 +77,7 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().recomposeHighlighter(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

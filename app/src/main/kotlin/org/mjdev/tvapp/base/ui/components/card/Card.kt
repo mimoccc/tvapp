@@ -35,6 +35,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
@@ -61,6 +62,7 @@ fun Card(
 ) = androidx.tv.material3.Card(
     onClick = onClick,
     modifier = modifier
+        .recomposeHighlighter()
         .widthIn(max = 320.dp)
         .tvAspectRatio(aspectRatio)
         .clickable {

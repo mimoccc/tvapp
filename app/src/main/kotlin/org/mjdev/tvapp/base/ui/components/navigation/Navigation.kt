@@ -25,6 +25,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.NavigationDrawer
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
@@ -50,7 +51,7 @@ fun Navigation(
     if (navController.isMenuEnabled) {
         SettingsDrawer(
             drawerState = navController.settingsDrawerState,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier.fillMaxHeight().recomposeHighlighter()
         ) {
             NavigationDrawer(
                 modifier = modifier
@@ -60,7 +61,7 @@ fun Navigation(
                 drawerState = navController.menuDrawerState,
                 content = {
                     Box(
-                        modifier.fillMaxSize()
+                        modifier.fillMaxSize().recomposeHighlighter()
                     ) {
                         content()
                     }
@@ -76,7 +77,7 @@ fun Navigation(
         }
     } else {
         Box(
-            modifier.fillMaxHeight()
+            modifier.fillMaxHeight().recomposeHighlighter()
         ) {
             content()
         }

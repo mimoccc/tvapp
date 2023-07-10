@@ -23,6 +23,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithBackground
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
@@ -55,7 +56,7 @@ fun CarouselCard(
         item = item,
         modifier = modifier.conditional(isEdit) {
             defaultMinSize(260.dp)
-        },
+        }.recomposeHighlighter(),
         aspectRatio = 1f,
         contentScale = contentScale,
         scale = scale,

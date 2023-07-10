@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.tv.material3.LocalTextStyle
 import androidx.tv.material3.Text
 import org.mjdev.tvapp.base.extensions.ComposeExt.textFrom
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("ModifierParameter")
 @Preview
@@ -48,7 +49,7 @@ fun TextAny(
     style: TextStyle = LocalTextStyle.current
 ) = Text(
     text = textFrom(text),
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     color = color,
     fontSize = fontSize,
     fontStyle = fontStyle,

@@ -40,6 +40,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
@@ -87,7 +88,7 @@ fun FocusableCard(
         colors = colors,
         border = border,
         glow = glow,
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .height(cardHeight)
             .width(cardHeight * aspectRatio)
             .focusState(focusState)

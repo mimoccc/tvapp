@@ -33,6 +33,7 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberMutableInteractionSource
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -64,7 +65,7 @@ fun Tabs(
         disabledSelectedContentColor = selectedContentColor,
     )
     TabRow(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().recomposeHighlighter(),
         selectedTabIndex = selectedTabIndex.value,
         contentColor = activeContentColor,
         separator = {
@@ -82,7 +83,7 @@ fun Tabs(
     ) {
         items.forEachIndexed { index, tab ->
             Tab(
-                modifier = Modifier,
+                modifier = Modifier.recomposeHighlighter(),
                 colors = colors,
                 selected = index == selectedTabIndex.value,
                 onFocus = {
@@ -104,7 +105,7 @@ fun Tabs(
                     onClick = { onItemClick(items[selectedTabIndex.value]) }
                 ) {
                     TextAny(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).recomposeHighlighter(),
                         text = if (tab is ItemWithTitle<*>) tab.title else tab.toString(),
                         fontSize = fontSize,
                         color = Color.White,

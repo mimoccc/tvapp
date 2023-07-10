@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.extensions.NavControllerExt.open
 import org.mjdev.tvapp.base.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvapp.base.navigation.MenuItem
@@ -68,7 +69,7 @@ fun NavDrawerContent(
         navController.indexOfMenuItem(menuItem)
     }
     Column(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxHeight()
             .background(backgroundColor),
         verticalArrangement = Arrangement.Bottom,
@@ -94,7 +95,7 @@ fun NavDrawerContent(
         }
     }
     Column(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxHeight(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start,
@@ -119,7 +120,7 @@ fun NavDrawerContent(
         }
     }
     Column(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start,

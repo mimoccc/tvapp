@@ -37,6 +37,7 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.DrawableExt.asPhoto
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("ModifierParameter")
 @Preview
@@ -68,7 +69,7 @@ fun PhotoImage(
                 .build()
         },
         imageModel = { src },
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .conditional(isEdit) {
                 aspectRatio(16f / 9f).defaultMinSize(80.dp)
             }
@@ -94,7 +95,7 @@ fun PhotoImage(
                     ?.asAndroidBitmap()
                     ?.toDrawable(context.resources)
                     ?.asPhoto(),
-                modifier = modifier,
+                modifier = modifier.recomposeHighlighter(),
                 alignment = alignment,
                 contentScale = contentScale,
                 alpha = alpha,

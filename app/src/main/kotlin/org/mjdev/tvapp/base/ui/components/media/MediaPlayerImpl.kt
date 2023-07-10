@@ -25,6 +25,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ContextExt.isATv
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 class ExoPlayerImpl(
     private val exoPlayer: ExoPlayer
@@ -38,12 +39,15 @@ class ExoPlayerImpl(
         val isEdit = isEditMode()
         Box(
             modifier = Modifier
+                .recomposeHighlighter()
                 .size(width.dp, height.dp)
                 .background(Color.Black, RectangleShape)
         ) {
             if (!isEdit) {
                 AndroidView(
-                    modifier = Modifier.size(width.dp, height.dp),
+                    modifier = Modifier
+                        .size(width.dp, height.dp)
+                        .recomposeHighlighter(),
                     factory = { context ->
                         val isAtv = context.isATv
                         PlayerView(context).apply {

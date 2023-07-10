@@ -30,6 +30,7 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.LocalContentColor
 import coil.compose.AsyncImage
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -52,70 +53,70 @@ fun IconAny(
         null -> Icon(
             ColorDrawable(0).asImageBitmap(width, height),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is Bitmap -> Icon(
             src.asImageBitmap(),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is ImageBitmap -> Icon(
             src,
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is Drawable -> Icon(
             src.asImageBitmap(width, height),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is Int -> Icon(
             painterResource(src),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is Color -> Icon(
             ColorDrawable(0).asImageBitmap(width, height),
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 
         is URL -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             colorFilter = ColorFilter.tint(tint)
         )
 
         is Uri -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             colorFilter = ColorFilter.tint(tint)
         )
 
         is String -> AsyncImage(
             model = src,
             contentDescription = contentDescription,
-            modifier = modifier,
+            modifier = modifier.recomposeHighlighter(),
             colorFilter = ColorFilter.tint(tint)
         )
 
         is ImageVector -> Icon(
             src,
             contentDescription,
-            modifier,
+            modifier.recomposeHighlighter(),
             tint
         )
 

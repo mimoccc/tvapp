@@ -22,6 +22,7 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.base.annotations.TvPreview
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 // todo : scroll horizontally by touch
 @TvPreview
@@ -39,7 +40,7 @@ fun TVRow(
     content: TvLazyListScope.() -> Unit = {}
 ) {
     TvLazyRow(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         state = state,
         contentPadding = PaddingValues(contentPadding),
         reverseLayout = reverseLayout,

@@ -38,6 +38,7 @@ import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvapp.base.extensions.ModifierExt.focusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.icon.IconAny
 import org.mjdev.tvapp.base.ui.components.text.TextAny
@@ -77,7 +78,7 @@ fun NavigationRow(
 ) {
     val isEdit = isEditMode()
     FocusableBox(
-        modifier = modifier
+        modifier = modifier.recomposeHighlighter()
             .padding(margin)
             .border(
                 BorderStroke(
@@ -101,14 +102,14 @@ fun NavigationRow(
         },
     ) {
         Row(
-            modifier = Modifier
+            modifier = Modifier.recomposeHighlighter()
                 .padding(padding),
 //                .background(brush!!, shape),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(4.dp).recomposeHighlighter()
             ) {
                 IconAny(
                     src = icon,
@@ -122,7 +123,7 @@ fun NavigationRow(
                 TextAny(
                     text = text,
                     softWrap = false,
-                    modifier = Modifier
+                    modifier = Modifier.recomposeHighlighter()
                         .padding(8.dp)
                         .width(expandedWidth),
                     color = textColor,

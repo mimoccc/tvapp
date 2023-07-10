@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.tv.material3.LocalTextStyle
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("ModifierParameter")
 @Composable
@@ -46,7 +47,7 @@ fun AutoHideEmptyText(
     if ((text != null) && (text.toString().isNotEmpty())) {
         TextAny(
             text,
-            modifier,
+            modifier.recomposeHighlighter(),
             color,
             fontSize,
             fontStyle,

@@ -22,6 +22,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardHeight
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.image.PhotoImage
@@ -51,7 +52,7 @@ fun PhotoCard(
 ) {
     ItemCard(
         item = item,
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         contentScale = contentScale,
         focusState = focusState,
         aspectRatio = aspectRatio,

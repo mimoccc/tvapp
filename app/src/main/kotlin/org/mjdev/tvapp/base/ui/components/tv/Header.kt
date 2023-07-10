@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.badge.Badge
 
 @TvPreview
@@ -52,18 +53,18 @@ fun Header(
 ) {
     val isEdit = isEditMode()
     Box(
-        modifier = Modifier
+        modifier = Modifier.recomposeHighlighter()
             .fillMaxWidth()
             .background(backgroundColor, RoundedCornerShape(roundSize))
             .padding(padding + roundSize)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Clock(
-                modifier = Modifier.wrapContentSize(),
+                modifier = Modifier.wrapContentSize().recomposeHighlighter(),
                 backgroundColor = Color.Black.copy(alpha = 0.2f),
                 contentPadding = contentPadding,
                 timeTextColor = color,
@@ -72,7 +73,7 @@ fun Header(
             )
             if (isEdit || (messagesCount > 0)) {
                 Badge(
-                    modifier = Modifier
+                    modifier = Modifier.recomposeHighlighter()
                         .wrapContentSize()
                         .clip(CircleShape),
                     contentPadding = contentPadding,
@@ -85,7 +86,7 @@ fun Header(
                 )
             }
             UserPic(
-                modifier = Modifier
+                modifier = Modifier.recomposeHighlighter()
                     .size(56.dp)
                     .clip(CircleShape),
                 borderColor = Color.White,
@@ -95,12 +96,12 @@ fun Header(
             )
         }
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Title(
-                modifier = Modifier.wrapContentSize(),
+                modifier = Modifier.wrapContentSize().recomposeHighlighter(),
                 title = title ?: R.string.app_name,
                 fontWeight = fontWeight,
                 fontSize = fontSize,

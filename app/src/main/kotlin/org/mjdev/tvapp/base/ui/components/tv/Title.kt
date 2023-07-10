@@ -30,6 +30,7 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.ComposeExt.isFocused
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.ui.components.complex.FocusableBox
 import org.mjdev.tvapp.base.ui.components.image.CircleImage
 import org.mjdev.tvapp.base.ui.components.text.TextWithShadow
@@ -51,18 +52,18 @@ fun Title(
     val focusState = rememberFocusState(title)
     val shadowColor =if (isEdit || focusState.isFocused) focusShadowColor else unfocusedShadowColor
     FocusableBox(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         focusedColor = Color.Transparent,
         onFocusChange = { state -> focusState.value = state }
     ) {
         Row(
-            modifier = modifier.padding(8.dp, 8.dp, 8.dp, 8.dp),
+            modifier = modifier.padding(8.dp, 8.dp, 8.dp, 8.dp).recomposeHighlighter(),
             verticalAlignment = CenterVertically,
         ) {
             CircleImage(
-                modifier = Modifier
+                modifier = Modifier.recomposeHighlighter()
                     .height((fontSize.value).dp)
                     .aspectRatio(1f)
                     .scale(1.3f)
@@ -77,7 +78,7 @@ fun Title(
                 src = R.mipmap.ic_launcher
             )
             TextWithShadow(
-                modifier = modifier,
+                modifier = modifier.recomposeHighlighter(),
                 shadowColor = shadowColor,
                 shadowSize = shadowSize,
                 text = title ?: R.string.app_name,

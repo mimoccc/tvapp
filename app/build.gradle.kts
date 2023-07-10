@@ -61,9 +61,6 @@ android {
         versionName = project.versionName
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
-
-        buildConfigField("String", "SYNC_AUTH", "\"$applicationId.sync\"")
-        resValue("string", "sync_auth", "$applicationId.sync")
     }
 
     buildTypes {
@@ -76,6 +73,17 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "false")
+            buildConfigField(
+                "String",
+                "SYNC_AUTH",
+                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+            )
+            resValue(
+                "string",
+                "sync_auth",
+                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
+            )
         }
 
         release {
@@ -85,6 +93,38 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "false")
+            buildConfigField(
+                "String",
+                "SYNC_AUTH",
+                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+            )
+            resValue(
+                "string",
+                "sync_auth",
+                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
+            )
+        }
+
+        create("recomposing") {
+            applicationIdSuffix = ".rcmps"
+            isDebuggable = true
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "true")
+            buildConfigField(
+                "String",
+                "SYNC_AUTH",
+                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+            )
+            resValue(
+                "string",
+                "sync_auth",
+                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
             )
         }
 
@@ -123,25 +163,6 @@ android {
     tasks.dokkaGfm {
         outputDirectory.set(File(projectDir, "../wiki/documentation"))
     }
-
-//    tasks.register("prepareReleaseNotes") {
-//        doLast {
-//            exec {
-//                workingDir(rootDir)
-//                args(getVersionName())
-//                executable("./scripts/git_log.sh")
-//            }
-//        }
-//    }
-//
-//    afterEvaluate {
-//        // all versions release notes
-//        tasks.findByName("assembleDebug")?.finalizedBy("prepareReleaseNotes")
-//        tasks.findByName("assembleRelease")?.finalizedBy("prepareReleaseNotes")
-//
-//        // dokka documentation generation
-//        tasks.findByName("prepareReleaseNotes")?.finalizedBy("dokkaGfm")
-//    }
 
 }
 
@@ -194,7 +215,6 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     kapt("com.google.dagger:hilt-compiler:2.46.1")
     // okhttp
-    // define a BOM and its version
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
@@ -206,9 +226,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
-    // database
-
-    // db encrypt data
+    // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
     implementation("androidx.media3:media3-exoplayer:1.1.0")
@@ -230,8 +248,8 @@ dependencies {
     implementation("androidx.media3:media3-decoder:1.1.0")
     implementation("androidx.media3:media3-datasource:1.1.0")
     implementation("androidx.media3:media3-common:1.1.0")
-//    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview:1.1.0-alpha02")
-//    implementation ("com.rubensousa.dpadrecyclerview:dpadrecyclerview-compose:1.1.0-alpha02")
+    // permission
+    implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

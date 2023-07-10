@@ -28,6 +28,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 
 // todo swipe left and swipe right
 @SuppressLint("AutoboxingStateValueProperty")
@@ -50,7 +51,7 @@ fun BigCarousel(
     BoxWithConstraints {
         Carousel(
             itemCount = items.size,
-            modifier = modifier
+            modifier = modifier.recomposeHighlighter()
                 .fillMaxWidth()
                 .height(height.dp),
         ) { indexOfCarouselItem ->
