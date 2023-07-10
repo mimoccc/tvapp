@@ -6,6 +6,8 @@
  * w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvapp.base.network
 
 import android.net.Network
@@ -23,7 +25,7 @@ sealed class NetworkStatus {
 }
 
 val State<NetworkStatus?>?.isConnected: Boolean
-    get() = this?.value is NetworkStatus.Connected
+    get() = this?.value !is NetworkStatus.Disconnected
 
 val State<NetworkStatus?>?.isNotConnected: Boolean
-    get() = !isConnected
+    get() = this?.value is NetworkStatus.Disconnected
