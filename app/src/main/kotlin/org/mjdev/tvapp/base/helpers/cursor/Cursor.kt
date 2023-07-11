@@ -13,6 +13,7 @@ package org.mjdev.tvapp.base.helpers.cursor
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
+import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ fun rememberCursor(
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
     prefetchItems: Int = 8,
+    cacheItems: Int = 256,
     transform: (Cursor) -> Any?,
 ): PrefetchCursor? {
     if (uri == null) return null
@@ -51,6 +53,7 @@ fun rememberCursor(
                 selectionArgs,
                 sortOrder,
                 prefetchItems,
+                cacheItems,
                 transform,
             )
             onDispose {
@@ -61,8 +64,7 @@ fun rememberCursor(
     }
 }
 
-// todo prefetching & cache
-@Suppress("UNUSED_PARAMETER")
+@Suppress("FunctionName")
 class PrefetchCursor(
     context: Context,
     uri: Uri?,
@@ -70,20 +72,31 @@ class PrefetchCursor(
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
-    prefetchItems: Int = 8,
+    private val prefetchItems: Int = 8,
+    private val cacheItems: Int = 256,
     private val transform: (Cursor) -> Any? = { it },
 ) {
 
     private val resolver: ContentResolver by lazy {
         context.contentResolver
     }
+    private val observer = object : ContentObserver(null) {
+        @Suppress("DEPRECATION")
+        override fun onChange(selfChange: Boolean) {
+            cursor?.requery()
+        }
+    }
+    private val cache: MutableList<Pair<Index, Any?>> = mutableListOf()
     private val cursor: Cursor? by lazy {
         if (uri != null) {
             try {
                 resolver.query(
                     uri, projection, selection, selectionArgs, sortOrder
-                ).apply {
-                    if (this?.isNotEmpty == true) moveToFirst()
+                )?.apply {
+                    registerContentObserver(observer)
+                    if (this.isNotEmpty) {
+                        moveToFirst()
+                    }
                 }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -95,21 +108,63 @@ class PrefetchCursor(
     val count: Int get() = cursor?.count ?: 0
     val isNotEmpty: Boolean get() = count > 0
 
-    fun get(idx: Int): Any? {
+    init {
+        (0..prefetchItems).forEach { idx -> get(idx) }
+    }
+
+    private fun _get(idx: Int): Any? {
         var result: Any? = null
-        try {
-            if (count >= idx) {
-                cursor?.moveToPosition(idx)
-                result = cursor?.let { c -> transform(c) }
+        if (isCached(idx)) {
+            result = getFromCache(idx)
+        } else {
+            try {
+                if (count >= idx) {
+                    cursor?.moveToPosition(idx)
+                    result = cursor?.let { c -> transform(c) }
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
             }
-        } catch (e: Exception) {
-            Timber.e(e)
+            if (result != null) {
+                insertToCache(idx, result)
+            }
         }
         return result
     }
 
+    fun get(idx: Int): Any? {
+        (idx - prefetchItems..idx + prefetchItems).forEach { i -> _get(i) }
+        return _get(idx)
+    }
+
+    private fun insertToCache(idx: Int, value: Any) {
+        if (cache.size > cacheItems) {
+            cache.minByOrNull { item ->
+                item.first.cached
+            }?.let { item ->
+                cache.remove(item)
+            }
+        }
+        cache.add(Pair(Index(idx, System.currentTimeMillis()), value))
+    }
+
+    private fun getFromCache(idx: Int): Any? {
+        return cache.firstOrNull { item ->
+            item.first.idx == idx
+        }?.second
+    }
+
+    private fun isCached(idx: Int): Boolean {
+        return cache.count { item ->
+            item.first.idx == idx
+        } > 0
+    }
+
     fun close() {
+        cursor?.unregisterContentObserver(observer)
         cursor?.close()
     }
+
+    data class Index(val idx: Int, val cached: Long)
 
 }

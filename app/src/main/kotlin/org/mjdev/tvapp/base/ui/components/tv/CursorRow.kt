@@ -57,7 +57,6 @@ fun CursorRow(
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
-    prefetchItems: Int = 8,
     transform: (Cursor) -> Any? = { it },
     openItem: Context.(item: Any?) -> Unit = {},
 ) {
@@ -68,7 +67,6 @@ fun CursorRow(
         selection = selection,
         selectionArgs = selectionArgs,
         sortOrder = sortOrder,
-        prefetchItems = prefetchItems,
         transform = transform
     )
     val scrollDelta = remember { mutableFloatStateOf(0f) }
