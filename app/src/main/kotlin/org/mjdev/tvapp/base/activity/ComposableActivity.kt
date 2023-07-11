@@ -58,8 +58,6 @@ open class ComposableActivity : ComponentActivity() {
     @CallSuper
     open fun Compose() {
 
-//        val permissionState = rememberPermissionState(permission = Manifest.permission.READ_SMS)
-
         val navController = rememberNavControllerEx()
 
         TVAppTheme {

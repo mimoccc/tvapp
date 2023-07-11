@@ -26,27 +26,32 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
 import org.mjdev.tvapp.base.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvapp.base.permission.rememberPermissionManager
 import org.mjdev.tvapp.base.screen.Screen
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 import org.mjdev.tvapp.base.ui.components.tv.Title
 
+@Suppress("UNUSED_VARIABLE")
 class SplashScreen : Screen() {
 
     override val showOnce: Boolean = true
     override val backgroundColor: Color = Color.Black
     override val immersive: Boolean = true
 
+    @OptIn(ExperimentalPermissionsApi::class)
     @TvPreview
     @Composable
     override fun ComposeScreen() {
 
         val isEdit = isEditMode()
         val scale = remember { Animatable(if (isEdit) 1f else 0f) }
+        val permissionManager = rememberPermissionManager()
 
         Box(
             modifier = Modifier

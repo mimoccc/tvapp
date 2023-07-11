@@ -8,6 +8,10 @@
 
 package org.mjdev.tvapp.base.extensions
 
+import android.os.Handler
+import timber.log.Timber
+
+@Suppress("unused")
 object GlobalExt {
 
     fun <E> runSafe(what: () -> E): Result<E> = try {
@@ -16,6 +20,31 @@ object GlobalExt {
         }
     } catch (e: Exception) {
         Result.failure(e)
+    }
+
+    @Suppress("DEPRECATION")
+    @Throws(Exception::class)
+    fun retry(
+        retryCnt: Int = 8,
+        retryDelay: Long = 500L,
+        onError: (error: Throwable) -> Unit = { e -> throw (e) },
+        block: () -> Unit
+    ) {
+        var retryStep = retryCnt
+        try {
+            block.invoke()
+        } catch (e: Throwable) {
+            Timber.e(e)
+            retryStep -= 1
+            if (retryStep > 0) {
+                Timber.e("Retrying run again.")
+                Handler().postDelayed({
+                    retry(retryStep, retryDelay, onError, block)
+                }, retryDelay)
+            } else {
+                onError(e)
+            }
+        }
     }
 
 }
