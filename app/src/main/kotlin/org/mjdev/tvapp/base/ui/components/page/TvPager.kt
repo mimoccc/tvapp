@@ -9,6 +9,13 @@
 package org.mjdev.tvapp.base.ui.components.page
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +39,7 @@ import org.mjdev.tvapp.base.navigation.MenuItem
 import org.mjdev.tvapp.base.navigation.NavHostControllerEx
 import org.mjdev.tvapp.base.ui.components.page.Page.Companion.EMPTY_PAGE
 
-@SuppressLint("AutoboxingStateValueProperty")
+@SuppressLint("AutoboxingStateValueProperty", "UnusedContentLambdaTargetStateParameter")
 @TvPreview
 @Composable
 fun TvPager(
@@ -75,17 +82,38 @@ fun TvPager(
     }
 
     navController.addMenuClickListener(listener)
+    val pageIndex = pagerScope.currentPage.value
 
-    Box(
-        modifier = Modifier.recomposeHighlighter()
-            .fillMaxSize()
-            .background(backGroundColor, backGroundShape),
+    AnimatedContent(
+        targetState = pageIndex,
+        transitionSpec = {
+            if (targetState > initialState) {
+                (slideInVertically { height ->
+                    height
+                } + fadeIn()).togetherWith(slideOutVertically { height ->
+                    -height
+                } + fadeOut())
+            } else {
+                (slideInVertically { height ->
+                    -height
+                } + fadeIn()).togetherWith(slideOutVertically { height ->
+                    height
+                } + fadeOut())
+            }.using(
+                SizeTransform(clip = false)
+            )
+        }
     ) {
-        val pageIndex = pagerScope.currentPage.value
-        val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
-        else if (isEdit) EMPTY_PAGE
-        else null
-        page?.content()
+        Box(
+            modifier = Modifier.recomposeHighlighter()
+                .fillMaxSize()
+                .background(backGroundColor, backGroundShape),
+        ) {
+            val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
+            else if (isEdit) EMPTY_PAGE
+            else null
+            page?.content()
+        }
     }
 
 }
