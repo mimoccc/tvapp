@@ -13,6 +13,7 @@ package org.mjdev.tvapp.base.extensions
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.res.Configuration
+import android.os.Build
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -25,6 +26,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
+import coil.request.CachePolicy
 import org.mjdev.tvapp.BuildConfig
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -102,6 +107,30 @@ object ComposeExt {
         val context = LocalContext.current
         return remember(key) {
             context.contentResolver
+        }
+    }
+
+    @SuppressLint("RememberReturnType", "ComposableNaming")
+    @Composable
+    fun rememberImageLoader(): ImageLoader {
+        val context = LocalContext.current
+        return remember {
+            ImageLoader.Builder(context)
+                .allowHardware(false)
+                .addLastModifiedToFileCacheKey(true)
+                .crossfade(false)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.ENABLED)
+                .respectCacheHeaders(true)
+                .networkObserverEnabled(true)
+                .components {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        add(ImageDecoderDecoder.Factory())
+                    } else {
+                        add(GifDecoder.Factory())
+                    }
+                }
+                .build()
         }
     }
 

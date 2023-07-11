@@ -115,7 +115,7 @@ fun CursorRow(
                 }
             }
             LaunchedEffect(scrollDelta.value) {
-                rowState.animateScrollBy(-scrollDelta.value)
+                rowState.animateScrollBy(-(scrollDelta.value * 3f))
             }
         }
     }
