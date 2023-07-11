@@ -13,6 +13,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -114,7 +115,7 @@ fun CursorRow(
                 }
             }
             LaunchedEffect(scrollDelta.value) {
-                rowState.dispatchRawDelta(-scrollDelta.value)
+                rowState.animateScrollBy(-scrollDelta.value)
             }
         }
     }
