@@ -28,7 +28,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.AsyncImage
+import com.skydoves.landscapist.ImageOptions
+import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
@@ -118,34 +119,40 @@ fun ImageAny(
             colorFilter
         )
 
-        is URL -> AsyncImage(
+        is URL -> CoilImage(
             modifier = modifier.recomposeHighlighter(),
-            model = src,
-            contentDescription = contentDescription,
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter
+            imageModel = { src },
+            imageOptions = ImageOptions(
+                contentScale = contentScale,
+                alignment = alignment,
+                contentDescription = contentDescription,
+                alpha = alpha,
+                colorFilter = colorFilter,
+            ),
         )
 
-        is Uri -> AsyncImage(
+        is Uri -> CoilImage(
             modifier = modifier.recomposeHighlighter(),
-            model = src,
-            contentDescription = contentDescription,
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter
+            imageModel = { src },
+            imageOptions = ImageOptions(
+                contentScale = contentScale,
+                alignment = alignment,
+                contentDescription = contentDescription,
+                alpha = alpha,
+                colorFilter = colorFilter,
+            ),
         )
 
-        is String -> AsyncImage(
+        is String -> CoilImage(
             modifier = modifier.recomposeHighlighter(),
-            model = src,
-            contentDescription = contentDescription,
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter
+            imageModel = { src },
+            imageOptions = ImageOptions(
+                contentScale = contentScale,
+                alignment = alignment,
+                contentDescription = contentDescription,
+                alpha = alpha,
+                colorFilter = colorFilter,
+            ),
         )
 
         is ImageVector -> Image(

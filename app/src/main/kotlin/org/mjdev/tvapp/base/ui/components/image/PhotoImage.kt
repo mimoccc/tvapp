@@ -30,11 +30,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toDrawable
-import coil.ImageLoader
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvapp.base.extensions.DrawableExt.asPhoto
 import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
@@ -62,13 +62,10 @@ fun PhotoImage(
 ) {
     val isEdit = isEditMode()
     val context = LocalContext.current
+    val imageLoader = rememberImageLoader()
     // todo coil image does not shows
     CoilImage(
-        imageLoader = {
-            ImageLoader(context).newBuilder()
-                .allowHardware(false)
-                .build()
-        },
+        imageLoader = { imageLoader },
         imageModel = { src },
         modifier = modifier.recomposeHighlighter()
             .conditional(isEdit) {
