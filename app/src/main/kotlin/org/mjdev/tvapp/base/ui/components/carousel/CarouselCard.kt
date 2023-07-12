@@ -26,6 +26,7 @@ import org.mjdev.tvapp.base.extensions.ModifierExt.conditional
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvapp.base.interfaces.ItemWithBackground
 import org.mjdev.tvapp.base.interfaces.ItemWithDescription
+import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.image.ImageAny
 
@@ -41,9 +42,11 @@ fun CarouselCard(
     focusState: MutableState<FocusState?> = rememberFocusState(item),
     placeholder: @Composable () -> Unit = {}, // todo
     imageRenderer: @Composable () -> Unit = {
+        val image = (item as? ItemWithImage<*>)?.image
+        val background = (item as? ItemWithBackground<*>)?.background
         ImageAny(
             modifier = Modifier.fillMaxSize(),
-            src = (item as? ItemWithBackground<*>)?.background,
+            src = background ?: image,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
             placeholder = placeholder
@@ -54,9 +57,11 @@ fun CarouselCard(
     val isEdit = isEditMode()
     PhotoCard(
         item = item,
-        modifier = modifier.conditional(isEdit) {
-            defaultMinSize(260.dp)
-        }.recomposeHighlighter(),
+        modifier = modifier
+            .conditional(isEdit) {
+                defaultMinSize(260.dp)
+            }
+            .recomposeHighlighter(),
         aspectRatio = 1f,
         contentScale = contentScale,
         scale = scale,

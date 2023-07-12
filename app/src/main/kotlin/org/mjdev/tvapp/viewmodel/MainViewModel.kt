@@ -37,6 +37,18 @@ class MainViewModel @Inject constructor(
     var networkInfo: NetworkConnectivityService
 ) : BaseViewModel() {
 
+    @Inject
+    lateinit var appsList: AppsManager
+
+    @Inject
+    lateinit var localAudioCursor: AudioCursor
+
+    @Inject
+    lateinit var localVideoCursor: VideoCursor
+
+    @Inject
+    lateinit var localPhotoCursor: PhotoCursor
+
     val messages: StateFlow<List<Message>> = channelFlow {
         send(repository.getMessages().getOrThrow())
     }.stateIn(
@@ -45,8 +57,21 @@ class MainViewModel @Inject constructor(
         listOf()
     )
 
-    val featuredMovieList: StateFlow<List<Movie>> = flow {
-        emit(repository.getMovies().getOrThrow().takeLast(32))
+    val featuredMovieList: StateFlow<List<Any?>> = flow {
+        mutableListOf<Any?>().apply {
+            add(repository.getMovies().getOrThrow().takeLast(8))
+            if (localAudioCursor.count > 0) {
+                add(localAudioCursor.getData(0))
+            }
+            if (localVideoCursor.count > 0) {
+                add(localVideoCursor.getData(0))
+            }
+            if (localPhotoCursor.count > 0) {
+                add(localPhotoCursor.getData(0))
+            }
+        }.also { result ->
+            emit(result)
+        }
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),
@@ -61,17 +86,6 @@ class MainViewModel @Inject constructor(
         mapOf()
     )
 
-    @Inject
-    lateinit var appsList : AppsManager
-
-    @Inject
-    lateinit var localAudioCursor : AudioCursor
-
-    @Inject
-    lateinit var localVideoCursor : VideoCursor
-
-    @Inject
-    lateinit var localPhotoCursor : PhotoCursor
 
     companion object {
 
