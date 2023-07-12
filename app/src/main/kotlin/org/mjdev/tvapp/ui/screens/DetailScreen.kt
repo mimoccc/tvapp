@@ -40,6 +40,7 @@ import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.extensions.StringExt.asException
+import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -82,6 +83,7 @@ class DetailScreen : Screen() {
             viewModel.detailsLoadingState(data)
         }.collectAsState()
 
+        val photo = (data as? ItemPhoto)?.uri
         val backgroundImage = (data as? ItemWithBackground<*>)?.background
         val image = (data as? ItemWithImage<*>)?.image
         val title = (data as? ItemWithTitle<*>)?.title
@@ -104,7 +106,7 @@ class DetailScreen : Screen() {
                     contentAlignment = Alignment.BottomStart,
                 ) {
                     ImageAny(
-                        src = backgroundImage ?: image,
+                        src = photo ?: backgroundImage ?: image,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
