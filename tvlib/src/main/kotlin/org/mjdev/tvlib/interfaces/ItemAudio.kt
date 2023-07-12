@@ -9,6 +9,6 @@
 package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
-class ItemAudio {
-    val isAudio = true
+interface ItemAudio {
+    val uri: Any?
 }

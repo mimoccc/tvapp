@@ -15,6 +15,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
 import org.mjdev.tvlib.extensions.CursorExt.asMap
+import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
@@ -24,7 +25,7 @@ import timber.log.Timber
 class VideoItem(
     private val contentResolver: ContentResolver,
     c: Cursor
-) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
+) : HashMap<String, Any?>(), ItemVideo, ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
 
     override val title: String?
         get() = this[MediaStore.Video.Media.TITLE]?.toString()

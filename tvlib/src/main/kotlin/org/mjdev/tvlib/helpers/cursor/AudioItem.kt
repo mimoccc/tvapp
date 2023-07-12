@@ -15,6 +15,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
 import org.mjdev.tvlib.extensions.CursorExt.asMap
+import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
@@ -24,7 +25,7 @@ import timber.log.Timber
 class AudioItem(
     private val contentResolver: ContentResolver,
     c: Cursor
-) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
+) : HashMap<String, Any?>(), ItemAudio, ItemWithTitle<String>, ItemWithImage<Any>, ItemWithUri<Uri> {
 
     init {
         putAll(c.asMap(MEDIA_PROJECTION))

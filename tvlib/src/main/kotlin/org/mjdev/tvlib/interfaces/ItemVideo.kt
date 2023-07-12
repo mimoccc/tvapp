@@ -9,6 +9,6 @@
 package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
-class ItemVideo {
-    val isVideo = true
+interface ItemVideo {
+    val uri: Any?
 }

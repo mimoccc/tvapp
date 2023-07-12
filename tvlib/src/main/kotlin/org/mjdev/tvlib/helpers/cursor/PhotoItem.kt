@@ -15,15 +15,22 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
 import org.mjdev.tvlib.extensions.CursorExt.asMap
+import org.mjdev.tvlib.interfaces.ItemPhoto
+import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import timber.log.Timber
 
-@Suppress( "unused")
+@Suppress("unused")
 class PhotoItem(
     private val contentResolver: ContentResolver,
     c: Cursor
-) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any> {
+) :
+    HashMap<String, Any?>(),
+    ItemPhoto,
+    ItemWithTitle<String>,
+    ItemWithImage<Any>,
+    ItemWithBackground<Any?> {
 
     init {
         putAll(c.asMap(MEDIA_PROJECTION))
@@ -32,11 +39,14 @@ class PhotoItem(
     override val title: String?
         get() = this[MediaStore.Images.Media.TITLE]?.toString()
 
-    val uri: Uri
+    override val uri: Uri
         get() = Uri.withAppendedPath(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             this[MediaStore.Images.Media._ID].toString()
         )
+
+    override val background: Any?
+        get() = this[MediaStore.Images.Media.DATA]
 
     override val image: Any?
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
