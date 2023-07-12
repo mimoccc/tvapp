@@ -63,4 +63,5 @@ fun LocalAudioRow(
     sortOrder = sortOrder,
     transform = transform,
     openItem = openItem,
+    cursor = cursor
 )

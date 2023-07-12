@@ -108,6 +108,7 @@ object HiltExt {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun createInternal(
         activity: Activity,
         owner: SavedStateRegistryOwner,

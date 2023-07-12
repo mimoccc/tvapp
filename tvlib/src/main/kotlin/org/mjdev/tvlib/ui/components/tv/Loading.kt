@@ -47,7 +47,7 @@ fun Loading(
             text = text,
             color = textColor,
             fontSize = textSize,
-            style = MaterialTheme.typography.headlineMedium
+            style = textStyle
         )
     }
 }

@@ -63,4 +63,5 @@ fun LocalPhotosRow(
     sortOrder = sortOrder,
     transform = transform,
     openItem = openItem,
+    cursor = cursor
 )

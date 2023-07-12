@@ -14,7 +14,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
-    id("org.jetbrains.dokka") version "1.8.10"
+//    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 android {
@@ -63,6 +63,10 @@ android {
     lint {
         checkReleaseBuilds = false
     }
+
+//    tasks.dokkaGfm {
+//        outputDirectory.set(File(projectDir, "../wiki/documentation"))
+//    }
 
 }
 

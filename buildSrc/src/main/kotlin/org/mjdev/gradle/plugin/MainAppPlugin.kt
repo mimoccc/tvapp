@@ -33,7 +33,7 @@ abstract class MainAppPlugin : Plugin<Project> {
         const val SIGNING_CONFIG_NAME = "Any"
 
         const val TASK_PREPARE_RELEASE_NOTES = "prepareReleaseNotes"
-        const val TASK_DOKKA = "dokkaGfm"
+//        const val TASK_DOKKA = "dokkaGfm"
 
         const val TASK_ASSEMBLE_RELEASE = "assembleRelease"
         const val TASK_ASSEMBLE_DEBUG = "assembleDebug"
@@ -244,17 +244,17 @@ abstract class MainAppPlugin : Plugin<Project> {
         }
 
         // tasks after build
-        project.afterEvaluate {
-            listOf(
+//        project.afterEvaluate {
+//            listOf(
 //                TASK_ASSEMBLE_DEBUG,
-                TASK_ASSEMBLE_MOCK,
-                TASK_ASSEMBLE_RELEASE,
-                TASK_ASSEMBLE_MINIFIED
-            ).forEach { taskName ->
-                tasks.findByName(taskName)
-                    ?.finalizedBy(TASK_PREPARE_RELEASE_NOTES, TASK_DOKKA)
-            }
-        }
+//                TASK_ASSEMBLE_MOCK,
+//                TASK_ASSEMBLE_RELEASE,
+//                TASK_ASSEMBLE_MINIFIED
+//            ).forEach { taskName ->
+//                tasks.findByName(taskName)
+//                    ?.finalizedBy(TASK_PREPARE_RELEASE_NOTES, TASK_DOKKA)
+//            }
+//        }
 
 //        // dependencies
 //        project.dependencies.apply {

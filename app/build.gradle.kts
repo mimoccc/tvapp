@@ -29,7 +29,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
-    id("org.jetbrains.dokka") version "1.8.10"
+//    id("org.jetbrains.dokka") version "1.8.10"
     id("io.objectbox")
     id("MainAppPlugin")
 }
@@ -156,13 +156,13 @@ android {
         checkReleaseBuilds = false
     }
 
-    subprojects {
-        apply(plugin = "org.jetbrains.dokka")
-    }
+//    subprojects {
+//        apply(plugin = "org.jetbrains.dokka")
+//    }
 
-    tasks.dokkaGfm {
-        outputDirectory.set(File(projectDir, "../wiki/documentation"))
-    }
+//    tasks.dokkaGfm {
+//        outputDirectory.set(File(projectDir, "../wiki/documentation"))
+//    }
 
 }
 

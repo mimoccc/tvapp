@@ -64,5 +64,6 @@ fun LocalVideoRow(
         sortOrder = sortOrder,
         transform = { c -> VideoItem(contentResolver, c) },
         openItem = openItem,
+        cursor = cursor
     )
 }
