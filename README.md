@@ -20,9 +20,32 @@
 
 [App code documentation](./wiki/documentation/index.md)
 
+## Table of Contents
+
+- [Screenshots](#screenshots)
+- [Description](#description)
+- [Compilation](#compilation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+
+## Screenshots
+
+![1](screenshots/Screenshot_20230712_111645.png)
+![2](screenshots/Screenshot_20230712_111724.png)
+![3](screenshots/Screenshot_20230712_111741.png)
+![4](screenshots/Screenshot_20230712_111801.png)
+![5](screenshots/Screenshot_20230712_111811.png)
+
 ## Description
 
 All in one, tablet, mobile and tv android app.
+
+App is divided to two modules, tvlib which is main tv library for easier tv app developement 
+and a demo app in app module.
+
+Library and demo app is still under development.
+
 Just an test app as showcase of coding skills, using modern frameworks  
 and a new unstable tv compose framework for tv apps with the diferrence  
 that components in this example should be touchable and therefore this  
@@ -53,12 +76,7 @@ Technologies that will be used:
 - CI/CD
 - SyncAdapter
 
-## Table of Contents (Optional)
 
-- [Compilation](#compilation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
 
 ## Compilation
 
