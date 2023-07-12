@@ -59,7 +59,7 @@ class MainViewModel @Inject constructor(
 
     val featuredMovieList: StateFlow<List<Any?>> = flow {
         mutableListOf<Any?>().apply {
-            add(repository.getMovies().getOrThrow().takeLast(8))
+            addAll(repository.getMovies().getOrThrow().takeLast(8))
             if (localAudioCursor.count > 0) {
                 add(localAudioCursor.getData(0))
             }

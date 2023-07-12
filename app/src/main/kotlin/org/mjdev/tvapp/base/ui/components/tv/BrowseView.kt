@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
@@ -32,6 +33,7 @@ import org.mjdev.tvapp.base.network.NetworkStatus
 import org.mjdev.tvapp.base.network.isNotConnected
 import org.mjdev.tvapp.base.ui.components.carousel.BigCarousel
 
+@OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
 fun BrowseView(
