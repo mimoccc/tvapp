@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
+//        targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -141,6 +141,8 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
     // for previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
+    // pallette
+    implementation("androidx.palette:palette-ktx:1.0.0")
     // constraints
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

@@ -40,7 +40,7 @@ import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.ui.components.tv.FadingPhotoImage
+import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 
 @SuppressLint("ComposableNaming")
 class MainPage : Page() {

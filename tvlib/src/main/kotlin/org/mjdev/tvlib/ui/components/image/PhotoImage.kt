@@ -11,7 +11,9 @@ package org.mjdev.tvlib.ui.components.image
 import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,6 +35,7 @@ import androidx.core.graphics.drawable.toDrawable
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
@@ -55,6 +58,7 @@ fun PhotoImage(
     brightness: Float = -255f,
     borderSize: Dp = 2.dp,
     borderColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black,
     roundCornerSize: Dp = 8.dp,
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
@@ -63,11 +67,11 @@ fun PhotoImage(
     val isEdit = isEditMode()
     val context = LocalContext.current
     val imageLoader = rememberImageLoader()
-    // todo coil image does not shows
     CoilImage(
         imageLoader = { imageLoader },
         imageModel = { src },
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
+            .recomposeHighlighter()
             .conditional(isEdit) {
                 aspectRatio(16f / 9f).defaultMinSize(80.dp)
             }
@@ -88,21 +92,27 @@ fun PhotoImage(
         onImageStateChanged = {
         },
         success = { state, _ ->
-            ImageAny(
-                src = state.imageBitmap
-                    ?.asAndroidBitmap()
-                    ?.toDrawable(context.resources)
-                    ?.asPhoto(),
-                modifier = modifier.recomposeHighlighter(),
-                alignment = alignment,
-                contentScale = contentScale,
-                alpha = alpha,
-                colorFilter = contrastAndBrightness(
-                    contrast,
-                    brightness
-                ),
-                contentDescription = contentDescription,
-            )
+            val bitmap = state.imageBitmap?.asAndroidBitmap()
+            Box(
+                modifier = modifier
+                    .recomposeHighlighter()
+                    .background(bitmap.majorColor(backgroundColor), shape),
+            ) {
+                ImageAny(
+                    src = bitmap
+                        ?.toDrawable(context.resources)
+                        ?.asPhoto(),
+                    modifier = modifier.recomposeHighlighter(),
+                    alignment = alignment,
+                    contentScale = contentScale,
+                    alpha = alpha,
+                    colorFilter = contrastAndBrightness(
+                        contrast,
+                        brightness
+                    ),
+                    contentDescription = contentDescription,
+                )
+            }
         }
     )
 }

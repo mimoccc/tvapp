@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvlib.ui.components.tv
+package org.mjdev.tvlib.ui.components.image
 
 import androidx.annotation.FloatRange
 import androidx.compose.animation.Crossfade
@@ -28,7 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.mjdev.tvlib.ui.components.image.PhotoImage
 
 @Composable
 fun FadingPhotoImage(
