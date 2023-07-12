@@ -16,7 +16,7 @@ import org.mjdev.tvapp.base.extensions.CursorExt.asMap
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 
-@Suppress("UNUSED_PARAMETER")
+@Suppress("UNUSED_PARAMETER", "unused")
 class PhotoItem(
     contentResolver: ContentResolver,
     c: Cursor
@@ -33,11 +33,15 @@ class PhotoItem(
         get() = this[MediaStore.Images.Media.DATA]
 
     companion object {
+        const val SORT_ORDER_DATE_DESC: String = MediaStore.Images.Media.DATE_ADDED + " DESC"
+        const val SORT_ORDER_DATE_ASC: String = MediaStore.Images.Media.DATE_ADDED + " ASC"
+
         val URI: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val MEDIA_PROJECTION = arrayOf(
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.TITLE,
             MediaStore.Images.Media.DATA,
+            MediaStore.Images.Media.DATE_ADDED,
             // todo more columns
         )
     }

@@ -35,7 +35,7 @@ fun LocalVideoRow(
     backgroundColor: Color = Color.DarkGray,
     selection: String? = null,
     selectionArgs: Array<String>? = null,
-    sortOrder: String? = null,
+    sortOrder: String? = VideoItem.SORT_ORDER_DATE_DESC,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
     contentResolver: ContentResolver = rememberContentResolver(),

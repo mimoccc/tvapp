@@ -20,6 +20,7 @@ import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 import org.mjdev.tvapp.base.interfaces.ItemWithUri
 import timber.log.Timber
 
+@Suppress("unused")
 class VideoItem(
     private val contentResolver: ContentResolver,
     c: Cursor
@@ -57,11 +58,15 @@ class VideoItem(
     }
 
     companion object {
+        const val SORT_ORDER_DATE_DESC: String = MediaStore.Video.Media.DATE_ADDED + " DESC"
+        const val SORT_ORDER_DATE_ASC: String = MediaStore.Video.Media.DATE_ADDED + " ASC"
+
         val URI: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         val MEDIA_PROJECTION = arrayOf(
             MediaStore.Video.Media._ID,
             MediaStore.Video.Media.TITLE,
             MediaStore.Video.Media.DATA,
+            MediaStore.Video.Media.DATE_ADDED
             // todo more columns
         )
     }

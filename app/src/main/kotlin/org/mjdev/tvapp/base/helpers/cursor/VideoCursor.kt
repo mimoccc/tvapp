@@ -15,8 +15,9 @@ class VideoCursor(
     context: Context,
     val contentResolver: ContentResolver = context.contentResolver
 ) : CachingCursor(
-    context,
-    VideoItem.URI,
-    VideoItem.MEDIA_PROJECTION,
-    transform = { VideoItem(contentResolver, it) }
+    context = context,
+    uri = VideoItem.URI,
+    projection = VideoItem.MEDIA_PROJECTION,
+    transform = { VideoItem(contentResolver, it) },
+    sortOrder = VideoItem.SORT_ORDER_DATE_DESC,
 )

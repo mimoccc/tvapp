@@ -15,8 +15,9 @@ class PhotoCursor(
     context: Context,
     val contentResolver: ContentResolver = context.contentResolver
 ) : CachingCursor(
-    context,
-    PhotoItem.URI,
-    PhotoItem.MEDIA_PROJECTION,
-    transform = { PhotoItem(contentResolver, it) }
+    context = context,
+    uri = PhotoItem.URI,
+    projection = PhotoItem.MEDIA_PROJECTION,
+    transform = { PhotoItem(contentResolver, it) },
+    sortOrder = PhotoItem.SORT_ORDER_DATE_DESC,
 )

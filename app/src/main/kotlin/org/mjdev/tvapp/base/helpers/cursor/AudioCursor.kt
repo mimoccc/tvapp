@@ -15,8 +15,9 @@ class AudioCursor(
     context: Context,
     val contentResolver: ContentResolver = context.contentResolver
 ) : CachingCursor(
-    context,
-    AudioItem.URI,
-    AudioItem.MEDIA_PROJECTION,
-    transform = { AudioItem(contentResolver, it) }
+    context = context,
+    uri = AudioItem.URI,
+    projection = AudioItem.MEDIA_PROJECTION,
+    transform = { AudioItem(contentResolver, it) },
+    sortOrder = AudioItem.SORT_ORDER_DATE_DESC,
 )
