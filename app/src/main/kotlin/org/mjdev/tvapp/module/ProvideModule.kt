@@ -46,7 +46,7 @@ class ProvideModule {
     fun providesAppsManager(
         @ApplicationContext
         context: Context
-    ): AppsManager = AppsManager(context)
+    ): AppsManager = AppsManager(context, BuildConfig.APPLICATION_ID)
 
     @Singleton
     @Provides

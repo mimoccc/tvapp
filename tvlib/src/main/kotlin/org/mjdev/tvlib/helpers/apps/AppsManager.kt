@@ -21,15 +21,18 @@ import org.mjdev.tvlib.interfaces.ItemWithTitle
 import java.util.Collections
 
 @Composable
-fun rememberAppsManager(): List<App> {
+fun rememberAppsManager(
+    vararg excludedPackages: String?
+): List<App> {
     val context: Context = LocalContext.current
     return remember {
-        AppsManager(context)
+        AppsManager(context, *excludedPackages)
     }
 }
 
 class AppsManager(
-    context: Context
+    context: Context,
+    vararg excludedPackages: String?
 ) : ArrayList<App>() {
     init {
         val packageManager = context.packageManager
@@ -39,13 +42,15 @@ class AppsManager(
         val resolveInfo = packageManager.queryIntentActivities(mainIntent, 0)
         Collections.sort(resolveInfo, ResolveInfo.DisplayNameComparator(packageManager))
         resolveInfo.forEach { ri ->
-            val title = ri.activityInfo.loadLabel(packageManager).toString()
-            val image = ri.activityInfo
-                .loadBanner(packageManager) ?: ri.activityInfo
-                .loadIcon(packageManager)
-            val intent: Intent? =
-                packageManager.getLaunchIntentForPackage(ri.activityInfo.packageName)
-            add(App(title, image, intent))
+            if (!excludedPackages.contains(ri.activityInfo.packageName)) {
+                val title = ri.activityInfo.loadLabel(packageManager).toString()
+                val image = ri.activityInfo
+                    .loadBanner(packageManager) ?: ri.activityInfo
+                    .loadIcon(packageManager)
+                val intent: Intent? = packageManager
+                    .getLaunchIntentForPackage(ri.activityInfo.packageName)
+                add(App(title, image, intent))
+            }
         }
     }
 }
