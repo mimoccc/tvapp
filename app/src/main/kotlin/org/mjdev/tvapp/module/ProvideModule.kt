@@ -20,6 +20,10 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.base.helpers.apps.AppsManager
+import org.mjdev.tvapp.base.helpers.cursor.AudioCursor
+import org.mjdev.tvapp.base.helpers.cursor.PhotoCursor
+import org.mjdev.tvapp.base.helpers.cursor.VideoCursor
 import org.mjdev.tvapp.base.network.CacheInterceptor
 import org.mjdev.tvapp.base.network.NetworkConnectivityService
 import org.mjdev.tvapp.base.network.NetworkConnectivityServiceImpl
@@ -35,6 +39,35 @@ class ProvideModule {
 
     private val isDebug = BuildConfig.DEBUG
     private val BASE_URL = ""
+
+
+    @Singleton
+    @Provides
+    fun providesAppsManager(
+        @ApplicationContext
+        context: Context
+    ): AppsManager = AppsManager(context)
+
+    @Singleton
+    @Provides
+    fun providesAudioCursor(
+        @ApplicationContext
+        context: Context
+    ): AudioCursor = AudioCursor(context)
+
+    @Singleton
+    @Provides
+    fun providesVideoCursor(
+        @ApplicationContext
+        context: Context
+    ): VideoCursor = VideoCursor(context)
+
+    @Singleton
+    @Provides
+    fun providesPhotoCursor(
+        @ApplicationContext
+        context: Context
+    ): PhotoCursor = PhotoCursor(context)
 
     @Singleton
     @Provides

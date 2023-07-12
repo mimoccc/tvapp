@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.base.helpers.cursor
 
+import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
@@ -15,7 +16,9 @@ import org.mjdev.tvapp.base.extensions.CursorExt.asMap
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
 
+@Suppress("UNUSED_PARAMETER")
 class PhotoItem(
+    contentResolver: ContentResolver,
     c: Cursor
 ) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any> {
 

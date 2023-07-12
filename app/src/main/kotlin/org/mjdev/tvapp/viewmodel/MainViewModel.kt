@@ -17,6 +17,10 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import org.mjdev.tvapp.base.extensions.ListExt.asMap
+import org.mjdev.tvapp.base.helpers.apps.AppsManager
+import org.mjdev.tvapp.base.helpers.cursor.AudioCursor
+import org.mjdev.tvapp.base.helpers.cursor.PhotoCursor
+import org.mjdev.tvapp.base.helpers.cursor.VideoCursor
 import org.mjdev.tvapp.base.network.NetworkConnectivityService
 import org.mjdev.tvapp.base.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvapp.base.viewmodel.BaseViewModel
@@ -56,6 +60,18 @@ class MainViewModel @Inject constructor(
         SharingStarted.WhileSubscribed(5000L),
         mapOf()
     )
+
+    @Inject
+    lateinit var appsList : AppsManager
+
+    @Inject
+    lateinit var localAudioCursor : AudioCursor
+
+    @Inject
+    lateinit var localVideoCursor : VideoCursor
+
+    @Inject
+    lateinit var localPhotoCursor : PhotoCursor
 
     companion object {
 

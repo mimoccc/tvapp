@@ -27,7 +27,11 @@ import org.mjdev.tvapp.base.extensions.StringExt.asException
 import org.mjdev.tvapp.base.interfaces.ItemWithId
 import org.mjdev.tvapp.base.interfaces.ItemWithUri
 import org.mjdev.tvapp.base.ui.components.page.Page
+import org.mjdev.tvapp.base.ui.components.tv.AppsRow
 import org.mjdev.tvapp.base.ui.components.tv.BrowseView
+import org.mjdev.tvapp.base.ui.components.tv.LocalAudioRow
+import org.mjdev.tvapp.base.ui.components.tv.LocalPhotosRow
+import org.mjdev.tvapp.base.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
@@ -95,9 +99,37 @@ class MainPage : Page() {
             onTitleClicked = {
                 navController?.openMenu()
             },
-            onItemClicked = onItemClick
+            onItemClicked = onItemClick,
+            customRows = mutableListOf<@Composable () -> Unit>().apply {
+                if (viewModel.appsList.size > 0) {
+                    add { AppsRow(apps = viewModel.appsList) }
+                }
+                if (viewModel.localAudioCursor.count > 0) {
+                    add {
+                        LocalAudioRow(
+                            cursor = viewModel.localAudioCursor,
+                            openItem = { item -> onItemClick(item) }
+                        )
+                    }
+                }
+                if (viewModel.localVideoCursor.count > 0) {
+                    add {
+                        LocalVideoRow(
+                            cursor = viewModel.localVideoCursor,
+                            openItem = { item -> onItemClick(item) }
+                        )
+                    }
+                }
+                if (viewModel.localPhotoCursor.count > 0) {
+                    add {
+                        LocalPhotosRow(
+                            cursor = viewModel.localPhotoCursor,
+                            openItem = { item -> onItemClick(item) }
+                        )
+                    }
+                }
+            }
         )
-
     }
 
 }

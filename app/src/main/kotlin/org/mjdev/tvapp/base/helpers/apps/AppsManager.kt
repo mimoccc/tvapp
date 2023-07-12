@@ -25,22 +25,28 @@ import java.util.Collections
 fun rememberAppsManager(): List<App> {
     val context: Context = LocalContext.current
     return remember {
+        AppsManager(context)
+    }
+}
+
+class AppsManager(
+    context: Context
+) : ArrayList<App>() {
+    init {
         val packageManager = context.packageManager
         val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
         }
         val resolveInfo = packageManager.queryIntentActivities(mainIntent, 0)
         Collections.sort(resolveInfo, ResolveInfo.DisplayNameComparator(packageManager))
-        mutableListOf<App>().apply {
-            resolveInfo.forEach { ri ->
-                val title = ri.activityInfo.loadLabel(packageManager).toString()
-                val image = ri.activityInfo
-                    .loadBanner(packageManager) ?: ri.activityInfo
-                    .loadIcon(packageManager)
-                val intent: Intent? =
-                    packageManager.getLaunchIntentForPackage(ri.activityInfo.packageName)
-                add(App(title, image, intent))
-            }
+        resolveInfo.forEach { ri ->
+            val title = ri.activityInfo.loadLabel(packageManager).toString()
+            val image = ri.activityInfo
+                .loadBanner(packageManager) ?: ri.activityInfo
+                .loadIcon(packageManager)
+            val intent: Intent? =
+                packageManager.getLaunchIntentForPackage(ri.activityInfo.packageName)
+            add(App(title, image, intent))
         }
     }
 }

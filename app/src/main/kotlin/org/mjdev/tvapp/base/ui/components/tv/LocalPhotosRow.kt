@@ -8,7 +8,9 @@
 
 package org.mjdev.tvapp.base.ui.components.tv
 
+import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -19,8 +21,11 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
+import org.mjdev.tvapp.base.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvapp.base.helpers.cursor.PhotoItem
 
+@Suppress("DEPRECATION")
 @TvPreview
 @Composable
 fun LocalPhotosRow(
@@ -33,6 +38,16 @@ fun LocalPhotosRow(
     sortOrder: String? = null,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
+    contentResolver: ContentResolver = rememberContentResolver(),
+    transform: (Cursor) -> Any? = { c -> PhotoItem(contentResolver, c) },
+    cursor: Cursor? = rememberCursor(
+        uri = PhotoItem.URI,
+        projection = PhotoItem.MEDIA_PROJECTION,
+        selection = selection,
+        selectionArgs = selectionArgs,
+        sortOrder = sortOrder,
+        transform = transform
+    ),
     openItem: Context.(item: Any?) -> Unit = {},
 ) = CursorRow(
     title = title,
@@ -46,6 +61,6 @@ fun LocalPhotosRow(
     selection = selection,
     selectionArgs = selectionArgs,
     sortOrder = sortOrder,
-    transform = { c -> PhotoItem(c) },
+    transform = transform,
     openItem = openItem,
 )

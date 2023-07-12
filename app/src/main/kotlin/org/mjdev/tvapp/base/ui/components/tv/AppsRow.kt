@@ -36,9 +36,9 @@ fun AppsRow(
     startApp: Context.(app: App?) -> Unit = { app ->
         startActivity(app?.intent)
     },
+    apps : List<App> = rememberAppsManager()
 ) {
     val context: Context = LocalContext.current
-    val apps = rememberAppsManager()
     val cardWidth = computeCardWidth(3f)
     if (apps.isNotEmpty()) {
         CategoryRow(

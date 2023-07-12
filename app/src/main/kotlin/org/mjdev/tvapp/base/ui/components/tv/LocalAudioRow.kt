@@ -8,7 +8,9 @@
 
 package org.mjdev.tvapp.base.ui.components.tv
 
+import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -21,7 +23,9 @@ import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
 import org.mjdev.tvapp.base.helpers.cursor.AudioItem
+import org.mjdev.tvapp.base.helpers.cursor.CachingCursor.Companion.rememberCursor
 
+@Suppress("DEPRECATION")
 @TvPreview
 @Composable
 fun LocalAudioRow(
@@ -34,22 +38,29 @@ fun LocalAudioRow(
     sortOrder: String? = null,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
-    openItem: Context.(item: Any?) -> Unit = {},
-) {
-    val contentResolver = rememberContentResolver()
-    CursorRow(
-        title = title,
-        rowState = rowState,
-        padding = padding,
-        backgroundColor = backgroundColor,
-        cardWidth = cardWidth,
-        contentScale = contentScale,
+    contentResolver: ContentResolver = rememberContentResolver(),
+    transform: (Cursor) -> Any? = { c -> AudioItem(contentResolver, c) },
+    cursor: Cursor? = rememberCursor(
         uri = AudioItem.URI,
         projection = AudioItem.MEDIA_PROJECTION,
         selection = selection,
         selectionArgs = selectionArgs,
         sortOrder = sortOrder,
-        transform = { c -> AudioItem(contentResolver, c) },
-        openItem = openItem,
-    )
-}
+        transform = transform
+    ),
+    openItem: Context.(item: Any?) -> Unit = {},
+) = CursorRow(
+    title = title,
+    rowState = rowState,
+    padding = padding,
+    backgroundColor = backgroundColor,
+    cardWidth = cardWidth,
+    contentScale = contentScale,
+    uri = AudioItem.URI,
+    projection = AudioItem.MEDIA_PROJECTION,
+    selection = selection,
+    selectionArgs = selectionArgs,
+    sortOrder = sortOrder,
+    transform = transform,
+    openItem = openItem,
+)

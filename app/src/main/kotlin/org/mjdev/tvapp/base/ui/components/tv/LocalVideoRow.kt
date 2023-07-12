@@ -8,7 +8,9 @@
 
 package org.mjdev.tvapp.base.ui.components.tv
 
+import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -20,8 +22,10 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvapp.base.extensions.ComposeExt.rememberContentResolver
+import org.mjdev.tvapp.base.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvapp.base.helpers.cursor.VideoItem
 
+@Suppress("DEPRECATION")
 @TvPreview
 @Composable
 fun LocalVideoRow(
@@ -34,9 +38,18 @@ fun LocalVideoRow(
     sortOrder: String? = null,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
+    contentResolver: ContentResolver = rememberContentResolver(),
+    transform: (Cursor) -> Any? = { c -> VideoItem(contentResolver, c) },
+    cursor: Cursor? = rememberCursor(
+        uri = VideoItem.URI,
+        projection = VideoItem.MEDIA_PROJECTION,
+        selection = selection,
+        selectionArgs = selectionArgs,
+        sortOrder = sortOrder,
+        transform = transform
+    ),
     openItem: Context.(item: Any?) -> Unit = {},
 ) {
-    val contentResolver = rememberContentResolver()
     CursorRow(
         title = title,
         rowState = rowState,

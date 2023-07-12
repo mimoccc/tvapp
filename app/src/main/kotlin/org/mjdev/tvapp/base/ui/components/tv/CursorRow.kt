@@ -37,11 +37,14 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.base.annotations.TvPreview
 import org.mjdev.tvapp.base.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvapp.base.extensions.CursorExt.getData
+import org.mjdev.tvapp.base.extensions.CursorExt.isNotEmpty
 import org.mjdev.tvapp.base.extensions.ModifierExt.recomposeHighlighter
-import org.mjdev.tvapp.base.helpers.cursor.rememberCursor
+import org.mjdev.tvapp.base.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvapp.base.ui.components.card.PhotoCard
 import org.mjdev.tvapp.base.ui.components.text.TextAny
 
+@Suppress("DEPRECATION")
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
@@ -59,17 +62,17 @@ fun CursorRow(
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
     transform: (Cursor) -> Any? = { it },
-    openItem: Context.(item: Any?) -> Unit = {},
-) {
-    val context: Context = LocalContext.current
-    val cursor = rememberCursor(
+    cursor: Cursor? = rememberCursor(
         uri = uri,
         projection = projection,
         selection = selection,
         selectionArgs = selectionArgs,
         sortOrder = sortOrder,
         transform = transform
-    )
+    ),
+    openItem: Context.(item: Any?) -> Unit = {},
+) {
+    val context: Context = LocalContext.current
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     if (cursor?.isNotEmpty == true) {
         Column(
@@ -105,7 +108,7 @@ fun CursorRow(
                     key = { idx -> idx }
                 ) { idx ->
                     PhotoCard(
-                        item = cursor.get(idx),
+                        item = cursor.getData(idx),
                         contentScale = contentScale,
                         cardWidth = cardWidth,
                         onClick = { i ->

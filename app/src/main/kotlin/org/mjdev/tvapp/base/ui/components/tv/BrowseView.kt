@@ -38,10 +38,6 @@ fun BrowseView(
     modifier: Modifier = Modifier,
     showHeader: Boolean = true,
     showNetworkState: Boolean = true,
-    showApps: Boolean = true,
-    showLocalAudio: Boolean = true,
-    showLocalVideo: Boolean = true,
-    showLocalPhotos: Boolean = true,
     title: Any? = "test",
     messages: List<Any?> = listOf(Unit, Unit, Unit),
     categories: List<Any?> = listOf(Unit, Unit, Unit),
@@ -58,6 +54,7 @@ fun BrowseView(
     backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+    customRows: List<@Composable () -> Unit> = emptyList(),
     onTitleClicked: () -> Unit = {},
     onClockClicked: () -> Unit = {},
     onMessageBadgeClicked: () -> Unit = {},
@@ -113,24 +110,7 @@ fun BrowseView(
                 onItemClicked = onItemClicked
             )
         }
-        if (showApps) item {
-            AppsRow()
-        }
-        if (showLocalAudio) item {
-            LocalAudioRow(
-                openItem = { item -> onItemClicked(item) }
-            )
-        }
-        if (showLocalVideo) item {
-            LocalVideoRow(
-                openItem = { item -> onItemClicked(item) }
-            )
-        }
-        if (showLocalPhotos) item {
-            LocalPhotosRow(
-                openItem = { item -> onItemClicked(item) }
-            )
-        }
+        items(customRows) { row -> row.invoke() }
         items(categoriesAndItemsMap.map { entry ->
             Pair(entry.key, entry.value)
         }) { entry ->
