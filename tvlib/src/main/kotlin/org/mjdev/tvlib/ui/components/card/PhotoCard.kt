@@ -57,6 +57,7 @@ fun PhotoCard(
     aspectRatio: Float = 16f / 9f,
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
+    onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
     ItemCard(
@@ -70,6 +71,7 @@ fun PhotoCard(
         scale = scale,
         imageRenderer = imageRenderer,
         placeholder = placeholder,
+        onFocus = onFocus,
         onClick = onClick,
     )
 }

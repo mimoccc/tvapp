@@ -8,23 +8,17 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvapp.base.ui.components.tv.Header
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -55,9 +49,6 @@ fun BrowseView(
     ),
     networkState: State<NetworkStatus?> = mutableStateOf(NetworkStatus.Unknown),
     errorState: State<Throwable?> = mutableStateOf(null),
-    backgroundColor: Color = Color.DarkGray,
-    roundCornerSize: Dp = 0.dp,
-    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
     customRows: List<@Composable () -> Unit> = emptyList(),
@@ -65,14 +56,14 @@ fun BrowseView(
     onClockClicked: () -> Unit = {},
     onMessageBadgeClicked: () -> Unit = {},
     onUserPicClicked: () -> Unit = {},
+    onItemFocused: (item: Any?) -> Unit = {},
     onItemClicked: (item: Any?) -> Unit = {}
 ) {
     val isEdit = isEditMode()
     ScrollableTvLazyRow(
         modifier = modifier
             .recomposeHighlighter()
-            .fillMaxSize()
-            .background(backgroundColor, backgroundShape),
+            .fillMaxSize(),
         verticalArrangement = verticalArrangement,
         contentPadding = contentPadding
     ) {
@@ -115,6 +106,7 @@ fun BrowseView(
             BigCarousel(
                 modifier = Modifier.recomposeHighlighter(),
                 items = featuredItems,
+                onItemSelected = onItemFocused,
                 onItemClicked = onItemClicked
             )
         }
@@ -125,6 +117,9 @@ fun BrowseView(
             CategoryRow(
                 title = (entry.first as? ItemWithTitle<*>)?.title,
                 items = entry.second,
+                onItemFocus = {
+                    onItemFocused(it)
+                },
                 onItemClick = onItemClicked
             )
         }

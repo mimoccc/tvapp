@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.tv
+package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +33,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.ui.components.badge.Badge
-import org.mjdev.tvlib.ui.components.tv.Clock
-import org.mjdev.tvlib.ui.components.tv.Title
-import org.mjdev.tvlib.ui.components.tv.UserPic
 
 @TvPreview
 @Composable
@@ -46,8 +43,8 @@ fun Header(
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.Bold,
     color: Color = Color.White,
-    backgroundColor: Color = Color.DarkGray,
-    roundSize: Dp = 0.dp,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundSize: Dp = 8.dp,
     padding: Dp = 0.dp,
     contentPadding: Dp = 2.dp,
     messagesCount: Int = 0,
@@ -62,7 +59,7 @@ fun Header(
             .recomposeHighlighter()
             .fillMaxWidth()
             .background(backgroundColor, RoundedCornerShape(roundSize))
-            .padding(padding + roundSize),
+            .padding(padding),
         contentAlignment = Alignment.Center
     ) {
         Row(

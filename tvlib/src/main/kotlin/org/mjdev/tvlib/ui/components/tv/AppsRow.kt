@@ -9,8 +9,10 @@
 package org.mjdev.tvlib.ui.components.tv
 
 import android.content.Context
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
@@ -32,11 +34,13 @@ fun AppsRow(
     title: Any? = R.string.title_apps,
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 8.dp,
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundCornerSize: Dp = 8.dp,
+    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     startApp: Context.(app: App?) -> Unit = { app ->
         startActivity(app?.intent)
     },
-    apps : List<App> = rememberAppsManager()
+    apps: List<App> = rememberAppsManager()
 ) {
     val context: Context = LocalContext.current
     val cardWidth = computeCardWidth(3f)
@@ -49,6 +53,8 @@ fun AppsRow(
             cardWidth = cardWidth,
             contentScale = ContentScale.Fit,
             backgroundColor = backgroundColor,
+            roundCornerSize = roundCornerSize,
+            backgroundShape = backgroundShape,
             onItemClick = { app ->
                 startApp(context, app as? App)
             },

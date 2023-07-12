@@ -15,13 +15,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +48,10 @@ fun CategoryRow(
     padding: Dp = 8.dp,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundCornerSize: Dp = 8.dp,
+    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
+    onItemFocus: (item: Any?) -> Unit = {},
     onItemClick: (item: Any?) -> Unit = {},
     contentOfItem: @Composable (item: Any?) -> Unit = { item ->
         PhotoCard(
@@ -55,17 +59,20 @@ fun CategoryRow(
             contentScale = contentScale,
             cardWidth = cardWidth,
             onClick = onItemClick,
+            onFocus = onItemFocus
         )
     },
 ) {
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     Column(
-        modifier = Modifier.recomposeHighlighter()
+        modifier = Modifier
+            .recomposeHighlighter()
             .fillMaxWidth()
-            .background(backgroundColor, RectangleShape)
+            .background(backgroundColor, backgroundShape)
     ) {
         TextAny(
-            modifier = Modifier.recomposeHighlighter()
+            modifier = Modifier
+                .recomposeHighlighter()
                 .fillMaxWidth()
                 .padding(padding / 2, padding / 2),
             text = title,
@@ -74,11 +81,14 @@ fun CategoryRow(
         )
         TVRow(
             horizontalArrangement = Arrangement.spacedBy(padding),
-            modifier = Modifier.fillMaxWidth().pointerInput(Unit) {
-                detectDragGestures { _, dragAmount ->
-                    scrollDelta.value = dragAmount.x
+            modifier = Modifier
+                .fillMaxWidth()
+                .pointerInput(Unit) {
+                    detectDragGestures { _, dragAmount ->
+                        scrollDelta.value = dragAmount.x
+                    }
                 }
-            }.recomposeHighlighter(),
+                .recomposeHighlighter(),
             state = rowState,
             contentPadding = (padding.value * 1.3).dp, // todo due border & glow
         ) {

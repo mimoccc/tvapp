@@ -47,7 +47,7 @@ fun ImageAny(
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
-    placeholder: @Composable () -> Unit = {}, // todo
+    placeholder: @Composable () -> Unit = {}, // todo on error
 ) = BoxWithConstraints(
     modifier = modifier
 ) {
@@ -57,7 +57,7 @@ fun ImageAny(
 
     when (src) {
 
-        null -> placeholder()
+        null, Unit -> placeholder()
 
         Color -> Image(
             ColorDrawable((src as Color).toArgb()).asImageBitmap(width, height),

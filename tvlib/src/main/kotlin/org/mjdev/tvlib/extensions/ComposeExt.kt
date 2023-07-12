@@ -61,7 +61,7 @@ object ComposeExt {
     @Composable
     fun rememberFocusState(
         key: Any?,
-        initial: FocusState? = null
+        initial: FocusState? = null,
     ) = remember(key) {
         mutableStateOf(initial)
     }

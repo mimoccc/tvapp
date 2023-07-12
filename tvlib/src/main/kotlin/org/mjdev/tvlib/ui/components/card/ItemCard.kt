@@ -60,6 +60,7 @@ fun ItemCard(
     },
     cardWidth: Dp = computeCardWidth(),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
+    onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
     modifier = modifier.recomposeHighlighter(),
@@ -76,5 +77,6 @@ fun ItemCard(
     cardWidth = cardWidth,
     imageRenderer = imageRenderer,
     placeholder = placeholder,
+    onFocus = onFocus,
     onClick = onClick,
 )

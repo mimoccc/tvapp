@@ -11,8 +11,10 @@ package org.mjdev.tvlib.ui.components.tv
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,7 +34,9 @@ fun LocalAudioRow(
     title: Any? = R.string.title_audio_local,
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 8.dp,
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundCornerSize: Dp = 8.dp,
+    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = AudioItem.SORT_ORDER_DATE_DESC,
@@ -48,12 +52,15 @@ fun LocalAudioRow(
         sortOrder = sortOrder,
         transform = transform
     ),
+    onItemFocus: (item: Any?) -> Unit = {},
     openItem: Context.(item: Any?) -> Unit = {},
 ) = CursorRow(
     title = title,
     rowState = rowState,
     padding = padding,
     backgroundColor = backgroundColor,
+    roundCornerSize = roundCornerSize,
+    backgroundShape = backgroundShape,
     cardWidth = cardWidth,
     contentScale = contentScale,
     uri = AudioItem.URI,
@@ -62,6 +69,7 @@ fun LocalAudioRow(
     selectionArgs = selectionArgs,
     sortOrder = sortOrder,
     transform = transform,
+    onItemFocus = onItemFocus,
     openItem = openItem,
     cursor = cursor
 )

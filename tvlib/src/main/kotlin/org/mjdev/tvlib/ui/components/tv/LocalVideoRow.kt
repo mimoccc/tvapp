@@ -11,8 +11,10 @@ package org.mjdev.tvlib.ui.components.tv
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,7 +34,9 @@ fun LocalVideoRow(
     title: Any? = R.string.title_video_local,
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 8.dp,
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundCornerSize: Dp = 8.dp,
+    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = VideoItem.SORT_ORDER_DATE_DESC,
@@ -48,6 +52,7 @@ fun LocalVideoRow(
         sortOrder = sortOrder,
         transform = transform
     ),
+    onItemFocus: (item: Any?) -> Unit = {},
     openItem: Context.(item: Any?) -> Unit = {},
 ) {
     CursorRow(
@@ -55,6 +60,8 @@ fun LocalVideoRow(
         rowState = rowState,
         padding = padding,
         backgroundColor = backgroundColor,
+        backgroundShape = backgroundShape,
+        roundCornerSize = roundCornerSize,
         cardWidth = cardWidth,
         contentScale = contentScale,
         uri = VideoItem.URI,
@@ -64,6 +71,7 @@ fun LocalVideoRow(
         sortOrder = sortOrder,
         transform = { c -> VideoItem(contentResolver, c) },
         openItem = openItem,
+        onItemFocus = onItemFocus,
         cursor = cursor
     )
 }

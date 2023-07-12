@@ -52,6 +52,7 @@ fun CarouselCard(
             placeholder = placeholder
         )
     },
+    onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {}
 ) {
     val isEdit = isEditMode()
@@ -68,7 +69,7 @@ fun CarouselCard(
         focusState = focusState,
         placeholder = placeholder,
         imageRenderer = imageRenderer,
+        onFocus = onFocus,
         onClick = { onClick(item) }
     )
-
 }

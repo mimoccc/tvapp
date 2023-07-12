@@ -77,7 +77,12 @@ fun FocusableCard(
     },
     focusRequester: FocusRequester = rememberFocusRequester(item),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
-    onFocusChange: (state: FocusState) -> Unit = {},
+    onFocus: (item: Any?) -> Unit = {},
+    onFocusChange: (state: FocusState) -> Unit = { state ->
+        if (state.isFocused) {
+            onFocus(item)
+        }
+    },
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     onClick: (item: Any?) -> Unit = {},

@@ -19,13 +19,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -53,7 +54,9 @@ fun CursorRow(
     title: Any? = null,
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 16.dp,
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
+    roundCornerSize: Dp = 8.dp,
+    backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
     uri: Uri? = null,
@@ -70,6 +73,7 @@ fun CursorRow(
         sortOrder = sortOrder,
         transform = transform
     ),
+    onItemFocus: (item: Any?) -> Unit = {},
     openItem: Context.(item: Any?) -> Unit = {},
 ) {
     val context: Context = LocalContext.current
@@ -79,7 +83,7 @@ fun CursorRow(
             modifier = Modifier
                 .recomposeHighlighter()
                 .fillMaxWidth()
-                .background(backgroundColor, RectangleShape)
+                .background(backgroundColor, backgroundShape)
         ) {
             TextAny(
                 modifier = Modifier
@@ -111,6 +115,7 @@ fun CursorRow(
                         item = cursor.getData(idx),
                         contentScale = contentScale,
                         cardWidth = cardWidth,
+                        onFocus = onItemFocus,
                         onClick = { i ->
                             openItem(context, i)
                         },

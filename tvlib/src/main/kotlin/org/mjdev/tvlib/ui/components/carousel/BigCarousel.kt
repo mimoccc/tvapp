@@ -85,6 +85,7 @@ fun BigCarousel(
                 contentScale = ContentScale.Crop,
                 scale = CardScale.None,
                 focusState = focusState,
+                onFocus = onItemSelected,
                 onClick = {
                     onItemClicked(selectedItem())
                 }
