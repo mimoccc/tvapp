@@ -101,6 +101,7 @@ class MainPage : Page() {
 
         val onItemSelect: (item: Any?) -> Unit = { item ->
             backgroundState.value = when (item) {
+                is ItemPhoto -> item.uri
                 is ItemWithBackground<*> -> item.background
                 is ItemWithImage<*> -> item.image
                 else -> {}
