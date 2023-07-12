@@ -13,6 +13,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import org.mjdev.tvlib.ui.components.image.PhotoImage
 
 @Composable
@@ -33,7 +35,8 @@ fun FadingPhotoImage(
     modifier: Modifier = Modifier,
     initialImage: Any? = null,
     fadingImageState: MutableState<Any?> = remember { mutableStateOf(initialImage) },
-    animationDuration: Int = 1000,
+    animationDuration: Int = 1800,
+    delay: Long = 600,
     alpha: Float = 0.6f,
     blurRadius: Dp = 4.dp,
     @FloatRange(from = 0.0, to = 10.0)
@@ -50,8 +53,9 @@ fun FadingPhotoImage(
     contentDescription: String? = null,
     alignment: Alignment = Alignment.Center,
 ) {
+    val fadingImage = remember { mutableStateOf(initialImage) }
     Crossfade(
-        fadingImageState.value,
+        fadingImage.value,
         animationSpec = tween(animationDuration)
     ) { targetState ->
         PhotoImage(
@@ -70,5 +74,11 @@ fun FadingPhotoImage(
             contentDescription = contentDescription,
             alignment = alignment
         )
+    }
+    LaunchedEffect(fadingImageState.value) {
+        if (fadingImage.value != fadingImageState.value) {
+            delay(delay)
+            fadingImage.value = fadingImageState.value
+        }
     }
 }
