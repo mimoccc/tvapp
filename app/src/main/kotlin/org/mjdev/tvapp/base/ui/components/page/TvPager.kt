@@ -82,10 +82,9 @@ fun TvPager(
     }
 
     navController.addMenuClickListener(listener)
-    val pageIndex = pagerScope.currentPage.value
 
     AnimatedContent(
-        targetState = pageIndex,
+        targetState = pagerScope.currentPage.value,
         transitionSpec = {
             if (targetState > initialState) {
                 (slideInVertically { height ->
@@ -103,15 +102,16 @@ fun TvPager(
                 SizeTransform(clip = false)
             )
         }
-    ) {
+    ) { pageIndex ->
+        val page = if (isEdit) EMPTY_PAGE
+        else if (pagerScope.size > pageIndex) pagerScope[pageIndex]
+        else null
         Box(
-            modifier = Modifier.recomposeHighlighter()
+            modifier = Modifier
+                .recomposeHighlighter()
                 .fillMaxSize()
                 .background(backGroundColor, backGroundShape),
         ) {
-            val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
-            else if (isEdit) EMPTY_PAGE
-            else null
             page?.content()
         }
     }
