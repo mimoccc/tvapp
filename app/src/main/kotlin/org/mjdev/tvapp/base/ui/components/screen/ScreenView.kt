@@ -10,6 +10,8 @@ package org.mjdev.tvapp.base.ui.components.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,11 +25,16 @@ import org.mjdev.tvapp.base.ui.components.navigation.Navigation
 @TvPreview
 @Composable
 fun ScreenView(
+    modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
     content: @Composable () -> Unit = { EmptyScreen() }
 ) {
     Box(
-        modifier = Modifier.fillMaxSize().recomposeHighlighter(),
+        modifier = modifier
+            .fillMaxSize()
+            .recomposeHighlighter()
+            .navigationBarsPadding()
+            .statusBarsPadding(),
         contentAlignment = Alignment.TopStart,
     ) {
         if (navController.menuState.value) {

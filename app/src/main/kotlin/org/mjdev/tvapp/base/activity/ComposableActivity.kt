@@ -15,8 +15,6 @@ import androidx.activity.compose.setContent
 import androidx.annotation.CallSuper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -71,10 +69,7 @@ open class ComposableActivity : ComponentActivity() {
                 )
             ) {
                 NavHostEx(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .navigationBarsPadding()
-                        .statusBarsPadding(),
+                    modifier = Modifier.fillMaxSize(),
                     navController = navController,
                     builder = navGraphBuilder
                 )

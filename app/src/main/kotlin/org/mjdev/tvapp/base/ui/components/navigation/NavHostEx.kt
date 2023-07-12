@@ -53,6 +53,7 @@ fun NavHostEx(
     }
 ) {
     ScreenView(
+        modifier = modifier.recomposeHighlighter(),
         navController = navController,
     ) {
         NavHost(
