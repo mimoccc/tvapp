@@ -49,7 +49,7 @@ open class ComposableActivity : ComponentActivity() {
     }
 
     open val backgroundColor = Color(0xff202020)
-    open val roundCornerSize: Dp = 16.dp
+    open val roundCornerSize: Dp = 0.dp
     open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
     @TvPreview
@@ -64,16 +64,17 @@ open class ComposableActivity : ComponentActivity() {
             Surface(
                 modifier = Modifier
                     .background(backgroundColor, backgroundShape)
-                    .fillMaxSize()
-                    .navigationBarsPadding()
-                    .statusBarsPadding(),
+                    .fillMaxSize(),
                 shape = RectangleShape,
                 colors = NonInteractiveSurfaceDefaults.colors(
                     containerColor = backgroundColor
                 )
             ) {
                 NavHostEx(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .navigationBarsPadding()
+                        .statusBarsPadding(),
                     navController = navController,
                     builder = navGraphBuilder
                 )
