@@ -49,3 +49,4 @@ gradleEnterprise {
 
 rootProject.name = "TvApp"
 include(":app")
+include(":tvlib")

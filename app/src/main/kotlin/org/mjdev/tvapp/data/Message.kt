@@ -12,9 +12,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
-import org.mjdev.tvapp.base.interfaces.ItemWithId
-import org.mjdev.tvapp.base.interfaces.ItemWithMessage
-import org.mjdev.tvapp.base.interfaces.ItemWithTitle
+import org.mjdev.tvlib.interfaces.ItemWithId
+import org.mjdev.tvlib.interfaces.ItemWithMessage
+import org.mjdev.tvlib.interfaces.ItemWithTitle
 
 @Entity
 @JsonClass(generateAdapter = true)

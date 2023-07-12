@@ -25,11 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.ui.components.card.Card
-import org.mjdev.tvapp.base.ui.components.page.Page
-import org.mjdev.tvapp.base.ui.components.card.CardContent
-import org.mjdev.tvapp.base.ui.components.text.TextAny
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.ui.components.card.Card
+import org.mjdev.tvlib.ui.components.page.Page
+import org.mjdev.tvlib.ui.components.card.CardContent
+import org.mjdev.tvlib.ui.components.text.TextAny
 
 class SubscriptionPage : Page() {
 

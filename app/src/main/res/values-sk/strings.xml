@@ -22,6 +22,8 @@
     <string name="menu_title_exit">Ukončiť</string>
     <string name="menu_title_home">Domov</string>
 
+    <string name="msg_loading">Načítam …</string>
+
     <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
     <string name="text_unimplemented_yet">Táto funkcia žiaľ ešte nie je implementovaná.</string>
 

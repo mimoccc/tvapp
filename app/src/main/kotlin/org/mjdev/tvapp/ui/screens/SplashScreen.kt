@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.NavControllerExt.openAsTop
-import org.mjdev.tvapp.base.permission.rememberPermissionManager
-import org.mjdev.tvapp.base.screen.Screen
-import org.mjdev.tvapp.base.ui.components.text.TextAny
-import org.mjdev.tvapp.base.ui.components.tv.Title
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvlib.permission.rememberPermissionManager
+import org.mjdev.tvlib.screen.Screen
+import org.mjdev.tvlib.ui.components.text.TextAny
+import org.mjdev.tvlib.ui.components.tv.Title
 
 @Suppress("UNUSED_VARIABLE")
 class SplashScreen : Screen() {
@@ -60,7 +60,10 @@ class SplashScreen : Screen() {
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Title()
+            Title(
+                icon = R.mipmap.ic_launcher,
+                title = R.string.app_name
+            )
         }
         Box(
             modifier = Modifier

@@ -18,16 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.ComposeExt.isEditMode
-import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
-import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.navigation.AnyType
-import org.mjdev.tvapp.base.screen.Screen
+import org.mjdev.tvapp.base.ui.components.tv.Loading
 import org.mjdev.tvapp.state.DetailsLoadingState
-import org.mjdev.tvapp.ui.components.Loading
 import org.mjdev.tvapp.ui.components.MediaPlayer
 import org.mjdev.tvapp.viewmodel.DetailViewModel
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.HiltExt.appViewModel
+import org.mjdev.tvlib.extensions.StringExt.asException
+import org.mjdev.tvlib.navigation.AnyType
+import org.mjdev.tvlib.screen.Screen
 
 class PlayerScreen : Screen() {
 

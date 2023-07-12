@@ -12,13 +12,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
-import org.mjdev.tvapp.base.interfaces.ItemWithBackground
-import org.mjdev.tvapp.base.interfaces.ItemWithDescription
-import org.mjdev.tvapp.base.interfaces.ItemWithId
-import org.mjdev.tvapp.base.interfaces.ItemWithImage
-import org.mjdev.tvapp.base.interfaces.ItemWithSubtitle
-import org.mjdev.tvapp.base.interfaces.ItemWithTitle
-import org.mjdev.tvapp.base.interfaces.ItemWithUri
+import org.mjdev.tvlib.interfaces.ItemWithBackground
+import org.mjdev.tvlib.interfaces.ItemWithDescription
+import org.mjdev.tvlib.interfaces.ItemWithId
+import org.mjdev.tvlib.interfaces.ItemWithImage
+import org.mjdev.tvlib.interfaces.ItemWithSubtitle
+import org.mjdev.tvlib.interfaces.ItemWithTitle
+import org.mjdev.tvlib.interfaces.ItemWithUri
 import java.io.Serializable
 
 @Entity

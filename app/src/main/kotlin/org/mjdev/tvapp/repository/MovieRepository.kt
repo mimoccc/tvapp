@@ -8,10 +8,10 @@
 
 package org.mjdev.tvapp.repository
 
-import org.mjdev.tvapp.base.extensions.GlobalExt.runSafe
 import org.mjdev.tvapp.data.Message
 import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvlib.extensions.GlobalExt.runSafe
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(

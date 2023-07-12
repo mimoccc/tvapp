@@ -20,13 +20,13 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.base.helpers.apps.AppsManager
-import org.mjdev.tvapp.base.helpers.cursor.AudioCursor
-import org.mjdev.tvapp.base.helpers.cursor.PhotoCursor
-import org.mjdev.tvapp.base.helpers.cursor.VideoCursor
-import org.mjdev.tvapp.base.network.CacheInterceptor
-import org.mjdev.tvapp.base.network.NetworkConnectivityService
-import org.mjdev.tvapp.base.network.NetworkConnectivityServiceImpl
+import org.mjdev.tvlib.helpers.apps.AppsManager
+import org.mjdev.tvlib.helpers.cursor.AudioCursor
+import org.mjdev.tvlib.helpers.cursor.PhotoCursor
+import org.mjdev.tvlib.helpers.cursor.VideoCursor
+import org.mjdev.tvlib.network.CacheInterceptor
+import org.mjdev.tvlib.network.NetworkConnectivityService
+import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
@@ -84,8 +84,7 @@ class ProvideModule {
 
     @Singleton
     @Provides
-    fun providesHttpLoggingInterceptor(
-    ) = HttpLoggingInterceptor().apply {
+    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 

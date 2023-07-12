@@ -22,6 +22,8 @@
     <string name="menu_title_exit">Exit</string>
     <string name="menu_title_home">Home</string>
 
+    <string name="msg_loading">Loading…</string>
+
     <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
     <string name="text_unimplemented_yet">This feature is not yet implemented.</string>
 
@@ -40,6 +42,5 @@
     <string name="title_audio_local">Local audio files</string>
     <string name="title_video_local">Local video files</string>
     <string name="title_photo_local">Local photo files</string>
-
 
 </resources>

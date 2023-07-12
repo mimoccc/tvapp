@@ -13,10 +13,10 @@ import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.StringExt.parseUri
-import org.mjdev.tvapp.base.interfaces.ItemWithUri
-import org.mjdev.tvapp.base.ui.components.media.MediaPlayerContainer
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.StringExt.parseUri
+import org.mjdev.tvlib.interfaces.ItemWithUri
+import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
 import java.net.URL
 
 @SuppressLint("ModifierParameter")

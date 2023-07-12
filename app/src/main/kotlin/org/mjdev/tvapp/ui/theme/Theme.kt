@@ -11,7 +11,7 @@ package org.mjdev.tvapp.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import org.mjdev.tvapp.base.ui.theme.ThemeHelper
+import org.mjdev.tvlib.ui.theme.ThemeHelper
 
 @Composable
 fun TVAppTheme(

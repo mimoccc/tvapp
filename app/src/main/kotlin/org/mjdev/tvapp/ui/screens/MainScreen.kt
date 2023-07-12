@@ -13,15 +13,15 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.screen.ScreenWithPages
-import org.mjdev.tvapp.base.ui.components.page.PagerScope
-import org.mjdev.tvapp.base.ui.components.page.SearchPage
-import org.mjdev.tvapp.base.ui.components.page.SettingsPage
 import org.mjdev.tvapp.ui.pages.AboutPage
 import org.mjdev.tvapp.ui.pages.MainPage
 import org.mjdev.tvapp.ui.pages.PluginsPage
 import org.mjdev.tvapp.ui.pages.SubscriptionPage
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.screen.ScreenWithPages
+import org.mjdev.tvlib.ui.components.page.PagerScope
+import org.mjdev.tvlib.ui.components.page.SearchPage
+import org.mjdev.tvlib.ui.components.page.SettingsPage
 
 class MainScreen : ScreenWithPages() {
 

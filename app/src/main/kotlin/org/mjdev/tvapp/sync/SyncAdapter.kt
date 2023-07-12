@@ -10,10 +10,10 @@ import io.objectbox.Box
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
-import org.mjdev.tvapp.base.extensions.ListExt.containsNot
 import org.mjdev.tvapp.data.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
+import org.mjdev.tvlib.extensions.ListExt.containsNot
 import timber.log.Timber
 
 @Suppress("unused", "PrivatePropertyName")

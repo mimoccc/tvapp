@@ -22,6 +22,7 @@
 
 ## Description
 
+All in one, tablet, mobile and tv android app.
 Just an test app as showcase of coding skills, using modern frameworks  
 and a new unstable tv compose framework for tv apps with the diferrence  
 that components in this example should be touchable and therefore this  

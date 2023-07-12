@@ -20,18 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.base.annotations.TvPreview
-import org.mjdev.tvapp.base.extensions.HiltExt.appViewModel
-import org.mjdev.tvapp.base.extensions.NavControllerExt.open
-import org.mjdev.tvapp.base.extensions.StringExt.asException
-import org.mjdev.tvapp.base.interfaces.ItemWithId
-import org.mjdev.tvapp.base.interfaces.ItemWithUri
-import org.mjdev.tvapp.base.ui.components.page.Page
-import org.mjdev.tvapp.base.ui.components.tv.AppsRow
-import org.mjdev.tvapp.base.ui.components.tv.BrowseView
-import org.mjdev.tvapp.base.ui.components.tv.LocalAudioRow
-import org.mjdev.tvapp.base.ui.components.tv.LocalPhotosRow
-import org.mjdev.tvapp.base.ui.components.tv.LocalVideoRow
+import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.HiltExt.appViewModel
+import org.mjdev.tvlib.extensions.NavControllerExt.open
+import org.mjdev.tvlib.extensions.StringExt.asException
+import org.mjdev.tvlib.interfaces.ItemWithId
+import org.mjdev.tvlib.interfaces.ItemWithUri
+import org.mjdev.tvlib.ui.components.page.Page
+import org.mjdev.tvlib.ui.components.tv.AppsRow
+import org.mjdev.tvlib.ui.components.tv.BrowseView
+import org.mjdev.tvlib.ui.components.tv.LocalAudioRow
+import org.mjdev.tvlib.ui.components.tv.LocalPhotosRow
+import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.ui.screens.DetailScreen
 import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
@@ -88,6 +88,8 @@ class MainPage : Page() {
 
         BrowseView(
             modifier = Modifier.fillMaxSize(),
+            appIcon = R.mipmap.ic_launcher,
+            userIcon = R.drawable.milanj,
             title = titleState.value,
             messages = messages.value,
             categories = categoryList.value.map { it.key }.distinct(),
