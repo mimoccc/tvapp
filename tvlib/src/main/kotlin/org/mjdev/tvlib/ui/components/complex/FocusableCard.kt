@@ -9,8 +9,11 @@
 package org.mjdev.tvlib.ui.components.complex
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -20,6 +23,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -62,6 +66,8 @@ fun FocusableCard(
     scale: CardScale = CardDefaults.scale(),
     shape: CardShape = CardDefaults.shape(),
     textColor: Color = Color.White,
+    textBackgroundUnselected: Color = Color.DarkGray.copy(alpha=0.5f),
+    textBackgroundSelected: Color = Color.Green.copy(alpha=0.5f),
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
@@ -116,22 +122,42 @@ fun FocusableCard(
             imageRenderer()
         },
         title = {
-            AutoHideEmptyText(
-                modifier = Modifier.padding(4.dp),
-                maxLines = 1,
-                color = textColor,
-                style = MaterialTheme.typography.titleSmall,
-                text = (item as? ItemWithTitle<*>)?.title
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth().background(
+                    if (focusState.isFocused)
+                        textBackgroundSelected
+                    else
+                        textBackgroundUnselected,
+                    RectangleShape
+                )
+            ) {
+                AutoHideEmptyText(
+                    modifier = Modifier.padding(4.dp),
+                    maxLines = 1,
+                    color = textColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = if(isEdit) "title" else (item as? ItemWithTitle<*>)?.title
+                )
+            }
         },
         subtitle = {
-            AutoHideEmptyText(
-                modifier = Modifier.padding(4.dp),
-                maxLines = 1,
-                color = textColor,
-                style = MaterialTheme.typography.displaySmall,
-                text = (item as? ItemWithSubtitle<*>)?.subtitle
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth().background(
+                    if (focusState.isFocused)
+                        textBackgroundSelected
+                    else
+                        textBackgroundUnselected,
+                    RectangleShape
+                )
+            ) {
+                AutoHideEmptyText(
+                    modifier = Modifier.padding(4.dp),
+                    maxLines = 1,
+                    color = textColor,
+                    style = MaterialTheme.typography.bodySmall,
+                    text = if (isEdit) "subtitle" else (item as? ItemWithSubtitle<*>)?.subtitle
+                )
+            }
         },
         description = {
             // todo
