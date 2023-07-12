@@ -11,14 +11,17 @@ package org.mjdev.tvapp.base.helpers.cursor
 import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
+import android.util.Size
 import org.mjdev.tvapp.base.extensions.CursorExt.asMap
 import org.mjdev.tvapp.base.interfaces.ItemWithImage
 import org.mjdev.tvapp.base.interfaces.ItemWithTitle
+import timber.log.Timber
 
-@Suppress("UNUSED_PARAMETER", "unused")
+@Suppress( "unused")
 class PhotoItem(
-    contentResolver: ContentResolver,
+    private val contentResolver: ContentResolver,
     c: Cursor
 ) : HashMap<String, Any?>(), ItemWithTitle<String>, ItemWithImage<Any> {
 
@@ -29,8 +32,29 @@ class PhotoItem(
     override val title: String?
         get() = this[MediaStore.Images.Media.TITLE]?.toString()
 
+    val uri: Uri
+        get() = Uri.withAppendedPath(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            this[MediaStore.Images.Media._ID].toString()
+        )
+
     override val image: Any?
-        get() = this[MediaStore.Images.Media.DATA]
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                uri.let { thumbUri ->
+                    contentResolver.loadThumbnail(
+                        thumbUri,
+                        Size(320, 240),
+                        null
+                    )
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+                null
+            }
+        } else {
+            Uri.parse(this[MediaStore.Images.Media.DATA].toString())
+        }
 
     companion object {
         const val SORT_ORDER_DATE_DESC: String = MediaStore.Images.Media.DATE_ADDED + " DESC"
