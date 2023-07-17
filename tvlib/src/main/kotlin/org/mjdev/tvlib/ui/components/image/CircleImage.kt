@@ -13,6 +13,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -32,7 +33,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 @Composable
 fun CircleImage(
     modifier: Modifier = Modifier,
-    backGroundColor: Color = Color.Black,
+    backGroundColor: Color = Color.White,
     borderColor: Color = Color.White,
     borderSize: Dp = 3.dp,
     contentDescription: String = "",
@@ -40,12 +41,15 @@ fun CircleImage(
     src: Any? = R.drawable.person
 ) {
     Box(
-        modifier = modifier.padding(contentPadding).recomposeHighlighter(),
+        modifier = modifier
+            .padding(contentPadding)
+            .recomposeHighlighter()
+            .aspectRatio(1f),
         contentAlignment = Alignment.Center,
     ) {
-
         ImageAny(
-            modifier = modifier.recomposeHighlighter()
+            modifier = modifier
+                .recomposeHighlighter()
                 .clip(CircleShape)
                 .background(backGroundColor, CircleShape)
                 .border(

@@ -19,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -28,7 +27,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import org.mjdev.tvlib.annotations.TvPreview
 
+@TvPreview
 @Composable
 fun FadingPhotoImage(
     modifier: Modifier = Modifier,
@@ -58,9 +59,7 @@ fun FadingPhotoImage(
         animationSpec = tween(animationDuration)
     ) { targetState ->
         PhotoImage(
-            modifier = modifier
-                .alpha(alpha)
-                .blur(radius = blurRadius),
+            modifier = modifier.blur(radius = blurRadius),
             src = targetState,
             contrast = contrast,
             brightness = brightness,
@@ -69,6 +68,7 @@ fun FadingPhotoImage(
             borderSize = borderSize,
             borderColor = borderColor,
             shape = shape,
+            alpha = alpha,
             colorFilter = colorFilter,
             contentDescription = contentDescription,
             alignment = alignment
