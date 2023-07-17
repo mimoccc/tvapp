@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (c) Milan Jurkulák 2023.
   ~  Contact:
   ~  e: mimoccc@gmail.com
@@ -6,12 +7,11 @@
   ~  w: https://mjdev.org
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <permission
-        android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="ReservedSystemPermission" />
+<!--    <permission-->
+<!--        android:name="android.permission.QUERY_ALL_PACKAGES"-->
+<!--        tools:ignore="ReservedSystemPermission" />-->
 
     <queries>
         <intent>

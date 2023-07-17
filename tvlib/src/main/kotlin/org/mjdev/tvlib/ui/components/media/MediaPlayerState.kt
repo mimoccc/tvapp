@@ -17,16 +17,19 @@ import androidx.compose.runtime.remember
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MediaPlayerState(
+    val player: IMediaPlayer?,
     uri: Uri = Uri.EMPTY,
     autoPlay: Boolean = true,
     startSeek: Long = 0,
 ) {
 
     constructor(
+        player: IMediaPlayer?,
         uri: String? = null,
         autoPlay: Boolean = true,
         startSeek: Long = 0
     ) : this(
+        player,
         if (uri === null) Uri.EMPTY else Uri.parse(uri),
         autoPlay,
         startSeek
@@ -59,15 +62,22 @@ class MediaPlayerState(
         seek.value = ms
     }
 
+    fun dispose() {
+        player?.release()
+        player?.dispose()
+    }
+
     companion object {
 
         @Composable
         fun rememberMediaPlayerState(
+            player: IMediaPlayer?,
             uri: Uri = Uri.EMPTY,
             autoPlay: Boolean = true,
             startSeek: Long = 0
         ) = remember {
             MediaPlayerState(
+                player,
                 uri,
                 autoPlay,
                 startSeek

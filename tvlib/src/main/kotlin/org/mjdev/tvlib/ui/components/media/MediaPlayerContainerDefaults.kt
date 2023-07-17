@@ -26,7 +26,7 @@ object MediaPlayerContainerDefaults {
         @Composable
         get() = arrayOf(
             exoPlayer,
-            internalPlayer
+//            internalPlayer
         )
 
     val exoPlayer: IMediaPlayer
@@ -39,13 +39,13 @@ object MediaPlayerContainerDefaults {
             }
         }
 
-    val internalPlayer: IMediaPlayer
-        @Composable
-        get() = run {
-            if (isEdit) IMediaPlayer.EMPTY
-            else remember {
-                NativePlayerImpl(MediaPlayer())
-            }
-        }
+//    val internalPlayer: IMediaPlayer
+//        @Composable
+//        get() = run {
+//            if (isEdit) IMediaPlayer.EMPTY
+//            else remember {
+//                NativePlayerImpl(MediaPlayer())
+//            }
+//        }
 
 }

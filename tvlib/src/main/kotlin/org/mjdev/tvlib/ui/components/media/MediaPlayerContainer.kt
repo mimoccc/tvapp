@@ -28,15 +28,22 @@ fun MediaPlayerContainer(
     autoPlay: Boolean = true,
     startSeek: Long = 0L,
     mediaPlayer: IMediaPlayer = MediaPlayerContainerDefaults.exoPlayer,
-    background: @Composable (state: MediaPlayerState) -> Unit = {},
     mediaPlayerOverlay: @Composable (state: MediaPlayerState) -> Unit = {},
-    mediaPlayerControls: @Composable (state: MediaPlayerState) -> Unit = {}
+    mediaPlayerControls: @Composable (state: MediaPlayerState) -> Unit = { state ->
+        MediaPlayerControls(state)
+    }
 ) {
-    val state = rememberMediaPlayerState(uri ?: Uri.EMPTY, autoPlay, startSeek)
+    val state = rememberMediaPlayerState(
+        mediaPlayer,
+        uri ?: Uri.EMPTY,
+        autoPlay,
+        startSeek
+    )
     Box(
-        modifier = modifier.recomposeHighlighter().fillMaxSize()
+        modifier = modifier
+            .recomposeHighlighter()
+            .fillMaxSize()
     ) {
-        background(state)
         mediaPlayer.GetPlayerView()
         mediaPlayerOverlay(state)
         mediaPlayerControls(state)
@@ -53,8 +60,8 @@ fun MediaPlayerContainer(
             }
         }
         onDispose {
-            mediaPlayer.stop()
-            mediaPlayer.dispose()
+            state.stop()
+            state.dispose()
         }
     }
 }
