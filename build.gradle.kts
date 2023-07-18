@@ -19,5 +19,6 @@ buildscript {
     }
     dependencies {
         classpath("io.objectbox:objectbox-gradle-plugin:3.6.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
     }
 }

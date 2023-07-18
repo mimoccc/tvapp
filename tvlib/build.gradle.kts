@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
+
 /*
  * Copyright (c) Milan Jurkulák 2023.
  *  Contact:
@@ -53,7 +55,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = kotlinCompilerExtVersion
     }
 
     packaging {
