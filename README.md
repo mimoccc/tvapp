@@ -31,11 +31,9 @@
 
 ## Screenshots
 
-![1](screenshots/Screenshot_20230712_111645.png)
-![2](screenshots/Screenshot_20230712_111724.png)
-![3](screenshots/Screenshot_20230712_111741.png)
-![4](screenshots/Screenshot_20230712_111801.png)
-![5](screenshots/Screenshot_20230712_111811.png)
+![](screenshots/Screenshot_20230718_020504.png)
+![](screenshots/Screenshot_20230718_020440.png)
+![](screenshots/Screenshot_20230718_020340.png)
 
 ## Description
 
