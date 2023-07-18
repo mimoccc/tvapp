@@ -126,6 +126,8 @@ android {
                 "sync_auth",
                 "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
             )
+            multiDexEnabled = true
+            matchingFallbacks += listOf("debug")
         }
 
     }
@@ -181,24 +183,24 @@ dependencies {
     implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
     implementation("androidx.tv:tv-material:1.0.0-alpha07")
     // dagger - hilt
-    implementation("com.google.dagger:dagger-android:2.46.1")
-    implementation("com.google.dagger:dagger-android-support:2.46.1")
-    implementation("com.google.dagger:dagger:2.46.1")
-    implementation("com.google.dagger:hilt-android:2.46.1")
+    implementation("com.google.dagger:dagger-android:2.47")
+    implementation("com.google.dagger:dagger-android-support:2.47")
+    implementation("com.google.dagger:dagger:2.47")
+    implementation("com.google.dagger:hilt-android:2.47")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     // okhttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
     implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // kapt
-    kapt("com.google.dagger:dagger-compiler:2.46.1")
-    kapt("com.google.dagger:dagger-android-processor:2.46.1")
-    kapt("com.google.dagger:hilt-compiler:2.46.1")
+    kapt("com.google.dagger:dagger-compiler:2.47")
+    kapt("com.google.dagger:dagger-android-processor:2.47")
+    kapt("com.google.dagger:hilt-compiler:2.47")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")

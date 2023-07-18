@@ -94,9 +94,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.0-beta02")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
-    implementation("io.coil-kt:coil-gif:2.2.2")
-    implementation("io.coil-kt:coil-svg:1.2.2")
-    implementation("io.coil-kt:coil-video:1.2.2")
+    implementation("io.coil-kt:coil-gif:2.4.0")
+    implementation("io.coil-kt:coil-svg:2.4.0")
+    implementation("io.coil-kt:coil-video:2.4.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.skydoves:landscapist-coil:2.2.2")
     // constraint layout // todo remove
@@ -104,17 +104,17 @@ dependencies {
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
-    implementation("com.google.dagger:dagger:2.46.1")
+    implementation("com.google.dagger:dagger:2.47")
     implementation("androidx.compose.material3:material3:1.1.1")
-    kapt("com.google.dagger:dagger-compiler:2.46.1")
+    kapt("com.google.dagger:dagger-compiler:2.47")
     // dagger android
-    implementation("com.google.dagger:dagger-android:2.46.1")
-    implementation("com.google.dagger:dagger-android-support:2.46.1")
-    kapt("com.google.dagger:dagger-android-processor:2.46.1")
+    implementation("com.google.dagger:dagger-android:2.47")
+    implementation("com.google.dagger:dagger-android-support:2.47")
+    kapt("com.google.dagger:dagger-android-processor:2.47")
     // dagger - hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
+    implementation("com.google.dagger:hilt-android:2.47")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.46.1")
+    kapt("com.google.dagger:hilt-compiler:2.47")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
