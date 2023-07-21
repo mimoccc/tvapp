@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
@@ -40,13 +39,12 @@ class PluginsPage : Page() {
     @TvPreview
     @Composable
     override fun Content() {
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Card(
+            org.mjdev.tvlib.ui.components.card.Card(
                 onClick = {},
                 onLongClick = {},
                 modifier = Modifier.fillMaxSize(),
