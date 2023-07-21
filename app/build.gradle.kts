@@ -216,6 +216,8 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
     // previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
+    // lottie
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

@@ -26,6 +26,10 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
@@ -35,7 +39,6 @@ import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
 import org.mjdev.tvlib.permission.rememberPermissionManager
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.text.TextAny
-import org.mjdev.tvlib.ui.components.tv.Title
 
 @Suppress("UNUSED_VARIABLE")
 class SplashScreen : Screen() {
@@ -52,6 +55,8 @@ class SplashScreen : Screen() {
         val isEdit = isEditMode()
         val scale = remember { Animatable(if (isEdit) 1f else 0f) }
         val permissionManager = rememberPermissionManager()
+        val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash))
+        val progress = animateLottieCompositionAsState(composition.value)
 
         Box(
             modifier = Modifier
@@ -60,9 +65,12 @@ class SplashScreen : Screen() {
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Title(
-                icon = R.mipmap.ic_launcher,
-                title = R.string.app_name
+            LottieAnimation(
+                modifier = Modifier.padding(80.dp) ,
+                composition = composition.value,
+                progress = {
+                    progress.value
+                },
             )
         }
         Box(
