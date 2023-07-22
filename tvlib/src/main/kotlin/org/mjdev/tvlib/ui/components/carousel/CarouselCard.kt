@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.carousel
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -52,6 +53,7 @@ fun CarouselCard(
             placeholder = placeholder
         )
     },
+    titlePadding: PaddingValues = PaddingValues(8.dp, 12.dp, 8.dp, 12.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {}
 ) {
@@ -69,6 +71,7 @@ fun CarouselCard(
         focusState = focusState,
         placeholder = placeholder,
         imageRenderer = imageRenderer,
+        titlePadding = titlePadding,
         onFocus = onFocus,
         onClick = { onClick(item) }
     )

@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.card
 
 import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -57,6 +59,7 @@ fun PhotoCard(
     aspectRatio: Float = 16f / 9f,
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
+    titlePadding: PaddingValues = PaddingValues(8.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) {
@@ -71,6 +74,7 @@ fun PhotoCard(
         scale = scale,
         imageRenderer = imageRenderer,
         placeholder = placeholder,
+        titlePadding = titlePadding,
         onFocus = onFocus,
         onClick = onClick,
     )

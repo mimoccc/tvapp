@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.card
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardBorder
 import androidx.tv.material3.CardColors
 import androidx.tv.material3.CardDefaults
@@ -60,6 +62,7 @@ fun ItemCard(
     },
     cardWidth: Dp = computeCardWidth(),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
+    titlePadding: PaddingValues = PaddingValues(8.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
@@ -77,6 +80,7 @@ fun ItemCard(
     cardWidth = cardWidth,
     imageRenderer = imageRenderer,
     placeholder = placeholder,
+    titlePadding = titlePadding,
     onFocus = onFocus,
     onClick = onClick,
 )

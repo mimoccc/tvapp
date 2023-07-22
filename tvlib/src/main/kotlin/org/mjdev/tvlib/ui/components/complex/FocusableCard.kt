@@ -11,6 +11,7 @@ package org.mjdev.tvlib.ui.components.complex
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -66,8 +67,8 @@ fun FocusableCard(
     scale: CardScale = CardDefaults.scale(),
     shape: CardShape = CardDefaults.shape(),
     textColor: Color = Color.White,
-    textBackgroundUnselected: Color = Color.DarkGray.copy(alpha=0.5f),
-    textBackgroundSelected: Color = Color.Green.copy(alpha=0.5f),
+    textBackgroundUnselected: Color = Color.DarkGray.copy(alpha = 0.5f),
+    textBackgroundSelected: Color = Color.Green.copy(alpha = 0.5f),
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
@@ -89,6 +90,7 @@ fun FocusableCard(
             onFocus(item)
         }
     },
+    titlePadding: PaddingValues = PaddingValues(8.dp),
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     onClick: (item: Any?) -> Unit = {},
@@ -123,35 +125,39 @@ fun FocusableCard(
         },
         title = {
             Box(
-                modifier = Modifier.fillMaxWidth().background(
-                    if (focusState.isFocused)
-                        textBackgroundSelected
-                    else
-                        textBackgroundUnselected,
-                    RectangleShape
-                )
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        if (focusState.isFocused)
+                            textBackgroundSelected
+                        else
+                            textBackgroundUnselected,
+                        RectangleShape
+                    )
             ) {
                 AutoHideEmptyText(
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(titlePadding),
                     maxLines = 1,
                     color = textColor,
                     style = MaterialTheme.typography.bodyMedium,
-                    text = if(isEdit) "title" else (item as? ItemWithTitle<*>)?.title
+                    text = if (isEdit) "title" else (item as? ItemWithTitle<*>)?.title
                 )
             }
         },
         subtitle = {
             Box(
-                modifier = Modifier.fillMaxWidth().background(
-                    if (focusState.isFocused)
-                        textBackgroundSelected
-                    else
-                        textBackgroundUnselected,
-                    RectangleShape
-                )
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        if (focusState.isFocused)
+                            textBackgroundSelected
+                        else
+                            textBackgroundUnselected,
+                        RectangleShape
+                    )
             ) {
                 AutoHideEmptyText(
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(titlePadding),
                     maxLines = 1,
                     color = textColor,
                     style = MaterialTheme.typography.bodySmall,
