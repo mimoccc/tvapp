@@ -54,9 +54,11 @@ class MainPage : Page() {
         val viewModel: MainViewModel = appViewModel { context ->
             MainViewModel.mockMainViewModel(context)
         }
-
-        val categoryList = remember(viewModel.categoryList) {
+        val streamingData = remember(viewModel.categoryList) {
             viewModel.categoryList
+        }.collectAsState()
+        val categoryList = remember(viewModel.countryList){
+            viewModel.countryList
         }.collectAsState()
         val featuredMovieList = remember(viewModel.featuredMovieList) {
             viewModel.featuredMovieList
@@ -131,9 +133,9 @@ class MainPage : Page() {
                 userIcon = R.drawable.milanj,
                 title = titleState.value,
                 messages = messages.value,
-                categories = categoryList.value.map { it.key }.distinct(),
+                categories = categoryList.value,
                 featuredItems = featuredMovieList.value,
-                categoriesAndItemsMap = categoryList.value,
+                categoriesAndItemsMap = streamingData.value,
                 networkState = networkState,
                 errorState = errorState,
                 onTitleClicked = {

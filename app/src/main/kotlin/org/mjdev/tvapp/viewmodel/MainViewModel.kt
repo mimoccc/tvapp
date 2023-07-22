@@ -92,6 +92,20 @@ class MainViewModel @Inject constructor(
         mapOf()
     )
 
+    val countryList: StateFlow<List<String>> = flow {
+        repository.getMovies().getOrThrow().filter { it.country != null }.map {
+            it.country.toString()
+        }.distinct().sortedBy {
+            it
+        }.also {
+            emit(it)
+        }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        listOf()
+    )
+
     companion object {
 
         @Suppress("unused")
