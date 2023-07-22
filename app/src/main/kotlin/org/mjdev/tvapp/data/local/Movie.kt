@@ -46,28 +46,29 @@ class Movie :
         }
 
     @Json(name = "studio")
-    var studio: String? = ""
+    var studio: String? = null
 
     @Json(name = "country")
-    var country: String? = ""
+    var country: String? = null
 
     @Json(name = "isNsfw")
     var isNsfw: Boolean = false
 
     @Json(name = "title")
-    override var title: String? = ""
+    override var title: String? = null
 
     @Json(name = "description")
-    override var description: String? = ""
+    override var description: String? = null
 
     @Json(name = "backgroundImageUrl")
-    override var background: String? = ""
+    override var background: String? = null
+        get() = field ?: image
 
     @Json(name = "imageUrl")
-    override var image: String? = ""
+    override var image: String? = null
 
     @Json(name = "videoUri")
-    override var uri: String? = ""
+    override var uri: String? = null
 
     override var subtitle: String?
         get() = studio

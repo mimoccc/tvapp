@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.ui.pages
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -41,6 +42,7 @@ import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
+import java.net.URL
 
 @SuppressLint("ComposableNaming")
 class MainPage : Page() {
@@ -103,10 +105,13 @@ class MainPage : Page() {
 
         val onItemSelect: (item: Any?) -> Unit = { item ->
             when (item) {
+                is String -> item
+                is URL -> item
+                is Uri -> item
                 is ItemPhoto -> item.uri
                 is ItemWithBackground<*> -> item.background
                 is ItemWithImage<*> -> item.image
-                else -> null
+                else -> item.toString()
             }.also { uri ->
                 backgroundState.value = uri
             }
