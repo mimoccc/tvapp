@@ -28,10 +28,6 @@ fun MediaPlayerContainer(
     autoPlay: Boolean = true,
     startSeek: Long = 0L,
     mediaPlayer: IMediaPlayer = MediaPlayerContainerDefaults.exoPlayer,
-    mediaPlayerOverlay: @Composable (state: MediaPlayerState) -> Unit = {},
-    mediaPlayerControls: @Composable (state: MediaPlayerState) -> Unit = { state ->
-        MediaPlayerControls(state)
-    }
 ) {
     val state = rememberMediaPlayerState(
         mediaPlayer,
@@ -45,8 +41,6 @@ fun MediaPlayerContainer(
             .fillMaxSize()
     ) {
         mediaPlayer.GetPlayerView()
-        mediaPlayerOverlay(state)
-        mediaPlayerControls(state)
     }
     DisposableEffect(state) {
         if (state.hasMediaToPlay) {

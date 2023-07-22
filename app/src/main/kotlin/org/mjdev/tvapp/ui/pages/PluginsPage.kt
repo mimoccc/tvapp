@@ -29,6 +29,7 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.ui.components.card.CardContent
 import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.text.TextAny
+import org.mjdev.tvlib.ui.components.card.Card
 
 class PluginsPage : Page() {
 
@@ -44,7 +45,7 @@ class PluginsPage : Page() {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            org.mjdev.tvlib.ui.components.card.Card(
+            Card(
                 onClick = {},
                 onLongClick = {},
                 modifier = Modifier.fillMaxSize(),

@@ -15,13 +15,17 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.AudioAttributes
@@ -43,6 +47,7 @@ import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
+import org.mjdev.tvlib.extensions.ViewExt.controller
 
 @Suppress("DEPRECATION")
 @UnstableApi
@@ -53,27 +58,49 @@ class ExoPlayerImpl(
     @UnstableApi
     @Composable
     override fun GetPlayerView() {
+        val context = LocalContext.current
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
+        val isAtv = context.isATv
+        val playerView = remember {
+            PlayerView(context).apply {
+                controllerAutoShow = !isAtv
+                controllerHideOnTouch = !isAtv
+                useArtwork = true
+                artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_FIT
+                player = exoPlayer
+                // todo : buttons tint
+//                doOnAttach {
+//                    buttons.forEach { b ->
+//                        tintButtonBackground(b, Color.Green.toArgb())
+//                    }
+//                }
+            }
+        }
         Box(
             modifier = Modifier
                 .recomposeHighlighter()
                 .size(width.dp, height.dp)
                 .background(Color.Black, RectangleShape)
+                .onPreviewKeyEvent { ev ->
+                    val controller = playerView.controller
+                    if (controller?.isShown == true) {
+                        playerView.controller?.dispatchKeyEvent(ev.nativeKeyEvent) ?: false
+                    } else {
+                        controller?.show()
+                        true
+                    }
+                }
+                .focusable()
         ) {
             if (!isEdit) {
                 AndroidView(
                     modifier = Modifier
                         .size(width.dp, height.dp)
                         .recomposeHighlighter(),
-                    factory = { context ->
-                        val isAtv = context.isATv
-                        PlayerView(context).apply {
-                            controllerAutoShow = !isAtv
-                            controllerHideOnTouch = !isAtv
-                            player = exoPlayer
-                        }
+                    factory = {
+                        playerView
                     }
                 )
             }
@@ -97,7 +124,6 @@ class ExoPlayerImpl(
     }
 
     override fun resume() {
-        // todo test
         exoPlayer.playWhenReady = true
     }
 
@@ -106,7 +132,6 @@ class ExoPlayerImpl(
     }
 
     override fun dispose() {
-        // todo test
         exoPlayer.release()
     }
 

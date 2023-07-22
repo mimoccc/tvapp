@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.extensions
 
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -17,6 +18,11 @@ import android.os.Looper
 import android.view.PixelCopy
 import android.view.View
 import android.view.Window
+import android.widget.ImageButton
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.allViews
+import androidx.media3.ui.PlayerControlView
+import androidx.media3.ui.PlayerView
 
 @Suppress("unused")
 object ViewExt {
@@ -51,6 +57,24 @@ object ViewExt {
             canvas.setBitmap(null)
             bitmapCallback.invoke(tBitmap)
         }
+    }
+
+    val PlayerView.controller: PlayerControlView?
+        get() = allViews.firstOrNull { v -> v is PlayerControlView } as? PlayerControlView
+
+    val PlayerView.buttons: List<ImageButton>
+        get() = allViews.map { v -> v as? ImageButton }.filterNotNull().toList()
+
+    fun tintButton(button: ImageButton, color: Int) {
+        val drawable = DrawableCompat.wrap(button.drawable)
+        DrawableCompat.setTintList(drawable.mutate(), ColorStateList.valueOf(color))
+        button.setImageDrawable(drawable)
+    }
+
+    fun tintButtonBackground(button: ImageButton, color: Int) {
+        val drawable = DrawableCompat.wrap(button.background)
+        DrawableCompat.setTintList(drawable.mutate(), ColorStateList.valueOf(color))
+        button.setImageDrawable(drawable)
     }
 
 }

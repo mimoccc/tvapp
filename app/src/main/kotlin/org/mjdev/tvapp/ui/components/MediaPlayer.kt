@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 import org.mjdev.tvlib.extensions.StringExt.parseUri
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -60,7 +59,7 @@ fun MediaPlayer(
             .fillMaxSize()
             .background(Color.Black, RectangleShape),
     ) {
-        // todo does not show
+        // todo: does not show
         ImageAny(
             modifier = Modifier.fillMaxSize(),
             src = background,

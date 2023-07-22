@@ -141,7 +141,8 @@ class MainPage : Page() {
                 },
                 onItemFocused = onItemSelect,
                 onItemClicked = onItemClick,
-                customRows = mutableListOf<@Composable () -> Unit>().apply {
+                customRows =
+                mutableListOf<@Composable () -> Unit>().apply {
                     if (viewModel.appsList.size > 0) {
                         add { AppsRow(apps = viewModel.appsList) }
                     }

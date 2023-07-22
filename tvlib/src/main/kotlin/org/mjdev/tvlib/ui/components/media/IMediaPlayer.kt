@@ -30,6 +30,7 @@ import androidx.media3.common.VideoSize
 import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 
+@Suppress("DeprecatedCallableAddReplaceWith")
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 interface IMediaPlayer : Player {
 
