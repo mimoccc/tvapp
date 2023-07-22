@@ -39,7 +39,7 @@
     },
     {
       "id": "2:7141750768191734097",
-      "lastPropertyId": "12:6138526348322531011",
+      "lastPropertyId": "11:3647500054699987607",
       "name": "Movie",
       "properties": [
         {
@@ -78,6 +78,12 @@
           "type": 9
         },
         {
+          "id": "9:1211648868008137353",
+          "name": "_id",
+          "type": 6,
+          "flags": 1
+        },
+        {
           "id": "10:3350489478053652777",
           "name": "country",
           "type": 9
@@ -86,12 +92,6 @@
           "id": "11:3647500054699987607",
           "name": "isNsfw",
           "type": 1
-        },
-        {
-          "id": "12:6138526348322531011",
-          "name": "id",
-          "type": 6,
-          "flags": 1
         }
       ],
       "relations": []
@@ -220,8 +220,7 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    2336450843545835846,
-    1211648868008137353
+    2336450843545835846
   ],
   "retiredRelationUids": [],
   "version": 1

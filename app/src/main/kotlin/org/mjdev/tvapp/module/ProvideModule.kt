@@ -10,7 +10,9 @@
 
 package org.mjdev.tvapp.module
 
+import android.content.ComponentName
 import android.content.Context
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -20,6 +22,9 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.activity.MainActivity
+import org.mjdev.tvapp.api.ApiRepository
+import org.mjdev.tvapp.api.ApiService
 import org.mjdev.tvlib.helpers.apps.AppsManager
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
@@ -30,6 +35,8 @@ import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Suppress("unused")
@@ -38,7 +45,7 @@ import javax.inject.Singleton
 class ProvideModule {
 
     private val isDebug = BuildConfig.DEBUG
-    private val BASE_URL = ""
+    private val BASE_URL = BuildConfig.IPTV_API_URL
 
 
     @Singleton
@@ -46,7 +53,12 @@ class ProvideModule {
     fun providesAppsManager(
         @ApplicationContext
         context: Context
-    ): AppsManager = AppsManager(context, BuildConfig.APPLICATION_ID)
+    ): AppsManager = AppsManager(
+        context, ComponentName(
+            BuildConfig.APPLICATION_ID,
+            MainActivity::class.java.name
+        )
+    )
 
     @Singleton
     @Provides
@@ -115,27 +127,27 @@ class ProvideModule {
         context: Context
     ): DAO = DAO(context)
 
-//    @Singleton
-//    @Provides
-//    fun providesRetrofit(
-//        okHttpClient: OkHttpClient
-//    ): Retrofit = Retrofit.Builder()
-//        .baseUrl(BASE_URL)
-//        .client(okHttpClient)
-//        .addConverterFactory(MoshiConverterFactory.create())
-//        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-//        .build()
+    @Singleton
+    @Provides
+    fun providesRetrofit(
+        okHttpClient: OkHttpClient
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .build()
 
-//    @Singleton
-//    @Provides
-//    fun providesApiService(
-//        retrofit: Retrofit
-//    ): ApiService = retrofit.create(ApiService::class.java)
+    @Singleton
+    @Provides
+    fun providesApiService(
+        retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
 
-//    @Singleton
-//    @Provides
-//    fun providesApiRepository(
-//        apiService: ApiService
-//    ): INetworkRepository = ApiRepository(apiService)
+    @Singleton
+    @Provides
+    fun providesApiRepository(
+        apiService: ApiService
+    ): ApiRepository = ApiRepository(apiService)
 
 }

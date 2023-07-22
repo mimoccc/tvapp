@@ -1,12 +1,12 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2023.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.data
+package org.mjdev.tvapp.data.local
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -20,7 +20,9 @@ import org.mjdev.tvlib.interfaces.ItemWithSubtitle
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
 import java.io.Serializable
+import java.util.Locale
 
+@Suppress("unused")
 @Entity
 @JsonClass(generateAdapter = true)
 class Movie :
@@ -39,9 +41,18 @@ class Movie :
 
     @Json(name = "category")
     var category: String? = ""
+        get() = (field ?: country)?.replaceFirstChar { ch ->
+            ch.titlecase(Locale.ROOT)
+        }
 
     @Json(name = "studio")
     var studio: String? = ""
+
+    @Json(name = "country")
+    var country: String? = ""
+
+    @Json(name = "isNsfw")
+    var isNsfw: Boolean = false
 
     @Json(name = "title")
     override var title: String? = ""
@@ -63,13 +74,5 @@ class Movie :
         set(value) {
             studio = value
         }
-
-    override fun toString(): String = "Movie{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", videoUrl='" + uri.toString() + '\'' +
-        ", backgroundImageUrl='" + background + '\'' +
-        ", cardImageUrl='" + image + '\'' +
-        '}'
 
 }

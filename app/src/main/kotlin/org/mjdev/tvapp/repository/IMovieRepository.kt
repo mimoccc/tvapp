@@ -10,15 +10,15 @@
 
 package org.mjdev.tvapp.repository
 
-import org.mjdev.tvapp.data.Message
-import org.mjdev.tvapp.data.Movie
+import org.mjdev.tvapp.data.local.Message
+import org.mjdev.tvapp.data.local.Movie
 
 interface IMovieRepository {
 
-    fun getMovies(page: Int = 0, count: Int = 8): Result<List<Movie>>
+    suspend fun getMovies(page: Int = 0, count: Int = Int.MAX_VALUE): Result<List<Movie>>
 
-    fun findMovieById(id: Long?): Result<Movie>
+    suspend fun findMovieById(id: Long?): Result<Movie>
 
-    fun getMessages(): Result<List<Message>>
+    suspend fun getMessages(): Result<List<Message>>
 
 }

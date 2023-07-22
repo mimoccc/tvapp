@@ -6,7 +6,7 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.data
+package org.mjdev.tvapp.data.local
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

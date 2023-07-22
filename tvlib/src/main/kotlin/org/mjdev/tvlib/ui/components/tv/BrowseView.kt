@@ -95,7 +95,7 @@ fun BrowseView(
         if (isEdit || categories.isNotEmpty()) item {
             Tabs(
                 items = categories.map { category ->
-                    (category as? ItemWithTitle<*>)?.title
+                    (category as? ItemWithTitle<*>)?.title ?: category?.toString()
                 },
                 onItemClick = { //category ->
                     // todo
@@ -115,7 +115,7 @@ fun BrowseView(
             Pair(entry.key, entry.value)
         }) { entry ->
             CategoryRow(
-                title = (entry.first as? ItemWithTitle<*>)?.title,
+                title = (entry.first as? ItemWithTitle<*>)?.title ?: entry.first.toString(),
                 items = entry.second,
                 onItemFocus = {
                     onItemFocused(it)

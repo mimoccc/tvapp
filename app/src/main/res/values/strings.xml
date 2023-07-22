@@ -35,12 +35,14 @@
     <string name="title_movie_player">Movie player</string>
     <string name="title_plugins">Plugins</string>
     <string name="title_subscription">Subscription</string>
+    <string name="title_audio_local">Local audio files</string>
+    <string name="title_video_local">Local video files</string>
+    <string name="title_photo_local">Local photo files</string>
+    <string name="title_iptv">Television</string>
 
     <string name="author">Created by Milan Jurkulak © 2023</string>
 
     <string name="no_items">No items …</string>
-    <string name="title_audio_local">Local audio files</string>
-    <string name="title_video_local">Local video files</string>
-    <string name="title_photo_local">Local photo files</string>
+    <string name="no_category">Uncategorized</string>
 
 </resources>

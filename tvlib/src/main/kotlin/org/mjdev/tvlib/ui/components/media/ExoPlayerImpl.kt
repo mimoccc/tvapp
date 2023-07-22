@@ -45,7 +45,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ViewExt.controller
 
@@ -62,11 +61,11 @@ class ExoPlayerImpl(
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
-        val isAtv = context.isATv
         val playerView = remember {
             PlayerView(context).apply {
-                controllerAutoShow = !isAtv
-                controllerHideOnTouch = !isAtv
+                controllerAutoShow = true
+                controllerHideOnTouch = true
+                useController = true
                 useArtwork = true
                 artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_FIT
                 player = exoPlayer

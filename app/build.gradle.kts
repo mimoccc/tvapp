@@ -61,6 +61,12 @@ android {
         versionName = project.versionName
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
+
+        buildConfigField(
+            "String",
+            "IPTV_API_URL",
+            "\"https://iptv-org.github.io/api/\""
+        )
     }
 
     buildTypes {

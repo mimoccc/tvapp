@@ -35,13 +35,14 @@
     <string name="title_movie_player">Prehravač videa</string>
     <string name="title_plugins">Doplnky</string>
     <string name="title_subscription">Nákup</string>
+    <string name="title_audio_local">Lokálni audio subory</string>
+    <string name="title_video_local">Lokálni video subory</string>
+    <string name="title_photo_local">Lokálni fotografie</string>
+    <string name="title_iptv">Televize</string>
 
     <string name="author">Vytvorené autorem Milan Jurkulák © 2023</string>
 
     <string name="no_items">Žádne položky …</string>
-    <string name="title_audio_local">Lokálni audio subory</string>
-    <string name="title_video_local">Lokálni video subory</string>
-    <string name="title_photo_local">Lokálni fotografie</string>
-
+    <string name="no_category">Nekategorizovano</string>
 
 </resources>

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.IBinder
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.api.ApiRepository
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import timber.log.Timber
@@ -24,6 +25,9 @@ class SyncService : Service() {
     lateinit var repository: IMovieRepository
 
     @Inject
+    lateinit var apiRepository: ApiRepository
+
+    @Inject
     lateinit var dao: DAO
 
     override fun onCreate() {
@@ -32,6 +36,7 @@ class SyncService : Service() {
             sSyncAdapter = sSyncAdapter ?: SyncAdapter(
                 context = applicationContext,
                 repository = repository,
+                apiRepository = apiRepository,
                 dao = dao
             )
         }

@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import com.squareup.moshi.Moshi
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.data.Movie
+import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import javax.inject.Inject
 

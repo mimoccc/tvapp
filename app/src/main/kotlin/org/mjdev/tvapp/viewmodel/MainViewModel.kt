@@ -24,8 +24,8 @@ import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvlib.viewmodel.BaseViewModel
-import org.mjdev.tvapp.data.Message
-import org.mjdev.tvapp.data.Movie
+import org.mjdev.tvapp.data.local.Message
+import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
@@ -79,7 +79,13 @@ class MainViewModel @Inject constructor(
     )
 
     val categoryList: StateFlow<Map<String, List<Movie>>> = flow {
-        emit(repository.getMovies().getOrThrow().asMap { m -> Pair(m.category, m) })
+        repository.getMovies().getOrThrow().sortedBy { m ->
+            m.category
+        }.asMap { m ->
+            Pair(m.category, m)
+        }.also { map ->
+            emit(map)
+        }
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),

@@ -10,16 +10,20 @@ import io.objectbox.Box
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
-import org.mjdev.tvapp.data.Movie
+import org.mjdev.tvapp.R
+import org.mjdev.tvapp.api.ApiRepository
+import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.database.DAO.Companion.tx
 import org.mjdev.tvapp.repository.IMovieRepository
-import org.mjdev.tvlib.extensions.ListExt.containsNot
+import org.mjdev.tvlib.extensions.ListExt.contains
 import timber.log.Timber
 
 @Suppress("unused", "PrivatePropertyName")
 class SyncAdapter(
     context: Context,
     val repository: IMovieRepository,
+    val apiRepository: ApiRepository,
     val dao: DAO
 ) : AbstractThreadedSyncAdapter(context, true, false) {
 
@@ -34,42 +38,46 @@ class SyncAdapter(
         provider: ContentProviderClient?,
         syncResult: SyncResult?
     ) {
+        val noCategoryString = context.getString(R.string.no_category)
         try {
-            val movieUris = movieDao.all.map { m ->
-                m.uri
-            }.toMutableList()
-
             runBlocking(Dispatchers.IO) {
+                val movieUris = movieDao.all.map { m -> m.uri }.toMutableList()
                 flow {
-                    var page = 0
-                    var totalCnt: Long = 0
-                    var readCnt: Long = 0
-                    do {
-                        repository.getMovies(page, READ_COUNT).let { result ->
-                            if (result.isSuccess) {
-                                result.getOrNull()?.let { moviesData ->
-                                    readCnt = moviesData.size.toLong()
-                                    syncResult?.let { sr ->
-                                        sr.stats.numEntries = readCnt
-                                        moviesData.forEach { movie ->
-                                            emit(movie)
-                                            sr.stats.numInserts = readCnt
-                                            totalCnt += readCnt
-                                        }
-                                    }
-                                    page += 1
-                                }
-                            } else {
-                                Timber.e(result.exceptionOrNull() ?: Exception("Unknown error"))
-                            }
+                    val streams = apiRepository.streams().getOrNull()
+                    val channels = apiRepository.channels().getOrNull()
+                    streams?.forEach { stream ->
+                        val channel = channels?.firstOrNull { channel ->
+                            channel.id == stream.channel
                         }
-                    } while (readCnt > 0)
-                }.collect { data ->
-                    if (movieUris.containsNot { uri -> uri == data.uri }) {
-                        dao.movieDao.put(data)
-                        Timber.d("Movie: $data stored.")
-                    } else {
+                        if (channel != null) {
+                            emit(Movie().apply {
+                                title = channel.name
+                                uri = stream.url
+                                category = channel.categories?.firstOrNull() ?: noCategoryString
+                                image = channel.logo
+                                country = channel.country
+                                isNsfw = channel.isNsfw ?: false
+                            })
+                        } else {
+                            emit(Movie().apply {
+                                title = stream.channel
+                                uri = stream.url
+                                category = noCategoryString
+                                image = null
+                                country = null
+                                isNsfw = false
+                            })
+                        }
+                    }
+                }.collect { movie ->
+                    val exists = movieUris.contains { uri -> uri == movie.uri }
+                    if (exists) {
                         // todo duplicities
+                    } else {
+                        dao.movieDao.tx {
+                            put(movie)
+                        }
+                        Timber.d("Movie: $movie stored.")
                     }
                 }
             }

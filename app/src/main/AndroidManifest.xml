@@ -76,6 +76,21 @@
 
         </activity>
 
+        <activity
+            android:label="@string/title_iptv"
+            android:name=".activity.IPTVActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
         <service
             android:name=".sync.SyncService"
             android:exported="false">

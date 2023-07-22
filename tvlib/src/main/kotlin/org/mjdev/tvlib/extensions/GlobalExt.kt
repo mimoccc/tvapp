@@ -14,8 +14,8 @@ import timber.log.Timber
 @Suppress("unused")
 object GlobalExt {
 
-    fun <E> runSafe(what: () -> E): Result<E> = try {
-        what.invoke().let { result ->
+    suspend fun <E> runSafe(block: suspend () -> E): Result<E> = try {
+        block.invoke().let { result ->
             Result.success(result)
         }
     } catch (e: Exception) {

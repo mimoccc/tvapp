@@ -6,11 +6,12 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.objectbox.Box
 import io.objectbox.BoxStore
+import io.objectbox.kotlin.awaitCallInTx
 import io.objectbox.kotlin.boxFor
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.data.Message
-import org.mjdev.tvapp.data.Movie
-import org.mjdev.tvapp.data.MyObjectBox
+import org.mjdev.tvapp.data.local.Message
+import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.MyObjectBox
 
 class DAO(
     @ApplicationContext
@@ -21,6 +22,12 @@ class DAO(
 
         val DATABASE_NAME = BuildConfig.APPLICATION_ID
             .replace(".", "_")
+
+        suspend inline fun <reified V, T> Box<T>.tx(
+            crossinline transaction: Box<T>.() -> V
+        ) = store.awaitCallInTx {
+            transaction(this)
+        }
 
     }
 
