@@ -42,7 +42,7 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 @Preview
 @Composable
 fun CategoryRow(
-    title: Any? = "category 1",
+    title: Any? = "category",
     items: List<Any?> = listOf(Unit, Unit, Unit),
     rowState: TvLazyListState = rememberTvLazyListState(),
     padding: Dp = 8.dp,
@@ -74,7 +74,7 @@ fun CategoryRow(
             modifier = Modifier
                 .recomposeHighlighter()
                 .fillMaxWidth()
-                .padding(padding / 2, padding / 2),
+                .padding(padding, padding / 2),
             text = title,
             color = Color.White,
             fontWeight = FontWeight.Bold
@@ -90,7 +90,7 @@ fun CategoryRow(
                 }
                 .recomposeHighlighter(),
             state = rowState,
-            contentPadding = (padding.value * 1.3).dp, // todo due border & glow
+            contentPadding = padding.value.dp,
         ) {
             items(items) { item ->
                 contentOfItem(item)

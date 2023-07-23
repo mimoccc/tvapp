@@ -10,6 +10,7 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
+@SuppressLint("UnsafeOptInUsageError")
 @TvPreview
 @Composable
 fun MediaPlayerContainer(

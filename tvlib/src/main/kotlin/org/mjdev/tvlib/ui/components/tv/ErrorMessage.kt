@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -120,17 +121,17 @@ fun ErrorMessage(
 
                 Button(
                     modifier = Modifier.recomposeHighlighter()
-                        .background(
-                            Color.White.copy(
-                                alpha = 0.5f
-                            ),
-                            RoundedCornerShape(roundSize)
-                        )
+                        .padding(4.dp)
                         .constrainAs(_button) {
                             top.linkTo(parent.top, margin = 4.dp)
                             end.linkTo(parent.end, margin = roundSize)
                             bottom.linkTo(parent.bottom, margin = 4.dp)
                         },
+                    contentPadding=PaddingValues(
+                        8.dp,
+                        4.dp
+                    ),
+                    containerColor = Color.Red,
                     onClick = {
                         onDismiss()
                     }

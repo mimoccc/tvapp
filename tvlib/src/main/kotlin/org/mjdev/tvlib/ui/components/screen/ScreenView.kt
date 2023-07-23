@@ -20,6 +20,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.navigation.Navigation
+import org.mjdev.tvlib.ui.components.page.Page
 
 @Suppress("TrailingComma", "unused")
 @TvPreview
@@ -27,7 +28,9 @@ import org.mjdev.tvlib.ui.components.navigation.Navigation
 fun ScreenView(
     modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
-    content: @Composable () -> Unit = { EmptyScreen() }
+    content: @Composable () -> Unit = {
+        Page()
+    }
 ) {
     Box(
         modifier = modifier
@@ -35,17 +38,13 @@ fun ScreenView(
             .recomposeHighlighter()
             .navigationBarsPadding()
             .statusBarsPadding(),
-        contentAlignment = Alignment.TopStart,
+        contentAlignment = Alignment.Center,
     ) {
-        if (navController.menuState.value) {
+        if (navController.isMenuEnabled) {
             Navigation(
                 navController = navController,
-                content = {
-                    content()
-                }
+                content = content
             )
-        } else {
-            content()
-        }
+        } else content()
     }
 }

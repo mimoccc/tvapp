@@ -21,7 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawer
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -29,6 +31,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
+import org.mjdev.tvlib.ui.components.page.Page
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -42,44 +45,58 @@ fun Navigation(
     borderSize: Dp = 0.dp,
     borderColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(roundCornerSize),
-    content: @Composable () -> Unit = {},
-    menuItems: List<MenuItem> = listOf(),
-    isEdit: Boolean = isEditMode()
+    content: @Composable () -> Unit = {
+        Page()
+    },
+    menuItems: List<MenuItem> = if (isEditMode()) listOf(
+        MenuItem.MENU_ITEM_EXIT,
+        MenuItem.MENU_ITEM_SETTINGS,
+        MenuItem.MENU_ITEM_SEARCH
+    ) else listOf(),
+    modal: Boolean = false,
 ) {
-    if (isEdit) navController.openMenu()
     navController.addMenuItem(*menuItems.toTypedArray())
-    if (navController.isMenuEnabled) {
-        SettingsDrawer(
-            drawerState = navController.settingsDrawerState,
-            modifier = Modifier.fillMaxHeight().recomposeHighlighter()
+    val isEdit: Boolean = isEditMode()
+    if (isEdit) navController.openMenu()
+    val mainContent: @Composable () -> Unit = {
+        Box(
+            modifier
+                .fillMaxSize()
+                .recomposeHighlighter()
         ) {
+            content()
+        }
+    }
+    if (navController.isMenuEnabled) {
+        val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
+            NavDrawerContent(
+                backgroundColor = backgroundColor,
+                navController = navController,
+            )
+            navController.menuDrawerState.setValue(state)
+        }
+        if (modal) {
+            ModalNavigationDrawer(
+                modifier = modifier
+                    .fillMaxHeight()
+                    .background(backgroundColor, shape)
+                    .border(borderSize, borderColor, shape),
+                drawerState = navController.menuDrawerState,
+                content = mainContent,
+                drawerContent = drawerContent,
+            )
+        } else {
             NavigationDrawer(
                 modifier = modifier
                     .fillMaxHeight()
                     .background(backgroundColor, shape)
                     .border(borderSize, borderColor, shape),
                 drawerState = navController.menuDrawerState,
-                content = {
-                    Box(
-                        modifier.fillMaxSize().recomposeHighlighter()
-                    ) {
-                        content()
-                    }
-                },
-                drawerContent = { state ->
-                    NavDrawerContent(
-                        backgroundColor = backgroundColor,
-                        navController = navController,
-                    )
-                    navController.menuDrawerState.setValue(state)
-                }
+                content = mainContent,
+                drawerContent = drawerContent
             )
         }
     } else {
-        Box(
-            modifier.fillMaxHeight().recomposeHighlighter()
-        ) {
-            content()
-        }
+        mainContent()
     }
 }
