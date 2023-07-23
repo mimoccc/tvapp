@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.os.IBinder
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.api.ApiRepository
+import org.mjdev.tvapp.repository.ApiRepository
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import timber.log.Timber

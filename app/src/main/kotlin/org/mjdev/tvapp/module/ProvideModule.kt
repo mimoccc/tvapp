@@ -23,8 +23,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.activity.MainActivity
-import org.mjdev.tvapp.api.ApiRepository
-import org.mjdev.tvapp.api.ApiService
+import org.mjdev.tvapp.repository.ApiRepository
+import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.helpers.apps.AppsManager
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor

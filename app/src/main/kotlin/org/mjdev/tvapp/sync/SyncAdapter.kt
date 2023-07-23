@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.api.ApiRepository
+import org.mjdev.tvapp.repository.ApiRepository
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx

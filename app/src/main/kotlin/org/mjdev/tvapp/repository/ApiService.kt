@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.api
+package org.mjdev.tvapp.repository
 
 import org.mjdev.tvapp.data.remote.Category
 import org.mjdev.tvapp.data.remote.Channel
