@@ -37,6 +37,7 @@ import org.mjdev.tvlib.helpers.anr.agent.ANRSpyAgent
 import org.mjdev.tvlib.helpers.anr.agent.ANRSpyListener
 import org.mjdev.tvlib.helpers.anr.models.MethodModel
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
+import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.navigation.NavHostEx
 import org.mjdev.tvlib.ui.components.screen.EmptyScreen
 import timber.log.Timber
@@ -114,6 +115,11 @@ open class ComposableActivity : ComponentActivity() {
             }
         }
 
+        onIntent(navController, intent)
+
+    }
+
+    open fun onIntent(navController: NavHostControllerEx, intent: Intent?) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

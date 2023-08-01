@@ -13,10 +13,10 @@ import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
 //    id("org.jetbrains.dokka") version "1.8.10"
+    kotlin("kapt")
 }
 
 android {
@@ -64,6 +64,10 @@ android {
 
     lint {
         checkReleaseBuilds = false
+    }
+
+    hilt {
+        enableAggregatingTask = true
     }
 
 //    tasks.dokkaGfm {

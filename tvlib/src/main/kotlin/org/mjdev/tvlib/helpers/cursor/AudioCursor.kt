@@ -8,16 +8,14 @@
 
 package org.mjdev.tvlib.helpers.cursor
 
-import android.content.ContentResolver
 import android.content.Context
 
 class AudioCursor(
-    context: Context,
-    val contentResolver: ContentResolver = context.contentResolver
+    context: Context
 ) : CachingCursor(
     context = context,
     uri = AudioItem.URI,
     projection = AudioItem.MEDIA_PROJECTION,
-    transform = { AudioItem(contentResolver, it) },
+    transform = { c -> AudioItem(c) },
     sortOrder = AudioItem.SORT_ORDER_DATE_DESC,
 )

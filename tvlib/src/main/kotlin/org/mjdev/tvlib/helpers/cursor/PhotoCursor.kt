@@ -8,16 +8,14 @@
 
 package org.mjdev.tvlib.helpers.cursor
 
-import android.content.ContentResolver
 import android.content.Context
 
 class PhotoCursor(
     context: Context,
-    val contentResolver: ContentResolver = context.contentResolver
 ) : CachingCursor(
     context = context,
     uri = PhotoItem.URI,
     projection = PhotoItem.MEDIA_PROJECTION,
-    transform = { PhotoItem(contentResolver, it) },
+    transform = { c -> PhotoItem(c) },
     sortOrder = PhotoItem.SORT_ORDER_DATE_DESC,
 )

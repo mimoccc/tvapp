@@ -8,7 +8,6 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
-import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,7 +22,6 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
-import org.mjdev.tvlib.extensions.ComposeExt.rememberContentResolver
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoItem
 
@@ -42,8 +40,7 @@ fun LocalPhotosRow(
     sortOrder: String? = PhotoItem.SORT_ORDER_DATE_DESC,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
-    contentResolver: ContentResolver = rememberContentResolver(),
-    transform: (Cursor) -> Any? = { c -> PhotoItem(contentResolver, c) },
+    transform: (Cursor) -> Any? = { c -> PhotoItem(c) },
     cursor: Cursor? = rememberCursor(
         uri = PhotoItem.URI,
         projection = PhotoItem.MEDIA_PROJECTION,

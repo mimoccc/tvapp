@@ -9,12 +9,15 @@
 package org.mjdev.tvlib.navigation
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.core.os.bundleOf
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -24,6 +27,7 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ListExt.addUnique
+import java.io.Serializable
 
 // todo apply lifecycle
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -128,5 +132,15 @@ class NavHostControllerEx(
     }
 
     val isMenuEnabled: Boolean get() = menuState.value
+
+    inline fun <reified T : Activity> startActivity(
+        vararg params: Pair<String, Serializable?>
+    ) {
+        Intent(context, T::class.java).apply {
+            putExtras(bundleOf(*params))
+        }.also { i ->
+            context.startActivity(i)
+        }
+    }
 
 }

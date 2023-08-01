@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.runBlocking
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.helpers.apps.AppsManager
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
@@ -108,6 +109,10 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         SharingStarted.WhileSubscribed(5000L),
         listOf()
     )
+
+    fun findMovie(id: Long?): Movie? = runBlocking {
+        movieRepository.findMovieById(id).getOrNull()
+    }
 
     companion object {
 

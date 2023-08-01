@@ -23,9 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.activity.IPTVActivity
+import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
-import org.mjdev.tvlib.extensions.NavControllerExt.open
 import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.tv.AppsRow
@@ -33,15 +34,12 @@ import org.mjdev.tvlib.ui.components.tv.BrowseView
 import org.mjdev.tvlib.ui.components.tv.LocalAudioRow
 import org.mjdev.tvlib.ui.components.tv.LocalPhotosRow
 import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
-import org.mjdev.tvapp.ui.screens.DetailScreen
-import org.mjdev.tvapp.ui.screens.PlayerScreen
 import org.mjdev.tvapp.viewmodel.MainViewModel
-import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
-import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
+import java.io.Serializable
 import java.net.URL
 
 @SuppressLint("ComposableNaming")
@@ -70,27 +68,11 @@ class MainPage : Page() {
         val onItemClick: (item: Any?) -> Unit = { item ->
             val dataId = (item as? ItemWithId)?.id
             if (dataId != null) {
-                navController?.open<PlayerScreen>(dataId)
-            } else {
-                when (item) {
-                    is ItemAudio -> {
-                        val dataUri = (item as? ItemAudio)?.uri
-                        navController?.open<PlayerScreen>(dataUri)
-                    }
-
-                    is ItemVideo -> {
-                        val dataUri = (item as? ItemVideo)?.uri
-                        navController?.open<PlayerScreen>(dataUri)
-                    }
-
-                    is ItemPhoto -> {
-                        navController?.open<DetailScreen>(item)
-                    }
-
-                    else -> {
-                        navController?.open<DetailScreen>(item)
-                    }
+                viewModel.findMovie(dataId)?.let { movie ->
+                    navController?.startActivity<IPTVActivity>(IPTV_DATA to movie)
                 }
+            } else if (item is Serializable) {
+                navController?.startActivity<IPTVActivity>(IPTV_DATA to item)
             }
         }
 

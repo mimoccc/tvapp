@@ -32,6 +32,8 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
+import coil.decode.SvgDecoder
+import coil.decode.VideoFrameDecoder
 import coil.request.CachePolicy
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 
@@ -148,6 +150,8 @@ object ComposeExt {
                     } else {
                         add(GifDecoder.Factory())
                     }
+                    add(VideoFrameDecoder.Factory())
+                    add(SvgDecoder.Factory())
                 }
                 .build()
         }
