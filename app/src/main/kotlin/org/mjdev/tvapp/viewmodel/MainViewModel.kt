@@ -22,20 +22,23 @@ import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.network.NetworkConnectivityService
-import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
+import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val repository: IMovieRepository,
-    var networkInfo: NetworkConnectivityService
-) : BaseViewModel() {
+class MainViewModel @Inject constructor() : BaseViewModel() {
+
+    @Inject
+    lateinit var movieRepository: IMovieRepository
+
+    @Inject
+    lateinit var networkInfo: NetworkConnectivityService
 
     @Inject
     lateinit var appsList: AppsManager
@@ -50,7 +53,7 @@ class MainViewModel @Inject constructor(
     lateinit var localPhotoCursor: PhotoCursor
 
     val messages: StateFlow<List<Message>> = channelFlow {
-        send(repository.getMessages().getOrThrow())
+        send(movieRepository.getMessages().getOrThrow())
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),
@@ -59,7 +62,7 @@ class MainViewModel @Inject constructor(
 
     val featuredMovieList: StateFlow<List<Any?>> = flow {
         mutableListOf<Any?>().apply {
-            addAll(repository.getMovies().getOrThrow().takeLast(8))
+            addAll(movieRepository.getMovies().getOrThrow().takeLast(8))
             if (localAudioCursor.count > 0) {
                 add(localAudioCursor.getData(0))
             }
@@ -79,7 +82,7 @@ class MainViewModel @Inject constructor(
     )
 
     val categoryList: StateFlow<Map<String, List<Movie>>> = flow {
-        repository.getMovies().getOrThrow().sortedBy { m ->
+        movieRepository.getMovies().getOrThrow().sortedBy { m ->
             m.category
         }.asMap { m ->
             Pair(m.category, m)
@@ -93,7 +96,7 @@ class MainViewModel @Inject constructor(
     )
 
     val countryList: StateFlow<List<String>> = flow {
-        repository.getMovies().getOrThrow().filter { it.country != null }.map {
+        movieRepository.getMovies().getOrThrow().filter { it.country != null }.map {
             it.country.toString()
         }.distinct().sortedBy {
             it
@@ -109,10 +112,16 @@ class MainViewModel @Inject constructor(
     companion object {
 
         @Suppress("unused")
-        fun mockMainViewModel(context: Context): MainViewModel = MainViewModel(
-            MovieRepository(DAO(context)),
-            NetworkConnectivityServiceImpl(context)
-        )
+        fun mockMainViewModel(
+            context: Context
+        ): MainViewModel = MainViewModel().apply {
+            movieRepository = MovieRepository(DAO(context))
+            networkInfo = NetworkConnectivityServiceImpl(context)
+            appsList = AppsManager(context)
+            localAudioCursor = AudioCursor(context)
+            localVideoCursor = VideoCursor(context)
+            localPhotoCursor = PhotoCursor(context)
+        }
 
     }
 

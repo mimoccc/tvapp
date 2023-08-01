@@ -51,7 +51,7 @@ object NavGraphBuilderExt {
         }
         composable(
             route = route.route,
-            arguments = route.pageArgs,
+            arguments = route.routeArgs,
             enterTransition = enterTransition,
             exitTransition = exitTransition,
             deepLinks = deepLinks,
@@ -59,7 +59,7 @@ object NavGraphBuilderExt {
             popExitTransition = popExitTransition
         ) { be ->
             val rArgs = mutableMapOf<String, Any?>().apply {
-                route.pageArgs.forEach { arg ->
+                route.routeArgs.forEach { arg ->
                     put(arg.name, be.arg(arg.name, null))
                 }
             }

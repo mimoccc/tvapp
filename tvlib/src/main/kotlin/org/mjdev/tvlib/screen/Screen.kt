@@ -40,7 +40,7 @@ open class Screen {
     open val route: String
         get() = (this::class.simpleName ?: "none")
 
-    open val pageArgs: List<NamedNavArgument> = emptyList()
+    open val routeArgs: List<NamedNavArgument> = emptyList()
 
     open val title: Any? = null
 

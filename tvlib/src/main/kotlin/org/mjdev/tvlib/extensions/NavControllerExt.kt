@@ -44,7 +44,7 @@ object NavControllerExt {
     ) {
         val instance = T::class.createInstance()
         val finalRoute = instance.route
-        val args = instance.pageArgs.mapIndexed { idx, arg ->
+        val args = instance.routeArgs.mapIndexed { idx, arg ->
             Pair(arg.name, values[idx])
         }.toBundle()
         navigate(finalRoute, args)
@@ -57,7 +57,7 @@ object NavControllerExt {
     ) {
         val instance = T::class.createInstance()
         val finalRoute = instance.route
-        val args = instance.pageArgs.mapIndexed { idx, arg ->
+        val args = instance.routeArgs.mapIndexed { idx, arg ->
             Pair(arg.name, values[idx])
         }.toBundle()
         navigate(

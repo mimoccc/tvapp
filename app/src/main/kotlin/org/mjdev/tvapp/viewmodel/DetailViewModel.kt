@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
 import org.mjdev.tvapp.state.DetailsLoadingState
@@ -25,9 +25,10 @@ import java.net.URL
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(
-    private val movieRepository: IMovieRepository
-) : BaseViewModel() {
+class DetailViewModel @Inject constructor() : BaseViewModel() {
+
+    @Inject
+    lateinit var movieRepository: IMovieRepository
 
     fun detailsLoadingState(
         data: Any?
@@ -44,12 +45,15 @@ class DetailViewModel @Inject constructor(
                     }
                     emit(state)
                 }
+
                 is String -> {
                     emit(DetailsLoadingState.Ready(data))
                 }
+
                 is Uri, is URL -> {
                     emit(DetailsLoadingState.Ready(data))
                 }
+
                 else -> {
                     emit(DetailsLoadingState.Ready(data))
                 }
@@ -68,7 +72,9 @@ class DetailViewModel @Inject constructor(
         @Suppress("unused")
         fun mockDetailViewModel(
             context: Context
-        ): DetailViewModel = DetailViewModel(MovieRepository(DAO(context)))
+        ): DetailViewModel = DetailViewModel().apply {
+            movieRepository = MovieRepository(DAO(context))
+        }
 
     }
 

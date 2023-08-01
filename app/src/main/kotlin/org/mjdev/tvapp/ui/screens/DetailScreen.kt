@@ -62,7 +62,7 @@ class DetailScreen : Screen() {
 
     override val immersive: Boolean = true
 
-    override val pageArgs = listOf(
+    override val routeArgs = listOf(
         navArgument(data) {
             nullable = true
             type = AnyType
@@ -118,7 +118,8 @@ class DetailScreen : Screen() {
                     ) {
                         Column(
                             modifier = Modifier
-                                .fillMaxWidth().alpha(0.8f)
+                                .fillMaxWidth()
+                                .alpha(0.8f)
                                 .background(themeProvider.detailTextBackgroundColor)
                                 .padding(
                                     vertical = themeProvider.detailTextPaddingVertical,
@@ -144,9 +145,11 @@ class DetailScreen : Screen() {
                     }
                 }
             }
+
             DetailsLoadingState.Loading -> {
                 Loading()
             }
+
             else -> {
                 Loading()
                 postError("File or address $data not found.")

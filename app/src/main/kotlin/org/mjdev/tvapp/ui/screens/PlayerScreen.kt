@@ -37,7 +37,7 @@ class PlayerScreen : Screen() {
     override val menuIcon: ImageVector get() = Icons.Filled.PlayArrow
     override val immersive: Boolean = true
 
-    override val pageArgs = listOf(
+    override val routeArgs = listOf(
         navArgument(data) {
             nullable = true
             type = AnyType

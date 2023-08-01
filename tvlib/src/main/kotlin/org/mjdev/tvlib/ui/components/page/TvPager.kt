@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItemClickListener
@@ -48,10 +47,10 @@ fun TvPager(
     roundCornerSize: Dp = 0.dp,
     backGroundColor: Color = Color.Transparent,
     backGroundShape: Shape = RoundedCornerShape(roundCornerSize),
-    pages: PagerScope.() -> Unit = {}
+    pages: PagerScope.() -> Unit = {
+        page(EMPTY_PAGE)
+    }
 ) {
-
-    val isEdit = isEditMode()
 
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
@@ -103,8 +102,7 @@ fun TvPager(
             )
         }
     ) { pageIndex ->
-        val page = if (isEdit) EMPTY_PAGE
-        else if (pagerScope.size > pageIndex) pagerScope[pageIndex]
+        val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
         else null
         Box(
             modifier = Modifier
