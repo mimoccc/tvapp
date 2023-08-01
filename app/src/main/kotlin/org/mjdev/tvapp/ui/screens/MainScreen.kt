@@ -35,10 +35,6 @@ class MainScreen : ScreenWithPages() {
 
     override val pages: (PagerScope.() -> Unit) = {
 
-//        menuItem(MENU_ITEM_SETTINGS.action {
-//            navController.openSettings()
-//        })
-
         page(SearchPage())
 
         page(MainPage(), isStartPage = true)
