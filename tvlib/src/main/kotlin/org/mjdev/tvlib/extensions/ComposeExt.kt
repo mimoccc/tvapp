@@ -26,16 +26,39 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.DrawerState
+import androidx.tv.material3.DrawerValue
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.CachePolicy
+import org.mjdev.tvlib.extensions.ContextExt.isATv
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ComposeExt {
 
     @Composable
     fun isEditMode() = LocalInspectionMode.current
+
+    @Composable
+    fun isLandscapeMode(): Boolean =
+        LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    @Composable
+    fun isPortraitMode(): Boolean =
+        LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
+
+    @Composable
+    fun isAtv(): Boolean = LocalContext.current.isATv
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    val DrawerState.isOpen: Boolean
+        get() = currentValue == DrawerValue.Open
+
+    @OptIn(ExperimentalTvMaterial3Api::class)
+    val DrawerState.isClosed: Boolean
+        get() = currentValue == DrawerValue.Closed
 
     @Composable
     inline fun <reified T> textFrom(text: T?): String = when (text) {

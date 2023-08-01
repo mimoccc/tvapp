@@ -27,15 +27,17 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
+import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
+import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
+import org.mjdev.tvlib.extensions.ComposeExt.isOpen
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.focusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -44,7 +46,7 @@ import org.mjdev.tvlib.ui.components.icon.IconAny
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@Preview
+@TvPreview
 @Composable
 fun NavigationRow(
     modifier: Modifier = Modifier,
@@ -67,62 +69,65 @@ fun NavigationRow(
     onClick: (id: Int) -> Unit = {},
 ) {
     val isEdit = isEditMode()
-    FocusableBox(
-        modifier = modifier
-            .recomposeHighlighter()
-            .padding(margin)
-            .border(
-                BorderStroke(
-                    strokeWidth,
-                    if (isEdit || focusState.isFocused) focusedColor
-                    else unFocusedColor
-                ),
-                shape
-            )
-            .focusState(focusState),
-        shape = shape,
-        focusedColor = focusedColor.copy(alpha = 0.5f),
-        unFocusedColor = unFocusedColor,
-        onFocusChange = { state ->
-            if (state.isFocused || state.hasFocus) {
-                onFocus(id)
-            }
-        },
-        onClick = {
-            onClick(id)
-        },
-    ) {
-        Row(
-            modifier = Modifier
+    val isShown = isLandscapeMode() || drawerState.isOpen
+    if (isShown) {
+        FocusableBox(
+            modifier = modifier
                 .recomposeHighlighter()
-                .padding(padding),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
+                .padding(margin)
+                .border(
+                    BorderStroke(
+                        strokeWidth,
+                        if (isEdit || focusState.isFocused) focusedColor
+                        else unFocusedColor
+                    ),
+                    shape
+                )
+                .focusState(focusState),
+            shape = shape,
+            focusedColor = focusedColor.copy(alpha = 0.5f),
+            unFocusedColor = unFocusedColor,
+            onFocusChange = { state ->
+                if (state.isFocused || state.hasFocus) {
+                    onFocus(id)
+                }
+            },
+            onClick = {
+                onClick(id)
+            },
         ) {
-            Box(
+            Row(
                 modifier = Modifier
-                    .padding(4.dp)
                     .recomposeHighlighter()
+                    .padding(padding),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconAny(
-                    src = icon,
-                    contentDescription = null,
-                    tint = iconColor
-                )
-            }
-            AnimatedVisibility(
-                visible = (isEdit || (drawerState.currentValue == DrawerValue.Open))
-            ) {
-                TextAny(
-                    text = text,
-                    softWrap = false,
+                Box(
                     modifier = Modifier
+                        .padding(4.dp)
                         .recomposeHighlighter()
-                        .padding(8.dp)
-                        .width(expandedWidth),
-                    color = textColor,
-                    textAlign = TextAlign.Left
-                )
+                ) {
+                    IconAny(
+                        src = icon,
+                        contentDescription = null,
+                        tint = iconColor
+                    )
+                }
+                AnimatedVisibility(
+                    visible = (isEdit || (drawerState.currentValue == DrawerValue.Open))
+                ) {
+                    TextAny(
+                        text = text,
+                        softWrap = false,
+                        modifier = Modifier
+                            .recomposeHighlighter()
+                            .padding(8.dp)
+                            .width(expandedWidth),
+                        color = textColor,
+                        textAlign = TextAlign.Left
+                    )
+                }
             }
         }
     }

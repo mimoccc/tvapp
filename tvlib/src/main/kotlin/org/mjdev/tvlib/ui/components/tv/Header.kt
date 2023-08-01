@@ -32,6 +32,7 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.ui.components.badge.Badge
 
 @TvPreview
@@ -54,6 +55,7 @@ fun Header(
     onUserPicClick: () -> Unit = {},
 ) {
     val isEdit = isEditMode()
+    val isClockShown = isLandscapeMode()
     Box(
         modifier = Modifier
             .recomposeHighlighter()
@@ -69,16 +71,18 @@ fun Header(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Clock(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .recomposeHighlighter(),
-                backgroundColor = Color.Black.copy(alpha = 0.2f),
-                contentPadding = contentPadding,
-                timeTextColor = color,
-                dateTextColor = color,
-                onClick = onClockClick,
-            )
+            if (isClockShown) {
+                Clock(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .recomposeHighlighter(),
+                    backgroundColor = Color.Black.copy(alpha = 0.2f),
+                    contentPadding = contentPadding,
+                    timeTextColor = color,
+                    dateTextColor = color,
+                    onClick = onClockClick,
+                )
+            }
             if (isEdit || (messagesCount > 0)) {
                 Badge(
                     modifier = Modifier
