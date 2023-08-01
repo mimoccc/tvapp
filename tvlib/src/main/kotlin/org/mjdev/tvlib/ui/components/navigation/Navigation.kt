@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.ModalNavigationDrawer
-import androidx.tv.material3.NavigationDrawer
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -67,36 +65,42 @@ fun Navigation(
             content()
         }
     }
-    if (navController.isMenuEnabled) {
-        val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
-            NavDrawerContent(
-                backgroundColor = backgroundColor,
-                navController = navController,
-            )
-            navController.menuDrawerState.setValue(state)
-        }
-        if (modal) {
-            ModalNavigationDrawer(
-                modifier = modifier
-                    .fillMaxHeight()
-                    .background(backgroundColor, shape)
-                    .border(borderSize, borderColor, shape),
-                drawerState = navController.menuDrawerState,
-                content = mainContent,
-                drawerContent = drawerContent,
-            )
+    Box(
+        modifier
+            .fillMaxSize()
+            .recomposeHighlighter()
+    ) {
+        if (navController.isMenuEnabled) {
+            val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
+                NavDrawerContent(
+                    backgroundColor = backgroundColor,
+                    navController = navController,
+                )
+                navController.menuDrawerState.setValue(state)
+            }
+            if (modal) {
+                ModalNavigationDrawer(
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .background(backgroundColor, shape)
+                        .border(borderSize, borderColor, shape),
+                    drawerState = navController.menuDrawerState,
+                    content = mainContent,
+                    drawerContent = drawerContent,
+                )
+            } else {
+                NavigationDrawer(
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .background(backgroundColor, shape)
+                        .border(borderSize, borderColor, shape),
+                    drawerState = navController.menuDrawerState,
+                    content = mainContent,
+                    drawerContent = drawerContent
+                )
+            }
         } else {
-            NavigationDrawer(
-                modifier = modifier
-                    .fillMaxHeight()
-                    .background(backgroundColor, shape)
-                    .border(borderSize, borderColor, shape),
-                drawerState = navController.menuDrawerState,
-                content = mainContent,
-                drawerContent = drawerContent
-            )
+            mainContent()
         }
-    } else {
-        mainContent()
     }
 }
