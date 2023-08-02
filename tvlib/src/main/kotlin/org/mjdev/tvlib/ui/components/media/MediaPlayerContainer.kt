@@ -30,16 +30,20 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMe
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
     uri: Uri? = Uri.EMPTY,
+    title: String? = null,
+    subtitle: String? = null,
     autoPlay: Boolean = true,
     startSeek: Long = 0L,
     mediaPlayer: IMediaPlayer = MediaPlayerContainerDefaults.exoPlayer,
 ) {
     val isEdit = isEditMode()
     val state = rememberMediaPlayerState(
-        mediaPlayer,
-        uri ?: Uri.EMPTY,
-        autoPlay,
-        startSeek
+        player = mediaPlayer,
+        uri = uri ?: Uri.EMPTY,
+        autoPlay = autoPlay,
+        startSeek = startSeek,
+        title = title,
+        subtitle = subtitle
     )
     Box(
         modifier = modifier
@@ -58,7 +62,7 @@ fun MediaPlayerContainer(
     }
     DisposableEffect(state) {
         if (state.hasMediaToPlay) {
-            mediaPlayer.setMediaUri(state.mediaUri.value)
+            mediaPlayer.setMediaItem(state.mediaItem)
             mediaPlayer.prepare()
             if (state.seek.value > 0L) {
                 mediaPlayer.seekTo(state.seek.value)

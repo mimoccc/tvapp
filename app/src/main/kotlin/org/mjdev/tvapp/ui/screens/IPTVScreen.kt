@@ -24,13 +24,13 @@ import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.StringExt.parseUri
+import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
 import java.net.URL
 
-@Suppress("MoveVariableDeclarationIntoWhen")
 class IPTVScreen : Screen() {
 
     private val data = "data"
@@ -53,13 +53,18 @@ class IPTVScreen : Screen() {
 
         val data: Any? = remember { args[data] }
 
-        val uriToPlay: String? = when (data) {
+        val mediaUri: String? = when (data) {
             null -> null
             is ItemWithUri<*> -> data.uri.toString()
             is String -> data.toString()
             is URL -> data.toString()
             is Uri -> data.toString()
             else -> data.toString()
+        }
+
+        val mediaTitle: String? = when (data) {
+            is ItemWithTitle<*> -> data.title.toString()
+            else -> null
         }
 
         Box(
@@ -69,7 +74,9 @@ class IPTVScreen : Screen() {
         ) {
             MediaPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                uri = uriToPlay?.parseUri(),
+                uri = mediaUri?.parseUri(),
+                title = mediaTitle,
+                subtitle = mediaUri
             )
         }
 

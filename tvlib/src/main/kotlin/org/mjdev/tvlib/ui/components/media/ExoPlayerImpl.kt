@@ -69,6 +69,14 @@ class ExoPlayerImpl(
                 useArtwork = true
                 artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_FIT
                 player = exoPlayer
+                setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
+                setShowMultiWindowTimeBar(true)
+                setShowNextButton(false)
+                setShowPreviousButton(false)
+                setShowRewindButton(true)
+                setShowFastForwardButton(true)
+                setShowShuffleButton(true)
+                setShowVrButton(false)
                 // todo : buttons tint
 //                doOnAttach {
 //                    buttons.forEach { b ->

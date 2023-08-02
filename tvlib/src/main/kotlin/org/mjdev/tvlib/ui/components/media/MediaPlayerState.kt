@@ -14,6 +14,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MediaPlayerState(
@@ -21,6 +23,8 @@ class MediaPlayerState(
     uri: Uri = Uri.EMPTY,
     autoPlay: Boolean = true,
     startSeek: Long = 0,
+    var title: String? = null,
+    var subtitle: String? = null
 ) {
 
     constructor(
@@ -41,6 +45,16 @@ class MediaPlayerState(
 
     val hasMediaToPlay = mediaUri.value != Uri.EMPTY
     val isAutoPlay = isPlaying.value
+
+    val metaData get() = MediaMetadata.Builder()
+        .setDisplayTitle(title)
+        .setSubtitle(subtitle)
+        .build()
+
+    val mediaItem get() = MediaItem.Builder()
+        .setUri(mediaUri.value)
+        .setMediaMetadata(metaData)
+        .build()
 
     fun play() {
         isPlaying.value = true
@@ -74,13 +88,17 @@ class MediaPlayerState(
             player: IMediaPlayer?,
             uri: Uri = Uri.EMPTY,
             autoPlay: Boolean = true,
-            startSeek: Long = 0
+            startSeek: Long = 0,
+            title: String? = null,
+            subtitle: String? = null
         ) = remember {
             MediaPlayerState(
                 player,
                 uri,
                 autoPlay,
-                startSeek
+                startSeek,
+                title,
+                subtitle
             )
         }
 
