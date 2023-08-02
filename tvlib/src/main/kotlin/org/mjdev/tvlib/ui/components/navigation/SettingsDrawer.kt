@@ -8,51 +8,53 @@
 
 package org.mjdev.tvlib.ui.components.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ComposeExt
 
-@ExperimentalTvMaterial3Api
+@OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
-fun NavigationDrawer(
+fun SettingsDrawer(
     modifier: Modifier = Modifier,
+    backgroundColor: Color = Color(0xff202020),
+    roundCornerSize: Dp = 16.dp,
+    borderSize: Dp = 0.dp,
+    borderColor: Color = Color.Transparent,
+    shape: Shape = RoundedCornerShape(roundCornerSize),
     drawerState: DrawerState = rememberDrawerState(
-        if (isEditMode()) DrawerValue.Open else DrawerValue.Closed
+        if (ComposeExt.isEditMode()) DrawerValue.Open else DrawerValue.Closed
     ),
-    contentAlignment: Alignment = Alignment.TopStart,
-    drawerContent: @Composable (DrawerValue) -> Unit = {
-        Box(
-            modifier = Modifier
-                .width(200.dp)
-                .background(Color.LightGray, RectangleShape)
-        )
-    },
     content: @Composable () -> Unit = {
         Box(modifier = Modifier.fillMaxSize())
-    }
+    },
 ) {
-    Row(
-        modifier = modifier
+    ModalNavigationDrawer(
+        contentAlignment = Alignment.TopEnd,
+        drawerState = drawerState,
+        drawerContent = {
+            SettingsDrawerContent(
+                backgroundColor = backgroundColor,
+                roundCornerSize = roundCornerSize,
+                borderSize = borderSize,
+                borderColor = borderColor,
+                shape = shape
+            )
+        }
     ) {
-        DrawerSheet(
-            drawerState = drawerState,
-            content = drawerContent
-        )
         content()
     }
 }

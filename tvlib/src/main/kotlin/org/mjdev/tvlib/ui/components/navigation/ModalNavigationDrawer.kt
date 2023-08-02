@@ -31,15 +31,19 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @ExperimentalTvMaterial3Api
 @TvPreview
 @Composable
 fun ModalNavigationDrawer(
     modifier: Modifier = Modifier,
-    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
+    drawerState: DrawerState = rememberDrawerState(
+        if (isEditMode()) DrawerValue.Open else DrawerValue.Closed
+    ),
     scrimColor: Color = Color.Black.copy(alpha = 0.5f),
-    closeDrawerWidth: Dp = 80.dp,
+    closeDrawerWidth: Dp = 200.dp,
+    contentAlignment: Alignment = Alignment.TopStart,
     drawerContent: @Composable (DrawerValue) -> Unit = {
         Box(
             modifier = Modifier
@@ -52,20 +56,21 @@ fun ModalNavigationDrawer(
 ) {
     val localDensity = LocalDensity.current
     val closedDrawerWidth: MutableState<Dp?> = remember { mutableStateOf(null) }
-    val internalDrawerModifier =
-        Modifier
-            .zIndex(Float.MAX_VALUE)
-            .onSizeChanged {
-                if (closedDrawerWidth.value == null &&
-                    drawerState.currentValue == DrawerValue.Closed
-                ) {
-                    with(localDensity) {
-                        closedDrawerWidth.value = it.width.toDp()
-                    }
+    val internalDrawerModifier = Modifier
+        .zIndex(Float.MAX_VALUE)
+        .onSizeChanged {
+            if (closedDrawerWidth.value == null &&
+                drawerState.currentValue == DrawerValue.Closed
+            ) {
+                with(localDensity) {
+                    closedDrawerWidth.value = it.width.toDp()
                 }
             }
-
-    Box(modifier = modifier) {
+        }
+    Box(
+        modifier = modifier,
+        contentAlignment = contentAlignment
+    ) {
         DrawerSheet(
             modifier = internalDrawerModifier.align(Alignment.CenterStart),
             drawerState = drawerState,
@@ -79,12 +84,24 @@ fun ModalNavigationDrawer(
             content = drawerContent
         )
         Box(
-            modifier = Modifier.padding(
-                closedDrawerWidth.value ?: closeDrawerWidth,
-                0.dp,
-                0.dp,
-                0.dp
-            )
+            modifier = when (contentAlignment) {
+                Alignment.TopStart -> Modifier.padding(
+                    closedDrawerWidth.value ?: closeDrawerWidth,
+                    0.dp,
+                    0.dp,
+                    0.dp
+                )
+
+                Alignment.TopEnd -> Modifier.padding(
+                    0.dp,
+                    0.dp,
+                    closedDrawerWidth.value ?: closeDrawerWidth,
+                    0.dp
+                )
+
+                else -> Modifier.padding(0.dp)
+            },
+            contentAlignment = contentAlignment
         ) {
             content()
             if (drawerState.currentValue == DrawerValue.Open) {

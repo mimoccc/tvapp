@@ -71,37 +71,41 @@ fun Navigation(
             .fillMaxSize()
             .recomposeHighlighter()
     ) {
-        if (navController.isMenuEnabled) {
-            val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
-                NavDrawerContent(
-                    backgroundColor = backgroundColor,
-                    navController = navController,
-                )
-                navController.menuDrawerState.setValue(state)
-            }
-            if (modal) {
-                ModalNavigationDrawer(
-                    modifier = modifier
-                        .fillMaxHeight()
-                        .background(backgroundColor, shape)
-                        .border(borderSize, borderColor, shape),
-                    drawerState = navController.menuDrawerState,
-                    content = mainContent,
-                    drawerContent = drawerContent,
-                )
+        SettingsDrawer(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            if (navController.isMenuEnabled) {
+                val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
+                    NavDrawerContent(
+                        backgroundColor = backgroundColor,
+                        navController = navController,
+                    )
+                    navController.menuDrawerState.setValue(state)
+                }
+                if (modal) {
+                    ModalNavigationDrawer(
+                        modifier = modifier
+                            .fillMaxHeight()
+                            .background(backgroundColor, shape)
+                            .border(borderSize, borderColor, shape),
+                        drawerState = navController.menuDrawerState,
+                        content = mainContent,
+                        drawerContent = drawerContent,
+                    )
+                } else {
+                    NavigationDrawer(
+                        modifier = modifier
+                            .fillMaxHeight()
+                            .background(backgroundColor, shape)
+                            .border(borderSize, borderColor, shape),
+                        drawerState = navController.menuDrawerState,
+                        content = mainContent,
+                        drawerContent = drawerContent
+                    )
+                }
             } else {
-                NavigationDrawer(
-                    modifier = modifier
-                        .fillMaxHeight()
-                        .background(backgroundColor, shape)
-                        .border(borderSize, borderColor, shape),
-                    drawerState = navController.menuDrawerState,
-                    content = mainContent,
-                    drawerContent = drawerContent
-                )
+                mainContent()
             }
-        } else {
-            mainContent()
         }
     }
 }
