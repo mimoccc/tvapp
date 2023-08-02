@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,10 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.navArgument
+import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -42,8 +46,9 @@ import org.mjdev.tvlib.interfaces.ItemWithSubtitle
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
+import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 import org.mjdev.tvlib.ui.components.image.ImageAny
-import org.mjdev.tvlib.ui.components.text.TextAny
+import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
 import org.mjdev.tvlib.ui.theme.ThemeHelper.themeProvider
 
 class DetailScreen : Screen() {
@@ -85,12 +90,22 @@ class DetailScreen : Screen() {
                         infoVisible = !infoVisible
                     }
                 },
-            contentAlignment = Alignment.BottomStart,
+            contentAlignment = Alignment.BottomCenter,
         ) {
+            FadingPhotoImage(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black, RectangleShape),
+                initialImage = backgroundImage ?: photo ?: image,
+                contrast = 4f,
+                alpha = 0.6f,
+                brightness = -255f,
+                contentScale = ContentScale.Crop
+            )
             ImageAny(
                 src = photo ?: backgroundImage ?: image,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier.fillMaxSize()
             )
             AnimatedVisibility(
@@ -108,22 +123,26 @@ class DetailScreen : Screen() {
                             horizontal = themeProvider.detailTextPaddingHorizontal
                         )
                 ) {
-                    TextAny(
-                        text = title ?: "-",
+                    AutoHideEmptyText(
+                        text = title,
                         style = themeProvider.detailsTitleTextStyle,
                         color = themeProvider.detailsTextColor
                     )
-                    TextAny(
-                        text = subtitle ?: "-",
+                    AutoHideEmptyText(
+                        text = subtitle,
                         style = themeProvider.detailsTextStyle,
                         color = themeProvider.detailsTextColor
                     )
-                    TextAny(
-                        text = description ?: "-",
+                    AutoHideEmptyText(
+                        text = description,
                         style = themeProvider.detailsTextStyle,
                         color = themeProvider.detailsTextColor
                     )
                 }
+            }
+            LaunchedEffect(infoVisible) {
+                delay(2000)
+                infoVisible = false
             }
         }
 
