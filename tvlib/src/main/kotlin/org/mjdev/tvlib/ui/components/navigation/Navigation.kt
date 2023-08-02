@@ -25,6 +25,7 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
@@ -51,7 +52,7 @@ fun Navigation(
         MenuItem.MENU_ITEM_SETTINGS,
         MenuItem.MENU_ITEM_SEARCH
     ) else listOf(),
-    modal: Boolean = false,
+    modal: Boolean = isPortraitMode(),
 ) {
     navController.addMenuItem(*menuItems.toTypedArray())
     val isEdit: Boolean = isEditMode()
