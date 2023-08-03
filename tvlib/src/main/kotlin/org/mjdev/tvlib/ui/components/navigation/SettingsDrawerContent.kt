@@ -28,7 +28,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
-@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 @SuppressLint("AutoboxingStateValueProperty")
 @Preview
 @Composable
@@ -38,8 +37,8 @@ fun SettingsDrawerContent(
     borderSize: Dp = 0.dp,
     borderColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(roundCornerSize),
-    onDrawerItemClick: (id: Int) -> Unit = { id -> },
-    onDrawerItemFocus: (id: Int) -> Unit = { id -> },
+//    onDrawerItemClick: (id: Int) -> Unit = { id -> },
+//    onDrawerItemFocus: (id: Int) -> Unit = { id -> },
 ) {
     Column(
         modifier = Modifier

@@ -8,7 +8,7 @@
 
 @file:Suppress("unused")
 
-package org.mjdev.tvlib.helpers
+package org.mjdev.tvlib.helpers.lifecycle
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable

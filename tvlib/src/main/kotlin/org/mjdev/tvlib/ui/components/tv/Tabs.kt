@@ -55,26 +55,29 @@ fun Tabs(
 ) {
     val selectedTabIndex = remember { mutableIntStateOf(0) }
     val colors = TabDefaults.pillIndicatorTabColors(
-        activeContentColor = activeContentColor,
+//        activeContentColor = activeContentColor,
         contentColor = activeContentColor,
         selectedContentColor = activeContentColor,
         focusedContentColor = focusedContentColor,
         focusedSelectedContentColor = focusedContentColor,
-        disabledActiveContentColor = activeContentColor.copy(alpha = 0.4f),
+//        disabledActiveContentColor = activeContentColor.copy(alpha = 0.4f),
         disabledContentColor = activeContentColor.copy(alpha = 0.4f),
         disabledSelectedContentColor = selectedContentColor,
     )
     TabRow(
-        modifier = modifier.fillMaxWidth().recomposeHighlighter(),
+        modifier = modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         selectedTabIndex = selectedTabIndex.value,
         contentColor = activeContentColor,
         separator = {
             Spacer(modifier = Modifier.width(itemsSpacing))
         },
-        indicator = { tabPositions ->
+        indicator = { tabPositions, isActivated ->
             tabPositions.getOrNull(selectedTabIndex.value)?.let { tab ->
                 TabRowDefaults.PillIndicator(
                     currentTabPosition = tab,
+                    isActivated = isActivated,
                     activeColor = activeContentColor,
                     inactiveColor = activeContentColor.copy(alpha = 0.4f)
                 )
@@ -105,7 +108,9 @@ fun Tabs(
                     onClick = { onItemClick(items[selectedTabIndex.value]) }
                 ) {
                     TextAny(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).recomposeHighlighter(),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .recomposeHighlighter(),
                         text = if (tab is ItemWithTitle<*>) tab.title else tab.toString(),
                         fontSize = fontSize,
                         color = Color.White,

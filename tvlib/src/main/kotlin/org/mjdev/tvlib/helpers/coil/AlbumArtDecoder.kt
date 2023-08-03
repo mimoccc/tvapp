@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvlib.helpers
+package org.mjdev.tvlib.helpers.coil
 
 import android.graphics.BitmapFactory
 import androidx.core.graphics.drawable.toDrawable

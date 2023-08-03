@@ -20,9 +20,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
+@OptIn(ExperimentalTvMaterial3Api::class)
 @Preview
 @Composable
 fun TextWithShadow(

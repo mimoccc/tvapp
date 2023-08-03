@@ -43,6 +43,7 @@ fun SettingsDrawer(
     },
 ) {
     ModalNavigationDrawer(
+        modifier = modifier,
         contentAlignment = Alignment.TopEnd,
         drawerState = drawerState,
         drawerContent = {

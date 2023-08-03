@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2023.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -8,7 +8,7 @@
 
 @file:Suppress("unused")
 
-package org.mjdev.tvlib.helpers
+package org.mjdev.tvlib.helpers.brush
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind

@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
@@ -52,8 +53,9 @@ fun ImageAny(
     modifier = modifier
 ) {
 
-    val width = if(constraints.minWidth  ==0) 1 else constraints.minWidth
-    val height = if(constraints.minHeight  ==0) 1 else constraints.minHeight
+    val imageLoader = rememberImageLoader()
+    val width = if (constraints.minWidth == 0) 1 else constraints.minWidth
+    val height = if (constraints.minHeight == 0) 1 else constraints.minHeight
 
     when (src) {
 
@@ -120,6 +122,7 @@ fun ImageAny(
         )
 
         is URL -> CoilImage(
+            imageLoader = { imageLoader },
             modifier = modifier.recomposeHighlighter(),
             imageModel = { src },
             imageOptions = ImageOptions(
@@ -132,6 +135,7 @@ fun ImageAny(
         )
 
         is Uri -> CoilImage(
+            imageLoader = { imageLoader },
             modifier = modifier.recomposeHighlighter(),
             imageModel = { src },
             imageOptions = ImageOptions(
@@ -144,6 +148,7 @@ fun ImageAny(
         )
 
         is String -> CoilImage(
+            imageLoader = { imageLoader },
             modifier = modifier.recomposeHighlighter(),
             imageModel = { src },
             imageOptions = ImageOptions(

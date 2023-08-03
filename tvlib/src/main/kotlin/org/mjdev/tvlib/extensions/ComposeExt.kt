@@ -36,7 +36,7 @@ import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
 import coil.request.CachePolicy
 import org.mjdev.tvlib.extensions.ContextExt.isATv
-import org.mjdev.tvlib.helpers.AlbumArtDecoder
+import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ComposeExt {
@@ -151,9 +151,9 @@ object ComposeExt {
                     } else {
                         add(GifDecoder.Factory())
                     }
+                    add(AlbumArtDecoder.Factory())
                     add(VideoFrameDecoder.Factory())
                     add(SvgDecoder.Factory())
-                    add(AlbumArtDecoder.Factory())
                 }
                 .build()
         }

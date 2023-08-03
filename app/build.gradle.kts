@@ -182,7 +182,7 @@ dependencies {
     // tv library by mjde milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-alpha05")
+    implementation("androidx.core:core-ktx:1.12.0-beta01")
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.06.01"))
     implementation("androidx.compose.ui:ui-tooling")
@@ -191,7 +191,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
-    implementation("androidx.tv:tv-material:1.0.0-alpha07")
+    implementation("androidx.tv:tv-material:1.0.0-alpha08")
     // dagger - hilt
     implementation("com.google.dagger:dagger-android:2.47")
     implementation("com.google.dagger:dagger-android-support:2.47")
@@ -215,7 +215,7 @@ dependencies {
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0-beta02")
+    implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -223,7 +223,7 @@ dependencies {
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
+    implementation("com.google.accompanist:accompanist-permissions:0.31.6-rc")
     // previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // lottie

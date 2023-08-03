@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -94,6 +95,7 @@ open class Screen {
         ComposeScreen()
     }
 
+    @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     open fun ComposeScreen() {
         Column(

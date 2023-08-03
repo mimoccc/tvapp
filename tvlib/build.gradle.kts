@@ -80,9 +80,9 @@ android {
 
 dependencies {
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-alpha05")
+    implementation("androidx.core:core-ktx:1.12.0-beta01")
     // reflect / debug purposes only
-    implementation(kotlin("reflect", "1.8.21"))
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
     // window manager
     implementation("androidx.window:window:1.1.0")
     // compose base libs
@@ -93,13 +93,13 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
-    implementation("androidx.tv:tv-material:1.0.0-alpha07")
+    implementation("androidx.tv:tv-material:1.0.0-alpha08")
     // paging
-    implementation("androidx.paging:paging-compose:3.2.0-rc01")
+    implementation("androidx.paging:paging-compose:3.2.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0-beta02")
+    implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")
@@ -146,7 +146,7 @@ dependencies {
     implementation("androidx.media3:media3-datasource:1.1.0")
     implementation("androidx.media3:media3-common:1.1.0")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.31.5-beta")
+    implementation("com.google.accompanist:accompanist-permissions:0.31.6-rc")
     // for previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // pallette

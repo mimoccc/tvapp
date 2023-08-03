@@ -86,9 +86,11 @@ class ThemeProvider {
     val detailTextPaddingVertical: Dp = 32.dp
     val detailsTextColor: Color = Color.White
     val detailTextBackgroundColor: Color = Color.Black
+    @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTitleTextStyle: TextStyle
         @Composable
         get() = MaterialTheme.typography.headlineSmall
+    @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTextStyle: TextStyle
         @Composable
         get() = MaterialTheme.typography.bodySmall

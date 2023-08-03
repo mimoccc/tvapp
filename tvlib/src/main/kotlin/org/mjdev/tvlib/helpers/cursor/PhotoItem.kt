@@ -48,24 +48,6 @@ class PhotoItem() :
         }
     }
 
-//    override val image: Any?
-//        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            try {
-//                uri.let { thumbUri ->
-//                    contentResolver.loadThumbnail(
-//                        thumbUri,
-//                        Size(320, 240),
-//                        null
-//                    )
-//                }
-//            } catch (e: Exception) {
-//                Timber.e(e)
-//                null
-//            }
-//        } else {
-//            Uri.parse(this[MediaStore.Images.Media.DATA].toString())
-//        }
-
     companion object {
 
         const val SORT_ORDER_DATE_DESC: String = MediaStore.Images.Media.DATE_ADDED + " DESC"

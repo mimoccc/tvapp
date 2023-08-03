@@ -16,8 +16,10 @@ plugins {
 buildscript {
     repositories {
         mavenCentral()
+        maven(url = "https://storage.googleapis.com/r8-releases/raw")
     }
     dependencies {
+        classpath("com.android.tools:r8:8.1.56")
         classpath("io.objectbox:objectbox-gradle-plugin:3.6.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
     }

@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.base.ui.components.tv
+package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,11 +20,13 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.ui.components.text.TextAny
 
+@OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
 fun Loading(
