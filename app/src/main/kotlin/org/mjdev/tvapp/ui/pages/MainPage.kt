@@ -25,6 +25,8 @@ import androidx.compose.ui.layout.ContentScale
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
+import org.mjdev.tvapp.data.local.User
+import org.mjdev.tvapp.helpers.AuthManager.Companion.rememberAuthManager
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.interfaces.ItemWithId
@@ -94,6 +96,9 @@ class MainPage : Page() {
             errorState.value = error
         }
 
+        val user = remember { mutableStateOf<User?>(null) }
+        val authManager = rememberAuthManager { u -> user.value = u }
+
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
@@ -108,7 +113,7 @@ class MainPage : Page() {
             BrowseView(
                 modifier = Modifier.fillMaxSize(),
                 appIcon = R.mipmap.ic_launcher,
-                userIcon = org.mjdev.tvlib.R.drawable.person,
+                userIcon = user.value?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,
                 title = titleState.value,
                 messages = messages.value,
                 categories = countryList.value,
@@ -121,37 +126,37 @@ class MainPage : Page() {
                 },
                 onItemFocused = onItemSelect,
                 onItemClicked = onItemClick,
-                customRows =
-                mutableListOf<@Composable () -> Unit>().apply {
-                    if (viewModel.appsList.size > 0) {
-                        add { AppsRow(apps = viewModel.appsList) }
+                onUserPicClicked = {
+                    if (authManager.isUserLoggedIn) {
+                        // todo show details / settings
+                    } else {
+                        authManager.login()
                     }
-                    if (viewModel.localAudioCursor.count > 0) {
-                        add {
-                            LocalAudioRow(
-                                cursor = viewModel.localAudioCursor,
-                                openItem = { item -> onItemClick(item) },
-                                onItemFocus = onItemSelect,
-                            )
-                        }
+                },
+                customRows = mutableListOf<@Composable () -> Unit>().apply {
+                    if (viewModel.appsList.size > 0) add {
+                        AppsRow(apps = viewModel.appsList)
                     }
-                    if (viewModel.localVideoCursor.count > 0) {
-                        add {
-                            LocalVideoRow(
-                                cursor = viewModel.localVideoCursor,
-                                openItem = { item -> onItemClick(item) },
-                                onItemFocus = onItemSelect,
-                            )
-                        }
+                    if (viewModel.localAudioCursor.count > 0) add {
+                        LocalAudioRow(
+                            cursor = viewModel.localAudioCursor,
+                            openItem = { item -> onItemClick(item) },
+                            onItemFocus = onItemSelect,
+                        )
                     }
-                    if (viewModel.localPhotoCursor.count > 0) {
-                        add {
-                            LocalPhotosRow(
-                                cursor = viewModel.localPhotoCursor,
-                                openItem = { item -> onItemClick(item) },
-                                onItemFocus = onItemSelect,
-                            )
-                        }
+                    if (viewModel.localVideoCursor.count > 0) add {
+                        LocalVideoRow(
+                            cursor = viewModel.localVideoCursor,
+                            openItem = { item -> onItemClick(item) },
+                            onItemFocus = onItemSelect,
+                        )
+                    }
+                    if (viewModel.localPhotoCursor.count > 0) add {
+                        LocalPhotosRow(
+                            cursor = viewModel.localPhotoCursor,
+                            openItem = { item -> onItemClick(item) },
+                            onItemFocus = onItemSelect,
+                        )
                     }
                 }
             )

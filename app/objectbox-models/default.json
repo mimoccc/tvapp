@@ -209,9 +209,88 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:1987880888030669889",
+      "lastPropertyId": "14:6587709986428549544",
+      "name": "User",
+      "properties": [
+        {
+          "id": "1:8489281024233193571",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3068422320211502547",
+          "name": "sub",
+          "type": 9
+        },
+        {
+          "id": "3:7880080743593438568",
+          "name": "givenName",
+          "type": 9
+        },
+        {
+          "id": "4:7091128848714558596",
+          "name": "familyName",
+          "type": 9
+        },
+        {
+          "id": "5:3275722102836586086",
+          "name": "nickname",
+          "type": 9
+        },
+        {
+          "id": "6:539261702815051564",
+          "name": "fullName",
+          "type": 9
+        },
+        {
+          "id": "7:5697902777673765209",
+          "name": "pictureUrl",
+          "type": 9
+        },
+        {
+          "id": "8:1398381634980613029",
+          "name": "locale",
+          "type": 9
+        },
+        {
+          "id": "9:7614335227423573086",
+          "name": "lastUpdated",
+          "type": 9
+        },
+        {
+          "id": "10:3865959571559170686",
+          "name": "pinCode",
+          "type": 9
+        },
+        {
+          "id": "11:5012672523655215079",
+          "name": "settingsJson",
+          "type": 9
+        },
+        {
+          "id": "12:7864280554037368021",
+          "name": "age",
+          "type": 5
+        },
+        {
+          "id": "13:3813998053361806387",
+          "name": "email",
+          "type": 9
+        },
+        {
+          "id": "14:6587709986428549544",
+          "name": "emailVerified",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:9057081142853951475",
+  "lastEntityId": "4:1987880888030669889",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

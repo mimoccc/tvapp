@@ -39,6 +39,7 @@
     <string name="title_video_local">Lokálne video súbory</string>
     <string name="title_photo_local">Lokálne fotografie</string>
     <string name="title_iptv">Televízia</string>
+    <string name="title_web">Internet</string>
 
     <string name="author">Vytvorené autorom Milan Jurkulák © 2023</string>
 

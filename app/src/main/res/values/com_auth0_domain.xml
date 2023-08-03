@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (c) Milan Jurkulák 2023.
+  ~  Contact:
+  ~  e: mimoccc@gmail.com
+  ~  e: mj@mjdev.org
+  ~  w: https://mjdev.org
+  -->
+<resources>
+    <string name="com_auth0_client_id" translatable="false">ELZOvhRqguKMIv8lTXGUlOhrKLVunQ2C</string>
+    <string name="com_auth0_domain" translatable="false">dev-580urwpf6d0owqho.us.auth0.com</string>
+    <string name="com_auth0_scheme" translatable="false">demo</string>
+</resources>

@@ -67,6 +67,11 @@ android {
             "IPTV_API_URL",
             "\"https://iptv-org.github.io/api/\""
         )
+
+        manifestPlaceholders.apply {
+            put("auth0Domain", "@string/com_auth0_domain")
+            put("auth0Scheme", "demo")
+        }
     }
 
     buildTypes {
@@ -228,6 +233,9 @@ dependencies {
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.1.0")
+    // oauth
+    implementation ("com.auth0.android:auth0:2.10.1")
+    implementation ("com.auth0.android:jwtdecode:2.0.2")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {
