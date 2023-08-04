@@ -55,13 +55,13 @@ fun Tabs(
 ) {
     val selectedTabIndex = remember { mutableIntStateOf(0) }
     val colors = TabDefaults.pillIndicatorTabColors(
-//        activeContentColor = activeContentColor,
         contentColor = activeContentColor,
+        inactiveContentColor = activeContentColor.copy(alpha = 0.4f),
         selectedContentColor = activeContentColor,
         focusedContentColor = focusedContentColor,
         focusedSelectedContentColor = focusedContentColor,
-//        disabledActiveContentColor = activeContentColor.copy(alpha = 0.4f),
         disabledContentColor = activeContentColor.copy(alpha = 0.4f),
+        disabledInactiveContentColor = activeContentColor.copy(alpha = 0.4f),
         disabledSelectedContentColor = selectedContentColor,
     )
     TabRow(
@@ -100,6 +100,7 @@ fun Tabs(
                 val focusState = rememberFocusState(tab)
                 FocusableBox(
                     focusedColor = Color.Transparent,
+                    focusState = focusState,
                     onFocusChange = {
                         if (focusState.isFocused) {
                             selectedTabIndex.value = index
