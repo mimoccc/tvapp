@@ -32,6 +32,7 @@ plugins {
     id("io.objectbox")
     id("MainAppPlugin")
     kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -195,7 +196,7 @@ dependencies {
     // more icons
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
     implementation("androidx.tv:tv-material:1.0.0-alpha08")
     // dagger - hilt
     implementation("com.google.dagger:dagger-android:2.47")
@@ -216,7 +217,7 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.47")
     kapt("com.google.dagger:dagger-android-processor:2.47")
     kapt("com.google.dagger:hilt-compiler:2.47")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation

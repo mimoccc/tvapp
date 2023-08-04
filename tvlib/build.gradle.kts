@@ -17,6 +17,7 @@ plugins {
     id("dagger.hilt.android.plugin")
 //    id("org.jetbrains.dokka") version "1.8.10"
     kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -92,7 +93,7 @@ dependencies {
     // more icons
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-SNAPSHOT")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
     implementation("androidx.tv:tv-material:1.0.0-alpha08")
     // paging
     implementation("androidx.paging:paging-compose:3.2.0")
@@ -106,7 +107,7 @@ dependencies {
     implementation("io.coil-kt:coil-svg:2.4.0")
     implementation("io.coil-kt:coil-video:2.4.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.github.skydoves:landscapist-coil:2.2.2")
+    implementation("com.github.skydoves:landscapist-coil:2.2.5")
     // constraint layout // todo remove
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     // debug

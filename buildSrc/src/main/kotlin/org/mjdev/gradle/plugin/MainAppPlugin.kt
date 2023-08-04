@@ -62,7 +62,7 @@ abstract class MainAppPlugin : Plugin<Project> {
 
         val javaVersion: JavaVersion = JavaVersion.VERSION_17
 
-        const val kotlinCompilerExtVersion = "1.4.8"
+        const val kotlinCompilerExtVersion = "1.5.1"
 
         inline fun <reified T : Task> Project.registerTask(
             name: String,

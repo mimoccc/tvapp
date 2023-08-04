@@ -24,6 +24,7 @@ plugins {
 //    `java-gradle-plugin`
 //    `groovy-gradle-plugin`
 //    id("org.jetbrains.dokka") version "1.8.10"
+//    id("com.google.devtools.ksp")
 }
 
 dependencies {
