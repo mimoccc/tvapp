@@ -112,7 +112,7 @@ class MainPage : Page() {
             )
             BrowseView(
                 modifier = Modifier.fillMaxSize(),
-                appIcon = R.mipmap.ic_launcher,
+                appIcon = R.mipmap.ic_launcher_foreground,
                 userIcon = user.value?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,
                 title = titleState.value,
                 messages = messages.value,
