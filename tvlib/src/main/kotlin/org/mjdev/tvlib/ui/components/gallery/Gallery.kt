@@ -130,9 +130,9 @@ fun Gallery(
         }
     },
     listState: TvLazyListState = rememberTvLazyListState(),
+    customOverlay: @Composable (item: Any?) -> Unit = {}
 ) {
     val initialized = remember { mutableStateOf(false) }
-
     Box(
         modifier = modifier.background(Color.Black, RectangleShape),
         contentAlignment = Alignment.BottomCenter,
@@ -178,6 +178,7 @@ fun Gallery(
                             }
                             .onKeyEvent { ev -> handleKey(ev) }
                     )
+                    customOverlay(list[currentItemIndex.intValue])
                     ItemInfo(
                         src = list[currentItemIndex.intValue],
                         infoVisible = infoVisible,
