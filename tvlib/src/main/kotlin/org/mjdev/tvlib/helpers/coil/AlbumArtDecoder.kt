@@ -25,11 +25,13 @@ import coil.request.Options
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.mjdev.tvlib.network.CacheInterceptor
 import org.xmlpull.v1.XmlPullParser
 import timber.log.Timber
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.InputStream
+import okhttp3.logging.HttpLoggingInterceptor
 
 @Suppress("PrivatePropertyName")
 class AlbumArtDecoder(
@@ -56,9 +58,21 @@ class AlbumArtDecoder(
         UserAgentInterceptor(USER_AGENT)
     }
 
+    private val cacheInterceptor by lazy {
+        CacheInterceptor()
+    }
+
+    private val httpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
             addNetworkInterceptor(userAgentInterceptor)
+            addNetworkInterceptor(cacheInterceptor)
+            addNetworkInterceptor(httpLoggingInterceptor)
             cache(httpCache)
         }.build()
     }

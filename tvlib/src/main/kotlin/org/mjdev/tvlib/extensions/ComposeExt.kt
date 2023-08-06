@@ -36,8 +36,13 @@ import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.request.CachePolicy
+import okhttp3.Cache
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
+import org.mjdev.tvlib.network.CacheInterceptor
+import java.io.File
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ComposeExt {
@@ -145,14 +150,31 @@ object ComposeExt {
                 .crossfade(false)
                 .diskCachePolicy(CachePolicy.ENABLED)
                 .memoryCachePolicy(CachePolicy.ENABLED)
+                .okHttpClient {
+                    OkHttpClient.Builder()
+                        .cache(
+                            Cache(
+                            directory = File(
+                                context.applicationContext.cacheDir,
+                                "http_cache"
+                            ),
+                            maxSize = 1024L * 1024L * 1024L
+                        )
+                        )
+                        .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                            level = HttpLoggingInterceptor.Level.BODY
+                        })
+                        .addNetworkInterceptor(CacheInterceptor())
+                        .build()
+                }
                 .diskCache {
                     DiskCache.Builder()
                         .directory(context.cacheDir.resolve("image_cache"))
                         .maxSizePercent(0.7)
                         .build()
                 }
-                .respectCacheHeaders(true)
-                .networkObserverEnabled(true)
+//                .respectCacheHeaders(false)
+//                .networkObserverEnabled(true)
                 .components {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         add(ImageDecoderDecoder.Factory())
