@@ -23,7 +23,7 @@ import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class IPTVViewModel @Inject constructor() : BaseViewModel() {
+class DetailViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var movieRepository: IMovieRepository
@@ -47,9 +47,9 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
     companion object {
 
         @Suppress("unused")
-        fun mockIPTVViewModel(
+        fun mockDetailViewModel(
             context: Context
-        ): IPTVViewModel = IPTVViewModel().apply {
+        ): DetailViewModel = DetailViewModel().apply {
             movieRepository = MovieRepository(DAO(context))
             networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)

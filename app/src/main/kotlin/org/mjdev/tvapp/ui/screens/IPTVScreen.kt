@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.data.local.Movie
-import org.mjdev.tvapp.viewmodel.IPTVViewModel
+import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.extensions.StringExt.parseUri
@@ -58,17 +58,17 @@ class IPTVScreen : Screen() {
     @Composable
     override fun ComposeScreen() {
 
-        val viewModel: IPTVViewModel = appViewModel { context ->
-            IPTVViewModel.mockIPTVViewModel(context)
+        val viewModel: DetailViewModel = appViewModel { context ->
+            DetailViewModel.mockDetailViewModel(context)
         }
 
         val data: Any? = remember { args[data] }
 
         val dataList = remember {
             when (data) {
-                is ItemAudio -> viewModel.localAudioCursor.asList()
-                is ItemVideo -> viewModel.localVideoCursor.asList()
-                is ItemPhoto -> viewModel.localPhotoCursor.asList()
+                is ItemAudio -> viewModel.localAudioCursor
+                is ItemVideo -> viewModel.localVideoCursor
+                is ItemPhoto -> viewModel.localPhotoCursor
                 is Movie -> viewModel.movieList()
                 else -> listOf(data)
             }
