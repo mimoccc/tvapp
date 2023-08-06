@@ -66,7 +66,7 @@ class SplashScreen : Screen() {
             contentAlignment = Alignment.Center
         ) {
             LottieAnimation(
-                modifier = Modifier.padding(80.dp) ,
+                modifier = Modifier.padding(120.dp) ,
                 composition = composition.value,
                 progress = {
                     progress.value
