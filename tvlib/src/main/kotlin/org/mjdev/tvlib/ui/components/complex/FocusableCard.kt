@@ -56,6 +56,7 @@ import org.mjdev.tvlib.ui.components.card.colorFocusBorder
 import org.mjdev.tvlib.ui.components.card.colorFocusGlow
 import org.mjdev.tvlib.ui.components.image.ImageAny
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
+import org.mjdev.tvlib.ui.components.text.TextAny
 import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
@@ -136,7 +137,7 @@ fun FocusableCard(
                         RectangleShape
                     )
             ) {
-                AutoHideEmptyText(
+                TextAny(
                     modifier = Modifier.padding(titlePadding),
                     maxLines = 1,
                     color = textColor,

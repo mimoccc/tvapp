@@ -47,6 +47,7 @@ fun BigCarousel(
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
         else config.screenHeightDp * 0.4f
     }
+    val isFocused = remember { mutableStateOf(false) }
     Box {
         Carousel(
             autoScrollDurationMillis = autoScrollDurationMillis,
@@ -62,7 +63,11 @@ fun BigCarousel(
                             val nextItem = carouselState.value.activeItemIndex + 1
                             if (nextItem < items.size) {
                                 carouselState.value = CarouselState(nextItem).apply {
-                                    pauseAutoScroll(nextItem)
+                                    pauseAutoScroll(nextItem).apply {
+                                        if (isFocused.value) {
+                                            resumeAutoScroll()
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -70,7 +75,11 @@ fun BigCarousel(
                             val prevItem = carouselState.value.activeItemIndex - 1
                             if (prevItem >= 0) {
                                 carouselState.value = CarouselState(prevItem).apply {
-                                    pauseAutoScroll(prevItem)
+                                    pauseAutoScroll(prevItem).apply {
+                                        if (isFocused.value) {
+                                            resumeAutoScroll()
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -88,10 +97,11 @@ fun BigCarousel(
                         if (state.isFocused || state.hasFocus) {
                             onItemSelected(selectedItem)
                         }
+                        isFocused.value = state.isFocused || state.hasFocus
                     },
                 contentScale = ContentScale.Crop,
                 scale = CardScale.None,
-                focused = (carouselState.value.activeItemIndex == indexOfCarouselItem),
+                focused = isFocused.value && (carouselState.value.activeItemIndex == indexOfCarouselItem),
                 onFocus = onItemSelected,
                 onClick = {
                     val selectedIdx = carouselState.value.activeItemIndex
