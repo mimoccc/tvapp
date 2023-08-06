@@ -54,6 +54,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.GlobalExt.toggle
+import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -131,6 +132,7 @@ fun Gallery(
     listState: TvLazyListState = rememberTvLazyListState(),
 ) {
     val initialized = remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier.background(Color.Black, RectangleShape),
         contentAlignment = Alignment.BottomCenter,
@@ -159,6 +161,20 @@ fun Gallery(
                                 detectTapGestures {
                                     infoVisible.toggle()
                                 }
+                            }
+                            .pointerInput(Unit) {
+                                detectSwipe(
+                                    onSwipeLeft = {
+                                        if (currentItemIndex.intValue < (list.size - 1)) {
+                                            currentItemIndex.intValue += 1
+                                        }
+                                    },
+                                    onSwipeRight = {
+                                        if (currentItemIndex.intValue > 0) {
+                                            currentItemIndex.intValue -= 1
+                                        }
+                                    },
+                                )
                             }
                             .onKeyEvent { ev -> handleKey(ev) }
                     )

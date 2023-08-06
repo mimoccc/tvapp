@@ -41,6 +41,7 @@ fun CarouselCard(
     contentScale: ContentScale = ContentScale.Crop,
     scale: CardScale = CardScale.None,
     focusState: MutableState<FocusState?> = rememberFocusState(item),
+    focused: Boolean = false,
     imageRenderer: @Composable () -> Unit = {
         val image = (item as? ItemWithImage<*>)?.image
         val background = (item as? ItemWithBackground<*>)?.background
@@ -66,7 +67,7 @@ fun CarouselCard(
         aspectRatio = 1f,
         contentScale = contentScale,
         scale = scale,
-        focusState = focusState,
+        focused = focused,
         imageRenderer = imageRenderer,
         titlePadding = titlePadding,
         onFocus = onFocus,

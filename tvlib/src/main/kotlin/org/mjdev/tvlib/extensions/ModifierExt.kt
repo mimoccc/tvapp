@@ -10,13 +10,16 @@ package org.mjdev.tvlib.extensions
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.relocation.BringIntoViewResponder
 import androidx.compose.foundation.relocation.bringIntoViewResponder
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,6 +37,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.debugInspectorInfo
@@ -41,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import timber.log.Timber
 import java.lang.Float.min
+import kotlin.math.abs
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ModifierExt {
@@ -173,6 +178,38 @@ object ModifierExt {
                         }
                     }
                 )
+        }
+    )
+
+    suspend fun PointerInputScope.detectSwipe(
+        swipeState: MutableIntState = mutableIntStateOf(-1),
+        onSwipeLeft: () -> Unit = {},
+        onSwipeRight: () -> Unit = {},
+        onSwipeUp: () -> Unit = {},
+        onSwipeDown: () -> Unit = {},
+    ) = detectDragGestures(
+        onDrag = { change, dragAmount ->
+            change.consume()
+            val (x, y) = dragAmount
+            if (abs(x) > abs(y)) {
+                when {
+                    x > 0 -> swipeState.intValue = 0
+                    x < 0 -> swipeState.intValue = 1
+                }
+            } else {
+                when {
+                    y > 0 -> swipeState.intValue = 2
+                    y < 0 -> swipeState.intValue = 3
+                }
+            }
+        },
+        onDragEnd = {
+            when (swipeState.intValue) {
+                0 -> onSwipeRight()
+                1 -> onSwipeLeft()
+                2 -> onSwipeDown()
+                3 -> onSwipeUp()
+            }
         }
     )
 
