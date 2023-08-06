@@ -60,7 +60,7 @@ fun BigCarousel(
                     detectSwipe(
                         onSwipeLeft = {
                             val nextItem = carouselState.value.activeItemIndex + 1
-                            if (nextItem <= items.size) {
+                            if (nextItem < items.size) {
                                 carouselState.value = CarouselState(nextItem).apply {
                                     pauseAutoScroll(nextItem)
                                 }
