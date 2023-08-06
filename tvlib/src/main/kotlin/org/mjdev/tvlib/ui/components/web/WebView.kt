@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
+@Suppress("LocalVariableName")
 @SuppressLint("SetJavaScriptEnabled")
 @TvPreview
 @Composable
@@ -26,22 +28,24 @@ fun WebView(
     url: String = "about:blank",
     enableJavaScript: Boolean = true
 ) {
+    val USER_AGENT =
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+    val isEdit = isEditMode()
     AndroidView(
         modifier = modifier,
         factory = { context ->
             WebView(context).apply {
                 background = ColorDrawable(0)
-                settings.userAgentString =
-                    "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012)" +
-                            " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 " +
-                            "Mobile Safari/537.36"
-                webChromeClient = WebChromeClient().apply {
-                    with(settings) {
-                        javaScriptEnabled = enableJavaScript
-                        allowContentAccess = true
+                if (!isEdit) {
+                    webChromeClient = WebChromeClient().apply {
+                        with(settings) {
+                            javaScriptEnabled = enableJavaScript
+                            allowContentAccess = true
+                            userAgentString = USER_AGENT
+                        }
                     }
+                    webViewClient = WebViewClient()
                 }
-                webViewClient = WebViewClient()
                 loadUrl(url)
             }
         }
