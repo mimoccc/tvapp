@@ -9,28 +9,50 @@
 package org.mjdev.tvlib.helpers.coil
 
 import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
+import android.util.Xml
 import androidx.core.graphics.drawable.toDrawable
 import coil.ImageLoader
-import coil.decode.DecodeResult
-import coil.decode.Decoder
-import coil.decode.ImageSource
-import coil.fetch.SourceResult
-import coil.request.Options
-import android.media.MediaMetadataRetriever
 import coil.annotation.ExperimentalCoilApi
 import coil.decode.AssetMetadata
 import coil.decode.ContentMetadata
+import coil.decode.DecodeResult
+import coil.decode.Decoder
+import coil.decode.ImageSource
 import coil.decode.ResourceMetadata
+import coil.fetch.SourceResult
+import coil.request.Options
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.xmlpull.v1.XmlPullParser
+import timber.log.Timber
+import java.io.BufferedInputStream
+import java.io.InputStream
 
-// todo downloader from net
 class AlbumArtDecoder(
     private val source: ImageSource,
     private val options: Options
 ) : Decoder {
 
+    private val httpClient: OkHttpClient by lazy { OkHttpClient() }
+
+    private fun call(url: String) = httpClient.newCall(
+        Request.Builder()
+            .url(url)
+            .build()
+    ).execute()
+
     override suspend fun decode() = MediaMetadataRetriever().use { retriever ->
         retriever.setDataSource(source)
-        val rawData = retriever.embeddedPicture
+        var rawData = retriever.embeddedPicture
+        if (rawData == null) {
+            var albumName = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
+            val artistName = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+            if (albumName == null && artistName == null) {
+                albumName = source.file().name // todo better logic
+            }
+            rawData = downloadAlbumArt(albumName, artistName)
+        }
         checkNotNull(rawData) {
             "Failed to decode embedded album art picture."
         }
@@ -41,6 +63,122 @@ class AlbumArtDecoder(
         )
     }
 
+    private fun downloadAlbumArt(albumName: String?, artistName: String?): ByteArray? {
+        var releaseGroupID: String? = null
+        var musicSearchUrl = "http://www.musicbrainz.org/ws/2/" +
+                "release-group?query=$albumName AND artist:$artistName"
+        musicSearchUrl = musicSearchUrl.replace(" ".toRegex(), "%20")
+        val musicSearchIs = retrieveXMLFromURL(musicSearchUrl)
+        if (musicSearchIs != null) {
+            try {
+                releaseGroupID = parse(musicSearchIs)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+        if (releaseGroupID != null) {
+            val url = "http://coverartarchive.org/release-group/$releaseGroupID/front"
+            val ins = try {
+                val response = call(url)
+                if (response.code == 200) {
+                    response.body?.byteStream()
+                } else {
+                    Timber.e(response.message)
+                    null
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+                null
+            }
+            return BufferedInputStream(ins).readBytes()
+        } else {
+            return null
+        }
+    }
+
+    private fun retrieveXMLFromURL(url: String): InputStream? = try {
+        val response = call(url)
+        if (response.code == 200) {
+            response.body?.byteStream()
+        } else {
+            Timber.e(response.message)
+            null
+        }
+    } catch (e: Exception) {
+        Timber.e(e)
+        null
+    }
+
+    @Throws(Exception::class)
+    fun parse(ins: InputStream): String? = ins.use { inst ->
+        val parser = Xml.newPullParser()
+        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+        parser.setInput(inst, null)
+        parser.nextTag()
+        readFeed(parser)
+    }
+
+    @Throws(Exception::class)
+    private fun readFeed(parser: XmlPullParser): String? {
+        var releaseGroupID: String? = null
+        val ns: String? = null
+        parser.require(XmlPullParser.START_TAG, ns, "metadata")
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.eventType != XmlPullParser.START_TAG) {
+                continue
+            }
+            val name = parser.name
+            Timber.i(name)
+            if (name == "release-group-list") {
+                releaseGroupID = readReleaseGroupID(parser)
+                break
+            } else {
+                skip(parser)
+            }
+        }
+        return releaseGroupID
+    }
+
+    @Throws(Exception::class)
+    private fun readReleaseGroupID(parser: XmlPullParser): String? {
+        var releaseGroupID: String? = null
+        val ns: String? = null
+        parser.require(XmlPullParser.START_TAG, ns, "release-group-list")
+        val numOfReleaseGroups = parser.getAttributeValue("", "count").toInt()
+        if (numOfReleaseGroups == 0) {
+            throw Exception("No release id in stream.")
+        }
+        Timber.i(parser.name)
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.eventType != XmlPullParser.START_TAG) {
+                Timber.i(parser.name)
+                continue
+            }
+            val name = parser.name
+            Timber.i(name)
+            if (name == "release-group") {
+                releaseGroupID = parser.getAttributeValue("", "id")
+                Timber.i(releaseGroupID)
+                break
+            } else {
+                skip(parser)
+            }
+        }
+        return releaseGroupID
+    }
+
+    @Throws(Exception::class)
+    private fun skip(parser: XmlPullParser) {
+        check(parser.eventType == XmlPullParser.START_TAG)
+        var depth = 1
+        while (depth != 0) {
+            when (parser.next()) {
+                XmlPullParser.END_TAG -> depth--
+                XmlPullParser.START_TAG -> depth++
+            }
+        }
+    }
+
     @OptIn(ExperimentalCoilApi::class)
     private fun MediaMetadataRetriever.setDataSource(source: ImageSource) {
         when (val metadata = source.metadata) {
@@ -49,12 +187,15 @@ class AlbumArtDecoder(
                     setDataSource(it.fileDescriptor, it.startOffset, it.length)
                 }
             }
+
             is ContentMetadata -> {
                 setDataSource(options.context, metadata.uri)
             }
+
             is ResourceMetadata -> {
                 setDataSource("android.resource://${metadata.packageName}/${metadata.resId}")
             }
+
             else -> {
                 setDataSource(source.file().toFile().path)
             }

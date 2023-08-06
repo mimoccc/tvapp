@@ -65,6 +65,7 @@ import org.mjdev.tvlib.ui.components.image.ImageBackground
 import org.mjdev.tvlib.ui.components.tv.TVRow
 import timber.log.Timber
 
+// todo on swipe hidden list is not scrolling
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalAnimationApi::class)
 @TvPreview
 @Composable
@@ -225,6 +226,8 @@ fun Gallery(
                         } catch (e: Exception) {
                             Timber.e(e)
                         }
+                    } else {
+                        // todo scroll to selected item
                     }
                 }
             }

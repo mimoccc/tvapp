@@ -101,7 +101,7 @@ fun BigCarousel(
                     },
                 contentScale = ContentScale.Crop,
                 scale = CardScale.None,
-                focused = isFocused.value && (carouselState.value.activeItemIndex == indexOfCarouselItem),
+//                focused = isFocused.value && (carouselState.value.activeItemIndex == indexOfCarouselItem),
                 onFocus = onItemSelected,
                 onClick = {
                     val selectedIdx = carouselState.value.activeItemIndex
