@@ -30,10 +30,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.helpers.media.MetadataRetriever
+import org.mjdev.tvlib.helpers.media.MetadataRetriever.Companion.rememberMetaDataRetriever
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDate
-import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
@@ -70,6 +71,7 @@ fun ItemInfo(
             }
         )
     },
+    metadataRetriever: MetadataRetriever = rememberMetaDataRetriever(),
     imageFromItem: () -> Any? = {
         val photo = (src as? ItemPhoto)?.uri
         val image = (src as? ItemWithImage<*>)?.image
@@ -80,10 +82,10 @@ fun ItemInfo(
         (src as? ItemWithTitle<*>)?.title
     },
     dateFromItem: () -> Any? = {
-        (src as? ItemWithDate)?.date
+        (src as? ItemWithDate)?.date ?: "-"
     },
     detailsFromItem: () -> Any? = {
-        (src as? ItemWithDescription<*>)?.description
+        metadataRetriever.getInfo(src)
     },
 ) {
     AnimatedVisibility(
@@ -117,7 +119,8 @@ fun ItemInfo(
                     AutoHideEmptyText(
                         text = detailsFromItem(),
                         color = Color.White,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        lineHeight = 12.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
