@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +29,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithDescription
@@ -49,7 +51,6 @@ fun ItemCard(
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
-    placeholder: @Composable () -> Unit = {},
     aspectRatio: Float = 16f / 9f,
     imageRenderer: @Composable () -> Unit = {
         ImageAny(
@@ -57,11 +58,12 @@ fun ItemCard(
             src = (item as? ItemWithImage<*>)?.image,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
-            placeholder = placeholder
         )
     },
     cardWidth: Dp = computeCardWidth(),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
+    focusRequester: FocusRequester = rememberFocusRequester(item),
+    focused: Boolean = false,
     titlePadding: PaddingValues = PaddingValues(8.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
@@ -69,6 +71,8 @@ fun ItemCard(
     modifier = modifier.recomposeHighlighter(),
     item = item,
     focusState = focusState,
+    focusRequester = focusRequester,
+    focused = focused,
     contentScale = contentScale,
     aspectRatio = aspectRatio,
     textColor = textColor,
@@ -79,7 +83,6 @@ fun ItemCard(
     glow = glow,
     cardWidth = cardWidth,
     imageRenderer = imageRenderer,
-    placeholder = placeholder,
     titlePadding = titlePadding,
     onFocus = onFocus,
     onClick = onClick,

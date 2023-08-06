@@ -64,11 +64,12 @@ object ComposeExt {
         get() = currentValue == DrawerValue.Closed
 
     @Composable
-    inline fun <reified T> textFrom(text: T?): String = when (text) {
+    fun <T> textFrom(text: T?): String = when (text) {
         null -> ""
         is Unit -> ""
         is Int -> LocalContext.current.getString(text)
         is String -> text
+        is MutableState<*> -> textFrom(text.value)
         else -> text.toString()
     }
 

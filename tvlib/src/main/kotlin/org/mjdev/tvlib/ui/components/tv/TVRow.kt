@@ -24,7 +24,6 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
-// todo : scroll horizontally by touch
 @TvPreview
 @Composable
 fun TVRow(

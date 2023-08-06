@@ -56,7 +56,8 @@ fun FadingPhotoImage(
     val fadingImage = remember { mutableStateOf(initialImage) }
     Crossfade(
         fadingImage.value,
-        animationSpec = tween(animationDuration)
+        animationSpec = tween(animationDuration),
+        label = "FadingImage"
     ) { targetState ->
         PhotoImage(
             modifier = modifier.blur(radius = blurRadius),

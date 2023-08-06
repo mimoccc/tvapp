@@ -40,9 +40,9 @@ open class CachingCursor(
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
     private val prefetchItems: Int = 8,
-    private val cacheItems: Int = 256,
+    private var cacheItems: Int = -1,
     private val transform: (Cursor) -> Any? = { it },
-) : Cursor {
+) : Cursor, List<Any?> {
 
     private val resolver: ContentResolver by lazy {
         context.contentResolver
@@ -75,6 +75,9 @@ open class CachingCursor(
     val isNotEmpty: Boolean get() = count > 0
 
     init {
+        if (cacheItems == -1) {
+            cacheItems = cursor?.count ?: 0
+        }
         (0..prefetchItems).forEach { idx -> getData(idx) }
     }
 
@@ -281,6 +284,48 @@ open class CachingCursor(
 
     override fun respond(b: Bundle?): Bundle? =
         cursor?.respond(b)
+
+    override val size: Int
+        get() = count
+
+    override fun get(index: Int): Any? = _get(index)
+    override fun isEmpty(): Boolean = (size == 0)
+
+    override fun iterator(): Iterator<Any?> =
+        CachingCursorListIterator(this)
+
+    override fun listIterator(): ListIterator<Any?> =
+        CachingCursorListIterator(this)
+
+    override fun listIterator(index: Int): ListIterator<Any?> =
+        CachingCursorListIterator(this, index)
+
+    override fun subList(fromIndex: Int, toIndex: Int): List<Any?> =
+        (fromIndex..toIndex).map { idx -> get(idx) }
+
+    override fun lastIndexOf(element: Any?): Int {
+        var curr: Int = size - 1
+        while ((this[curr] != element) && (curr > 0)) {
+            curr--
+        }
+        return curr
+    }
+
+    override fun indexOf(element: Any?): Int {
+        var curr = 0
+        while ((this[curr] != element) && (curr < size)) {
+            curr++
+        }
+        return if (curr == size) -1 else curr
+    }
+
+    override fun containsAll(elements: Collection<Any?>): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun contains(element: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
 
     data class CachedCursorItem(
         val idx: Int,

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,8 +23,14 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.extensions.StringExt.parseUri
+import org.mjdev.tvlib.interfaces.ItemAudio
+import org.mjdev.tvlib.interfaces.ItemPhoto
+import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
 import org.mjdev.tvlib.navigation.AnyType
@@ -51,19 +58,39 @@ class IPTVScreen : Screen() {
     @Composable
     override fun ComposeScreen() {
 
-        val data: Any? = remember { args[data] }
-
-        val mediaUri: String? = when (data) {
-            null -> null
-            is ItemWithUri<*> -> data.uri.toString()
-            is String -> data.toString()
-            is URL -> data.toString()
-            is Uri -> data.toString()
-            else -> data.toString()
+        val viewModel: IPTVViewModel = appViewModel { context ->
+            IPTVViewModel.mockIPTVViewModel(context)
         }
 
-        val mediaTitle: String? = when (data) {
-            is ItemWithTitle<*> -> data.title.toString()
+        val data: Any? = remember { args[data] }
+
+        val dataList = remember {
+            when (data) {
+                is ItemAudio -> viewModel.localAudioCursor.asList()
+                is ItemVideo -> viewModel.localVideoCursor.asList()
+                is ItemPhoto -> viewModel.localPhotoCursor.asList()
+                is Movie -> viewModel.movieList()
+                else -> listOf(data)
+            }
+        }
+
+        val currentIndex = remember {
+            mutableIntStateOf(dataList.indexOf(data))
+        }
+
+        val currentData = dataList[currentIndex.intValue]
+
+        val mediaUri: String? = when (currentData) {
+            null -> null
+            is ItemWithUri<*> -> currentData.uri.toString()
+            is String -> currentData.toString()
+            is URL -> currentData.toString()
+            is Uri -> currentData.toString()
+            else -> currentData.toString()
+        }
+
+        val mediaTitle: String? = when (currentData) {
+            is ItemWithTitle<*> -> currentData.title.toString()
             else -> null
         }
 

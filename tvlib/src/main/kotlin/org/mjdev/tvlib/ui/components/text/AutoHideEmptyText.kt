@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.LocalTextStyle
+import org.mjdev.tvlib.extensions.ComposeExt.textFrom
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -48,7 +49,8 @@ fun AutoHideEmptyText(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current
 ) {
-    if ((text != null) && (text.toString().isNotEmpty())) {
+    val textAny = textFrom(text)
+    if (textAny.isNotEmpty()) {
         TextAny(
             text,
             modifier.recomposeHighlighter(),

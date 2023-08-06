@@ -37,6 +37,7 @@ import org.mjdev.tvlib.ui.components.button.Button
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.ui.components.text.TextAny
 
+@Suppress("LocalVariableName")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
@@ -58,11 +59,14 @@ fun ErrorMessage(
 ) {
 
     Box(
-        modifier = Modifier.fillMaxWidth().recomposeHighlighter()
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter()
     ) {
 
         ConstraintLayout(
-            modifier = Modifier.recomposeHighlighter()
+            modifier = Modifier
+                .recomposeHighlighter()
                 .fillMaxWidth()
                 .padding(contentPadding)
                 .background(backgroundColor, RoundedCornerShape(roundSize))
@@ -79,7 +83,8 @@ fun ErrorMessage(
             }
 
             TextAny(
-                modifier = Modifier.recomposeHighlighter()
+                modifier = Modifier
+                    .recomposeHighlighter()
                     .wrapContentSize()
                     .constrainAs(_title) {
                         top.linkTo(parent.top)
@@ -94,7 +99,8 @@ fun ErrorMessage(
             )
 
             BasicText(
-                modifier = Modifier.recomposeHighlighter()
+                modifier = Modifier
+                    .recomposeHighlighter()
                     .wrapContentSize()
                     .constrainAs(_message) {
                         top.linkTo(parent.top)
@@ -113,36 +119,36 @@ fun ErrorMessage(
                 maxLines = 4,
                 text =
                 error?.message ?: (stringResource(id = R.string.error_unknown) +
-                    "\nType: " +
-                    (error?.javaClass?.simpleName ?: Exception::class.simpleName))
+                        "\nType: " +
+                        (error?.javaClass?.simpleName ?: Exception::class.simpleName))
             )
 
             if (dismissible && (cancelText != null)) {
 
                 Button(
-                    modifier = Modifier.recomposeHighlighter()
+                    modifier = Modifier
+                        .recomposeHighlighter()
                         .padding(4.dp)
                         .constrainAs(_button) {
                             top.linkTo(parent.top, margin = 4.dp)
                             end.linkTo(parent.end, margin = roundSize)
                             bottom.linkTo(parent.bottom, margin = 4.dp)
                         },
-                    contentPadding=PaddingValues(
+                    contentPadding = PaddingValues(
                         8.dp,
                         4.dp
                     ),
                     containerColor = Color.Red,
                     onClick = {
                         onDismiss()
+                    },
+                    content = {
+                        TextAny(
+                            text = cancelText,
+                            color = color
+                        )
                     }
-                ) {
-
-                    TextAny(
-                        text = cancelText,
-                        color = color
-                    )
-
-                }
+                )
 
             }
 

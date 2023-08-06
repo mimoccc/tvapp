@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toDrawable
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
+import com.skydoves.landscapist.coil.CoilImageState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -41,14 +42,20 @@ import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
+import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
 @Preview
 @Composable
 fun PhotoImage(
-    src: Any? = R.drawable.person,
-    placeholder: @Composable () -> Unit = {},
+    src: Any? = null,
     modifier: Modifier = Modifier,
+    placeholder: @Composable () -> Unit = {
+        ImageAny(
+            modifier = modifier,
+            src = R.drawable.broken_image
+        )
+    },
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Crop,
     alpha: Float = DefaultAlpha,
@@ -63,13 +70,25 @@ fun PhotoImage(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
+    onImageStateChanged: (state: CoilImageState) -> Unit = {}
 ) {
     val isEdit = isEditMode()
     val context = LocalContext.current
     val imageLoader = rememberImageLoader()
+    val imageOptions = ImageOptions(
+        contentScale = contentScale,
+        alignment = alignment,
+        contentDescription = contentDescription,
+        alpha = alpha,
+        colorFilter = colorFilter,
+    )
     CoilImage(
-        imageLoader = { imageLoader },
-        imageModel = { src },
+        imageLoader = {
+            imageLoader
+        },
+        imageModel = {
+            src
+        },
         modifier = modifier
             .recomposeHighlighter()
             .conditional(isEdit) {
@@ -79,17 +98,13 @@ fun PhotoImage(
                 BorderStroke(borderSize, borderColor),
                 shape
             ),
-        imageOptions = ImageOptions(
-            contentScale = contentScale,
-            alignment = alignment,
-            contentDescription = contentDescription,
-            alpha = alpha,
-            colorFilter = colorFilter,
-        ),
-        failure = {
+        imageOptions = imageOptions,
+        failure = { failure ->
+            Timber.e(failure.reason)
             placeholder()
         },
-        onImageStateChanged = {
+        onImageStateChanged = { state ->
+            onImageStateChanged.invoke(state)
         },
         success = { state, _ ->
             val bitmap = state.imageBitmap?.asAndroidBitmap()

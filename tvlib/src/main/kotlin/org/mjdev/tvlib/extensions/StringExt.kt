@@ -14,6 +14,6 @@ object StringExt {
 
     fun String.asException() = Exception(this)
 
-    fun String.parseUri() = Uri.parse(this)
+    fun String.parseUri(): Uri = Uri.parse(this)
 
 }

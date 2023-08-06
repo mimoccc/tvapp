@@ -11,6 +11,7 @@ package org.mjdev.tvlib.ui.components.button
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,7 +45,6 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 @Composable
 fun Button(
     text: Any? = "test",
-    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 24.sp,
     fontWeight: FontWeight = FontWeight.Bold,
@@ -60,16 +60,17 @@ fun Button(
     focusState: MutableState<FocusState?> = rememberFocusState(text),
     content: @Composable RowScope.() -> Unit = {
         TextAny(text = text)
-    }
+    },
+    onClick: () -> Unit = {},
 ) {
 
     Button(
         modifier = modifier
             .recomposeHighlighter()
-//            .touchable(
-//                focusState = focusState,
-//            )
-            .border(BorderStroke(borderSize, borderColor), shape),
+            .border(BorderStroke(borderSize, borderColor), shape)
+            .clickable {
+               onClick()
+            },
         glow = glow,
         scale = scale,
         onClick = onClick,

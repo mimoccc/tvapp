@@ -76,4 +76,22 @@ class Movie :
             studio = value
         }
 
+    override fun equals(other: Any?): Boolean {
+        if (other == null || other !is Movie) return false
+        return uri == other.uri
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (category?.hashCode() ?: 0)
+        result = 31 * result + (studio?.hashCode() ?: 0)
+        result = 31 * result + (country?.hashCode() ?: 0)
+        result = 31 * result + isNsfw.hashCode()
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + (uri?.hashCode() ?: 0)
+        result = 31 * result + (subtitle?.hashCode() ?: 0)
+        return result
+    }
+
 }

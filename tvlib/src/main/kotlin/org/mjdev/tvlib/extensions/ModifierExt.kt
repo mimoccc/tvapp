@@ -9,8 +9,11 @@
 package org.mjdev.tvlib.extensions
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.relocation.BringIntoViewResponder
+import androidx.compose.foundation.relocation.bringIntoViewResponder
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
@@ -24,6 +27,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -31,10 +35,10 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.mjdev.tvlib.BuildConfig
 import timber.log.Timber
 import java.lang.Float.min
 
@@ -42,7 +46,7 @@ import java.lang.Float.min
 object ModifierExt {
 
     // used to debug library
-    val isDebug = false
+    const val isDebug = false
 
     fun Modifier.conditional(
         condition: Boolean,
@@ -147,5 +151,29 @@ object ModifierExt {
             }
         }
     }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    fun Modifier.bringIntoViewIfChildrenAreFocused(): Modifier = composed(
+        inspectorInfo = debugInspectorInfo { name = "bringIntoViewIfChildrenAreFocused" },
+        factory = {
+            var myRect: Rect = Rect.Zero
+            this
+                .onSizeChanged {
+                    myRect = Rect(Offset.Zero, Offset(it.width.toFloat(), it.height.toFloat()))
+                }
+                .bringIntoViewResponder(
+                    remember {
+                        object : BringIntoViewResponder {
+                            @ExperimentalFoundationApi
+                            override fun calculateRectForParent(localRect: Rect): Rect = myRect
+
+                            @ExperimentalFoundationApi
+                            override suspend fun bringChildIntoView(localRect: () -> Rect?) {
+                            }
+                        }
+                    }
+                )
+        }
+    )
 
 }

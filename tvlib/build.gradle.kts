@@ -154,6 +154,8 @@ dependencies {
     implementation("androidx.palette:palette-ktx:1.0.0")
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.1.0")
+    // exif info
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
     // constraints
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

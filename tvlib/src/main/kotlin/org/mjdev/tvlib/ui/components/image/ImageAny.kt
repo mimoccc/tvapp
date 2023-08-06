@@ -36,19 +36,17 @@ import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
-// todo placeholder
 @SuppressLint("ModifierParameter")
 @Preview
 @Composable
 fun ImageAny(
     modifier: Modifier = Modifier,
-    src: Any? = R.drawable.person,
+    src: Any? = null,
     contentDescription: String? = null,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
-    placeholder: @Composable () -> Unit = {}, // todo on error
 ) = BoxWithConstraints(
     modifier = modifier
 ) {
@@ -59,7 +57,17 @@ fun ImageAny(
 
     when (src) {
 
-        null, Unit -> placeholder()
+        null, Unit -> {
+            Image(
+                painterResource(R.drawable.broken_image),
+                contentDescription,
+                modifier.recomposeHighlighter(),
+                alignment,
+                contentScale,
+                alpha,
+                colorFilter
+            )
+        }
 
         Color -> Image(
             ColorDrawable((src as Color).toArgb()).asImageBitmap(width, height),
@@ -122,9 +130,13 @@ fun ImageAny(
         )
 
         is URL -> CoilImage(
-            imageLoader = { imageLoader },
+            imageLoader = {
+                imageLoader
+            },
             modifier = modifier.recomposeHighlighter(),
-            imageModel = { src },
+            imageModel = {
+                src
+            },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,
@@ -135,9 +147,13 @@ fun ImageAny(
         )
 
         is Uri -> CoilImage(
-            imageLoader = { imageLoader },
+            imageLoader = {
+                imageLoader
+            },
             modifier = modifier.recomposeHighlighter(),
-            imageModel = { src },
+            imageModel = {
+                src
+            },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,
@@ -148,9 +164,13 @@ fun ImageAny(
         )
 
         is String -> CoilImage(
-            imageLoader = { imageLoader },
+            imageLoader = {
+                imageLoader
+            },
             modifier = modifier.recomposeHighlighter(),
-            imageModel = { src },
+            imageModel = {
+                src
+            },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,

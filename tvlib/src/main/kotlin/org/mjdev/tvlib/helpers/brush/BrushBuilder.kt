@@ -28,7 +28,7 @@ class BrushBuilder {
     private var end: Float = Float.POSITIVE_INFINITY
     private var tileMode: TileMode = TileMode.Clamp
 
-    fun build(): Brush? = when (type) {
+    fun build(): Brush = when (type) {
         Vertical -> {
             Brush.verticalGradient(
                 colorStops = colorStops,
@@ -38,7 +38,7 @@ class BrushBuilder {
             )
         }
 
-        Horizontal -> {
+        else -> {
             Brush.horizontalGradient(
                 colorStops = colorStops,
                 startX = start,
@@ -46,8 +46,6 @@ class BrushBuilder {
                 tileMode = tileMode
             )
         }
-
-        else -> null
     }
 
     fun type(type: Int): BrushBuilder = apply {

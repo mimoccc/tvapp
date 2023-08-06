@@ -9,10 +9,15 @@
 package org.mjdev.tvlib.extensions
 
 import android.os.Handler
+import androidx.compose.runtime.MutableState
 import timber.log.Timber
 
 @Suppress("unused")
 object GlobalExt {
+
+    fun MutableState<Boolean>.toggle() {
+        value = !value
+    }
 
     suspend fun <E> runSafe(block: suspend () -> E): Result<E> = try {
         block.invoke().let { result ->

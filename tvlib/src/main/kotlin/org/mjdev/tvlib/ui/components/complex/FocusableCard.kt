@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -55,6 +56,7 @@ import org.mjdev.tvlib.ui.components.card.colorFocusBorder
 import org.mjdev.tvlib.ui.components.card.colorFocusGlow
 import org.mjdev.tvlib.ui.components.image.ImageAny
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
+import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -72,21 +74,20 @@ fun FocusableCard(
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
-    placeholder: @Composable () -> Unit = {},
     imageRenderer: @Composable () -> Unit = {
         ImageAny(
             modifier = Modifier.fillMaxSize(),
             src = (item as? ItemWithImage<*>)?.image,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
-            placeholder = placeholder
         )
     },
     focusRequester: FocusRequester = rememberFocusRequester(item),
     focusState: MutableState<FocusState?> = rememberFocusState(item),
+    focused: Boolean = false,
     onFocus: (item: Any?) -> Unit = {},
     onFocusChange: (state: FocusState) -> Unit = { state ->
-        if (state.isFocused) {
+        if (state.isFocused || state.hasFocus) {
             onFocus(item)
         }
     },
@@ -172,4 +173,13 @@ fun FocusableCard(
             onClick(item)
         },
     )
+    LaunchedEffect(focused) {
+        try {
+            if (focused) {
+                focusRequester.requestFocus()
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
 }
