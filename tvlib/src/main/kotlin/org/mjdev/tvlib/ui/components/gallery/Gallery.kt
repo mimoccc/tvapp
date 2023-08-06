@@ -52,6 +52,7 @@ import androidx.tv.foundation.lazy.list.itemsIndexed
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
+import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.GlobalExt.toggle
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
@@ -64,10 +65,11 @@ import org.mjdev.tvlib.ui.components.tv.TVRow
 import timber.log.Timber
 
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalAnimationApi::class)
+@TvPreview
 @Composable
 fun Gallery(
     modifier: Modifier = Modifier,
-    list: List<Any?> = listOf(),
+    list: List<Any?> = listOf(Unit),
     index: Int = 0,
     createColorBrush: (
         color: Color,
@@ -128,6 +130,7 @@ fun Gallery(
     },
     listState: TvLazyListState = rememberTvLazyListState(),
 ) {
+    val initialized = remember { mutableStateOf(false) }
     Box(
         modifier = modifier.background(Color.Black, RectangleShape),
         contentAlignment = Alignment.BottomCenter,
@@ -210,6 +213,10 @@ fun Gallery(
             }
         }
         LaunchedEffect(currentItemIndex.intValue) {
+            if (!initialized.value) {
+                listState.scrollToItem(currentItemIndex.intValue)
+                initialized.value = true
+            }
             delay(5000)
             infoVisible.value = false
         }

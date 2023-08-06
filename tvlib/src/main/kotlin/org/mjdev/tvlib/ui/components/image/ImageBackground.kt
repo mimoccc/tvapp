@@ -32,7 +32,7 @@ fun ImageBackground(
     image: Any? = null,
     transform: ((color: Color) -> Brush)? = null,
     contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable () -> Unit = {}
+    content: @Composable (bckColor: Color) -> Unit = {}
 ) {
     val context = LocalContext.current
     val imageLoader = rememberImageLoader()
@@ -47,7 +47,7 @@ fun ImageBackground(
             },
         contentAlignment = contentAlignment
     ) {
-        content()
+        content(bckColor.value)
     }
     LaunchedEffect(image) {
         bckColor.value = imageLoader.execute(

@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ColorExt.invert
 import org.mjdev.tvlib.helpers.media.MetadataRetriever
 import org.mjdev.tvlib.helpers.media.MetadataRetriever.Companion.rememberMetaDataRetriever
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -88,6 +89,7 @@ fun ItemInfo(
         metadataRetriever.getInfo(src)
     },
 ) {
+    // todo color invert text does not work properly?
     AnimatedVisibility(
         visible = infoVisible.value,
         enter = fadeIn(),
@@ -101,24 +103,24 @@ fun ItemInfo(
                 modifier = Modifier.fillMaxWidth(),
                 image = imageFromItem(),
                 transform = { color -> createColorBrush(color, Gravity.TOP) }
-            ) {
+            ) { bckColor ->
                 Column(
                     modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp)
                 ) {
                     Spacer(modifier = Modifier.height(16.dp))
                     AutoHideEmptyText(
                         text = titleFromItem(),
-                        color = Color.White,
+                        color = bckColor.invert().copy(alpha = 1.0f),
                         fontSize = 24.sp
                     )
                     AutoHideEmptyText(
                         text = dateFromItem(),
-                        color = Color.White,
+                        color = bckColor.invert().copy(alpha = 1.0f),
                         fontSize = 16.sp
                     )
                     AutoHideEmptyText(
                         text = detailsFromItem(),
-                        color = Color.White,
+                        color = bckColor.invert().copy(alpha = 1.0f),
                         fontSize = 12.sp,
                         lineHeight = 12.sp
                     )

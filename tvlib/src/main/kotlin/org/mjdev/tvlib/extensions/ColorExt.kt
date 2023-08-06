@@ -11,10 +11,24 @@
 package org.mjdev.tvlib.extensions
 
 import androidx.annotation.FloatRange
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import kotlin.math.roundToInt
 
-object ColorFilterExt {
+object ColorExt {
+
+    fun Color.invert(): Color {
+        val a :Int = alpha.roundToInt()
+        val r :Int = 255 - red.roundToInt()
+        val g :Int = 255 - green.roundToInt()
+        val b :Int = 255 - blue.roundToInt()
+        val color = ((a and 0xFF) shl 24) or
+                ((r and 0xFF) shl 16) or
+                ((g and 0xFF) shl 8) or
+                (b and 0xFF)
+        return Color(color)
+    }
 
     fun contrastAndBrightness(
         @FloatRange(from = 0.0, to = 10.0)

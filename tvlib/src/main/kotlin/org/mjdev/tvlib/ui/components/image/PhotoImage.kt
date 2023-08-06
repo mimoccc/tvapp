@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import org.mjdev.tvlib.extensions.ColorFilterExt.contrastAndBrightness
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -37,6 +36,7 @@ import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.coil.CoilImageState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
+import org.mjdev.tvlib.extensions.ColorExt.contrastAndBrightness
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
