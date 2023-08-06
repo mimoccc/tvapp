@@ -34,6 +34,7 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
+import coil.disk.DiskCache
 import coil.request.CachePolicy
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
@@ -144,6 +145,12 @@ object ComposeExt {
                 .crossfade(false)
                 .diskCachePolicy(CachePolicy.ENABLED)
                 .memoryCachePolicy(CachePolicy.ENABLED)
+                .diskCache {
+                    DiskCache.Builder()
+                        .directory(context.cacheDir.resolve("image_cache"))
+                        .maxSizePercent(0.7)
+                        .build()
+                }
                 .respectCacheHeaders(true)
                 .networkObserverEnabled(true)
                 .components {

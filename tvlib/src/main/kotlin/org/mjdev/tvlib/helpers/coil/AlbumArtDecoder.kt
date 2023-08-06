@@ -29,12 +29,20 @@ import timber.log.Timber
 import java.io.BufferedInputStream
 import java.io.InputStream
 
+@Suppress("PrivatePropertyName")
 class AlbumArtDecoder(
     private val source: ImageSource,
     private val options: Options
 ) : Decoder {
 
-    private val httpClient: OkHttpClient by lazy { OkHttpClient() }
+    private val USER_AGENT =
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+
+    private val httpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder().apply {
+            addNetworkInterceptor(UserAgentInterceptor(USER_AGENT))
+        }.build()
+    }
 
     private fun call(url: String) = httpClient.newCall(
         Request.Builder()
@@ -44,12 +52,17 @@ class AlbumArtDecoder(
 
     override suspend fun decode() = MediaMetadataRetriever().use { retriever ->
         retriever.setDataSource(source)
-        var rawData = retriever.embeddedPicture
+        var rawData = try {
+            retriever.embeddedPicture
+        } catch (e: Exception) {
+            Timber.e(e)
+            null
+        }
         if (rawData == null) {
             var albumName = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
             val artistName = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
             if (albumName == null && artistName == null) {
-                albumName = source.file().name // todo better logic
+                albumName = source.file().name.substringBeforeLast(".")
             }
             rawData = downloadAlbumArt(albumName, artistName)
         }
@@ -65,8 +78,10 @@ class AlbumArtDecoder(
 
     private fun downloadAlbumArt(albumName: String?, artistName: String?): ByteArray? {
         var releaseGroupID: String? = null
-        var musicSearchUrl = "http://www.musicbrainz.org/ws/2/" +
-                "release-group?query=$albumName AND artist:$artistName"
+        var musicSearchUrl = "http://www.musicbrainz.org/ws/2/release-group?query=$albumName"
+        if (artistName != null) {
+            musicSearchUrl += " AND artist:$artistName"
+        }
         musicSearchUrl = musicSearchUrl.replace(" ".toRegex(), "%20")
         val musicSearchIs = retrieveXMLFromURL(musicSearchUrl)
         if (musicSearchIs != null) {
