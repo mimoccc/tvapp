@@ -22,11 +22,13 @@ import coil.decode.ImageSource
 import coil.decode.ResourceMetadata
 import coil.fetch.SourceResult
 import coil.request.Options
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.xmlpull.v1.XmlPullParser
 import timber.log.Timber
 import java.io.BufferedInputStream
+import java.io.File
 import java.io.InputStream
 
 @Suppress("PrivatePropertyName")
@@ -38,16 +40,31 @@ class AlbumArtDecoder(
     private val USER_AGENT =
         "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
 
+    private val context get() = options.context
+
+    private val httpCache by lazy {
+        Cache(
+            directory = File(
+                context.applicationContext.cacheDir,
+                "http_cache"
+            ),
+            maxSize = 1024L * 1024L * 1024L
+        )
+    }
+
+    private val userAgentInterceptor by lazy {
+        UserAgentInterceptor(USER_AGENT)
+    }
+
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
-            addNetworkInterceptor(UserAgentInterceptor(USER_AGENT))
+            addNetworkInterceptor(userAgentInterceptor)
+            cache(httpCache)
         }.build()
     }
 
     private fun call(url: String) = httpClient.newCall(
-        Request.Builder()
-            .url(url)
-            .build()
+        Request.Builder().url(url).build()
     ).execute()
 
     override suspend fun decode() = MediaMetadataRetriever().use { retriever ->
