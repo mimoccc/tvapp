@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithIntent
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -36,29 +38,31 @@ class AppsManager(
     vararg excluded: ComponentName
 ) : ArrayList<App>() {
     init {
-        val packageManager = context.packageManager
-        val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
-        }
-        val resolveInfo = packageManager.queryIntentActivities(mainIntent, 0)
-        Collections.sort(resolveInfo, ResolveInfo.DisplayNameComparator(packageManager))
-        resolveInfo.forEach { ri ->
-            val isExcluded = excluded.any { cn ->
-                cn.packageName == ri.activityInfo.packageName &&
-                        cn.shortClassName == ri.activityInfo.name
+        runBlocking(Dispatchers.IO) {
+            val packageManager = context.packageManager
+            val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+                addCategory(Intent.CATEGORY_LAUNCHER)
             }
-            if (!isExcluded) {
-                val title = ri.activityInfo.loadLabel(packageManager).toString()
-                val image = ri.activityInfo
-                    .loadBanner(packageManager) ?: ri.activityInfo
-                    .loadIcon(packageManager)
-                val intent = Intent().apply {
-                    setClassName(
-                        ri.activityInfo.packageName,
-                        ri.activityInfo.name
-                    )
+            val resolveInfo = packageManager.queryIntentActivities(mainIntent, 0)
+            Collections.sort(resolveInfo, ResolveInfo.DisplayNameComparator(packageManager))
+            resolveInfo.forEach { ri ->
+                val isExcluded = excluded.any { cn ->
+                    cn.packageName == ri.activityInfo.packageName &&
+                            cn.shortClassName == ri.activityInfo.name
                 }
-                add(App(title, image, intent))
+                if (!isExcluded) {
+                    val title = ri.activityInfo.loadLabel(packageManager).toString()
+                    val image = ri.activityInfo
+                        .loadBanner(packageManager) ?: ri.activityInfo
+                        .loadIcon(packageManager)
+                    val intent = Intent().apply {
+                        setClassName(
+                            ri.activityInfo.packageName,
+                            ri.activityInfo.name
+                        )
+                    }
+                    add(App(title, image, intent))
+                }
             }
         }
     }

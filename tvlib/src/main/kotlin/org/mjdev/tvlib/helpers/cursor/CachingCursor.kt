@@ -28,6 +28,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
 import timber.log.Timber
 
@@ -39,8 +41,6 @@ open class CachingCursor(
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
-    private val prefetchItems: Int = 8,
-    private var cacheItems: Int = -1,
     private val transform: (Cursor) -> Any? = { it },
 ) : Cursor, List<Any?> {
 
@@ -50,36 +50,31 @@ open class CachingCursor(
     private val observer = object : ContentObserver(null) {
         @Suppress("DEPRECATION")
         override fun onChange(selfChange: Boolean) {
-            cursor?.requery()
+            requery()
         }
     }
     private val cache: MutableList<CachedCursorItem> = mutableListOf()
     private val cursor: Cursor? by lazy {
-        if (uri != null) {
-            try {
-                resolver.query(
-                    uri, projection, selection, selectionArgs, sortOrder
-                )?.apply {
-                    registerContentObserver(observer)
-                    if (this.isNotEmpty) {
-                        moveToFirst()
+        runBlocking(Dispatchers.IO) {
+            if (uri != null) {
+                try {
+                    resolver.query(
+                        uri, projection, selection, selectionArgs, sortOrder
+                    )?.apply {
+                        registerContentObserver(observer)
+                        if (this.isNotEmpty) {
+                            moveToFirst()
+                        }
                     }
+                } catch (e: Exception) {
+                    Timber.e(e)
+                    null
                 }
-            } catch (e: Exception) {
-                Timber.e(e)
-                null
-            }
-        } else null
+            } else null
+        }
     }
 
     val isNotEmpty: Boolean get() = count > 0
-
-    init {
-        if (cacheItems == -1) {
-            cacheItems = cursor?.count ?: 0
-        }
-        (0..prefetchItems).forEach { idx -> getData(idx) }
-    }
 
     private fun _get(idx: Int): Any? {
         var result: Any? = null
@@ -102,18 +97,10 @@ open class CachingCursor(
     }
 
     fun getData(idx: Int): Any? {
-        (idx - prefetchItems..idx + prefetchItems).forEach { i -> _get(i) }
         return _get(idx)
     }
 
     private fun insertToCache(idx: Int, value: Any) {
-        if (cache.size > cacheItems) {
-            cache.minByOrNull { item ->
-                item.cached
-            }?.let { item ->
-                cache.remove(item)
-            }
-        }
         cache.add(CachedCursorItem(idx, System.currentTimeMillis(), value))
     }
 
@@ -234,15 +221,13 @@ open class CachingCursor(
         cursor?.deactivate()
     }
 
-    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
-    override fun requery(): Boolean {
+    override fun requery(): Boolean = runBlocking(Dispatchers.IO) { _requery() }
+
+    @Suppress("SpellCheckingInspection", "DEPRECATION")
+    private fun _requery(): Boolean {
         cache.clear()
-        val result = cursor?.requery() ?: false
-        if (result) {
-            (0..prefetchItems).forEach { idx -> getData(idx) }
-        }
-        return result
+        return cursor?.requery() ?: false
     }
 
     override fun isClosed(): Boolean =
@@ -285,8 +270,7 @@ open class CachingCursor(
     override fun respond(b: Bundle?): Bundle? =
         cursor?.respond(b)
 
-    override val size: Int
-        get() = count
+    override val size: Int get() = count
 
     override fun get(index: Int): Any? = _get(index)
     override fun isEmpty(): Boolean = (size == 0)
@@ -335,7 +319,7 @@ open class CachingCursor(
 
     companion object {
 
-        @Deprecated("Please for better performance use viewmodel with cursors.")
+        @Deprecated("Please for better performance use view model with cursors.")
         @SuppressLint("Recycle")
         @Composable
         fun rememberCursor(
@@ -344,8 +328,6 @@ open class CachingCursor(
             selection: String? = null,
             selectionArgs: Array<String>? = null,
             sortOrder: String? = null,
-            prefetchItems: Int = 8,
-            cacheItems: Int = 256,
             transform: (Cursor) -> Any?,
         ): CachingCursor? {
             if (uri == null) return null
@@ -362,8 +344,6 @@ open class CachingCursor(
                         selection,
                         selectionArgs,
                         sortOrder,
-                        prefetchItems,
-                        cacheItems,
                         transform,
                     )
                     onDispose {
