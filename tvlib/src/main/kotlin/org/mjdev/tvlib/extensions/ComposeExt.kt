@@ -149,7 +149,7 @@ object ComposeExt {
                 .addLastModifiedToFileCacheKey(true)
                 .crossfade(false)
                 .diskCachePolicy(CachePolicy.ENABLED)
-                .memoryCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.DISABLED)
                 .okHttpClient {
                     OkHttpClient.Builder()
                         .cache(

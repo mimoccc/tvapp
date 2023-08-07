@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
@@ -51,7 +52,10 @@ fun ImageBackground(
     }
     LaunchedEffect(image) {
         bckColor.value = imageLoader.execute(
-            ImageRequest.Builder(context).data(image).build()
+            ImageRequest.Builder(context)
+                .data(image)
+                .diskCachePolicy(CachePolicy.DISABLED)
+                .build()
         ).drawable?.toBitmap()?.majorColor(Color.Black) ?: Color.Black
     }
 }
