@@ -59,6 +59,9 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:clearTaskOnLaunch="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
             android:exported="true">
 
             <intent-filter>
@@ -66,6 +69,12 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
 
@@ -74,7 +83,6 @@
 
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="fireos.intent.category.MAIN_HOME" />
             </intent-filter>
 
@@ -83,12 +91,20 @@
         <activity
             android:name=".activity.IPTVActivity"
             android:exported="true"
+            android:launchMode="singleInstance"
+            android:clearTaskOnLaunch="true"
+            android:finishOnTaskLaunch="true"
             android:label="@string/title_iptv">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
 
@@ -97,6 +113,9 @@
         <activity
             android:name=".activity.WebActivity"
             android:exported="true"
+            android:launchMode="singleInstance"
+            android:clearTaskOnLaunch="true"
+            android:finishOnTaskLaunch="true"
             android:label="@string/title_web">
 
             <intent-filter>
@@ -110,6 +129,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
 
@@ -122,15 +146,6 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
             </intent-filter>
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-<!--                <data android:scheme="demo" />-->
-<!--            </intent-filter>-->
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -156,23 +171,29 @@
         <service
             android:name=".sync.SyncService"
             android:exported="false">
+
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
+
             <meta-data
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_adapter" />
+
         </service>
 
         <service
             android:name=".sync.AuthenticatorService"
             android:exported="false">
+
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
+
         </service>
 
         <provider
