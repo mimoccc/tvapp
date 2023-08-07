@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -52,12 +51,12 @@ import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithSubtitle
 import org.mjdev.tvlib.interfaces.ItemWithTitle
+import org.mjdev.tvlib.ui.components.card.CardFocus
 import org.mjdev.tvlib.ui.components.card.colorFocusBorder
 import org.mjdev.tvlib.ui.components.card.colorFocusGlow
 import org.mjdev.tvlib.ui.components.image.ImageAny
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
 import org.mjdev.tvlib.ui.components.text.TextAny
-import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -83,9 +82,12 @@ fun FocusableCard(
             contentScale = contentScale,
         )
     },
+    focused: Boolean = isEditMode(),
     focusRequester: FocusRequester = rememberFocusRequester(item),
-    focusState: MutableState<FocusState?> = rememberFocusState(item),
-    focused: Boolean = false,
+    focusState: MutableState<FocusState?> = rememberFocusState(
+        item,
+        CardFocus(focused)
+    ),
     onFocus: (item: Any?) -> Unit = {},
     onFocusChange: (state: FocusState) -> Unit = { state ->
         if (state.isFocused || state.hasFocus) {
@@ -174,13 +176,13 @@ fun FocusableCard(
             onClick(item)
         },
     )
-    LaunchedEffect(focused) {
-        try {
-            if (focused) {
-                focusRequester.requestFocus()
-            }
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-    }
+//    LaunchedEffect(focused) {
+//        try {
+//            if (focused) {
+//                focusRequester.requestFocus()
+//            }
+//        } catch (e: Exception) {
+//            Timber.e(e)
+//        }
+//    }
 }

@@ -64,7 +64,7 @@ fun Carousel(
                 .padding(16.dp),
         )
     },
-    content: @Composable AnimatedContentScope.(isFocused:Boolean, index: Int) -> Unit
+    content: @Composable AnimatedContentScope.(index: Int) -> Unit
 ) {
 
     CarouselStateUpdater(carouselState, itemCount)
@@ -134,9 +134,7 @@ fun Carousel(
                 }
             }
             if (itemCount > 0) {
-                val isFocused = focusState?.let { f -> f.isFocused || f.hasFocus } ?: false
                 content(
-                    isFocused,
                     if (activeItemIndex < itemCount) activeItemIndex else 0
                 )
             }

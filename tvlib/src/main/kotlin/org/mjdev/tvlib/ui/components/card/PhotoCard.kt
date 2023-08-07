@@ -25,7 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -42,9 +44,12 @@ fun PhotoCard(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
     textColor: Color = Color.White,
-    focusState: MutableState<FocusState?> = rememberFocusState(item),
+    focused: Boolean = ComposeExt.isEditMode(),
+    focusState: MutableState<FocusState?> = rememberFocusState(
+        item,
+        CardFocus(focused)
+    ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
-    focused: Boolean = false,
     @FloatRange(from = 0.0, to = 10.0)
     contrast: Float = 5f,
     @FloatRange(from = -255.0, to = 255.0)
@@ -56,6 +61,7 @@ fun PhotoCard(
             contentScale = contentScale,
             contrast = contrast,
             brightness = brightness,
+            borderColor = if (focusState.isFocused) Color.Green else Color.Black,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
         )
     },

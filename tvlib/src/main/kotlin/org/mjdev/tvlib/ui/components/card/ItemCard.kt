@@ -29,6 +29,7 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -61,9 +62,12 @@ fun ItemCard(
         )
     },
     cardWidth: Dp = computeCardWidth(),
-    focusState: MutableState<FocusState?> = rememberFocusState(item),
+    focused: Boolean = isEditMode(),
+    focusState: MutableState<FocusState?> = rememberFocusState(
+        item,
+        CardFocus(focused)
+    ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
-    focused: Boolean = false,
     titlePadding: PaddingValues = PaddingValues(8.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
