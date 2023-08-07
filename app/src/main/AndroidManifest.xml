@@ -61,7 +61,7 @@
             android:name=".activity.MainActivity"
             android:clearTaskOnLaunch="true"
             android:finishOnTaskLaunch="true"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:exported="true">
 
             <intent-filter>
@@ -91,7 +91,7 @@
         <activity
             android:name=".activity.IPTVActivity"
             android:exported="true"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_iptv">
@@ -113,7 +113,7 @@
         <activity
             android:name=".activity.WebActivity"
             android:exported="true"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_web">
