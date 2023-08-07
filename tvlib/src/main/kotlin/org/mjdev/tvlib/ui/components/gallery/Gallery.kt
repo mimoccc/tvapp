@@ -131,6 +131,7 @@ fun Gallery(
         }
     },
     listState: TvLazyListState = rememberTvLazyListState(),
+    imageScaleType: MutableState<ContentScale> = remember { mutableStateOf(ContentScale.Fit) },
     customOverlay: @Composable (item: Any?) -> Unit = {}
 ) {
     val initialized = remember { mutableStateOf(false) }
@@ -153,15 +154,24 @@ fun Gallery(
                     ImageAny(
                         src = imageFromItem(currentItemIndex.intValue),
                         contentDescription = null,
-                        contentScale = ContentScale.Fit,
+                        contentScale = imageScaleType.value,
                         modifier = Modifier
                             .fillMaxSize()
                             .focusable()
                             .focusRequester(focusRequester)
                             .pointerInput(Unit) {
-                                detectTapGestures {
-                                    infoVisible.toggle()
-                                }
+                                detectTapGestures(
+                                    onDoubleTap = {
+                                        imageScaleType.value = when (imageScaleType.value) {
+                                            ContentScale.Fit -> ContentScale.Crop
+                                            ContentScale.Crop -> ContentScale.Fit
+                                            else -> ContentScale.Fit
+                                        }
+                                    },
+                                    onTap = {
+                                        infoVisible.toggle()
+                                    }
+                                )
                             }
                             .pointerInput(Unit) {
                                 detectSwipe(
