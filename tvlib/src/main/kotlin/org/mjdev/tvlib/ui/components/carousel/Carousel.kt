@@ -55,8 +55,7 @@ fun Carousel(
     autoScrollDurationMillis: Long = CarouselDefaults.TimeToDisplayItemMillis,
     contentTransformStartToEnd: ContentTransform = CarouselDefaults.contentTransform,
     contentTransformEndToStart: ContentTransform = CarouselDefaults.contentTransform,
-    carouselIndicator:
-    @Composable BoxScope.() -> Unit = {
+    carouselIndicator: @Composable BoxScope.() -> Unit = {
         CarouselDefaults.IndicatorRow(
             itemCount = itemCount,
             activeItemIndex = carouselState.activeItemIndex,
@@ -65,7 +64,7 @@ fun Carousel(
                 .padding(16.dp),
         )
     },
-    content: @Composable AnimatedContentScope.(index: Int) -> Unit
+    content: @Composable AnimatedContentScope.(isFocused:Boolean, index: Int) -> Unit
 ) {
 
     CarouselStateUpdater(carouselState, itemCount)
@@ -135,9 +134,13 @@ fun Carousel(
                 }
             }
             if (itemCount > 0) {
-                content(if (activeItemIndex < itemCount) activeItemIndex else 0)
+                val isFocused = focusState?.let { f -> f.isFocused || f.hasFocus } ?: false
+                content(
+                    isFocused,
+                    if (activeItemIndex < itemCount) activeItemIndex else 0
+                )
             }
         }
-        this.carouselIndicator()
+        carouselIndicator()
     }
 }
