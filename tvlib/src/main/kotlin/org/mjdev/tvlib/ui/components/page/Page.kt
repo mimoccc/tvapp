@@ -26,7 +26,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
-import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.text.TextAny
 
@@ -36,7 +35,6 @@ open class Page {
 
     open val title: Any? = null
     open val icon: Any? = null
-    open val menuGravity = MenuItem.Gravity.Center
 
     @SuppressLint("ComposableNaming")
     @TvPreview

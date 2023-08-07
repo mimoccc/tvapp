@@ -38,7 +38,9 @@ fun Badge(
     onClick: () -> Unit = {}
 ) {
     FocusableBox(
-        modifier = modifier.clip(CircleShape).recomposeHighlighter(),
+        modifier = modifier
+            .clip(CircleShape)
+            .recomposeHighlighter(),
         shape = shape,
         onClick = onClick
     ) {

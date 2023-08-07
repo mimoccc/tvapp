@@ -16,12 +16,16 @@ import org.mjdev.tvlib.extensions.ListExt.addUnique
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
-@Suppress("unused")
+@Suppress("unused", "PropertyName")
 class PagerScope(
     val navController: NavHostControllerEx,
     startIndex:Int = 0,
     pages: PagerScope.() -> Unit = {},
 ) : ArrayList<Page>() {
+
+    val Bottom = MenuItem.Gravity.Bottom
+    val Center = MenuItem.Gravity.Center
+    val Top = MenuItem.Gravity.Top
 
     val currentPage: MutableState<Int> = mutableIntStateOf(startIndex)
 
@@ -33,7 +37,11 @@ class PagerScope(
         navController.addMenuItem(*item)
     }
 
-    fun page(page: Page, isStartPage: Boolean = false) {
+    fun page(
+        page: Page,
+        menuGravity: MenuItem.Gravity = Center,
+        isStartPage: Boolean = false
+    ) {
         page.navController = navController
         addUnique(page)
         if (isStartPage) {
@@ -44,7 +52,7 @@ class PagerScope(
                 menuText = p.title,
                 menuIcon = p.icon,
                 menuPage = p,
-                menuGravity = p.menuGravity,
+                menuGravity = menuGravity,
             )
         }.also { menuItem ->
             navController.addUniqueMenuItem(menuItem)

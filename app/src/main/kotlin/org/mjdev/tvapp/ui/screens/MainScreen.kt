@@ -35,15 +35,14 @@ class MainScreen : ScreenWithPages() {
 
     override val pages: (PagerScope.() -> Unit) = {
 
-        page(SearchPage())
+        page(SearchPage(), menuGravity = Top)
 
         page(MainPage(), isStartPage = true)
         page(SubscriptionPage())
-
         page(PluginsPage())
-        page(SettingsPage())
 
-        page(AboutPage())
+        page(SettingsPage(), menuGravity = Bottom)
+        page(AboutPage(), menuGravity = Bottom)
 
     }
 

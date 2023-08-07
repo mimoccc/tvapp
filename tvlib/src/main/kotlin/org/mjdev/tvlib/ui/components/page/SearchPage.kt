@@ -14,13 +14,11 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.navigation.MenuItem
 
 open class SearchPage : Page() {
 
     override val title: Any? = R.string.menu_title_search
     override val icon: Any? = Icons.Default.Search
-    override val menuGravity = MenuItem.Gravity.Top
 
     @SuppressLint("ComposableNaming")
     @TvPreview
