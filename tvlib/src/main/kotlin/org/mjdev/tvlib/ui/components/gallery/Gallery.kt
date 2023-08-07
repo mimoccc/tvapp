@@ -32,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,7 +66,6 @@ import org.mjdev.tvlib.ui.components.image.ImageBackground
 import org.mjdev.tvlib.ui.components.tv.TVRow
 import timber.log.Timber
 
-// todo on swipe hidden list is not scrolling
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalAnimationApi::class)
 @TvPreview
 @Composable
@@ -208,26 +208,39 @@ fun Gallery(
                         state = listState
                     ) {
                         itemsIndexed(list) { index, item ->
+                            val fr = FocusRequester()
                             PhotoCard(
                                 modifier = Modifier
                                     .immersiveListItem(index)
                                     .onKeyEvent { ev -> handleKey(ev) },
                                 item = item,
-                                focused = (currentItemIndex.intValue == index),
+                                focusRequester = fr,
                             )
+                            SideEffect {
+                                val isFocused = (currentItemIndex.intValue == index)
+                                if (isFocused) {
+                                    try {
+                                        fr.requestFocus()
+                                    } catch (e: Exception) {
+                                        Timber.e(e)
+                                    }
+                                }
+                            }
                         }
                     }
                     Spacer(modifier = Modifier.height(32.dp))
                 }
-                if (transition.currentState != transition.targetState) {
-                    if (!infoVisible.value) {
-                        try {
-                            focusRequester.requestFocus()
-                        } catch (e: Exception) {
-                            Timber.e(e)
+                LaunchedEffect(currentItemIndex.intValue) {
+                    if (transition.currentState != transition.targetState) {
+                        if (!infoVisible.value) {
+                            try {
+                                focusRequester.requestFocus()
+                            } catch (e: Exception) {
+                                Timber.e(e)
+                            }
+                        } else {
+                            listState.scrollToItem(currentItemIndex.intValue)
                         }
-                    } else {
-                        // todo scroll to selected item
                     }
                 }
             }
