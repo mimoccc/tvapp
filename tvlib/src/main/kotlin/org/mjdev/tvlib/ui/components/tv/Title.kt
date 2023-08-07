@@ -61,7 +61,7 @@ fun Title(
     ) {
         Row(
             modifier = modifier
-                .padding(8.dp, 8.dp, 8.dp, 8.dp)
+                .padding(16.dp, 8.dp, 8.dp, 8.dp)
                 .recomposeHighlighter(),
             verticalAlignment = CenterVertically,
         ) {
@@ -93,7 +93,5 @@ fun Title(
                 color = color
             )
         }
-
     }
-
 }

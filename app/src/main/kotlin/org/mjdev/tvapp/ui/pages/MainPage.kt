@@ -15,13 +15,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
@@ -40,7 +38,6 @@ import org.mjdev.tvapp.viewmodel.MainViewModel
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 import java.io.Serializable
 import java.net.URL
 
@@ -65,7 +62,6 @@ class MainPage : Page() {
 
         val errorState = remember(viewModel.error) { mutableStateOf(viewModel.error.value) }
         val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
-        val backgroundState: MutableState<Any?> = remember { mutableStateOf(null) }
 
         val onItemClick: (item: Any?) -> Unit = { item ->
             val dataId = (item as? ItemWithId)?.id
@@ -88,7 +84,7 @@ class MainPage : Page() {
                 is ItemWithImage<*> -> item.image
                 else -> item.toString()
             }.also { uri ->
-                backgroundState.value = uri
+                navController?.backgroundState?.value = uri
             }
         }
 
@@ -102,14 +98,6 @@ class MainPage : Page() {
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
-            FadingPhotoImage(
-                modifier = Modifier.fillMaxSize(),
-                fadingImageState = backgroundState,
-                contrast = 4f,
-                alpha = 0.7f,
-                brightness = -255f,
-                contentScale = ContentScale.Crop
-            )
             BrowseView(
                 modifier = Modifier.fillMaxSize(),
                 appIcon = R.mipmap.ic_launcher_foreground,

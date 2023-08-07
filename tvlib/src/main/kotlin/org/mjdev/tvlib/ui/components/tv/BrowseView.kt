@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -29,7 +28,6 @@ import org.mjdev.tvlib.network.isNotConnected
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.ui.components.carousel.BigCarousel
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
 @Composable
 fun BrowseView(
@@ -50,7 +48,7 @@ fun BrowseView(
     networkState: State<NetworkStatus?> = mutableStateOf(NetworkStatus.Unknown),
     errorState: State<Throwable?> = mutableStateOf(null),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
-    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+    contentPadding: PaddingValues = PaddingValues(8.dp),
     customRows: List<@Composable () -> Unit> = emptyList(),
     onTitleClicked: () -> Unit = {},
     onClockClicked: () -> Unit = {},

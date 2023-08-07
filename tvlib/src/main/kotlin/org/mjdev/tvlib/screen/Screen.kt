@@ -13,8 +13,11 @@ package org.mjdev.tvlib.screen
 import androidx.annotation.CallSuper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -34,12 +38,12 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
+import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 
 @Suppress("unused", "LeakingThis")
 open class Screen {
 
-    open val route: String
-        get() = (this::class.simpleName ?: "none")
+    open val route: String get() = (this::class.simpleName ?: "none")
 
     open val routeArgs: List<NamedNavArgument> = emptyList()
 
@@ -92,7 +96,26 @@ open class Screen {
         this.backStackEntry = backStackEntry
         this.args = args
         navController.menuState.value = !immersive
-        ComposeScreen()
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            FadingPhotoImage(
+                modifier = Modifier.fillMaxSize(),
+                fadingImageState = navController.backgroundState,
+                contrast = 4f,
+                alpha = 0.7f,
+                brightness = -255f,
+                contentScale = ContentScale.Crop
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding()
+                    .statusBarsPadding()
+            ) {
+                ComposeScreen()
+            }
+        }
     }
 
     @OptIn(ExperimentalTvMaterial3Api::class)

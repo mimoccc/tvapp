@@ -100,7 +100,8 @@ fun TvPager(
             }.using(
                 SizeTransform(clip = false)
             )
-        }
+        },
+        label = "TvPager"
     ) { pageIndex ->
         val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex]
         else null

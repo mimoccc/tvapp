@@ -8,7 +8,6 @@
 
 package org.mjdev.tvapp.ui.pages
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -49,9 +48,7 @@ class AboutPage : Page() {
                 .padding(16.dp)
         ) {
             Card(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(backgroundColor, background),
+                modifier = Modifier.fillMaxSize(),
                 onClick = {},
                 onLongClick = {},
                 shape = CardDefaults.shape(),

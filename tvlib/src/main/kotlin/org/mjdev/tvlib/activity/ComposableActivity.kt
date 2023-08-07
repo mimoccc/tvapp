@@ -29,7 +29,6 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
 import com.github.anrwatchdog.ANRWatchDog
-import com.google.ads.interactivemedia.v3.internal.anr
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ContextExt.isATv
@@ -88,6 +87,11 @@ open class ComposableActivity : ComponentActivity() {
             }
         }
         onIntent(navController, intent)
+    }
+
+    // todo
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
     }
 
     open fun onIntent(navController: NavHostControllerEx, intent: Intent?) {

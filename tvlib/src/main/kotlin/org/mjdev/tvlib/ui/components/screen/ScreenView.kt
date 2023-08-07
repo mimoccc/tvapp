@@ -10,8 +10,6 @@ package org.mjdev.tvlib.ui.components.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,9 +33,7 @@ fun ScreenView(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .recomposeHighlighter()
-            .navigationBarsPadding()
-            .statusBarsPadding(),
+            .recomposeHighlighter(),
         contentAlignment = Alignment.Center,
     ) {
         if (navController.isMenuEnabled) {

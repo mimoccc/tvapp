@@ -51,6 +51,8 @@ class NavHostControllerEx(
 
     override val lifecycle: Lifecycle by lazy { LifecycleRegistry(this) }
 
+    val backgroundState: MutableState<Any?> = mutableStateOf(null)
+
     init {
         lifecycle.addObserver(this)
     }
