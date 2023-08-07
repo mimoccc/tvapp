@@ -154,12 +154,12 @@ object ComposeExt {
                     OkHttpClient.Builder()
                         .cache(
                             Cache(
-                            directory = File(
-                                context.applicationContext.cacheDir,
-                                "http_cache"
-                            ),
-                            maxSize = 1024L * 1024L * 1024L
-                        )
+                                directory = File(
+                                    context.applicationContext.cacheDir,
+                                    "http_cache"
+                                ),
+                                maxSize = 1024L * 1024L * 1024L
+                            )
                         )
                         .addNetworkInterceptor(HttpLoggingInterceptor().apply {
                             level = HttpLoggingInterceptor.Level.BODY

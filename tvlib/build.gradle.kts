@@ -1,6 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectMinSdk
 
 /*
  * Copyright (c) Milan Jurkulák 2023.
@@ -22,10 +25,10 @@ plugins {
 
 android {
     namespace = "org.mjdev.tvlib"
-    compileSdk = 34
+    compileSdk = projectCompileSdk
 
     defaultConfig {
-        minSdk = 21
+        minSdk = projectMinSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -41,12 +44,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = javaVersion.toString()
     }
 
     buildFeatures {
@@ -94,8 +97,6 @@ dependencies {
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
     implementation("androidx.tv:tv-material:1.0.0-alpha08")
-    // paging
-    implementation("androidx.paging:paging-compose:3.2.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation

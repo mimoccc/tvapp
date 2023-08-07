@@ -10,6 +10,7 @@ package org.mjdev.tvlib.extensions
 
 import androidx.core.os.bundleOf
 
+@Suppress("unused")
 object ListExt {
 
     fun <T> MutableList<T>.addUnique(element: T, replace: Boolean = true) {

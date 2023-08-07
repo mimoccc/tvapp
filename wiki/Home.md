@@ -37,7 +37,6 @@ Just an test app to skills showcase of coding skills, using
 - Solve problems with compose previews
 - Coroutines
 - Flow
-- Paging
 - Navigation
 - Retrofit
 - Json serialization (Moshi)

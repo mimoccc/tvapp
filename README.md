@@ -62,7 +62,6 @@ Technologies that will be used:
 - Solve problems with compose previews
 - Coroutines
 - Flow
-- Paging
 - Navigation
 - Retrofit
 - Json serialization (Moshi)

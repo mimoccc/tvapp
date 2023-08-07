@@ -13,6 +13,8 @@ import org.mjdev.gradle.extensions.kapt
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.loadKeyStoreProperties
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectMinSdk
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionCode
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionName
 
@@ -37,7 +39,7 @@ plugins {
 
 android {
     namespace = "org.mjdev.tvapp"
-    compileSdk = 34
+    compileSdk = projectCompileSdk
 
     signingConfigs {
         loadKeyStoreProperties(
@@ -55,8 +57,8 @@ android {
     defaultConfig {
         applicationId = "org.mjdev.tvapp"
 
-        minSdk = 21
-        targetSdk = 34
+        minSdk = projectMinSdk
+        targetSdk = projectCompileSdk
 
         versionCode = project.versionCode
         versionName = project.versionName

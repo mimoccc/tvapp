@@ -23,7 +23,7 @@ import java.io.FileInputStream
 import java.util.Properties
 
 // todo
-@Suppress("UsePropertyAccessSyntax", "UnusedReceiverParameter")
+@Suppress("UsePropertyAccessSyntax")
 abstract class MainAppPlugin : Plugin<Project> {
 
     companion object {
@@ -61,6 +61,9 @@ abstract class MainAppPlugin : Plugin<Project> {
             }
 
         val javaVersion: JavaVersion = JavaVersion.VERSION_17
+
+        const val projectCompileSdk: Int = 34
+        const val projectMinSdk = 21
 
         const val kotlinCompilerExtVersion = "1.5.1"
 
@@ -117,12 +120,10 @@ abstract class MainAppPlugin : Plugin<Project> {
 //            implementation("androidx.compose.ui:ui-graphics:1.4.3"),
 //            implementation("androidx.compose.ui:ui-tooling-preview:1.4.3"),
 //            implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1"),
-//            implementation("androidx.paging:paging-compose:1.0.0-alpha20"),
 //            implementation("androidx.compose.material3:material3:1.1.0"),
 //            implementation("androidx.compose.material3:material3-window-size-class:1.1.0"),
 //            implementation("androidx.hilt:hilt-navigation-compose:1.0.0"),
 //            implementation("androidx.navigation:navigation-compose:2.5.3"),
-//            implementation("androidx.paging:paging-compose:1.0.0-alpha20"),
 //            // kotlin conf
 //            constraints {
 //                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

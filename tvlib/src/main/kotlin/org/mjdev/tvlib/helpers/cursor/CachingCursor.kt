@@ -47,13 +47,16 @@ open class CachingCursor(
     private val resolver: ContentResolver by lazy {
         context.contentResolver
     }
+
     private val observer = object : ContentObserver(null) {
         @Suppress("DEPRECATION")
         override fun onChange(selfChange: Boolean) {
             requery()
         }
     }
+
     private val cache: MutableList<CachedCursorItem> = mutableListOf()
+
     private val cursor: Cursor? by lazy {
         runBlocking(Dispatchers.IO) {
             if (uri != null) {
