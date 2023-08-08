@@ -111,8 +111,6 @@ dependencies {
     implementation("io.coil-kt:coil-video:2.4.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.skydoves:landscapist-coil:2.2.5")
-    // constraint layout // todo remove
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core

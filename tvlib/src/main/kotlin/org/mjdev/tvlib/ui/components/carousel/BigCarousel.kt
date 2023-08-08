@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -22,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
@@ -42,26 +43,29 @@ fun BigCarousel(
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
         else config.screenHeightDp * 0.4f
     }
-    val focusState = rememberFocusState(items)
+    val focusRequester = rememberFocusRequester()
     Carousel(
         autoScrollDurationMillis = autoScrollDurationMillis,
         carouselState = carouselState,
         itemCount = items.size,
         modifier = modifier
             .recomposeHighlighter()
+            .focusRequester(focusRequester)
             .fillMaxWidth()
             .height(height.dp)
             .pointerInput(Unit) {
                 detectSwipe(
                     onSwipeLeft = {
                         carouselState.moveToNextItem(items.size)
+                        focusRequester.requestFocus()
                     },
                     onSwipeRight = {
                         carouselState.moveToPreviousItem(items.size)
+                        focusRequester.requestFocus()
                     },
                 )
             },
-    ) {indexOfCarouselItem ->
+    ) { indexOfCarouselItem ->
         val selectedItem = items[indexOfCarouselItem]
         onItemSelected(selectedItem)
         CarouselCard(
@@ -71,7 +75,6 @@ fun BigCarousel(
                 .height(height.dp),
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
-            focusState = focusState,
             onFocus = onItemSelected,
             onClick = {
                 onItemClicked(selectedItem)

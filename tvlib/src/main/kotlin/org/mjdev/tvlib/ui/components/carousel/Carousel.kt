@@ -20,15 +20,13 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -37,6 +35,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import org.mjdev.tvlib.extensions.ComposeExt.isFocused
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ModifierExt.bringIntoViewIfChildrenAreFocused
 import org.mjdev.tvlib.ui.components.carousel.CarouselDefaults.CarouselStateUpdater
 import org.mjdev.tvlib.ui.components.carousel.CarouselDefaults.onAnimationCompletion
@@ -64,16 +64,16 @@ fun Carousel(
                 .padding(16.dp),
         )
     },
+    isAutoScrollActive: MutableState<Boolean> = remember { mutableStateOf(false) },
+    focusState: MutableState<FocusState?> = remember { mutableStateOf(null) },
     content: @Composable AnimatedContentScope.(index: Int) -> Unit
 ) {
 
     CarouselStateUpdater(carouselState, itemCount)
 
-    var focusState: FocusState? by remember { mutableStateOf(null) }
     val focusManager = LocalFocusManager.current
     val isLtr = LocalLayoutDirection.current == LayoutDirection.Ltr
-    val carouselOuterBoxFocusRequester = remember { FocusRequester() }
-    var isAutoScrollActive by remember { mutableStateOf(false) }
+    val carouselOuterBoxFocusRequester = rememberFocusRequester()
     val context = LocalContext.current
 
     val accessibilityManager = remember {
@@ -84,9 +84,9 @@ fun Carousel(
         autoScrollDurationMillis = autoScrollDurationMillis,
         itemCount = itemCount,
         carouselState = carouselState,
-        doAutoScroll = shouldPerformAutoScroll(focusState, accessibilityManager),
+        doAutoScroll = shouldPerformAutoScroll(focusState.value, accessibilityManager),
         onAutoScrollChange = {
-            isAutoScrollActive = it
+            isAutoScrollActive.value = it
         }
     )
 
@@ -95,8 +95,8 @@ fun Carousel(
         .bringIntoViewIfChildrenAreFocused()
         .focusRequester(carouselOuterBoxFocusRequester)
         .onFocusChanged {
-            focusState = it
-            if (it.isFocused && isAutoScrollActive) {
+            focusState.value = it
+            if (it.isFocused && isAutoScrollActive.value) {
                 focusManager.moveFocus(FocusDirection.Enter)
             }
         }
@@ -107,7 +107,7 @@ fun Carousel(
             itemCount = itemCount,
             isLtr = isLtr
         ) {
-            focusState
+            focusState.value
         }
         .focusable()
     ) {
@@ -123,11 +123,11 @@ fun Carousel(
             label = "CarouselAnimation"
         ) { activeItemIndex ->
             LaunchedEffect(Unit) {
-                if (accessibilityManager.isEnabled) {
+                if (accessibilityManager.isEnabled && focusState.isFocused) {
                     carouselOuterBoxFocusRequester.requestFocus()
                 }
                 this@AnimatedContent.onAnimationCompletion {
-                    if (!isAutoScrollActive && focusState?.isFocused == true) {
+                    if ((!isAutoScrollActive.value) && focusState.isFocused) {
                         carouselOuterBoxFocusRequester.requestFocus()
                         focusManager.moveFocus(FocusDirection.Enter)
                     }

@@ -44,7 +44,7 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 class SplashScreen : Screen() {
 
     override val showOnce: Boolean = true
-    override val backgroundColor: Color = Color.Black
+    override val backgroundColor: Color = Color.Transparent
     override val immersive: Boolean = true
 
     @OptIn(ExperimentalPermissionsApi::class)

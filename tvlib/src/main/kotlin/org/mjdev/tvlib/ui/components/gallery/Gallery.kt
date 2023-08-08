@@ -10,7 +10,9 @@ package org.mjdev.tvlib.ui.components.gallery
 
 import android.view.Gravity
 import android.view.KeyEvent.ACTION_DOWN
+import android.view.KeyEvent.KEYCODE_DPAD_CENTER
 import android.view.KeyEvent.KEYCODE_DPAD_DOWN
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.KeyEvent.KEYCODE_SYSTEM_NAVIGATION_DOWN
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -54,6 +56,7 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.GlobalExt.toggle
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -101,7 +104,8 @@ fun Gallery(
     },
     infoVisible: MutableState<Boolean> = remember { mutableStateOf(true) },
     currentItemIndex: MutableIntState = remember { mutableIntStateOf(index) },
-    focusRequester: FocusRequester = FocusRequester(),
+    focusRequester: FocusRequester = rememberFocusRequester(),
+    imageScaleType: MutableState<ContentScale> = remember { mutableStateOf(ContentScale.Crop) },
     imageFromItem: (index: Int) -> Any? = { idx ->
         list[idx].let { data ->
             val photo = (data as? ItemPhoto)?.uri
@@ -110,11 +114,21 @@ fun Gallery(
             photo ?: image ?: background
         }
     },
+    switchImageScale: () -> Unit = {
+        imageScaleType.value = when (imageScaleType.value) {
+            ContentScale.Fit -> ContentScale.Crop
+            ContentScale.Crop -> ContentScale.Fit
+            else -> ContentScale.Fit
+        }
+    },
     handleKey: (event: KeyEvent) -> Boolean = { ev ->
         val action = ev.nativeKeyEvent.action
         if (action == ACTION_DOWN) {
             val code = ev.nativeKeyEvent.keyCode
-            if (infoVisible.value) {
+            if ((code == KEYCODE_ENTER) || (code == KEYCODE_DPAD_CENTER)) {
+                switchImageScale()
+                true
+            } else if (infoVisible.value) {
                 infoVisible.value = true
                 if ((code == KEYCODE_DPAD_DOWN) || (code == KEYCODE_SYSTEM_NAVIGATION_DOWN)) {
                     infoVisible.value = false
@@ -131,17 +145,18 @@ fun Gallery(
         }
     },
     listState: TvLazyListState = rememberTvLazyListState(),
-    imageScaleType: MutableState<ContentScale> = remember { mutableStateOf(ContentScale.Fit) },
+
     customOverlay: @Composable (item: Any?) -> Unit = {}
 ) {
     val initialized = remember { mutableStateOf(false) }
+    val imageState: MutableState<Any?> = remember { mutableStateOf(Color.DarkGray) }
     Box(
         modifier = modifier.background(Color.Black, RectangleShape),
         contentAlignment = Alignment.BottomCenter,
     ) {
         ImageBackground(
             modifier = modifier,
-            image = imageFromItem(currentItemIndex.intValue),
+            imageState = imageState,
         )
         ImmersiveList(
             modifier = Modifier.fillMaxSize(),
@@ -162,11 +177,7 @@ fun Gallery(
                             .pointerInput(Unit) {
                                 detectTapGestures(
                                     onDoubleTap = {
-                                        imageScaleType.value = when (imageScaleType.value) {
-                                            ContentScale.Fit -> ContentScale.Crop
-                                            ContentScale.Crop -> ContentScale.Fit
-                                            else -> ContentScale.Fit
-                                        }
+                                        switchImageScale()
                                     },
                                     onTap = {
                                         infoVisible.toggle()
@@ -178,11 +189,13 @@ fun Gallery(
                                     onSwipeLeft = {
                                         if (currentItemIndex.intValue < (list.size - 1)) {
                                             currentItemIndex.intValue += 1
+                                            imageState.value = list[currentItemIndex.intValue]
                                         }
                                     },
                                     onSwipeRight = {
                                         if (currentItemIndex.intValue > 0) {
                                             currentItemIndex.intValue -= 1
+                                            imageState.value = list[currentItemIndex.intValue]
                                         }
                                     },
                                 )
@@ -205,7 +218,7 @@ fun Gallery(
             ) {
                 ImageBackground(
                     modifier = Modifier.fillMaxWidth(),
-                    image = imageFromItem(currentItemIndex.intValue),
+                    imageState = imageState,
                     transform = { color -> createColorBrush(color, Gravity.BOTTOM) }
                 ) {
                     Spacer(modifier = Modifier.height(32.dp))
@@ -218,7 +231,7 @@ fun Gallery(
                         state = listState
                     ) {
                         itemsIndexed(list) { index, item ->
-                            val fr = FocusRequester()
+                            val fr = rememberFocusRequester()
                             PhotoCard(
                                 modifier = Modifier
                                     .immersiveListItem(index)
@@ -229,6 +242,7 @@ fun Gallery(
                             SideEffect {
                                 val isFocused = (currentItemIndex.intValue == index)
                                 if (isFocused) {
+                                    imageState.value = list[currentItemIndex.intValue]
                                     try {
                                         fr.requestFocus()
                                     } catch (e: Exception) {

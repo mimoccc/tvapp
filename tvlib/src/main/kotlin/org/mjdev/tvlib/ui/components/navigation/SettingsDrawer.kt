@@ -10,14 +10,9 @@ package org.mjdev.tvlib.ui.components.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -30,14 +25,10 @@ import org.mjdev.tvlib.extensions.ComposeExt
 @Composable
 fun SettingsDrawer(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Color(0xff202020),
-    roundCornerSize: Dp = 16.dp,
-    borderSize: Dp = 0.dp,
-    borderColor: Color = Color.Transparent,
-    shape: Shape = RoundedCornerShape(roundCornerSize),
     drawerState: DrawerState = rememberDrawerState(
         if (ComposeExt.isEditMode()) DrawerValue.Open else DrawerValue.Closed
     ),
+    onTouchOutside: () -> Unit = {},
     content: @Composable () -> Unit = {
         Box(modifier = Modifier.fillMaxSize())
     },
@@ -46,13 +37,9 @@ fun SettingsDrawer(
         modifier = modifier,
         contentAlignment = Alignment.TopEnd,
         drawerState = drawerState,
+        onTouchOutside = onTouchOutside,
         drawerContent = {
             SettingsDrawerContent(
-                backgroundColor = backgroundColor,
-                roundCornerSize = roundCornerSize,
-                borderSize = borderSize,
-                borderColor = borderColor,
-                shape = shape
             )
         }
     ) {

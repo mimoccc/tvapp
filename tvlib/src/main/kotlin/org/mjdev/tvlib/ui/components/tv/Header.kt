@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,8 +34,9 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
-import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
+import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.ui.components.badge.Badge
+import org.mjdev.tvlib.ui.components.complex.FocusableBox
 
 @TvPreview
 @Composable
@@ -55,7 +58,7 @@ fun Header(
     onUserPicClick: () -> Unit = {},
 ) {
     val isEdit = isEditMode()
-    val isClockShown = isLandscapeMode()
+    val isPortrait = isPortraitMode()
     Box(
         modifier = Modifier
             .recomposeHighlighter()
@@ -71,7 +74,7 @@ fun Header(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (isClockShown) {
+            if (!isPortrait) {
                 Clock(
                     modifier = Modifier
                         .wrapContentSize()
@@ -117,6 +120,18 @@ fun Header(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            FocusableBox(
+                modifier = Modifier
+                    .recomposeHighlighter()
+                    .wrapContentHeight()
+                    .width(2.dp)
+                    .clip(CircleShape),
+                onFocusChange = { state ->
+                    if ((!isPortrait) && state.isFocused) {
+                        onTitleClick()
+                    }
+                }
+            )
             Title(
                 modifier = Modifier
                     .wrapContentSize()

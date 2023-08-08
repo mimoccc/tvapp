@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.navigation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
@@ -44,35 +46,37 @@ fun ModalNavigationDrawer(
     scrimColor: Color = Color.Black.copy(alpha = 0.5f),
     closeDrawerWidth: Dp = 200.dp,
     contentAlignment: Alignment = Alignment.TopStart,
+    closedDrawerWidth: MutableState<Dp?> = remember { mutableStateOf(null) },
+    onTouchOutside: () -> Unit = {},
     drawerContent: @Composable (DrawerValue) -> Unit = {
         Box(
-            modifier = Modifier
-                .background(Color.LightGray, RectangleShape)
+            modifier = Modifier.background(Color.LightGray, RectangleShape)
         )
     },
     content: @Composable () -> Unit = {
-        Box(modifier = Modifier.fillMaxSize())
-    }
+        Box(
+            modifier = Modifier.fillMaxSize()
+        )
+    },
 ) {
     val localDensity = LocalDensity.current
-    val closedDrawerWidth: MutableState<Dp?> = remember { mutableStateOf(null) }
-    val internalDrawerModifier = Modifier
-        .zIndex(Float.MAX_VALUE)
-        .onSizeChanged {
-            if (closedDrawerWidth.value == null &&
-                drawerState.currentValue == DrawerValue.Closed
-            ) {
-                with(localDensity) {
-                    closedDrawerWidth.value = it.width.toDp()
-                }
-            }
-        }
     Box(
         modifier = modifier,
         contentAlignment = contentAlignment
     ) {
         DrawerSheet(
-            modifier = internalDrawerModifier.align(Alignment.CenterStart),
+            modifier = Modifier
+                .zIndex(Float.MAX_VALUE)
+                .onSizeChanged {
+                    if (closedDrawerWidth.value == null &&
+                        drawerState.currentValue == DrawerValue.Closed
+                    ) {
+                        with(localDensity) {
+                            closedDrawerWidth.value = it.width.toDp()
+                        }
+                    }
+                }
+                .align(Alignment.CenterStart),
             drawerState = drawerState,
             sizeAnimationFinishedListener = { _, targetSize ->
                 if (drawerState.currentValue == DrawerValue.Closed) {
@@ -105,7 +109,17 @@ fun ModalNavigationDrawer(
         ) {
             content()
             if (drawerState.currentValue == DrawerValue.Open) {
-                Canvas(Modifier.fillMaxSize()) {
+                Canvas(
+                    Modifier
+                        .fillMaxSize()
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onTap = {
+                                    onTouchOutside()
+                                }
+                            )
+                        }
+                ) {
                     drawRect(scrimColor)
                 }
             }

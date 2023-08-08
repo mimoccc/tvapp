@@ -16,11 +16,12 @@ import org.mjdev.tvlib.extensions.ListExt.addUnique
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
-@Suppress("unused", "PropertyName")
+@Suppress("unused", "PropertyName", "UNUSED_ANONYMOUS_PARAMETER")
 class PagerScope(
     val navController: NavHostControllerEx,
-    startIndex:Int = 0,
+    startIndex: Int = 0,
     pages: PagerScope.() -> Unit = {},
+    val onPageChange: (index: Int, page: Page?) -> Unit = { index, page -> },
 ) : ArrayList<Page>() {
 
     val Bottom = MenuItem.Gravity.Bottom
@@ -71,20 +72,24 @@ class PagerScope(
     fun scrollToPage(index: Int) {
         if (size > index && size > -1) {
             currentPage.value = index
+            onPageChange(index, this[index])
         }
     }
 
 }
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 @Composable
 fun rememberPagerScope(
     navController: NavHostControllerEx,
-    startIndex:Int = 0,
-    pages: PagerScope.() -> Unit = {}
+    startIndex: Int = 0,
+    pages: PagerScope.() -> Unit = {},
+    onPageChange: (index: Int, page: Page?) -> Unit = { index, page -> },
 ) = remember {
     PagerScope(
         navController,
         startIndex,
         pages,
+        onPageChange,
     )
 }

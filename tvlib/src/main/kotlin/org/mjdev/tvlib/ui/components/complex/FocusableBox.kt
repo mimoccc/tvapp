@@ -60,7 +60,9 @@ fun FocusableBox(
             .recomposeHighlighter()
             .focusState(focusState)
             .onFocusChanged { state -> onFocusChange(state) }
-            .requestFocusOnTouch(focusRequester) {
+            .requestFocusOnTouch(
+                focusRequester
+            ) {
                 if (focusState.isFocused) {
                     onClick()
                 }

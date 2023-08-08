@@ -57,7 +57,9 @@ fun Title(
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         focusedColor = Color.Transparent,
-        onFocusChange = { state -> focusState.value = state }
+        onFocusChange = { state ->
+            focusState.value = state
+        }
     ) {
         Row(
             modifier = modifier

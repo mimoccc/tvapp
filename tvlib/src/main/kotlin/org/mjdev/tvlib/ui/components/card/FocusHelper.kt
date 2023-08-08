@@ -10,7 +10,7 @@ package org.mjdev.tvlib.ui.components.card
 
 import androidx.compose.ui.focus.FocusState
 
-class CardFocus(
+class FocusHelper(
     private var focused: Boolean
 ) : FocusState {
     override val hasFocus: Boolean get() = focused

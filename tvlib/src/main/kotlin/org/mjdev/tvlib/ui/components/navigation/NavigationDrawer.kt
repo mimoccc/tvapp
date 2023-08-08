@@ -33,7 +33,6 @@ fun NavigationDrawer(
     drawerState: DrawerState = rememberDrawerState(
         if (isEditMode()) DrawerValue.Open else DrawerValue.Closed
     ),
-//    contentAlignment: Alignment = Alignment.TopStart,
     drawerContent: @Composable (DrawerValue) -> Unit = {
         Box(
             modifier = Modifier

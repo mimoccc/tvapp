@@ -65,7 +65,7 @@ fun ItemCard(
     focused: Boolean = isEditMode(),
     focusState: MutableState<FocusState?> = rememberFocusState(
         item,
-        CardFocus(focused)
+        FocusHelper(focused)
     ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
     titlePadding: PaddingValues = PaddingValues(8.dp),

@@ -51,7 +51,7 @@ import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithSubtitle
 import org.mjdev.tvlib.interfaces.ItemWithTitle
-import org.mjdev.tvlib.ui.components.card.CardFocus
+import org.mjdev.tvlib.ui.components.card.FocusHelper
 import org.mjdev.tvlib.ui.components.card.colorFocusBorder
 import org.mjdev.tvlib.ui.components.card.colorFocusGlow
 import org.mjdev.tvlib.ui.components.image.ImageAny
@@ -86,7 +86,7 @@ fun FocusableCard(
     focusRequester: FocusRequester = rememberFocusRequester(item),
     focusState: MutableState<FocusState?> = rememberFocusState(
         item,
-        CardFocus(focused)
+        FocusHelper(focused)
     ),
     onFocus: (item: Any?) -> Unit = {},
     onFocusChange: (state: FocusState) -> Unit = { state ->

@@ -9,6 +9,10 @@
 package org.mjdev.tvlib.ui.components.navigation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,9 +24,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -38,12 +44,16 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ComposeExt.isOpen
+import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.focusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
+import org.mjdev.tvlib.ui.components.card.FocusHelper
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.icon.IconAny
 import org.mjdev.tvlib.ui.components.text.TextAny
+import timber.log.Timber
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
@@ -64,12 +74,22 @@ fun NavigationRow(
     margin: Dp = 0.dp,
     padding: Dp = 4.dp,
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
-    focusState: MutableState<FocusState?> = rememberFocusState(text),
+    focused: Boolean = isEditMode(),
+    focusState: MutableState<FocusState?> = rememberFocusState(
+        text,
+        FocusHelper(focused)
+    ),
+    focusRequester: FocusRequester = rememberFocusRequester(),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {
     val isEdit = isEditMode()
     val isShown = isLandscapeMode() || drawerState.isOpen
+    val isPortrait = isPortraitMode()
+    val enter = if (isPortrait) expandVertically()
+    else (fadeIn() + expandVertically())
+    val exit = if (isPortrait) shrinkVertically()
+    else (fadeOut() + shrinkVertically())
     if (isShown) {
         FocusableBox(
             modifier = modifier
@@ -86,6 +106,7 @@ fun NavigationRow(
                 .focusState(focusState),
             shape = shape,
             focusedColor = focusedColor.copy(alpha = 0.5f),
+            focusRequester = focusRequester,
             unFocusedColor = unFocusedColor,
             onFocusChange = { state ->
                 if (state.isFocused || state.hasFocus) {
@@ -115,6 +136,8 @@ fun NavigationRow(
                     )
                 }
                 AnimatedVisibility(
+                    enter = enter,
+                    exit = exit,
                     visible = (isEdit || (drawerState.currentValue == DrawerValue.Open))
                 ) {
                     TextAny(
@@ -128,6 +151,15 @@ fun NavigationRow(
                         textAlign = TextAlign.Left
                     )
                 }
+            }
+        }
+        LaunchedEffect(focused) {
+            try {
+                if (focused) {
+                    focusRequester.requestFocus()
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
             }
         }
     }

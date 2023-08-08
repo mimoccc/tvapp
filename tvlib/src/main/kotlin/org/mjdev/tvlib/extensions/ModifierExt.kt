@@ -81,18 +81,23 @@ object ModifierExt {
 
     fun Modifier.requestFocusOnTouch(
         focusRequester: FocusRequester,
+        requestFocus: Boolean = true,
         onTouch: () -> Unit = {}
     ): Modifier = this then focusRequester(
         focusRequester
     ).pointerInput(this) {
-        detectTapGestures {
-            try {
-                onTouch()
-                focusRequester.requestFocus()
-            } catch (e: Throwable) {
-                Timber.e(e)
+        detectTapGestures(
+            onTap = {
+                try {
+                    onTouch()
+                    if (requestFocus) {
+                        focusRequester.requestFocus()
+                    }
+                } catch (e: Throwable) {
+                    Timber.e(e)
+                }
             }
-        }
+        )
     }
 
     @Stable

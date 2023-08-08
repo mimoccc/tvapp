@@ -30,7 +30,10 @@ open class ScreenWithPages : Screen() {
         TvPager(
             navController = navController,
             startIndex = startPageIndex,
-            pages = pages
+            pages = pages,
+            onPageChange = { _, _ ->
+                // todo, page state & update menu index
+            }
         )
     }
 

@@ -47,7 +47,7 @@ fun PhotoCard(
     focused: Boolean = ComposeExt.isEditMode(),
     focusState: MutableState<FocusState?> = rememberFocusState(
         item,
-        CardFocus(focused)
+        FocusHelper(focused)
     ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
     @FloatRange(from = 0.0, to = 10.0)

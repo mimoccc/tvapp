@@ -116,7 +116,7 @@ class MainPage : Page() {
                 onItemClicked = onItemClick,
                 onUserPicClicked = {
                     if (authManager.isUserLoggedIn) {
-                        // todo show details / settings
+                        navController?.openSettings()
                     } else {
                         authManager.login()
                     }

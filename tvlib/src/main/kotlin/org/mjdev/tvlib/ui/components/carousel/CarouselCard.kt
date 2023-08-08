@@ -28,7 +28,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.ui.components.card.CardFocus
+import org.mjdev.tvlib.ui.components.card.FocusHelper
 import org.mjdev.tvlib.ui.components.card.PhotoCard
 import org.mjdev.tvlib.ui.components.image.ImageAny
 
@@ -44,7 +44,7 @@ fun CarouselCard(
     focused: Boolean = isEditMode(),
     focusState: MutableState<FocusState?> = rememberFocusState(
         item,
-        CardFocus(focused)
+        FocusHelper(focused)
     ),
     imageRenderer: @Composable () -> Unit = {
         val image = (item as? ItemWithImage<*>)?.image

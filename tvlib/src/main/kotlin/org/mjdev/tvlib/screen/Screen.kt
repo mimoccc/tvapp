@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -38,7 +37,6 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
-import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 
 @Suppress("unused", "LeakingThis")
 open class Screen {
@@ -97,24 +95,12 @@ open class Screen {
         this.args = args
         navController.menuState.value = !immersive
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .navigationBarsPadding()
+                .statusBarsPadding()
         ) {
-            FadingPhotoImage(
-                modifier = Modifier.fillMaxSize(),
-                fadingImageState = navController.backgroundState,
-                contrast = 4f,
-                alpha = 0.7f,
-                brightness = -255f,
-                contentScale = ContentScale.Crop
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .navigationBarsPadding()
-                    .statusBarsPadding()
-            ) {
-                ComposeScreen()
-            }
+            ComposeScreen()
         }
     }
 

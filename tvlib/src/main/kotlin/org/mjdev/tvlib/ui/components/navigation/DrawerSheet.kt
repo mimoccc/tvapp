@@ -20,7 +20,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -32,6 +31,7 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 
 @Suppress("IllegalExperimentalApiUsage")
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -51,7 +51,7 @@ fun DrawerSheet(
 ) {
     val initializationComplete = remember { mutableStateOf(false) }
     val focusState = remember { mutableStateOf<FocusState?>(null) }
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberFocusRequester()
     LaunchedEffect(
         drawerState.currentValue
     ) {
@@ -60,25 +60,24 @@ fun DrawerSheet(
         }
         initializationComplete.value = true
     }
-    val internalModifier = Modifier
-        .focusRequester(focusRequester)
-        .animateContentSize(
-            finishedListener = sizeAnimationFinishedListener
-        )
-        .fillMaxHeight()
-        .then(modifier)
-        .onFocusChanged { state ->
-            focusState.value = state
-            if (initializationComplete.value) {
-                drawerState.setValue(
-                    if (state.hasFocus) DrawerValue.Open
-                    else DrawerValue.Closed
-                )
-            }
-        }
-        .focusGroup()
     Box(
-        modifier = internalModifier
+        modifier = Modifier
+            .focusRequester(focusRequester)
+            .animateContentSize(
+                finishedListener = sizeAnimationFinishedListener
+            )
+            .fillMaxHeight()
+            .then(modifier)
+            .onFocusChanged { state ->
+                focusState.value = state
+                if (initializationComplete.value) {
+                    drawerState.setValue(
+                        if (state.hasFocus) DrawerValue.Open
+                        else DrawerValue.Closed
+                    )
+                }
+            }
+            .focusGroup()
     ) {
         content.invoke(drawerState.currentValue)
     }

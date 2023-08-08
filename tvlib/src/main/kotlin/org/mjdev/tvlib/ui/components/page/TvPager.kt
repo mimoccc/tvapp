@@ -47,6 +47,8 @@ fun TvPager(
     roundCornerSize: Dp = 0.dp,
     backGroundColor: Color = Color.Transparent,
     backGroundShape: Shape = RoundedCornerShape(roundCornerSize),
+    @Suppress("UNUSED_ANONYMOUS_PARAMETER")
+    onPageChange: (index: Int, page: Page?) -> Unit = { index, page -> },
     pages: PagerScope.() -> Unit = {
         page(EMPTY_PAGE)
     }
@@ -54,7 +56,7 @@ fun TvPager(
 
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
-    val pagerScope = rememberPagerScope(navController, startIndex, pages)
+    val pagerScope = rememberPagerScope(navController, startIndex, pages, onPageChange)
 
     val goToPage: (
         page: Page?

@@ -43,16 +43,22 @@ open class Page {
     fun content() {
         val focusRequester = rememberFocusRequester(title)
         Column(
-            Modifier.fillMaxSize().recomposeHighlighter()
+            Modifier
+                .fillMaxSize()
+                .recomposeHighlighter()
         ) {
             VerticalScrollableBox(
-                modifier = Modifier.recomposeHighlighter()
+                modifier = Modifier
+                    .recomposeHighlighter()
                     .fillMaxSize()
-                    .requestFocusOnTouch(focusRequester),
+                    .requestFocusOnTouch(
+                        focusRequester = focusRequester
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
-                    modifier = Modifier.recomposeHighlighter()
+                    modifier = Modifier
+                        .recomposeHighlighter()
                         .fillMaxSize()
                         .focusRequester(focusRequester)
                 ) {
@@ -65,7 +71,9 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize().recomposeHighlighter(),
+            modifier = Modifier
+                .fillMaxSize()
+                .recomposeHighlighter(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

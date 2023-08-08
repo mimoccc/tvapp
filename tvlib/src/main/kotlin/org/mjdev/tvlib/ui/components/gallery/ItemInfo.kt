@@ -33,10 +33,7 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ColorExt.invert
 import org.mjdev.tvlib.helpers.media.MetadataRetriever
 import org.mjdev.tvlib.helpers.media.MetadataRetriever.Companion.rememberMetaDataRetriever
-import org.mjdev.tvlib.interfaces.ItemPhoto
-import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDate
-import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
 import org.mjdev.tvlib.ui.components.image.ImageBackground
@@ -72,13 +69,9 @@ fun ItemInfo(
             }
         )
     },
+    initialColor: Color = Color.DarkGray,
+    imageState: MutableState<Any?> = mutableStateOf(src),
     metadataRetriever: MetadataRetriever = rememberMetaDataRetriever(),
-    imageFromItem: () -> Any? = {
-        val photo = (src as? ItemPhoto)?.uri
-        val image = (src as? ItemWithImage<*>)?.image
-        val background = (src as? ItemWithBackground<*>)?.background
-        photo ?: image ?: background
-    },
     titleFromItem: () -> Any? = {
         (src as? ItemWithTitle<*>)?.title
     },
@@ -101,7 +94,7 @@ fun ItemInfo(
         ) {
             ImageBackground(
                 modifier = Modifier.fillMaxWidth(),
-                image = imageFromItem(),
+                imageState = imageState,
                 transform = { color -> createColorBrush(color, Gravity.TOP) }
             ) { bckColor ->
                 Column(

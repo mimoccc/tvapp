@@ -26,9 +26,7 @@ import org.mjdev.tvlib.ui.components.page.Page
 fun ScreenView(
     modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
-    content: @Composable () -> Unit = {
-        Page()
-    }
+    content: @Composable () -> Unit = { Page() }
 ) {
     Box(
         modifier = modifier
