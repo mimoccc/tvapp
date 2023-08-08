@@ -43,7 +43,12 @@ import org.mjdev.tvlib.navigation.NavHostControllerEx
 @Composable
 fun NavDrawerContent(
     backgroundColor: Color = Color.DarkGray,
-    shape: Shape = RoundedCornerShape(16.dp),
+    shape: Shape = RoundedCornerShape(
+        topStart = 0.dp,
+        topEnd = 16.dp,
+        bottomEnd = 16.dp,
+        bottomStart = 0.dp
+    ),
     navController: NavHostControllerEx = rememberNavControllerEx(),
     onDrawerItemClick: (id: Int) -> Unit = { id ->
         navController.menuItem(id).let { menuItem ->
@@ -102,7 +107,7 @@ fun NavDrawerContent(
                     }
                 )
             }
-            .padding(4.dp)
+            .padding(0.dp, 4.dp, 0.dp, 4.dp)
             .fillMaxHeight(),
     ) {
         Column(
