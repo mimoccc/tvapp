@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.media
 
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Looper
 import android.view.Surface
 import android.view.SurfaceHolder
@@ -65,10 +66,17 @@ class ExoPlayerImpl(
                 controllerAutoShow = true
                 controllerHideOnTouch = true
                 useController = true
-                useArtwork = true
-                artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_FIT
+                useArtwork = false
+                artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_OFF
                 player = exoPlayer
                 setShutterBackgroundColor(0)
+                setBackgroundColor(0)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    outlineAmbientShadowColor = 0
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    outlineSpotShadowColor = 0
+                }
                 setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                 setShowMultiWindowTimeBar(true)
                 setShowNextButton(false)
