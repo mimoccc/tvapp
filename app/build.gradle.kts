@@ -30,11 +30,11 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
-//    id("org.jetbrains.dokka") version "1.8.10"
     id("io.objectbox")
     id("MainAppPlugin")
     kotlin("kapt")
     id("com.google.devtools.ksp")
+//    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 android {

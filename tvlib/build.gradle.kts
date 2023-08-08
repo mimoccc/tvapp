@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.mjdev.gradle.extensions.implementation
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
@@ -18,9 +19,9 @@ plugins {
     kotlin("android")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
-//    id("org.jetbrains.dokka") version "1.8.10"
     kotlin("kapt")
     id("com.google.devtools.ksp")
+//    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 android {
@@ -104,6 +105,10 @@ dependencies {
     // okhttp
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    // moshi json
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")

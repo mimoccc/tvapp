@@ -16,13 +16,10 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -58,7 +55,6 @@ class NativePlayerImpl(
             modifier = Modifier
                 .recomposeHighlighter()
                 .size(width.dp, height.dp)
-                .background(Color.Black, RectangleShape)
         ) {
             if (!isEdit) {
                 AndroidView(

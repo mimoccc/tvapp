@@ -8,21 +8,19 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Looper
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
-import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -63,12 +61,14 @@ class ExoPlayerImpl(
         val isEdit = isEditMode()
         val playerView = remember {
             PlayerView(context).apply {
+                background = ColorDrawable(0)
                 controllerAutoShow = true
                 controllerHideOnTouch = true
                 useController = true
                 useArtwork = true
                 artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_FIT
                 player = exoPlayer
+                setShutterBackgroundColor(0)
                 setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
                 setShowMultiWindowTimeBar(true)
                 setShowNextButton(false)
@@ -89,7 +89,6 @@ class ExoPlayerImpl(
             modifier = Modifier
                 .recomposeHighlighter()
                 .size(width.dp, height.dp)
-                .background(Color.Black, RectangleShape)
                 .onPreviewKeyEvent { ev ->
                     val controller = playerView.controller
                     if (controller?.isShown == true) {

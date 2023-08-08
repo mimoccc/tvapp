@@ -94,6 +94,8 @@ class IPTVScreen : Screen() {
             else -> null
         }
 
+        val isAudio = currentData is ItemAudio
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -101,7 +103,8 @@ class IPTVScreen : Screen() {
         ) {
             MediaPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                uri = mediaUri?.parseUri(),
+                isAudio = isAudio,
+                uri = mediaUri?.parseUri() ?: Uri.EMPTY,
                 title = mediaTitle,
                 subtitle = mediaUri
             )

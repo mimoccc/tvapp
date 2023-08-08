@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.ui.PlayerControlView
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview.Companion.AudioPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
@@ -29,7 +30,8 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMe
 @Composable
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
-    uri: Uri? = Uri.EMPTY,
+    uri: Uri = Uri.EMPTY,
+    isAudio: Boolean = false,
     title: String? = null,
     subtitle: String? = null,
     autoPlay: Boolean = true,
@@ -39,7 +41,7 @@ fun MediaPlayerContainer(
     val isEdit = isEditMode()
     val state = rememberMediaPlayerState(
         player = mediaPlayer,
-        uri = uri ?: Uri.EMPTY,
+        uri = uri,
         autoPlay = autoPlay,
         startSeek = startSeek,
         title = title,
@@ -50,12 +52,21 @@ fun MediaPlayerContainer(
             .recomposeHighlighter()
             .fillMaxSize()
     ) {
+        if (isAudio) {
+            AudioPreview(
+                modifier = Modifier.fillMaxSize(),
+                state = state,
+                uri = uri
+            )
+        }
         mediaPlayer.GetPlayerView()
         if (isEdit) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { context ->
-                    PlayerControlView(context)
+                    PlayerControlView(context).apply {
+                        player = mediaPlayer
+                    }
                 }
             )
         }
