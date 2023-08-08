@@ -60,9 +60,10 @@
         <activity
             android:name=".activity.MainActivity"
             android:clearTaskOnLaunch="true"
+            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
-            android:launchMode="singleTask"
-            android:exported="true">
+            android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,11 +91,12 @@
 
         <activity
             android:name=".activity.IPTVActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
+            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
-            android:label="@string/title_iptv">
+            android:label="@string/title_iptv"
+            android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -112,11 +114,12 @@
 
         <activity
             android:name=".activity.WebActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
+            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:exported="true"
             android:finishOnTaskLaunch="true"
-            android:label="@string/title_web">
+            android:label="@string/title_web"
+            android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
