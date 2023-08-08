@@ -231,7 +231,7 @@ dependencies {
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.31.6-rc")
+    implementation("com.google.accompanist:accompanist-permissions:0.33.0-alpha")
     // previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // lottie

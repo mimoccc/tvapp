@@ -94,6 +94,7 @@ fun ItemInfo(
         ) {
             ImageBackground(
                 modifier = Modifier.fillMaxWidth(),
+                initialColor = initialColor,
                 imageState = imageState,
                 transform = { color -> createColorBrush(color, Gravity.TOP) }
             ) { bckColor ->

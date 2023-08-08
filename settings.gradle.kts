@@ -17,6 +17,7 @@ pluginManagement {
         @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
         jcenter()
         maven(url = "https://plugins.gradle.org/m2/")
+        maven(url = "https://mvn.dailymotion.com/repository/releases/")
     }
 }
 
@@ -34,6 +35,7 @@ dependencyResolutionManagement {
         @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
         jcenter()
         maven(url = "https://plugins.gradle.org/m2/")
+        maven(url = "https://mvn.dailymotion.com/repository/releases/")
     }
 }
 

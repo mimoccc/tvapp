@@ -62,6 +62,7 @@ fun ErrorMessage(
     modifier = Modifier
         .fillMaxWidth()
         .background(backgroundColor, shape)
+        .padding(contentPadding)
         .recomposeHighlighter(),
     verticalAlignment = Alignment.CenterVertically,
 ) {

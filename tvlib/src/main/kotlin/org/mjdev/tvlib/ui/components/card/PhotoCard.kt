@@ -67,6 +67,7 @@ fun PhotoCard(
     },
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
+    // todo
     placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
     titlePadding: PaddingValues = PaddingValues(8.dp),

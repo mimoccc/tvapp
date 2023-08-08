@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.activity
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -92,6 +93,11 @@ open class ComposableActivity : ComponentActivity() {
     // todo
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Timber.d("Config change")
     }
 
     open fun onIntent(navController: NavHostControllerEx, intent: Intent?) {

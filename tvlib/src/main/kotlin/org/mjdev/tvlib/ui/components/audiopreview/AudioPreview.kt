@@ -25,13 +25,13 @@ import org.mjdev.tvlib.ui.components.audiopreview.dailymotion.DailyMotionVideoVi
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState
 import timber.log.Timber
 
-//todo multiple engines
 @SuppressLint("ViewConstructor")
 class AudioPreview constructor(
     context: Context,
     val uri: Uri = Uri.EMPTY
 ) : FrameLayout(context) {
 
+    //todo multiple engines
     private val previewEngine: IPreviewEngine by lazy {
         DailyMotionVideoView(context)
     }
@@ -83,9 +83,7 @@ class AudioPreview constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         previewEngine.pause()
-        if (networkListener != null) {
-            networkListener!!.unregister(context)
-        }
+        networkListener?.unregister(context)
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
@@ -99,6 +97,7 @@ class AudioPreview constructor(
     companion object {
 
         // todo video stop pause resume & etc
+        // todo lifecycle
         @Suppress("UNUSED_PARAMETER")
         @Composable
         fun AudioPreview(

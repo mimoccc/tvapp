@@ -18,6 +18,7 @@ buildscript {
     repositories {
         mavenCentral()
         maven(url = "https://storage.googleapis.com/r8-releases/raw")
+        maven(url = "https://mvn.dailymotion.com/repository/releases/")
     }
     dependencies {
         classpath("com.android.tools:r8:8.1.56")

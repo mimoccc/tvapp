@@ -9,37 +9,37 @@
 package org.mjdev.tvlib.ui.components.audiopreview.dailymotion
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.media.MediaMetadataRetriever
 import android.util.AttributeSet
-import android.view.KeyEvent
-import android.view.MotionEvent
+import android.widget.FrameLayout
+import com.dailymotion.android.player.sdk.PlayerWebView
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import org.mjdev.tvlib.ui.components.audiopreview.IPreviewEngine
-import org.mjdev.tvlib.ui.components.audiopreview.dailymotion.ThreadOnce.Companion.runInThreadOnce
 import org.mjdev.tvlib.helpers.coil.UserAgentInterceptor
 import org.mjdev.tvlib.network.CacheInterceptor
+import org.mjdev.tvlib.ui.components.audiopreview.IPreviewEngine
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.net.URLEncoder
 
-@Suppress("unused", "PrivatePropertyName", "DEPRECATION")
-class DailyMotionVideoView(
+@Suppress("DEPRECATION", "PrivatePropertyName")
+class DailyMotionVideoView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : PlayerWebView(
-    context,
-    attrs
-), EventListener, IPreviewEngine {
+) : FrameLayout(context, attrs), IPreviewEngine {
+
+    private val playerView by lazy {
+        PlayerWebView(context).apply {
+            setBackgroundColor(0)
+            mute()
+        }
+    }
 
     private val DM_URL =
         "https://api.dailymotion.com/videos?fields=id,thumbnail_url,title&search=%s&page=1&limit=1"
-
-    private var dmListener: DailyMotionVideoViewEventListener? = null
 
     private val USER_AGENT =
         "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
@@ -82,9 +82,7 @@ class DailyMotionVideoView(
     ).execute()
 
     init {
-        background = ColorDrawable(0)
-        visibility = INVISIBLE
-        setEventListener(this)
+        addView(playerView)
     }
 
     override fun searchAndPlayIfFound(
@@ -93,7 +91,6 @@ class DailyMotionVideoView(
         success: () -> Unit,
         error: (error: Exception) -> Unit
     ) {
-        if (muted) mute()
         var q: String?
         if (filePath != null) {
             var mr: MediaMetadataRetriever? = null
@@ -122,15 +119,14 @@ class DailyMotionVideoView(
                     try {
                         mr.release()
                     } catch (e: IOException) {
-                        // todo
-//                        Timber.e(e)
+                        // omit
                     }
                 }
             }
             if (q == null || q.trim { it <= ' ' }.isEmpty()) {
                 q = File(filePath).name.substringBeforeLast(".")
             }
-            runInThreadOnce {
+            ThreadOnce.runInThreadOnce {
                 try {
                     val url = String.format(
                         DM_URL,
@@ -144,7 +140,7 @@ class DailyMotionVideoView(
                     if (videoId != null) {
                         post {
                             visibility = VISIBLE
-                            load(videoId)
+                            playerView.load(mapOf("video" to videoId))
                             success()
                         }
                     }
@@ -161,36 +157,24 @@ class DailyMotionVideoView(
         }
     }
 
+    override fun pause() {
+        playerView.pause()
+    }
+
+    override fun resume() {
+        playerView.play()
+    }
+
+    override fun seekTo(seek: Long) {
+        playerView.seek(seek.toDouble())
+    }
+
+    override fun release() {
+        playerView.release()
+    }
+
     private inline fun <reified T> fromSimpleJSONString(json: String): T? {
         return Moshi.Builder().build().adapter(T::class.java).fromJson(json)
-    }
-
-    fun setListener(listener: DailyMotionVideoViewEventListener?) {
-        dmListener = listener
-    }
-
-    fun resume(position: Long) {
-        super.seek(position.toDouble())
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        return false
-    }
-
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        return false
-    }
-
-    override fun onEvent(event: String?, map: HashMap<String?, String?>?) {
-        post {
-            if (event.equals(EVENT_VIDEO_START, ignoreCase = true)) {
-                visibility = VISIBLE
-                background = ColorDrawable(-0x1000000)
-            } else if (event.equals(EVENT_VIDEO_END, ignoreCase = true)) {
-                visibility = INVISIBLE
-                background = ColorDrawable(0)
-            }
-        }
     }
 
 }

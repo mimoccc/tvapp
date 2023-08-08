@@ -153,7 +153,7 @@ dependencies {
     implementation("androidx.media3:media3-datasource:1.1.0")
     implementation("androidx.media3:media3-common:1.1.0")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.31.6-rc")
+    implementation("com.google.accompanist:accompanist-permissions:0.33.0-alpha")
     // for previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // pallette
@@ -164,6 +164,8 @@ dependencies {
     implementation("androidx.exifinterface:exifinterface:1.3.6")
     // anr
     implementation("com.github.anrwatchdog:anrwatchdog:1.4.0")
+    // dm
+    implementation ("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
     // constraints
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

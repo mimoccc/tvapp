@@ -11,4 +11,10 @@ interface IPreviewEngine {
 
     fun pause()
 
+    fun resume()
+
+    fun seekTo(seek:Long)
+
+    fun release()
+
 }
