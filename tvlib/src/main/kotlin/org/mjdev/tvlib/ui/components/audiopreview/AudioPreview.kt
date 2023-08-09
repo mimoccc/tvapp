@@ -82,7 +82,6 @@ class AudioPreview constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        previewEngine.pause()
         networkListener?.unregister(context)
     }
 
