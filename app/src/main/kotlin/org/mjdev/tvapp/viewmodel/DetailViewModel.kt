@@ -41,7 +41,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     lateinit var localPhotoCursor: PhotoCursor
 
     fun movieList() = runBlocking {
-        movieRepository.getMovies().getOrNull() ?: emptyList()
+        movieRepository.getMovies().getOrDefault(emptyList())
     }
 
     companion object {
