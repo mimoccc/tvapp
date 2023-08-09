@@ -16,7 +16,7 @@ import com.squareup.moshi.JsonClass
 class Stream {
 
     @Json(name = "channel")
-    var channel: String? = null
+    var channelId: String? = null
 
     @Json(name = "url")
     var url: String? = null

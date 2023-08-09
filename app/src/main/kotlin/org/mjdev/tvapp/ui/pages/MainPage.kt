@@ -54,7 +54,7 @@ class MainPage : Page() {
             MainViewModel.mockMainViewModel(context)
         }
 
-        val streamingData = viewModel.categoryList.collectAsState()
+        val streamingData = viewModel.movieList.collectAsState()
         val countryList = viewModel.countryList.collectAsState()
         val featuredMovieList = viewModel.featuredMovieList.collectAsState()
         val messages = viewModel.messages.collectAsState()

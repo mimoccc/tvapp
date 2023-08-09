@@ -10,16 +10,14 @@ package org.mjdev.tvapp.viewmodel
 
 import android.content.ComponentName
 import android.content.Context
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.MainActivity
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
@@ -57,9 +55,12 @@ class MainViewModel @Inject constructor(
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
 
+    private val noCategoryString by lazy {
+        context.getString(R.string.no_category)
+    }
+
     val apps = appsManager(
-        context,
-        ComponentName(
+        context, ComponentName(
             BuildConfig.APPLICATION_ID,
             MainActivity::class.java.name
         )
@@ -67,11 +68,7 @@ class MainViewModel @Inject constructor(
 
     val messages: StateFlow<List<Message>> = channelFlow {
         send(movieRepository.getMessages().getOrThrow())
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        listOf()
-    )
+    }.stateInViewModel()
 
     val featuredMovieList: StateFlow<List<Any?>> = flow {
         mutableListOf<Any?>().apply {
@@ -88,25 +85,21 @@ class MainViewModel @Inject constructor(
         }.also { result ->
             emit(result)
         }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        listOf()
-    )
+    }.stateInViewModel()
 
-    val categoryList: StateFlow<Map<String, List<Movie>>> = flow {
-        movieRepository.getMovies().getOrThrow().sortedBy { m ->
+    val movieList: StateFlow<Map<String, List<Movie>>> = flow {
+        movieRepository.getMovies().getOrDefault(emptyList()).map { movie ->
+            movie.apply {
+                category = category ?: noCategoryString
+            }
+        }.sortedBy { m ->
             m.category
         }.asMap { m ->
             Pair(m.category, m)
         }.also { map ->
             emit(map)
         }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        mapOf()
-    )
+    }.stateInViewModel()
 
     val countryList: StateFlow<List<String>> = flow {
         movieRepository.getMovies().getOrThrow().filter { it.country != null }.map {
@@ -116,11 +109,7 @@ class MainViewModel @Inject constructor(
         }.also {
             emit(it)
         }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        listOf()
-    )
+    }.stateInViewModel()
 
     fun findMovie(id: Long?): Movie? = runBlocking {
         movieRepository.findMovieById(id).getOrNull()
