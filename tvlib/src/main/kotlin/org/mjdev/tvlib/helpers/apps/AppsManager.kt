@@ -16,8 +16,8 @@ import android.graphics.drawable.Drawable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithIntent
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -26,45 +26,59 @@ import java.util.Collections
 @Composable
 fun rememberAppsManager(
     vararg excluded: ComponentName
-): List<App> {
+): Flow<List<App>> {
     val context: Context = LocalContext.current
     return remember {
-        AppsManager(context, *excluded)
+        appsManager(context, *excluded)
     }
 }
 
-class AppsManager(
+fun appsManager(
     context: Context,
     vararg excluded: ComponentName
-) : ArrayList<App>() {
-    init {
-        runBlocking(Dispatchers.IO) {
-            val packageManager = context.packageManager
-            val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
-                addCategory(Intent.CATEGORY_LAUNCHER)
-            }
-            val resolveInfo = packageManager.queryIntentActivities(mainIntent, 0)
-            Collections.sort(resolveInfo, ResolveInfo.DisplayNameComparator(packageManager))
-            resolveInfo.forEach { ri ->
-                val isExcluded = excluded.any { cn ->
-                    cn.packageName == ri.activityInfo.packageName &&
-                            cn.shortClassName == ri.activityInfo.name
-                }
-                if (!isExcluded) {
-                    val title = ri.activityInfo.loadLabel(packageManager).toString()
-                    val image = ri.activityInfo
-                        .loadBanner(packageManager) ?: ri.activityInfo
-                        .loadIcon(packageManager)
-                    val intent = Intent().apply {
-                        setClassName(
-                            ri.activityInfo.packageName,
-                            ri.activityInfo.name
-                        )
-                    }
-                    add(App(title, image, intent))
-                }
-            }
+) = channelFlow {
+    val packageManager = context.packageManager
+    val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+        addCategory(Intent.CATEGORY_LAUNCHER)
+    }
+    val isNotExcluded: (ri: ResolveInfo) -> Boolean = { ri ->
+        !excluded.any { cn ->
+            cn.packageName == ri.activityInfo.packageName &&
+                    cn.shortClassName == ri.activityInfo.name
         }
+    }
+    val title: (ri: ResolveInfo) -> String = { ri ->
+        ri.activityInfo.loadLabel(packageManager).toString()
+    }
+    val image: (ri: ResolveInfo) -> Drawable = { ri ->
+        ri.activityInfo
+            .loadBanner(packageManager) ?: ri.activityInfo
+            .loadIcon(packageManager)
+    }
+    val intent: (ri: ResolveInfo) -> Intent = { ri ->
+        Intent().apply {
+            setClassName(
+                ri.activityInfo.packageName,
+                ri.activityInfo.name
+            )
+        }
+    }
+    packageManager.queryIntentActivities(
+        mainIntent,
+        0
+    ).apply {
+        Collections.sort(
+            this,
+            ResolveInfo.DisplayNameComparator(packageManager)
+        )
+    }.mapNotNull { ri ->
+        if (isNotExcluded(ri)) {
+            App(title(ri), image(ri), intent(ri))
+        } else {
+            null
+        }
+    }.also { list ->
+        send(list)
     }
 }
 

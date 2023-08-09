@@ -9,10 +9,16 @@
 package org.mjdev.tvlib.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
 
+@Suppress("unused")
 open class BaseViewModel : ViewModel() {
 
     val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
@@ -43,5 +49,29 @@ open class BaseViewModel : ViewModel() {
     fun handleError(block: (error: Throwable) -> Unit) {
         errorHandler = block
     }
+
+    fun <K, V> Flow<Map<K, V>>.stateInViewModel(
+        initial: Map<K, V> = mapOf()
+    ): StateFlow<Map<K, V>> = stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        initial
+    )
+
+    fun <T> Flow<List<T>>.stateInViewModel(
+        initial: List<T> = listOf()
+    ): StateFlow<List<T>> = stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        initial
+    )
+
+    fun <T> Flow<T>.stateInViewModel(
+        initial: T
+    ): StateFlow<T> = stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        initial
+    )
 
 }

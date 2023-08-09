@@ -8,17 +8,20 @@
 
 package org.mjdev.tvapp.viewmodel
 
+import android.content.ComponentName
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
+import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.activity.MainActivity
 import org.mjdev.tvlib.extensions.ListExt.asMap
-import org.mjdev.tvlib.helpers.apps.AppsManager
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
@@ -29,20 +32,21 @@ import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvapp.repository.MovieRepository
+import org.mjdev.tvlib.helpers.apps.appsManager
 import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : BaseViewModel() {
+class MainViewModel @Inject constructor(
+    @ApplicationContext
+    context: Context
+) : BaseViewModel() {
 
     @Inject
     lateinit var movieRepository: IMovieRepository
 
     @Inject
     lateinit var networkInfo: NetworkConnectivityService
-
-    @Inject
-    lateinit var appsList: AppsManager
 
     @Inject
     lateinit var localAudioCursor: AudioCursor
@@ -52,6 +56,14 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
+
+    val apps = appsManager(
+        context,
+        ComponentName(
+            BuildConfig.APPLICATION_ID,
+            MainActivity::class.java.name
+        )
+    ).stateInViewModel()
 
     val messages: StateFlow<List<Message>> = channelFlow {
         send(movieRepository.getMessages().getOrThrow())
@@ -119,10 +131,9 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         @Suppress("unused")
         fun mockMainViewModel(
             context: Context
-        ): MainViewModel = MainViewModel().apply {
+        ): MainViewModel = MainViewModel(context).apply {
             movieRepository = MovieRepository(DAO(context))
             networkInfo = NetworkConnectivityServiceImpl(context)
-            appsList = AppsManager(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)
             localPhotoCursor = PhotoCursor(context)

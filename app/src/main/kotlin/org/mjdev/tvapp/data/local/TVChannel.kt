@@ -12,6 +12,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import org.mjdev.tvapp.data.remote.Channel
+import org.mjdev.tvapp.data.remote.Stream
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -20,12 +22,10 @@ import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
 import java.io.Serializable
 
-// todo
-
 @Suppress("unused")
 @Entity
 @JsonClass(generateAdapter = true)
-class TVChannel :
+class TVChannel() :
     Serializable,
     ItemWithId,
     ItemWithTitle<String>,
@@ -33,6 +33,32 @@ class TVChannel :
     ItemWithImage<String>,
     ItemWithUri<String>,
     ItemWithDescription<String> {
+
+    constructor(stream: Stream, channel: Channel?) : this() {
+
+        this.streamUrl = stream.url
+        this.httpReferrer = stream.httpReferrer ?: ""
+        this.userAgent = stream.userAgent ?: ""
+
+        this.channelId = channel?.id ?: ""
+        this.name = channel?.name ?: ""
+        this.altNames = channel?.altNames ?: emptyList()
+        this.broadcastArea = channel?.broadcastArea ?: emptyList()
+        this.city = channel?.city ?: ""
+        this.categories = channel?.categories ?: emptyList()
+        this.closed = channel?.closed ?: ""
+        this.country = channel?.country ?: ""
+        this.isNsfw = channel?.isNsfw ?: false
+        this.languages = channel?.languages ?: emptyList()
+        this.launched = channel?.launched ?: ""
+        this.logo = channel?.logo ?: ""
+        this.network = channel?.network ?: ""
+        this.owners = channel?.owners ?: emptyList()
+        this.replacedBy = channel?.replacedBy ?: ""
+        this.subdivision = channel?.subdivision ?: ""
+        this.website = channel?.website ?: ""
+
+    }
 
     @Id
     override var id: Long = 0
@@ -106,5 +132,23 @@ class TVChannel :
     override val title: String? get() = name
 
     override val uri: String? get() = streamUrl
+
+    override fun toString(): String = "Channel[$title : $uri]"
+
+    companion object {
+
+        fun TVChannel.asMovie(category: String): Movie = Movie().also { m ->
+            m.category = category
+            m.country = country
+            m.isNsfw = isNsfw ?: false
+            m.studio = network
+            m.uri = uri
+            m.description = description
+            m.image = image
+            m.subtitle = subtitle
+            m.title = name
+        }
+
+    }
 
 }

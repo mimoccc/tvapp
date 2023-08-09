@@ -21,21 +21,21 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("channels.json")
-    fun channels(): ApiResponse<List<Channel>>
+    suspend fun channels(): ApiResponse<List<Channel>>
 
     @GET("streams.json")
-    fun streams(): ApiResponse<List<Stream>>
+    suspend fun streams(): ApiResponse<List<Stream>>
 
     @GET("guides.json")
-    fun epg(): ApiResponse<List<Epg>>
+    suspend fun epg(): ApiResponse<List<Epg>>
 
     @GET("categories.json")
-    fun categories(): ApiResponse<List<Category>>
+    suspend fun categories(): ApiResponse<List<Category>>
 
     @GET("languages.json")
-    fun languages(): ApiResponse<List<Language>>
+    suspend fun languages(): ApiResponse<List<Language>>
 
     @GET("countries.json")
-    fun countries(): ApiResponse<List<Country>>
+    suspend fun countries(): ApiResponse<List<Country>>
 
 }

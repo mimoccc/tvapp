@@ -9,9 +9,11 @@ import io.objectbox.BoxStore
 import io.objectbox.kotlin.awaitCallInTx
 import io.objectbox.kotlin.boxFor
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.data.local.Category
 import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.data.local.MyObjectBox
+import org.mjdev.tvapp.data.local.TVChannel
 
 class DAO(
     @ApplicationContext
@@ -39,6 +41,14 @@ class DAO(
     }
 
     val movieDao: Box<Movie> by lazy {
+        store.boxFor()
+    }
+
+    val categoryDao: Box<Category> by lazy {
+        store.boxFor()
+    }
+
+    val channelsDao: Box<TVChannel> by lazy {
         store.boxFor()
     }
 

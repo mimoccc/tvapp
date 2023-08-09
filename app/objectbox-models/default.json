@@ -39,7 +39,7 @@
     },
     {
       "id": "2:7141750768191734097",
-      "lastPropertyId": "12:6138526348322531011",
+      "lastPropertyId": "13:503445141634537419",
       "name": "Movie",
       "properties": [
         {
@@ -92,6 +92,11 @@
           "name": "id",
           "type": 6,
           "flags": 1
+        },
+        {
+          "id": "13:503445141634537419",
+          "name": "subtitle",
+          "type": 9
         }
       ],
       "relations": []
@@ -288,9 +293,38 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:6626640907745307806",
+      "lastPropertyId": "4:4895179631110667602",
+      "name": "Category",
+      "properties": [
+        {
+          "id": "1:3008860336305693215",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1550404233910431310",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "3:3840804705832268977",
+          "name": "subtitle",
+          "type": 9
+        },
+        {
+          "id": "4:4895179631110667602",
+          "name": "image",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:1987880888030669889",
+  "lastEntityId": "5:6626640907745307806",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

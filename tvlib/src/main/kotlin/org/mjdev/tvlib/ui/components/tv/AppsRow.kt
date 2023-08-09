@@ -11,6 +11,8 @@ package org.mjdev.tvlib.ui.components.tv
 import android.content.Context
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -40,14 +42,14 @@ fun AppsRow(
     startApp: Context.(app: App?) -> Unit = { app ->
         startActivity(app?.intent)
     },
-    apps: List<App> = rememberAppsManager()
+    apps: State<List<App>> = rememberAppsManager().collectAsState(emptyList())
 ) {
     val context: Context = LocalContext.current
     val cardWidth = computeCardWidth(3f)
-    if (apps.isNotEmpty()) {
+    if (apps.value.isNotEmpty()) {
         CategoryRow(
             title = title,
-            items = apps,
+            items = apps.value,
             rowState = rowState,
             padding = padding,
             cardWidth = cardWidth,

@@ -10,9 +10,9 @@
 
 package org.mjdev.tvapp.module
 
-import android.content.ComponentName
 import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -22,9 +22,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.activity.MainActivity
 import org.mjdev.tvapp.repository.ApiService
-import org.mjdev.tvlib.helpers.apps.AppsManager
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
@@ -44,20 +42,7 @@ import javax.inject.Singleton
 class ProvideModule {
 
     private val isDebug = BuildConfig.DEBUG
-    private val BASE_URL = BuildConfig.IPTV_API_URL
-
-
-    @Singleton
-    @Provides
-    fun providesAppsManager(
-        @ApplicationContext
-        context: Context
-    ): AppsManager = AppsManager(
-        context, ComponentName(
-            BuildConfig.APPLICATION_ID,
-            MainActivity::class.java.name
-        )
-    )
+    private val baseUrl = BuildConfig.IPTV_API_URL
 
     @Singleton
     @Provides
@@ -131,9 +116,10 @@ class ProvideModule {
     fun providesRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(baseUrl)
         .client(okHttpClient)
         .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 

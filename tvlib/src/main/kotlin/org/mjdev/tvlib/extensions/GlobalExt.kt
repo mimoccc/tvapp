@@ -14,6 +14,7 @@ import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.getOrNull
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.toFlow
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
@@ -21,24 +22,34 @@ import timber.log.Timber
 @Suppress("unused")
 object GlobalExt {
 
+    @Suppress("MemberVisibilityCanBePrivate")
+    class CodeException(
+        val code:Int = -1,
+        message:String = String.format("$code : Unhandled Exception.")
+    ) : Exception(message)
+
     fun MutableState<Boolean>.toggle() {
         value = !value
     }
 
     fun <T> ApiResponse<T>.safeFlow(
-        error: (code: Int, message: String?) -> Unit = { code, message ->
-            Timber.e("Response error : ($code, ${message})")
+        error: (exception: Exception) -> Unit = { exception ->
+            Timber.e(exception)
         }
-    ): Flow<T> = onError {
-        error(statusCode.code, message())
+    ): Flow<T> = onException {
+        error(exception)
+    }.onError {
+        error(CodeException(statusCode.code, message()))
     }.toFlow()
 
     inline fun <reified T> ApiResponse<List<T>>.safeGet(
-        crossinline error: (code: Int, message: String?) -> Unit = { code, message ->
-            Timber.e("Response error : ($code, ${message})")
-        },
-    ): List<T> = onError {
-        error(statusCode.code, message())
+        crossinline error: (exception: Exception) -> Unit = { exception ->
+            Timber.e(exception)
+        }
+    ): List<T> = onException {
+        error(exception)
+    }.onError {
+        error(CodeException(statusCode.code, message()))
     }.getOrNull() ?: emptyList()
 
     suspend fun <E> runSafe(block: suspend () -> E): Result<E> = try {

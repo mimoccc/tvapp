@@ -94,6 +94,7 @@ class MainPage : Page() {
 
         val user = remember { mutableStateOf<User?>(null) }
         val authManager = rememberAuthManager { u -> user.value = u }
+        val apps = remember { viewModel.apps }.collectAsState(emptyList())
 
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -122,8 +123,8 @@ class MainPage : Page() {
                     }
                 },
                 customRows = mutableListOf<@Composable () -> Unit>().apply {
-                    if (viewModel.appsList.size > 0) add {
-                        AppsRow(apps = viewModel.appsList)
+                    add {
+                        AppsRow(apps = apps)
                     }
                     if (viewModel.localAudioCursor.count > 0) add {
                         LocalAudioRow(

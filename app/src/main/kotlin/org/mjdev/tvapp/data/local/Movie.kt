@@ -39,12 +39,6 @@ class Movie :
     @Json(name = "id")
     override var id: Long = 0
 
-    @Json(name = "category")
-    var category: String? = ""
-        get() = (field ?: country)?.replaceFirstChar { ch ->
-            ch.titlecase(Locale.ROOT)
-        }
-
     @Json(name = "studio")
     var studio: String? = null
 
@@ -60,21 +54,25 @@ class Movie :
     @Json(name = "description")
     override var description: String? = null
 
+    @Json(name = "videoUri")
+    override var uri: String? = null
+
+    override var subtitle: String? = null
+        get() = field ?: studio
+
+    @Json(name = "category")
+    var category: String? = ""
+        get() = (field ?: country)?.replaceFirstChar { ch ->
+            ch.titlecase(Locale.ROOT)
+        }
+
     @Json(name = "backgroundImageUrl")
     override var background: String? = null
         get() = field ?: image
 
     @Json(name = "imageUrl")
     override var image: String? = null
-
-    @Json(name = "videoUri")
-    override var uri: String? = null
-
-    override var subtitle: String?
-        get() = studio
-        set(value) {
-            studio = value
-        }
+        get() = field ?: uri
 
     override fun equals(other: Any?): Boolean {
         if (other == null || other !is Movie) return false
