@@ -8,12 +8,10 @@
 
 package org.mjdev.tvlib.ui.components.media
 
-import android.media.MediaPlayer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @UnstableApi @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -36,16 +34,17 @@ object MediaPlayerContainerDefaults {
             val context = LocalContext.current
             if (isEdit) IMediaPlayer.EMPTY
             else remember {
-                ExoPlayerImpl(ExoPlayer.Builder(context).build())
+                ExoPlayerImpl(context)
             }
         }
 
     val internalPlayer: IMediaPlayer
         @Composable
         get() = run {
+            val context = LocalContext.current
             if (isEdit) IMediaPlayer.EMPTY
             else remember {
-                NativePlayerImpl(MediaPlayer())
+                NativePlayerImpl(context)
             }
         }
 

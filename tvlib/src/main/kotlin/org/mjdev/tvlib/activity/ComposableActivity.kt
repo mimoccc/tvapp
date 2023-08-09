@@ -59,9 +59,11 @@ open class ComposableActivity : ComponentActivity() {
     open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
     fun reportANR() {
-        ANRWatchDog(ANR_TIMEOUT).setANRListener { anr ->
-            anr.printStackTrace()
-        }.start()
+        ANRWatchDog(ANR_TIMEOUT)
+            .setIgnoreDebugger(true)
+            .setANRListener { anr ->
+                anr.printStackTrace()
+            }.start()
     }
 
     @TvPreview

@@ -61,6 +61,7 @@ class AuthManager(
                 }
             }
         } catch (e: Exception) {
+            // todo bad token
             Timber.e(e)
             null
         }

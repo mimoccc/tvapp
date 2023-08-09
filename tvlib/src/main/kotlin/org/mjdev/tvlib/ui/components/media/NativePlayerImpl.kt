@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Looper
@@ -43,7 +44,8 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 @Suppress("unused", "DeprecatedCallableAddReplaceWith")
 @SuppressLint("UnsafeOptInUsageError")
 class NativePlayerImpl(
-    private val mediaPlayer: MediaPlayer
+    private val context: Context,
+    private val mediaPlayer: MediaPlayer = MediaPlayer()
 ) : IMediaPlayer {
 
     @Composable

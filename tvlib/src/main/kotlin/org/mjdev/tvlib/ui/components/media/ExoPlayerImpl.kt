@@ -8,6 +8,12 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -27,6 +33,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.getSystemService
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
@@ -42,6 +49,7 @@ import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -50,8 +58,50 @@ import org.mjdev.tvlib.extensions.ViewExt.controller
 @Suppress("DEPRECATION")
 @UnstableApi
 class ExoPlayerImpl(
-    private val exoPlayer: ExoPlayer
-) : IMediaPlayer {
+    private val context: Context,
+    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
+) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter {
+
+    // todo lifecycle
+    private val playerNotificationManager by lazy {
+        val notifyChannelName = this::class.java.`package`?.name ?: "MediaPlayer"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager = context.getSystemService<NotificationManager>()
+            notificationManager?.createNotificationChannel(NotificationChannel(
+                notifyChannelName,
+                notifyChannelName,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ))
+        }
+        val notificationId = 1
+        PlayerNotificationManager.Builder(
+            context,
+            notificationId,
+            notifyChannelName,
+            this
+        ).apply {
+            // todo details ?
+        }.build()
+    }
+
+    override fun getCurrentContentTitle(player: Player): String =
+        currentMediaItem?.mediaMetadata?.title?.toString() ?: ""
+
+    override fun getCurrentContentText(player: Player): String =
+        currentMediaItem?.mediaMetadata?.description?.toString() ?: ""
+
+    // todo app icon if artwork is missing
+    override fun getCurrentLargeIcon(
+        player: Player,
+        callback: PlayerNotificationManager.BitmapCallback
+    ): Bitmap? = currentMediaItem?.mediaMetadata?.artworkData?.let { data ->
+        BitmapFactory.decodeByteArray(data, 0, data.size)
+    }
+
+    // todo app pending intent
+    override fun createCurrentContentIntent(player: Player): PendingIntent? {
+        return null
+    }
 
     @UnstableApi
     @Composable
@@ -60,7 +110,7 @@ class ExoPlayerImpl(
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
-        val playerView = remember {
+        val playerView = remember(exoPlayer) {
             PlayerView(context).apply {
                 background = ColorDrawable(0)
                 controllerAutoShow = true
@@ -119,6 +169,7 @@ class ExoPlayerImpl(
                 )
             }
         }
+        playerNotificationManager.setPlayer(exoPlayer)
     }
 
     override fun setMediaUri(uri: Uri) {
@@ -130,22 +181,27 @@ class ExoPlayerImpl(
     }
 
     override fun play() {
+        playerNotificationManager.setPlayer(exoPlayer)
         exoPlayer.play()
     }
 
     override fun pause() {
+        playerNotificationManager.setPlayer(exoPlayer)
         exoPlayer.pause()
     }
 
     override fun resume() {
+        playerNotificationManager.setPlayer(exoPlayer)
         exoPlayer.playWhenReady = true
     }
 
     override fun stop() {
+        playerNotificationManager.setPlayer(null)
         exoPlayer.stop()
     }
 
     override fun dispose() {
+        stop()
         exoPlayer.release()
     }
 
@@ -406,6 +462,7 @@ class ExoPlayerImpl(
     }
 
     override fun release() {
+        stop()
         exoPlayer.release()
     }
 
