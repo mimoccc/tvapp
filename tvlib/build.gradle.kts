@@ -109,6 +109,8 @@ dependencies {
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    // sandwich
+    implementation ("com.github.skydoves:sandwich:1.3.8")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")
@@ -165,7 +167,9 @@ dependencies {
     // anr
     implementation("com.github.anrwatchdog:anrwatchdog:1.4.0")
     // dm
-    implementation ("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
+    implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
+    // yt
+    // ...
     // constraints
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

@@ -16,7 +16,7 @@ import org.mjdev.tvlib.extensions.GlobalExt.runSafe
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
-    var dao: DAO
+    private var dao: DAO
 ) : IMovieRepository {
 
     override suspend fun getMovies(

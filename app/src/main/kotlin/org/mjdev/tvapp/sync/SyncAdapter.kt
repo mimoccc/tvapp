@@ -11,11 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.repository.ApiRepository
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
+import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvapp.repository.IMovieRepository
+import org.mjdev.tvlib.extensions.GlobalExt.safeGet
 import org.mjdev.tvlib.extensions.ListExt.contains
 import timber.log.Timber
 
@@ -23,7 +24,7 @@ import timber.log.Timber
 class SyncAdapter(
     context: Context,
     val repository: IMovieRepository,
-    val apiRepository: ApiRepository,
+    val apiService: ApiService,
     val dao: DAO
 ) : AbstractThreadedSyncAdapter(context, true, false) {
 
@@ -43,10 +44,10 @@ class SyncAdapter(
             runBlocking(Dispatchers.IO) {
                 val movieUris = movieDao.all.map { m -> m.uri }.toMutableList()
                 flow {
-                    val streams = apiRepository.streams().getOrNull()
-                    val channels = apiRepository.channels().getOrNull()
-                    streams?.forEach { stream ->
-                        val channel = channels?.firstOrNull { channel ->
+                    val streams = apiService.streams().safeGet()
+                    val channels = apiService.channels().safeGet()
+                    streams.forEach { stream ->
+                        val channel = channels.firstOrNull { channel ->
                             channel.id == stream.channel
                         }
                         if (channel != null) {

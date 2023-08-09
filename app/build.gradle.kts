@@ -228,6 +228,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    // sandwich
+    implementation ("com.github.skydoves:sandwich:1.3.8")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission

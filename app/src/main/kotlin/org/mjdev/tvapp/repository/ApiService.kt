@@ -8,34 +8,34 @@
 
 package org.mjdev.tvapp.repository
 
+import com.skydoves.sandwich.ApiResponse
 import org.mjdev.tvapp.data.remote.Category
 import org.mjdev.tvapp.data.remote.Channel
 import org.mjdev.tvapp.data.remote.Country
 import org.mjdev.tvapp.data.remote.Epg
 import org.mjdev.tvapp.data.remote.Language
 import org.mjdev.tvapp.data.remote.Stream
-import retrofit2.Call
 import retrofit2.http.GET
 
 @Suppress("unused")
 interface ApiService {
 
     @GET("channels.json")
-    fun channels(): Call<List<Channel>>
+    fun channels(): ApiResponse<List<Channel>>
 
     @GET("streams.json")
-    fun streams(): Call<List<Stream>>
+    fun streams(): ApiResponse<List<Stream>>
 
     @GET("guides.json")
-    fun epg(): Call<List<Epg>>
+    fun epg(): ApiResponse<List<Epg>>
 
     @GET("categories.json")
-    fun categories(): Call<List<Category>>
+    fun categories(): ApiResponse<List<Category>>
 
     @GET("languages.json")
-    fun languages(): Call<List<Language>>
+    fun languages(): ApiResponse<List<Language>>
 
     @GET("countries.json")
-    fun countries(): Call<List<Country>>
+    fun countries(): ApiResponse<List<Country>>
 
 }
