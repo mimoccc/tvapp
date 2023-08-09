@@ -7,10 +7,10 @@ import android.content.Context
 import android.content.SyncResult
 import android.os.Bundle
 import io.objectbox.Box
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
-import org.mjdev.tvapp.R
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.launch
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
@@ -30,7 +30,15 @@ class SyncAdapter(
 
     private val READ_COUNT = 8
 
+    private val coroutineScope by lazy {
+        CoroutineScope(Dispatchers.IO)
+    }
+
     private val movieDao: Box<Movie> get() = dao.movieDao
+
+    private val moviesSynced by lazy {
+        movieDao.all.toMutableList()
+    }
 
     override fun onPerformSync(
         account: Account?,
@@ -39,39 +47,31 @@ class SyncAdapter(
         provider: ContentProviderClient?,
         syncResult: SyncResult?
     ) {
-        val noCategoryString = context.getString(R.string.no_category)
         try {
-            runBlocking(Dispatchers.IO) {
-                val movieUris = movieDao.all.map { m -> m.uri }.toMutableList()
-                flow {
+            coroutineScope.launch {
+                channelFlow {
                     val streams = apiService.streams().safeGet()
                     val channels = apiService.channels().safeGet()
                     streams.forEach { stream ->
-                        val channel = channels.firstOrNull { channel ->
-                            channel.id == stream.channel
-                        }
-                        if (channel != null) {
-                            emit(Movie().apply {
-                                title = channel.name
-                                uri = stream.url
-                                category = channel.categories?.firstOrNull() ?: noCategoryString
-                                image = channel.logo
-                                country = channel.country
-                                isNsfw = channel.isNsfw ?: false
-                            })
-                        } else {
-                            emit(Movie().apply {
-                                title = stream.channel
-                                uri = stream.url
-                                category = noCategoryString
-                                image = null
-                                country = null
-                                isNsfw = false
-                            })
+                        channels.firstOrNull { channel ->
+                            channel.id == stream.channelId
+                        }.also { channel ->
+                            (channel?.categories ?: listOf(null)).forEach { ctg ->
+                                send(Movie().apply {
+                                    title = channel?.name ?: stream.channelId
+                                    uri = stream.url
+                                    category = ctg
+                                    image = channel?.logo
+                                    country = channel?.country
+                                    isNsfw = channel?.isNsfw ?: false
+                                })
+                            }
                         }
                     }
                 }.collect { movie ->
-                    val exists = movieUris.contains { uri -> uri == movie.uri }
+                    val exists = moviesSynced.contains { synced ->
+                        synced.uri == movie.uri
+                    }
                     if (exists) {
                         // todo duplicities
                     } else {
