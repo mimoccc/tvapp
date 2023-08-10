@@ -37,6 +37,7 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
 import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
@@ -67,8 +68,18 @@ import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview
 @UnstableApi
 class ExoPlayerImpl(
     override val context: Context,
-    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
 ) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter {
+
+//    private val sessionToken by lazy {
+//        MediaSessionCompat.Token.fromToken(
+//            SessionToken(
+//                context, ComponentName(
+//                    context,
+//                    PlaybackService::class.java
+//                )
+//            )
+//        )
+//    }
 
     private val playerNotificationManager by lazy {
         val notifyChannelName = this::class.java.`package`?.name ?: "MediaPlayer"
@@ -88,9 +99,23 @@ class ExoPlayerImpl(
             notificationId,
             notifyChannelName,
             this
-        ).apply {
-            // todo details ?
-        }.build()
+        )
+            .setMediaDescriptionAdapter(this@ExoPlayerImpl)
+            .build()
+            .apply {
+//                setMediaSessionToken(sessionToken)
+            }
+    }
+
+    // todo from session
+    private val exoPlayer: ExoPlayer by lazy {
+        ExoPlayer.Builder(context)
+            .setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(C.USAGE_MEDIA)
+                    .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
+                    .build(), true
+            ).build()
     }
 
     override fun getCurrentContentTitle(player: Player): String =
