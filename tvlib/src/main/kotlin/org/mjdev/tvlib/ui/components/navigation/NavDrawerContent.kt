@@ -24,13 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ComposeExt.isClosed
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
-import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavControllerExt.open
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -97,16 +95,6 @@ fun NavDrawerContent(
                     backgroundColor
                 }, shape
             )
-            .pointerInput(Unit) {
-                detectSwipe(
-                    onSwipeRight = {
-                        navController.openMenu()
-                    },
-                    onSwipeLeft = {
-                        navController.closeMenu()
-                    }
-                )
-            }
             .padding(0.dp, 4.dp, 0.dp, 4.dp)
             .fillMaxHeight(),
     ) {

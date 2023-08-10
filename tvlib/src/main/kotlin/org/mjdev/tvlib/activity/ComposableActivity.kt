@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -33,6 +34,7 @@ import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ContextExt.isATv
+import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
@@ -76,7 +78,17 @@ open class ComposableActivity : ComponentActivity() {
             Surface(
                 modifier = Modifier
                     .background(backgroundColor, backgroundShape)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .pointerInput(Unit) {
+                        detectSwipe(
+                            onSwipeRight = {
+                                navController.openMenu()
+                            },
+                            onSwipeLeft = {
+                                navController.closeMenu()
+                            }
+                        )
+                    },
                 shape = RectangleShape,
                 colors = NonInteractiveSurfaceDefaults.colors(
                     containerColor = backgroundColor

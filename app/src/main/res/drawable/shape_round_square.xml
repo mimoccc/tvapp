@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~  Copyright (c) Milan Jurkulák 2023.
+  ~  Contact:
+  ~  e: mimoccc@gmail.com
+  ~  e: mj@mjdev.org
+  ~  w: https://mjdev.org
+  -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="3dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="240"
+                android:type="linear"
+                android:endColor="#ff000000"
+                android:startColor="#80000000" />
+        </shape>
+    </item>
+</layer-list>

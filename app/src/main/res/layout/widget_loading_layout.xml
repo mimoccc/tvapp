@@ -5,10 +5,68 @@
   ~  e: mj@mjdev.org
   ~  w: https://mjdev.org
   -->
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_round_square"
+    android:foreground="@drawable/bgcase"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/image_album_art"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:background="@drawable/shape_round_square"
+            android:contentDescription="@null" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:contentDescription="@null"
+        android:src="@drawable/audio_player_default_show_bg" />
+
+    <ImageView
+        android:id="@+id/bt_info"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_notif_info"
+        android:tint="@color/black"
+        app:tint="@color/black"
+        tools:ignore="UseAppTint,ImageContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/exo_controller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="32dp">
+
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/bt_play_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_circle"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_action_play" />
+
+    </LinearLayout>
 
 </FrameLayout>
