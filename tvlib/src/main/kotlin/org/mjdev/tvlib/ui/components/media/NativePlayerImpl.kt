@@ -44,7 +44,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 @Suppress("unused", "DeprecatedCallableAddReplaceWith")
 @SuppressLint("UnsafeOptInUsageError")
 class NativePlayerImpl(
-    private val context: Context,
+    override val context: Context,
     private val mediaPlayer: MediaPlayer = MediaPlayer()
 ) : IMediaPlayer {
 

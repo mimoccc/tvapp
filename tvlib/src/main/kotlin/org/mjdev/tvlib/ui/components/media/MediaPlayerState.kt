@@ -16,45 +16,74 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import androidx.media3.common.MediaMetadata.MEDIA_TYPE_ALBUM
+import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MOVIE
+import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MUSIC
+import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MIXED
+import org.mjdev.tvlib.helpers.media.MetadataRetriever
+import org.mjdev.tvlib.interfaces.ItemAudio
+import org.mjdev.tvlib.interfaces.ItemPhoto
+import org.mjdev.tvlib.interfaces.ItemVideo
+import org.mjdev.tvlib.interfaces.ItemWithBackground
+import org.mjdev.tvlib.interfaces.ItemWithImage
+import org.mjdev.tvlib.interfaces.ItemWithTitle
+import org.mjdev.tvlib.interfaces.ItemWithUri
+import org.mjdev.tvlib.extensions.StringExt.parseUri
+import org.mjdev.tvlib.interfaces.ItemWithDate
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MediaPlayerState(
-    val player: IMediaPlayer?,
-    uri: Uri = Uri.EMPTY,
+    val player: IMediaPlayer,
+    val src: Any? = null,
     autoPlay: Boolean = true,
     startSeek: Long = 0,
-    var title: String? = null,
-    var subtitle: String? = null
 ) {
 
-    constructor(
-        player: IMediaPlayer?,
-        uri: String? = null,
-        autoPlay: Boolean = true,
-        startSeek: Long = 0
-    ) : this(
-        player,
-        if (uri === null) Uri.EMPTY else Uri.parse(uri),
-        autoPlay,
-        startSeek
-    )
+    val title: String get() = (src as? ItemWithTitle<*>)?.title?.toString() ?: "-"
+    val date: String get() = (src as? ItemWithDate)?.date ?: "-"
+    val details: String get() = metadataRetriever.getInfo(src)
+    val uri: String get() = ((src as? ItemWithUri<*>)?.uri ?: src).toString()
 
-    val mediaUri: MutableState<Uri> = mutableStateOf(uri)
+    val mediaType: Int = when (src) {
+        is ItemAudio -> MEDIA_TYPE_MUSIC
+        is ItemVideo -> MEDIA_TYPE_MOVIE
+        is ItemPhoto -> MEDIA_TYPE_ALBUM
+        else -> MEDIA_TYPE_MIXED
+    }
+
+    val metadataRetriever by lazy {
+        MetadataRetriever(player.context)
+    }
+
+    val mediaUri: MutableState<Any?> = mutableStateOf(uri)
     val isPlaying: MutableState<Boolean> = mutableStateOf(autoPlay)
     val seek: MutableState<Long> = mutableLongStateOf(startSeek)
 
     val hasMediaToPlay = mediaUri.value != Uri.EMPTY
     val isAutoPlay = isPlaying.value
 
-    val metaData get() = MediaMetadata.Builder()
-        .setDisplayTitle(title)
-        .setSubtitle(subtitle)
-        .build()
+    val imageUrl: Any?
+        get() {
+            val photo = (src as? ItemPhoto)?.uri
+            val image = (src as? ItemWithImage<*>)?.image
+            val background = (src as? ItemWithBackground<*>)?.background
+            return photo ?: image ?: background
+        }
 
-    val mediaItem get() = MediaItem.Builder()
-        .setUri(mediaUri.value)
-        .setMediaMetadata(metaData)
-        .build()
+    val metaData
+        get() = MediaMetadata.Builder()
+            .setDisplayTitle(title)
+            .setDescription(details)
+            .setMediaType(mediaType)
+            // todo more info
+            .setArtworkUri(imageUrl.toString().parseUri())
+            .build()
+
+    val mediaItem
+        get() = MediaItem.Builder()
+            .setUri(mediaUri.value.toString())
+            .setMediaMetadata(metaData)
+            .build()
 
     fun play() {
         isPlaying.value = true
@@ -77,28 +106,23 @@ class MediaPlayerState(
     }
 
     fun dispose() {
-        player?.release()
-        player?.dispose()
+        player.release()
     }
 
     companion object {
 
         @Composable
         fun rememberMediaPlayerState(
-            player: IMediaPlayer?,
-            uri: Uri = Uri.EMPTY,
+            player: IMediaPlayer,
+            src: Any? = null,
             autoPlay: Boolean = true,
             startSeek: Long = 0,
-            title: String? = null,
-            subtitle: String? = null
         ) = remember {
             MediaPlayerState(
                 player,
-                uri,
+                src,
                 autoPlay,
                 startSeek,
-                title,
-                subtitle
             )
         }
 

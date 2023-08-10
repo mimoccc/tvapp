@@ -10,7 +10,6 @@ package org.mjdev.tvlib.ui.components.audiopreview
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.view.Gravity
 import android.view.KeyEvent
@@ -18,12 +17,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
 import org.mjdev.tvlib.ui.components.audiopreview.dailymotion.DailyMotionVideoView
-import org.mjdev.tvlib.ui.components.media.MediaPlayerState
 import timber.log.Timber
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 
 @SuppressLint("ViewConstructor")
 class AudioPreview constructor(
@@ -31,7 +28,7 @@ class AudioPreview constructor(
     val uri: Uri = Uri.EMPTY
 ) : FrameLayout(context) {
 
-    //todo multiple engines
+    // todo : multiple engines
     private val previewEngine: IPreviewEngine by lazy {
         DailyMotionVideoView(context)
     }
@@ -39,7 +36,6 @@ class AudioPreview constructor(
     private var networkListener: NetworkReceiver? = null
 
     init {
-        background = ColorDrawable(0)
         addView(
             previewEngine as View,
             LayoutParams(
@@ -80,6 +76,14 @@ class AudioPreview constructor(
         }
     }
 
+    fun setData(mediaItem: MediaItem?) {
+        if (mediaItem?.mediaMetadata?.mediaType == MediaMetadata.MEDIA_TYPE_MUSIC) {
+            previewEngine.searchAndPlayIfFound(mediaItem.localConfiguration?.uri?.toString())
+        } else {
+            previewEngine.stop()
+        }
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         networkListener?.unregister(context)
@@ -93,26 +97,8 @@ class AudioPreview constructor(
         return false
     }
 
-    companion object {
-
-        // todo video stop pause resume & etc
-        // todo lifecycle
-        @Suppress("UNUSED_PARAMETER")
-        @Composable
-        fun AudioPreview(
-            modifier: Modifier = Modifier,
-            uri: Uri = Uri.EMPTY,
-            state: MediaPlayerState,
-            onError: @Composable () -> Unit = {},
-        ) {
-            AndroidView(
-                modifier = modifier,
-                factory = { context ->
-                    AudioPreview(context, uri)
-                }
-            )
-        }
-
+    fun stop() {
+        previewEngine.stop()
     }
 
 }

@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.content.Context
 import android.net.Uri
 import android.os.Looper
 import android.view.Surface
@@ -34,6 +35,8 @@ import androidx.media3.common.util.Size
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 interface IMediaPlayer : Player {
 
+    val context: Context
+
     @Composable
     fun GetPlayerView()
 
@@ -56,6 +59,7 @@ interface IMediaPlayer : Player {
     companion object {
 
         val EMPTY = object : IMediaPlayer {
+            override val context: Context get() = throw (Exception("Unimplemented"))
 
             @Composable
             override fun GetPlayerView() {
@@ -506,22 +510,26 @@ interface IMediaPlayer : Player {
             }
 
             @Deprecated("Deprecated in Java")
-            override fun setDeviceVolume(volume: Int) {}
+            override fun setDeviceVolume(volume: Int) {
+            }
 
             override fun setDeviceVolume(volume: Int, flags: Int) {}
 
             @Deprecated("Deprecated in Java")
-            override fun increaseDeviceVolume() {}
+            override fun increaseDeviceVolume() {
+            }
 
             override fun increaseDeviceVolume(flags: Int) {}
 
             @Deprecated("Deprecated in Java")
-            override fun decreaseDeviceVolume() {}
+            override fun decreaseDeviceVolume() {
+            }
 
             override fun decreaseDeviceVolume(flags: Int) {}
 
             @Deprecated("Deprecated in Java")
-            override fun setDeviceMuted(muted: Boolean) {}
+            override fun setDeviceMuted(muted: Boolean) {
+            }
 
             override fun setDeviceMuted(muted: Boolean, flags: Int) {}
 

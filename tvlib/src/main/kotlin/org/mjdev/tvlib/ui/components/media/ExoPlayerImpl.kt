@@ -14,7 +14,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Looper
@@ -41,6 +40,9 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
+import androidx.media3.common.Player.STATE_ENDED
+import androidx.media3.common.Player.STATE_IDLE
+import androidx.media3.common.Player.STATE_READY
 import androidx.media3.common.Timeline
 import androidx.media3.common.TrackSelectionParameters
 import androidx.media3.common.Tracks
@@ -49,16 +51,19 @@ import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerControlView
 import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ViewExt.controller
+import org.mjdev.tvlib.extensions.ViewExt.findView
+import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview
 
 @Suppress("DEPRECATION")
 @UnstableApi
 class ExoPlayerImpl(
-    private val context: Context,
+    override val context: Context,
     private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
 ) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter {
 
@@ -67,11 +72,13 @@ class ExoPlayerImpl(
         val notifyChannelName = this::class.java.`package`?.name ?: "MediaPlayer"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager = context.getSystemService<NotificationManager>()
-            notificationManager?.createNotificationChannel(NotificationChannel(
-                notifyChannelName,
-                notifyChannelName,
-                NotificationManager.IMPORTANCE_DEFAULT
-            ))
+            notificationManager?.createNotificationChannel(
+                NotificationChannel(
+                    notifyChannelName,
+                    notifyChannelName,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            )
         }
         val notificationId = 1
         PlayerNotificationManager.Builder(
@@ -110,37 +117,35 @@ class ExoPlayerImpl(
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
+        val audioPlayerView = remember(exoPlayer) {
+            AudioPreview(context)
+        }
         val playerView = remember(exoPlayer) {
-            PlayerView(context).apply {
-                background = ColorDrawable(0)
-                controllerAutoShow = true
-                controllerHideOnTouch = true
-                useController = true
-                useArtwork = false
-                artworkDisplayMode = PlayerView.ARTWORK_DISPLAY_MODE_OFF
-                player = exoPlayer
-                setShutterBackgroundColor(0)
-                setBackgroundColor(0)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    outlineAmbientShadowColor = 0
+            object : PlayerView(context) {
+                init {
+                    setBackgroundColor(0)
+                    setShutterBackgroundColor(0)
+                    drawingCacheBackgroundColor = 0
+                    controllerAutoShow = true
+                    controllerHideOnTouch = true
+                    useController = true
+                    useArtwork = false
+                    artworkDisplayMode = ARTWORK_DISPLAY_MODE_OFF
+                    player = exoPlayer
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        outlineAmbientShadowColor = 0
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        outlineSpotShadowColor = 0
+                    }
+                    setShowBuffering(SHOW_BUFFERING_ALWAYS)
+                    setShowMultiWindowTimeBar(true)
+                    addView(audioPlayerView)
+                    findView<PlayerControlView>()?.apply {
+                        removeView(this)
+                        addView(this)
+                    }
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    outlineSpotShadowColor = 0
-                }
-                setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
-                setShowMultiWindowTimeBar(true)
-                setShowNextButton(false)
-                setShowPreviousButton(false)
-                setShowRewindButton(true)
-                setShowFastForwardButton(true)
-                setShowShuffleButton(true)
-                setShowVrButton(false)
-                // todo : buttons tint
-//                doOnAttach {
-//                    buttons.forEach { b ->
-//                        tintButtonBackground(b, Color.Green.toArgb())
-//                    }
-//                }
             }
         }
         Box(
@@ -167,6 +172,28 @@ class ExoPlayerImpl(
                         playerView
                     }
                 )
+                exoPlayer.addListener(object : Player.Listener {
+                    override fun onPlaybackStateChanged(playbackState: Int) {
+                        when (playbackState) {
+                            STATE_READY -> {
+                                audioPlayerView.setData(currentMediaItem)
+                            }
+
+                            STATE_ENDED -> {
+                                audioPlayerView.stop()
+                            }
+
+                            STATE_IDLE -> {
+                                audioPlayerView.stop()
+                            }
+
+                            Player.STATE_BUFFERING -> {
+                                // todo
+                                // audioPlayerView.pause()
+                            }
+                        }
+                    }
+                })
             }
         }
         playerNotificationManager.setPlayer(exoPlayer)

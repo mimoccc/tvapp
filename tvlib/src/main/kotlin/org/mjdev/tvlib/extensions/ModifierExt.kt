@@ -162,6 +162,7 @@ object ModifierExt {
         }
     }
 
+    // todo anr
     @OptIn(ExperimentalFoundationApi::class)
     fun Modifier.bringIntoViewIfChildrenAreFocused(): Modifier = composed(
         inspectorInfo = debugInspectorInfo { name = "bringIntoViewIfChildrenAreFocused" },

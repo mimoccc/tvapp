@@ -9,10 +9,19 @@
 package org.mjdev.tvlib.ui.components.audiopreview.dailymotion
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaMetadataRetriever
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import com.dailymotion.android.player.sdk.PlayerWebView
+import com.dailymotion.android.player.sdk.events.AdEndEvent
+import com.dailymotion.android.player.sdk.events.AdStartEvent
+import com.dailymotion.android.player.sdk.events.EndEvent
+import com.dailymotion.android.player.sdk.events.PlayEvent
+import com.dailymotion.android.player.sdk.events.PlayerEvent
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -26,15 +35,26 @@ import java.io.File
 import java.io.IOException
 import java.net.URLEncoder
 
+// todo remove retriever
 @Suppress("DEPRECATION", "PrivatePropertyName")
 class DailyMotionVideoView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : FrameLayout(context, attrs), IPreviewEngine {
+) : FrameLayout(context, attrs), IPreviewEngine, PlayerWebView.EventListener {
 
     private val playerView by lazy {
         PlayerWebView(context).apply {
-            setBackgroundColor(0)
             mute()
+            setEventListener(this@DailyMotionVideoView)
+            setEventErrorListener(object : PlayerWebView.EventErrorListener {
+                override fun onError(
+                    playerEvent: String,
+                    description: String,
+                    map: Map<String, String?>
+                ) {
+                    Timber.e("dailymotion player error event $playerEvent")
+                    Timber.e(description)
+                }
+            })
         }
     }
 
@@ -82,6 +102,8 @@ class DailyMotionVideoView @JvmOverloads constructor(
     ).execute()
 
     init {
+        visibility = View.INVISIBLE
+        background = ColorDrawable(Color.Black.toArgb())
         addView(playerView)
     }
 
@@ -139,7 +161,6 @@ class DailyMotionVideoView @JvmOverloads constructor(
                     else null
                     if (videoId != null) {
                         post {
-                            visibility = VISIBLE
                             playerView.load(mapOf("video" to videoId))
                             success()
                         }
@@ -147,17 +168,19 @@ class DailyMotionVideoView @JvmOverloads constructor(
                 } catch (e: Exception) {
                     Timber.e(e)
                     post {
-                        visibility = GONE
                         error(e)
                     }
                 }
             }
-        } else {
-            visibility = GONE
         }
     }
 
     override fun pause() {
+        playerView.pause()
+    }
+
+    override fun stop() {
+        visibility = INVISIBLE
         playerView.pause()
     }
 
@@ -175,6 +198,30 @@ class DailyMotionVideoView @JvmOverloads constructor(
 
     private inline fun <reified T> fromSimpleJSONString(json: String): T? {
         return Moshi.Builder().build().adapter(T::class.java).fromJson(json)
+    }
+
+    override fun onEventReceived(event: PlayerEvent) {
+        when (event) {
+            is PlayEvent -> {
+                visibility = VISIBLE
+            }
+
+            is EndEvent -> {
+                visibility = INVISIBLE
+            }
+
+            is AdStartEvent -> {
+                visibility = INVISIBLE
+            }
+
+            is AdEndEvent -> {
+                visibility = VISIBLE
+            }
+
+            else -> {
+                Timber.e("Unhandled event: $event")
+            }
+        }
     }
 
 }

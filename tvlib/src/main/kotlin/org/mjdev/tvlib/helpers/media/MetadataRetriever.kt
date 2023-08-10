@@ -19,7 +19,9 @@ import org.mjdev.tvlib.interfaces.ItemVideo
 
 class MetadataRetriever(
     val context: Context,
-    val translateMeta: (name: String, value: String) -> String
+    val translateMeta: (name: String, value: String) -> String = { n, v ->
+        String.format("%s %s", n, v)
+    }
 ) {
 
     fun getInfo(

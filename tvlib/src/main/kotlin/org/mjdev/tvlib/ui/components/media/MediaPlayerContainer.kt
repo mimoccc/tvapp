@@ -11,7 +11,6 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -20,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.ui.PlayerControlView
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview.Companion.AudioPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
@@ -30,10 +28,7 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMe
 @Composable
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
-    uri: Uri = Uri.EMPTY,
-    isAudio: Boolean = false,
-    title: String? = null,
-    subtitle: String? = null,
+    src: Any? = null,
     autoPlay: Boolean = true,
     startSeek: Long = 0L,
     mediaPlayer: IMediaPlayer = MediaPlayerContainerDefaults.exoPlayer,
@@ -41,32 +36,21 @@ fun MediaPlayerContainer(
     val isEdit = isEditMode()
     val state = rememberMediaPlayerState(
         player = mediaPlayer,
-        uri = uri,
+        src = src,
         autoPlay = autoPlay,
         startSeek = startSeek,
-        title = title,
-        subtitle = subtitle
     )
     Box(
         modifier = modifier
             .recomposeHighlighter()
             .fillMaxSize()
     ) {
-        if (isAudio) {
-            AudioPreview(
-                modifier = Modifier.fillMaxSize(),
-                state = state,
-                uri = uri
-            )
-        }
         mediaPlayer.GetPlayerView()
         if (isEdit) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { context ->
-                    PlayerControlView(context).apply {
-                        player = mediaPlayer
-                    }
+                    PlayerControlView(context)
                 }
             )
         }

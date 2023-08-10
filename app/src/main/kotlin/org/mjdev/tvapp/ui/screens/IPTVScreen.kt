@@ -8,7 +8,6 @@
 
 package org.mjdev.tvapp.ui.screens
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,16 +26,12 @@ import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
-import org.mjdev.tvlib.extensions.StringExt.parseUri
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
-import org.mjdev.tvlib.interfaces.ItemWithTitle
-import org.mjdev.tvlib.interfaces.ItemWithUri
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
-import java.net.URL
 
 class IPTVScreen : Screen() {
 
@@ -80,22 +75,6 @@ class IPTVScreen : Screen() {
 
         val currentData = dataList[currentIndex.intValue]
 
-        val mediaUri: String? = when (currentData) {
-            null -> null
-            is ItemWithUri<*> -> currentData.uri.toString()
-            is String -> currentData.toString()
-            is URL -> currentData.toString()
-            is Uri -> currentData.toString()
-            else -> currentData.toString()
-        }
-
-        val mediaTitle: String? = when (currentData) {
-            is ItemWithTitle<*> -> currentData.title.toString()
-            else -> null
-        }
-
-        val isAudio = currentData is ItemAudio
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -103,10 +82,8 @@ class IPTVScreen : Screen() {
         ) {
             MediaPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                isAudio = isAudio,
-                uri = mediaUri?.parseUri() ?: Uri.EMPTY,
-                title = mediaTitle,
-                subtitle = mediaUri
+                src = currentData,
+                // items = dataList // todo
             )
         }
 

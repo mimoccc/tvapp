@@ -11,6 +11,8 @@ interface IPreviewEngine {
 
     fun pause()
 
+    fun stop()
+
     fun resume()
 
     fun seekTo(seek:Long)

@@ -27,6 +27,9 @@ import androidx.media3.ui.PlayerView
 @Suppress("unused")
 object ViewExt {
 
+    inline fun <reified T : View> View.findView(): View? =
+        allViews.filter { v -> v is T }.firstOrNull()
+
     fun captureView(view: View, window: Window, bitmapCallback: (Bitmap) -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
