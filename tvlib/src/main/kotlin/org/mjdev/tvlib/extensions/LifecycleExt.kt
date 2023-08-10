@@ -8,9 +8,9 @@
 
 package org.mjdev.tvlib.extensions
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -18,6 +18,7 @@ import androidx.lifecycle.LifecycleOwner
 
 object LifecycleExt {
 
+    @SuppressLint("ComposableNaming")
     @Composable
     fun rememberLifeCycleEventObserver(
         key1: Any? = Unit,
@@ -31,6 +32,27 @@ object LifecycleExt {
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
+        }
+    }
+
+    @SuppressLint("ComposableNaming")
+    @Composable
+    fun rememberPlayPauseLifeCycleObserver(
+        key1: Any? = Unit,
+        onPause: () -> Unit = {},
+        onResume: () -> Unit = {}
+    ) = rememberLifeCycleEventObserver(key1) { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_PAUSE -> {
+                onPause()
+            }
+
+            Lifecycle.Event.ON_RESUME -> {
+                onResume()
+            }
+
+            else -> {
+            }
         }
     }
 

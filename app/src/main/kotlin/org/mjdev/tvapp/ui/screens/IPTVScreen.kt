@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -69,12 +68,6 @@ class IPTVScreen : Screen() {
             }
         }
 
-        val currentIndex = remember {
-            mutableIntStateOf(dataList.indexOf(data))
-        }
-
-        val currentData = dataList[currentIndex.intValue]
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -82,8 +75,8 @@ class IPTVScreen : Screen() {
         ) {
             MediaPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                src = currentData,
-                // items = dataList // todo
+                items = dataList,
+                itemToPlay = dataList.indexOf(data)
             )
         }
 

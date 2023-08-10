@@ -8,10 +8,12 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -26,7 +28,6 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
@@ -34,8 +35,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.getSystemService
-import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
-import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.DeviceInfo
@@ -54,32 +53,78 @@ import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.session.MediaSession
 import androidx.media3.ui.PlayerControlView
 import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.LifecycleExt.rememberLifeCycleEventObserver
+import org.mjdev.tvlib.extensions.LifecycleExt.rememberPlayPauseLifeCycleObserver
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ViewExt.controller
 import org.mjdev.tvlib.extensions.ViewExt.findView
 import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview
+import timber.log.Timber
+import java.util.UUID
 
-@Suppress("DEPRECATION")
+// todo recomposing 2 times
+@Suppress("DEPRECATION", "unused")
 @UnstableApi
 class ExoPlayerImpl(
     override val context: Context,
-) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter {
+) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter, MediaSession.Callback {
 
-//    private val sessionToken by lazy {
-//        MediaSessionCompat.Token.fromToken(
-//            SessionToken(
-//                context, ComponentName(
-//                    context,
-//                    PlaybackService::class.java
-//                )
-//            )
-//        )
-//    }
+    private val requestCode :Int = 999
+
+    // todo : check activity
+    private val pendingIntent: PendingIntent by lazy {
+        Intent(context, (context as Activity).javaClass).let { intent ->
+            PendingIntent.getActivity(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                null // todo
+            )
+        }
+
+    }
+
+    private val mediaSessionID by lazy {
+        UUID.randomUUID().toString()
+    }
+
+//    val sessionToken = SessionToken(
+//        context,
+//        ComponentName(context, PlaybackService::class.java)
+//    )
+
+    private val exoPlayer: ExoPlayer by lazy {
+//        controllerFuture.addListener({
+//            playerView.player = controllerFuture.get().apply {
+//                setAudioAttributes(
+//                    AudioAttributes.Builder()
+//                        .setUsage(C.USAGE_MEDIA)
+//                        .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
+//                        .build(), true
+//                ).build()
+//            }
+//        }, MoreExecutors.directExecutor())
+        ExoPlayer.Builder(context)
+            .setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(C.USAGE_MEDIA)
+                    .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
+                    .build(), true
+            ).build()
+    }
+
+    private val mediaSessionConnector by lazy {
+        MediaSession.Builder(context, exoPlayer)
+            .setId(mediaSessionID)
+            .setCallback(this@ExoPlayerImpl)
+            .setSessionActivity(pendingIntent)
+            .build()
+    }
 
     private val playerNotificationManager by lazy {
         val notifyChannelName = this::class.java.`package`?.name ?: "MediaPlayer"
@@ -103,23 +148,79 @@ class ExoPlayerImpl(
             .setMediaDescriptionAdapter(this@ExoPlayerImpl)
             .build()
             .apply {
-//                setMediaSessionToken(sessionToken)
+                setMediaSessionToken(mediaSessionConnector.sessionCompatToken)
             }
     }
 
-    // todo from session
-    private val exoPlayer: ExoPlayer by lazy {
-        ExoPlayer.Builder(context)
-            .setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setUsage(C.USAGE_MEDIA)
-                    .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
-                    .build(), true
-            ).build()
+    private val audioPlayerView by lazy {
+        AudioPreview(context)
     }
 
+    private val playerView by lazy {
+        playerNotificationManager.setPlayer(exoPlayer)
+        exoPlayer.addListener(object : Player.Listener {
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                if (isPlaying) {
+                    audioPlayerView.resume()
+                } else {
+                    audioPlayerView.pause()
+                }
+            }
+
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                when (playbackState) {
+                    STATE_READY -> {
+                        audioPlayerView.setData(currentMediaItem)
+                    }
+
+                    STATE_ENDED -> {
+                        audioPlayerView.stop()
+                    }
+
+                    else -> {
+                        // no op
+                    }
+                }
+            }
+        })
+        object : PlayerView(context) {
+            init {
+                setBackgroundColor(0)
+                setShutterBackgroundColor(0)
+                drawingCacheBackgroundColor = 0
+                controllerAutoShow = true
+                controllerHideOnTouch = true
+                useController = true
+                useArtwork = false
+                artworkDisplayMode = ARTWORK_DISPLAY_MODE_OFF
+                player = exoPlayer
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    outlineAmbientShadowColor = 0
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    outlineSpotShadowColor = 0
+                }
+                setShowBuffering(SHOW_BUFFERING_ALWAYS)
+                setShowMultiWindowTimeBar(true)
+                addView(audioPlayerView)
+                findView<PlayerControlView>()?.apply {
+                    removeView(this)
+                    addView(this)
+                }
+            }
+        }
+    }
+
+//    private val controllerFuture: ListenableFuture<MediaController> by lazy {
+//        MediaController.Builder(context, sessionToken)
+//            .buildAsync()
+//    }
+
+//    private val controller: MediaController?
+//        get() = if (controllerFuture.isDone) controllerFuture.get() else null
+
     override fun getCurrentContentTitle(player: Player): String =
-        currentMediaItem?.mediaMetadata?.title?.toString() ?: ""
+        currentMediaItem?.mediaMetadata?.displayTitle?.toString() ?: ""
 
     override fun getCurrentContentText(player: Player): String =
         currentMediaItem?.mediaMetadata?.description?.toString() ?: ""
@@ -137,65 +238,38 @@ class ExoPlayerImpl(
         return null
     }
 
+    init {
+        mediaSessionConnector.apply {
+            Timber.d("Media session started : [id=${this.id}]")
+        }
+    }
+
+    private fun onPause() {
+        audioPlayerView.pause()
+        playerView.player = null
+        playerView.visibility = View.INVISIBLE
+    }
+
+    private fun onResume() {
+        audioPlayerView.resume()
+        playerView.visibility = View.VISIBLE
+        playerView.player = exoPlayer
+    }
+
     @Suppress("UNUSED_VARIABLE")
     @UnstableApi
     @Composable
-    override fun GetPlayerView() {
+    override fun GetPlayerView(
+
+    ) {
         val context = LocalContext.current
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
-        val audioPlayerView = remember(exoPlayer) {
-            AudioPreview(context)
-        }
-        val playerView = remember(exoPlayer) {
-            object : PlayerView(context) {
-                init {
-                    setBackgroundColor(0)
-                    setShutterBackgroundColor(0)
-                    drawingCacheBackgroundColor = 0
-                    controllerAutoShow = true
-                    controllerHideOnTouch = true
-                    useController = true
-                    useArtwork = false
-                    artworkDisplayMode = ARTWORK_DISPLAY_MODE_OFF
-                    player = exoPlayer
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        outlineAmbientShadowColor = 0
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        outlineSpotShadowColor = 0
-                    }
-                    setShowBuffering(SHOW_BUFFERING_ALWAYS)
-                    setShowMultiWindowTimeBar(true)
-                    addView(audioPlayerView)
-                    findView<PlayerControlView>()?.apply {
-                        removeView(this)
-                        addView(this)
-                    }
-                }
-            }
-        }
-        val lifecycleObserver = rememberLifeCycleEventObserver(
-            exoPlayer
-        ) { _, event ->
-            when (event) {
-                ON_PAUSE -> {
-                    audioPlayerView.pause()
-                    playerView.player = null
-                    playerView.visibility = View.INVISIBLE
-                }
-
-                ON_RESUME -> {
-                    audioPlayerView.resume()
-                    playerView.visibility = View.VISIBLE
-                    playerView.player = exoPlayer
-                }
-
-                else -> {
-                }
-            }
-        }
+        val lifecycleObserver = rememberPlayPauseLifeCycleObserver(
+            ::onPause,
+            ::onResume
+        )
         Box(
             modifier = Modifier
                 .recomposeHighlighter()
@@ -220,34 +294,8 @@ class ExoPlayerImpl(
                         playerView
                     }
                 )
-                exoPlayer.addListener(object : Player.Listener {
-                    override fun onIsPlayingChanged(isPlaying: Boolean) {
-                        if (isPlaying) {
-                            audioPlayerView.resume()
-                        } else {
-                            audioPlayerView.pause()
-                        }
-                    }
-
-                    override fun onPlaybackStateChanged(playbackState: Int) {
-                        when (playbackState) {
-                            STATE_READY -> {
-                                audioPlayerView.setData(currentMediaItem)
-                            }
-
-                            STATE_ENDED -> {
-                                audioPlayerView.stop()
-                            }
-
-                            else -> {
-                                // no op
-                            }
-                        }
-                    }
-                })
             }
         }
-        playerNotificationManager.setPlayer(exoPlayer)
     }
 
     override fun setMediaUri(uri: Uri) {
@@ -280,6 +328,7 @@ class ExoPlayerImpl(
 
     override fun dispose() {
         stop()
+        mediaSessionConnector.release()
         exoPlayer.release()
     }
 

@@ -11,11 +11,14 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.ui.PlayerControlView
 import org.mjdev.tvlib.annotations.TvPreview
@@ -28,15 +31,24 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMe
 @Composable
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
-    src: Any? = null,
     autoPlay: Boolean = true,
     startSeek: Long = 0L,
-    mediaPlayer: IMediaPlayer = MediaPlayerContainerDefaults.exoPlayer,
+    context: Context = LocalContext.current,
+    isEdit: Boolean = isEditMode(),
+    items: List<Any?> = emptyList(),
+    itemToPlay: Int = 0
 ) {
-    val isEdit = isEditMode()
+    val mediaPlayer: IMediaPlayer = remember {
+        if (isEdit) {
+            IMediaPlayer.EMPTY
+        } else {
+            MediaPlayerContainerDefaults.exoPlayer(context)
+        }
+    }
     val state = rememberMediaPlayerState(
         player = mediaPlayer,
-        src = src,
+        items = items,
+        itemToPlay = itemToPlay,
         autoPlay = autoPlay,
         startSeek = startSeek,
     )

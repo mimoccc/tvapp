@@ -11,6 +11,7 @@ package org.mjdev.tvlib.ui.components.media
 import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +35,14 @@ import org.mjdev.tvlib.interfaces.ItemWithDate
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MediaPlayerState(
     val player: IMediaPlayer,
-    val src: Any? = null,
+    val items: List<Any?>,
+    initItem :Int = 0,
     autoPlay: Boolean = true,
     startSeek: Long = 0,
 ) {
+    val currentItem = mutableIntStateOf(initItem)
 
+    val src = items[initItem]
     val title: String get() = (src as? ItemWithTitle<*>)?.title?.toString() ?: "-"
     val date: String get() = (src as? ItemWithDate)?.date ?: "-"
     val details: String get() = metadataRetriever.getInfo(src)
@@ -114,13 +118,15 @@ class MediaPlayerState(
         @Composable
         fun rememberMediaPlayerState(
             player: IMediaPlayer,
-            src: Any? = null,
+            items: List<Any?>,
+            itemToPlay: Int = 0,
             autoPlay: Boolean = true,
             startSeek: Long = 0,
         ) = remember {
             MediaPlayerState(
                 player,
-                src,
+                items,
+                itemToPlay,
                 autoPlay,
                 startSeek,
             )
