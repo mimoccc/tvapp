@@ -41,7 +41,6 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.Player.STATE_ENDED
-import androidx.media3.common.Player.STATE_IDLE
 import androidx.media3.common.Player.STATE_READY
 import androidx.media3.common.Timeline
 import androidx.media3.common.TrackSelectionParameters
@@ -173,6 +172,14 @@ class ExoPlayerImpl(
                     }
                 )
                 exoPlayer.addListener(object : Player.Listener {
+                    override fun onIsPlayingChanged(isPlaying: Boolean) {
+                        if (isPlaying) {
+                            audioPlayerView.resume()
+                        } else {
+                            audioPlayerView.pause()
+                        }
+                    }
+
                     override fun onPlaybackStateChanged(playbackState: Int) {
                         when (playbackState) {
                             STATE_READY -> {
@@ -183,13 +190,8 @@ class ExoPlayerImpl(
                                 audioPlayerView.stop()
                             }
 
-                            STATE_IDLE -> {
-                                audioPlayerView.stop()
-                            }
-
-                            Player.STATE_BUFFERING -> {
-                                // todo
-                                // audioPlayerView.pause()
+                            else -> {
+                                // no op
                             }
                         }
                     }

@@ -44,6 +44,7 @@ class DailyMotionVideoView @JvmOverloads constructor(
     private val playerView by lazy {
         PlayerWebView(context).apply {
             mute()
+            showControls(false)
             setEventListener(this@DailyMotionVideoView)
             setEventErrorListener(object : PlayerWebView.EventErrorListener {
                 override fun onError(

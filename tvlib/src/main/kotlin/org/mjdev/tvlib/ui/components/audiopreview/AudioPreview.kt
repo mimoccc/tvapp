@@ -101,4 +101,12 @@ class AudioPreview constructor(
         previewEngine.stop()
     }
 
+    fun pause() {
+        previewEngine.pause()
+    }
+
+    fun resume() {
+        previewEngine.resume()
+    }
+
 }
