@@ -229,7 +229,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // sandwich
-    implementation ("com.github.skydoves:sandwich:1.3.8")
+    implementation("com.github.skydoves:sandwich:1.3.8")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
@@ -239,8 +239,14 @@ dependencies {
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.1.0")
     // oauth
-    implementation ("com.auth0.android:auth0:2.10.1")
-    implementation ("com.auth0.android:jwtdecode:2.0.2")
+    implementation("com.auth0.android:auth0:2.10.1")
+    implementation("com.auth0.android:jwtdecode:2.0.2")
+    // widgets
+    implementation("androidx.glance:glance-appwidget:1.0.0-rc01")
+    implementation("androidx.glance:glance-material:1.0.0-rc01")
+    implementation("androidx.glance:glance-material3:1.0.0-rc01")
+    // fix duplicates
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {
@@ -248,6 +254,14 @@ dependencies {
         }
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")?.apply {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
+    // fix duplicates
+    configurations {
+        all {
+            resolutionStrategy {
+                force("androidx.work:work-runtime-ktx:2.8.1")
+            }
         }
     }
 }
