@@ -21,6 +21,7 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
+import android.view.View
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.getSystemService
+import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
+import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
@@ -54,6 +57,7 @@ import androidx.media3.ui.PlayerControlView
 import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.LifecycleExt.rememberLifeCycleEventObserver
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ViewExt.controller
 import org.mjdev.tvlib.extensions.ViewExt.findView
@@ -66,7 +70,6 @@ class ExoPlayerImpl(
     private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
 ) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter {
 
-    // todo lifecycle
     private val playerNotificationManager by lazy {
         val notifyChannelName = this::class.java.`package`?.name ?: "MediaPlayer"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -109,6 +112,7 @@ class ExoPlayerImpl(
         return null
     }
 
+    @Suppress("UNUSED_VARIABLE")
     @UnstableApi
     @Composable
     override fun GetPlayerView() {
@@ -144,6 +148,26 @@ class ExoPlayerImpl(
                         removeView(this)
                         addView(this)
                     }
+                }
+            }
+        }
+        val lifecycleObserver = rememberLifeCycleEventObserver(
+            exoPlayer
+        ) { _, event ->
+            when (event) {
+                ON_PAUSE -> {
+                    audioPlayerView.pause()
+                    playerView.player = null
+                    playerView.visibility = View.INVISIBLE
+                }
+
+                ON_RESUME -> {
+                    audioPlayerView.resume()
+                    playerView.visibility = View.VISIBLE
+                    playerView.player = exoPlayer
+                }
+
+                else -> {
                 }
             }
         }
