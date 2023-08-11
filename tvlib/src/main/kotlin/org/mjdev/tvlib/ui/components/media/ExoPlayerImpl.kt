@@ -134,7 +134,7 @@ class ExoPlayerImpl(
                 NotificationChannel(
                     notifyChannelName,
                     notifyChannelName,
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
                 )
             )
         }
