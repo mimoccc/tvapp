@@ -110,9 +110,14 @@ class MainViewModel @Inject constructor(
         }
     }.stateInViewModel()
 
-    fun findMovie(id: Long?): Movie? = dao.movieDao.query()
+    fun findMovie(
+        id: Long?,
+        findBlock: (movie: Movie?) -> Unit
+    ): Movie? = dao.movieDao.query()
         .equal(Movie_.id, id ?: -1)
-        .build().findFirst()
+        .build()
+        .findFirst()
+        .apply(findBlock)
 
     companion object {
 

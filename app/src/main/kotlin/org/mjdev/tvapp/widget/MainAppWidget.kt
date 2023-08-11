@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.widget
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.glance.Button
@@ -21,6 +20,7 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.provideContent
+import androidx.glance.layout.Column
 import androidx.glance.text.Text
 import org.mjdev.tvapp.activity.MainActivity
 

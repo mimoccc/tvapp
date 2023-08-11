@@ -8,14 +8,17 @@
 
 package org.mjdev.tvlib.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Suppress("unused")
@@ -73,5 +76,15 @@ open class BaseViewModel : ViewModel() {
         SharingStarted.WhileSubscribed(5000L),
         initial
     )
+
+    fun <T> async(
+        block: suspend CoroutineScope.() -> T
+    )  : MutableLiveData<T>  {
+        val result = MutableLiveData<T>()
+        viewModelScope.launch {
+            result.postValue(block())
+        }
+        return result
+    }
 
 }

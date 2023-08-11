@@ -66,7 +66,7 @@ class MainPage : Page() {
         val onItemClick: (item: Any?) -> Unit = { item ->
             val dataId = (item as? ItemWithId)?.id
             if (dataId != null) {
-                viewModel.findMovie(dataId)?.let { movie ->
+                viewModel.findMovie(dataId) { movie ->
                     navController?.startActivity<IPTVActivity>(IPTV_DATA to movie)
                 }
             } else if (item is Serializable) {

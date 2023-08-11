@@ -52,32 +52,14 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    val localMediaItemsAudio by lazy {
-        localAudioCursor.map { item ->
-            item.mediaItem
-        }
-    }
-
-    val localMediaItemsVideo by lazy {
-        localVideoCursor.map { item ->
-            item.mediaItem
-        }
-    }
-
-    val localMediaItemsPhoto by lazy {
-        localPhotoCursor.map { item ->
-            item.mediaItem
-        }
-    }
-
     fun mediaItemsFor(
         data: Any?
-    ): List<MediaItem> = when (data) {
-        is ItemAudio -> localMediaItemsAudio
-        is ItemVideo -> localMediaItemsVideo
-        is ItemPhoto -> localMediaItemsPhoto
+    ): List<Any?> = when (data) {
+        is ItemAudio -> localAudioCursor
+        is ItemVideo -> localVideoCursor
+        is ItemPhoto -> localPhotoCursor
         is Movie -> mediaItems
-        else -> listOf(data).map { item -> item.mediaItem }
+        else -> listOf(data)
     }
 
     companion object {
