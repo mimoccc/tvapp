@@ -29,6 +29,8 @@ object ListExt {
         }
     }
 
+    fun <T> List<T>.indexOf(predicate: (T) -> Boolean) = indexOf(first(predicate))
+
     fun <T> List<T>.contains(block: (T) -> Boolean) = count(block) > 0
 
     fun <T> List<T>.containsNot(block: (T) -> Boolean) = count(block) == 0

@@ -114,6 +114,7 @@ class DailyMotionVideoView @JvmOverloads constructor(
         success: () -> Unit,
         error: (error: Exception) -> Unit
     ) {
+        visibility = View.INVISIBLE
         var q: String?
         if (filePath != null) {
             var mr: MediaMetadataRetriever? = null

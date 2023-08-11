@@ -21,7 +21,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
@@ -47,16 +49,17 @@ class IPTVScreen : Screen() {
     @Composable
     override fun ComposeScreen() {
 
-//        val viewModel: DetailViewModel = appViewModel { context ->
-//            DetailViewModel.mockDetailViewModel(context)
-//        }
+        val viewModel: DetailViewModel = appViewModel { context ->
+            DetailViewModel.mockDetailViewModel(context)
+        }
 
         val data: Any? = remember { args[data] }
 
-        // todo anr
-//        val dataList :List<MediaItem> = remember {
-//            viewModel.mediaItemsFor(data)
-//        }
+        val dataList: List<Any?> = remember { viewModel.mediaItemsFor(data) }
+
+        val itemIndex = remember {
+            dataList.indexOf(data)
+        }
 
         Box(
             modifier = Modifier
@@ -65,8 +68,8 @@ class IPTVScreen : Screen() {
         ) {
             MediaPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                items = listOf(data.mediaItem),
-                itemToPlay = 0
+                items = dataList.map { item -> item.mediaItem },
+                itemToPlay = itemIndex
             )
         }
 

@@ -11,7 +11,6 @@ package org.mjdev.tvlib.helpers.cursor
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
-import androidx.exifinterface.media.ExifInterface
 import org.mjdev.tvlib.extensions.CursorExt.asMap
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
@@ -19,7 +18,6 @@ import org.mjdev.tvlib.interfaces.ItemWithDate
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
-import timber.log.Timber
 import java.io.Serializable
 
 @Suppress("unused")
@@ -55,11 +53,12 @@ class PhotoItem() :
                 }
             }
         }
-        try {
-            date = ExifInterface(image.toString()).getAttribute(ExifInterface.TAG_DATETIME)
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
+// todo move to another thread
+//        try {
+//            date = ExifInterface(image.toString()).getAttribute(ExifInterface.TAG_DATETIME)
+//        } catch (e: Exception) {
+//            Timber.e(e)
+//        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -62,7 +62,6 @@ object MediaItemExt {
         get() = MediaMetadata.Builder()
             .setDisplayTitle(title)
             .setMediaType(mediaType)
-
             .setArtworkUri(imageUrl.toString().parseUri())
             .build()
 

@@ -52,6 +52,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
+    // todo this should be improved
     fun mediaItemsFor(
         data: Any?
     ): List<Any?> = when (data) {

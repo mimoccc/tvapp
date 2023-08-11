@@ -9,7 +9,6 @@
 package org.mjdev.tvlib.helpers.cursor
 
 import android.database.Cursor
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import org.mjdev.tvlib.extensions.CursorExt.asMap
@@ -19,7 +18,6 @@ import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
-import timber.log.Timber
 import java.io.Serializable
 
 @Suppress("unused")
@@ -48,15 +46,16 @@ class VideoItem() :
                 }
             }
         }
-        try {
-            MediaMetadataRetriever().apply {
-                setDataSource(uri)
-            }.also { mmr ->
-                date = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE)
-            }
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
+// todo move to another thread
+//        try {
+//            MediaMetadataRetriever().apply {
+//                setDataSource(uri)
+//            }.also { mmr ->
+//                date = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE)
+//            }
+//        } catch (e: Exception) {
+//            Timber.e(e)
+//        }
     }
 
     override fun equals(other: Any?): Boolean {
