@@ -17,6 +17,8 @@ import android.os.Build
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
@@ -68,6 +70,13 @@ object ComposeExt {
     @OptIn(ExperimentalTvMaterial3Api::class)
     val DrawerState.isClosed: Boolean
         get() = currentValue == DrawerValue.Closed
+
+    @Composable
+    fun <T> rememberDerivedStateOf(
+        function: () -> T
+    ): State<T> = remember {
+        derivedStateOf(function)
+    }
 
     @Composable
     fun <T> textFrom(text: T?): String = when (text) {

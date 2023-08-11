@@ -15,7 +15,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.MainActivity
@@ -27,9 +26,8 @@ import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Movie_
 import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.repository.IMovieRepository
-import org.mjdev.tvapp.repository.MovieRepository
 import org.mjdev.tvlib.helpers.apps.appsManager
 import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
@@ -41,7 +39,7 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     @Inject
-    lateinit var movieRepository: IMovieRepository
+    lateinit var dao: DAO
 
     @Inject
     lateinit var networkInfo: NetworkConnectivityService
@@ -67,12 +65,13 @@ class MainViewModel @Inject constructor(
     ).stateInViewModel()
 
     val messages: StateFlow<List<Message>> = channelFlow {
-        send(movieRepository.getMessages().getOrThrow())
+        send(dao.messagesDao.all)
     }.stateInViewModel()
 
-    val featuredMovieList: StateFlow<List<Any?>> = flow {
+    val featuredMovieList: StateFlow<List<Any?>> = channelFlow {
         mutableListOf<Any?>().apply {
-            addAll(movieRepository.getMovies().getOrThrow().takeLast(8))
+            // todo latest
+            addAll(dao.movieDao.query().build().find(0, 8))
             if (localAudioCursor.count > 0) {
                 add(localAudioCursor.getData(0))
             }
@@ -83,12 +82,12 @@ class MainViewModel @Inject constructor(
                 add(localPhotoCursor.getData(0))
             }
         }.also { result ->
-            emit(result)
+            send(result)
         }
     }.stateInViewModel()
 
     val movieList: StateFlow<Map<String, List<Movie>>> = flow {
-        movieRepository.getMovies().getOrDefault(emptyList()).map { movie ->
+        dao.movieDao.all.map { movie ->
             movie.apply {
                 category = category ?: noCategoryString
             }
@@ -102,7 +101,7 @@ class MainViewModel @Inject constructor(
     }.stateInViewModel()
 
     val countryList: StateFlow<List<String>> = flow {
-        movieRepository.getMovies().getOrThrow().filter { it.country != null }.map {
+        dao.movieDao.all.filter { it.country != null }.map {
             it.country.toString()
         }.distinct().sortedBy {
             it
@@ -111,9 +110,9 @@ class MainViewModel @Inject constructor(
         }
     }.stateInViewModel()
 
-    fun findMovie(id: Long?): Movie? = runBlocking {
-        movieRepository.findMovieById(id).getOrNull()
-    }
+    fun findMovie(id: Long?): Movie? = dao.movieDao.query()
+        .equal(Movie_.id, id ?: -1)
+        .build().findFirst()
 
     companion object {
 
@@ -121,7 +120,7 @@ class MainViewModel @Inject constructor(
         fun mockMainViewModel(
             context: Context
         ): MainViewModel = MainViewModel(context).apply {
-            movieRepository = MovieRepository(DAO(context))
+            dao = DAO(context)
             networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)

@@ -8,86 +8,50 @@
 
 package org.mjdev.tvlib.ui.components.media
 
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.MediaMetadata.MEDIA_TYPE_ALBUM
-import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MOVIE
-import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MUSIC
-import androidx.media3.common.MediaMetadata.MEDIA_TYPE_MIXED
-import org.mjdev.tvlib.helpers.media.MetadataRetriever
-import org.mjdev.tvlib.interfaces.ItemAudio
-import org.mjdev.tvlib.interfaces.ItemPhoto
-import org.mjdev.tvlib.interfaces.ItemVideo
-import org.mjdev.tvlib.interfaces.ItemWithBackground
-import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.interfaces.ItemWithTitle
-import org.mjdev.tvlib.interfaces.ItemWithUri
-import org.mjdev.tvlib.extensions.StringExt.parseUri
-import org.mjdev.tvlib.interfaces.ItemWithDate
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MediaPlayerState(
     val player: IMediaPlayer,
-    val items: List<Any?>,
-    initItem :Int = 0,
+    initItems: List<MediaItem>,
+    initItemIndex: Int = 0,
     autoPlay: Boolean = true,
     startSeek: Long = 0,
-) {
-    val currentItem = mutableIntStateOf(initItem)
+) : Player.Listener {
 
-    val src = items[initItem]
-    val title: String get() = (src as? ItemWithTitle<*>)?.title?.toString() ?: "-"
-    val date: String get() = (src as? ItemWithDate)?.date ?: "-"
-    val details: String get() = metadataRetriever.getInfo(src)
-    val uri: String get() = ((src as? ItemWithUri<*>)?.uri ?: src).toString()
+    val mediaItems: MutableState<List<MediaItem>> = mutableStateOf(
+        initItems
+    )
 
-    val mediaType: Int = when (src) {
-        is ItemAudio -> MEDIA_TYPE_MUSIC
-        is ItemVideo -> MEDIA_TYPE_MOVIE
-        is ItemPhoto -> MEDIA_TYPE_ALBUM
-        else -> MEDIA_TYPE_MIXED
+    val currentItemIndex = mutableIntStateOf(initItemIndex)
+
+    val currentItem = derivedStateOf {
+        mediaItems.value[currentItemIndex.intValue].mediaItem
     }
 
-    val metadataRetriever by lazy {
-        MetadataRetriever(player.context)
-    }
+    val currentPosition = mutableLongStateOf(startSeek)
 
-    val mediaUri: MutableState<Any?> = mutableStateOf(uri)
     val isPlaying: MutableState<Boolean> = mutableStateOf(autoPlay)
-    val seek: MutableState<Long> = mutableLongStateOf(startSeek)
 
-    val hasMediaToPlay = mediaUri.value != Uri.EMPTY
+    val error: MutableState<Exception?> = mutableStateOf(null)
+
+    val hasMediaToPlay = mediaItems.value.isNotEmpty()
+
     val isAutoPlay = isPlaying.value
 
-    val imageUrl: Any?
-        get() {
-            val photo = (src as? ItemPhoto)?.uri
-            val image = (src as? ItemWithImage<*>)?.image
-            val background = (src as? ItemWithBackground<*>)?.background
-            return photo ?: image ?: background
-        }
-
-    val metaData
-        get() = MediaMetadata.Builder()
-            .setDisplayTitle(title)
-            .setDescription(details)
-            .setMediaType(mediaType)
-            // todo more info
-            .setArtworkUri(imageUrl.toString().parseUri())
-            .build()
-
-    val mediaItem
-        get() = MediaItem.Builder()
-            .setUri(mediaUri.value.toString())
-            .setMediaMetadata(metaData)
-            .build()
+    init {
+        player.addListener(this)
+    }
 
     fun play() {
         isPlaying.value = true
@@ -106,11 +70,27 @@ class MediaPlayerState(
     }
 
     fun seekTo(ms: Long) {
-        seek.value = ms
+        currentPosition.longValue = ms
     }
 
     fun dispose() {
         player.release()
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        this.isPlaying.value = isPlaying
+    }
+
+    override fun onPlayerError(error: PlaybackException) {
+        this.error.value = error
+    }
+
+    override fun onPlayerErrorChanged(error: PlaybackException?) {
+        this.error.value = error
+    }
+
+    override fun onPlaybackStateChanged(playbackState: Int) {
+        currentPosition.longValue = player.currentPosition
     }
 
     companion object {
@@ -118,7 +98,7 @@ class MediaPlayerState(
         @Composable
         fun rememberMediaPlayerState(
             player: IMediaPlayer,
-            items: List<Any?>,
+            items: List<MediaItem>,
             itemToPlay: Int = 0,
             autoPlay: Boolean = true,
             startSeek: Long = 0,

@@ -49,7 +49,9 @@ class NativePlayerImpl(
 ) : IMediaPlayer {
 
     @Composable
-    override fun GetPlayerView() {
+    override fun GetPlayerView(
+        modifier: Modifier
+    ) {
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = ComposeExt.isEditMode()

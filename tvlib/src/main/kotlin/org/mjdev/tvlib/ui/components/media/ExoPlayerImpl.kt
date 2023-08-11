@@ -260,7 +260,7 @@ class ExoPlayerImpl(
     @UnstableApi
     @Composable
     override fun GetPlayerView(
-
+        modifier: Modifier
     ) {
         val context = LocalContext.current
         val width = LocalConfiguration.current.screenWidthDp

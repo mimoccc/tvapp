@@ -14,15 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.ApiService
-import org.mjdev.tvapp.repository.IMovieRepository
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SyncService : Service() {
-
-    @Inject
-    lateinit var repository: IMovieRepository
 
     @Inject
     lateinit var apiService: ApiService
@@ -35,7 +31,6 @@ class SyncService : Service() {
         synchronized(sSyncAdapterLock) {
             sSyncAdapter = sSyncAdapter ?: SyncAdapter(
                 context = applicationContext,
-                repository = repository,
                 apiService = apiService,
                 dao = dao
             )

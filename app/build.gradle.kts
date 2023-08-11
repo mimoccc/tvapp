@@ -190,13 +190,14 @@ dependencies {
     // tv library by mjde milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-beta01")
+    implementation("androidx.core:core-ktx:1.12.0-rc01")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.06.01"))
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.4.3")
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
     implementation("androidx.tv:tv-material:1.0.0-alpha08")
@@ -223,7 +224,7 @@ dependencies {
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
+    implementation("androidx.navigation:navigation-compose:2.7.0")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -247,6 +248,26 @@ dependencies {
     implementation("androidx.glance:glance-material3:1.0.0-rc01")
     // fix duplicates
     implementation("androidx.work:work-runtime-ktx:2.8.1")
+    // exoplayer
+    implementation("androidx.media3:media3-exoplayer:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
+    implementation("androidx.media3:media3-datasource-cronet:1.1.0")
+    implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
+    implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
+    implementation("androidx.media3:media3-ui:1.1.0")
+    implementation("androidx.media3:media3-ui-leanback:1.1.0")
+    implementation("androidx.media3:media3-session:1.1.0")
+    implementation("androidx.media3:media3-extractor:1.1.0")
+    implementation("androidx.media3:media3-cast:1.1.0")
+    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.0")
+    implementation("androidx.media3:media3-transformer:1.1.0")
+    implementation("androidx.media3:media3-database:1.1.0")
+    implementation("androidx.media3:media3-decoder:1.1.0")
+    implementation("androidx.media3:media3-datasource:1.1.0")
+    implementation("androidx.media3:media3-common:1.1.0")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {

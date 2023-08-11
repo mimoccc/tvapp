@@ -6,27 +6,33 @@
  * w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
+import androidx.media3.common.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.runBlocking
+import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.repository.IMovieRepository
-import org.mjdev.tvapp.repository.MovieRepository
+import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
+import org.mjdev.tvlib.interfaces.ItemAudio
+import org.mjdev.tvlib.interfaces.ItemPhoto
+import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 
+@Suppress("MemberVisibilityCanBePrivate")
 @HiltViewModel
 class DetailViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
-    lateinit var movieRepository: IMovieRepository
+    lateinit var dao: DAO
 
     @Inject
     lateinit var networkInfo: NetworkConnectivityService
@@ -40,8 +46,38 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
 
-    fun movieList() = runBlocking {
-        movieRepository.getMovies().getOrDefault(emptyList())
+    val mediaItems: List<MediaItem> by lazy {
+        dao.movieDao.all.map { item ->
+            item.mediaItem
+        }
+    }
+
+    val localMediaItemsAudio by lazy {
+        localAudioCursor.map { item ->
+            item.mediaItem
+        }
+    }
+
+    val localMediaItemsVideo by lazy {
+        localVideoCursor.map { item ->
+            item.mediaItem
+        }
+    }
+
+    val localMediaItemsPhoto by lazy {
+        localPhotoCursor.map { item ->
+            item.mediaItem
+        }
+    }
+
+    fun mediaItemsFor(
+        data: Any?
+    ): List<MediaItem> = when (data) {
+        is ItemAudio -> localMediaItemsAudio
+        is ItemVideo -> localMediaItemsVideo
+        is ItemPhoto -> localMediaItemsPhoto
+        is Movie -> mediaItems
+        else -> listOf(data).map { item -> item.mediaItem }
     }
 
     companion object {
@@ -50,7 +86,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         fun mockDetailViewModel(
             context: Context
         ): DetailViewModel = DetailViewModel().apply {
-            movieRepository = MovieRepository(DAO(context))
+            dao = DAO(context)
             networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)

@@ -60,7 +60,7 @@ class DetailScreen : Screen() {
             is ItemAudio -> viewModel.localAudioCursor
             is ItemVideo -> viewModel.localVideoCursor
             is ItemPhoto -> viewModel.localPhotoCursor
-            is Movie -> viewModel.movieList()
+            is Movie -> viewModel.mediaItems
             else -> listOf(data)
         }
 

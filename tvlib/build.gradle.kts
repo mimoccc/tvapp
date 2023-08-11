@@ -84,7 +84,8 @@ android {
 
 dependencies {
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-beta01")
+    implementation("androidx.core:core-ktx:1.12.0-rc01")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // reflect / debug purposes only
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
     // window manager
@@ -94,14 +95,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.4.3")
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
     implementation("androidx.tv:tv-material:1.0.0-alpha08")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
+    implementation("androidx.navigation:navigation-compose:2.7.0")
     // okhttp
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")

@@ -15,7 +15,6 @@ import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
 import org.mjdev.tvapp.repository.ApiService
-import org.mjdev.tvapp.repository.IMovieRepository
 import org.mjdev.tvlib.extensions.GlobalExt.safeGet
 import org.mjdev.tvlib.extensions.ListExt.contains
 import timber.log.Timber
@@ -23,7 +22,6 @@ import timber.log.Timber
 @Suppress("unused", "PrivatePropertyName")
 class SyncAdapter(
     context: Context,
-    val repository: IMovieRepository,
     val apiService: ApiService,
     val dao: DAO
 ) : AbstractThreadedSyncAdapter(context, true, false) {

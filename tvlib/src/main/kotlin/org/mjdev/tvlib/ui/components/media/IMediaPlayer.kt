@@ -16,6 +16,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
@@ -38,7 +39,9 @@ interface IMediaPlayer : Player {
     val context: Context
 
     @Composable
-    fun GetPlayerView()
+    fun GetPlayerView(
+        modifier: Modifier
+    )
 
     fun setMediaUri(uri: Uri)
 
@@ -62,7 +65,9 @@ interface IMediaPlayer : Player {
             override val context: Context get() = throw (Exception("Unimplemented"))
 
             @Composable
-            override fun GetPlayerView() {
+            override fun GetPlayerView(
+                modifier: Modifier
+            ) {
             }
 
             override fun setMediaUri(uri: Uri) {}

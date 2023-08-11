@@ -19,8 +19,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.ui.PlayerControlView
+import androidx.media3.common.MediaItem
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -35,45 +34,49 @@ fun MediaPlayerContainer(
     startSeek: Long = 0L,
     context: Context = LocalContext.current,
     isEdit: Boolean = isEditMode(),
-    items: List<Any?> = emptyList(),
-    itemToPlay: Int = 0
-) {
-    val mediaPlayer: IMediaPlayer = remember {
+    items: List<MediaItem> = emptyList(),
+    itemToPlay: Int = 0,
+    mediaPlayer: IMediaPlayer = remember {
         if (isEdit) {
             IMediaPlayer.EMPTY
         } else {
             MediaPlayerContainerDefaults.exoPlayer(context)
         }
-    }
-    val state = rememberMediaPlayerState(
+    },
+    state: MediaPlayerState = rememberMediaPlayerState(
         player = mediaPlayer,
         items = items,
         itemToPlay = itemToPlay,
         autoPlay = autoPlay,
         startSeek = startSeek,
     )
+) {
     Box(
         modifier = modifier
             .recomposeHighlighter()
             .fillMaxSize()
     ) {
-        mediaPlayer.GetPlayerView()
+        mediaPlayer.GetPlayerView(
+            modifier = modifier
+                .recomposeHighlighter()
+                .fillMaxSize()
+        )
         if (isEdit) {
-            AndroidView(
-                modifier = Modifier.fillMaxSize(),
-                factory = { context ->
-                    PlayerControlView(context)
-                }
+            PlayerControlView(
+                modifier = modifier
+                    .recomposeHighlighter()
+                    .fillMaxSize()
             )
         }
     }
     DisposableEffect(state) {
         if (state.hasMediaToPlay) {
-            mediaPlayer.setMediaItem(state.mediaItem)
+            mediaPlayer.setMediaItems(
+                state.mediaItems.value,
+                state.currentItemIndex.intValue,
+                state.currentPosition.longValue
+            )
             mediaPlayer.prepare()
-            if (state.seek.value > 0L) {
-                mediaPlayer.seekTo(state.seek.value)
-            }
             if (state.isAutoPlay) {
                 mediaPlayer.play()
             }

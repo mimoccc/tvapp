@@ -23,8 +23,8 @@ object GlobalExt {
 
     @Suppress("MemberVisibilityCanBePrivate")
     class CodeException(
-        val code:Int = -1,
-        message:String = String.format("$code : Unhandled Exception.")
+        val code: Int = -1,
+        message: String = String.format("$code : Unhandled Exception.")
     ) : Exception(message)
 
     fun MutableState<Boolean>.toggle() {
