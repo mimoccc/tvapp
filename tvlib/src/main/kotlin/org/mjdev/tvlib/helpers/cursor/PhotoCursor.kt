@@ -12,7 +12,7 @@ import android.content.Context
 
 class PhotoCursor(
     context: Context,
-) : CachingCursor(
+) : CachingCursor<PhotoItem>(
     context = context,
     uri = PhotoItem.URI,
     projection = PhotoItem.MEDIA_PROJECTION,

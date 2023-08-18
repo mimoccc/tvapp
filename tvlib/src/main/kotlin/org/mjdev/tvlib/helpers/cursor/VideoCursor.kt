@@ -12,7 +12,7 @@ import android.content.Context
 
 class VideoCursor(
     context: Context
-) : CachingCursor(
+) : CachingCursor<VideoItem>(
     context = context,
     uri = VideoItem.URI,
     projection = VideoItem.MEDIA_PROJECTION,

@@ -30,8 +30,8 @@ open class Observed<T>(
 
     override fun component1(): T = value
 
-    override fun component2(): (T) -> Unit = {
-        value = it
+    override fun component2(): (T) -> Unit = { v ->
+        value = v
     }
 
 }

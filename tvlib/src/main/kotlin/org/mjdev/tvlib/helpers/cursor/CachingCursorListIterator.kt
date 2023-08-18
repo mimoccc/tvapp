@@ -9,10 +9,10 @@
 package org.mjdev.tvlib.helpers.cursor
 
 @Suppress("CanBeParameter")
-class CachingCursorListIterator(
-    private val cachingCursor: CachingCursor,
+class CachingCursorListIterator<T>(
+    private val cachingCursor: CachingCursor<T>,
     private val index: Int = 0
-) : ListIterator<Any?> {
+) : ListIterator<T?> {
 
     private var idx = index
 
@@ -20,7 +20,7 @@ class CachingCursorListIterator(
 
     override fun hasPrevious(): Boolean = idx > -1
 
-    override fun next(): Any? {
+    override fun next(): T? {
         val ret = cachingCursor[idx]
         idx = nextIndex()
         return ret
@@ -28,7 +28,7 @@ class CachingCursorListIterator(
 
     override fun nextIndex(): Int = idx + 1
 
-    override fun previous(): Any? {
+    override fun previous(): T? {
         idx = previousIndex()
         return cachingCursor[idx]
     }

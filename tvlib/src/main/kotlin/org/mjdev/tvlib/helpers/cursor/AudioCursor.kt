@@ -12,7 +12,7 @@ import android.content.Context
 
 class AudioCursor(
     context: Context
-) : CachingCursor(
+) : CachingCursor<AudioItem>(
     context = context,
     uri = AudioItem.URI,
     projection = AudioItem.MEDIA_PROJECTION,

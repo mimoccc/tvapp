@@ -26,6 +26,7 @@ object CursorExt {
         projection.forEach { cname ->
             val idx = getColumnIndex(cname)
             val value = try {
+                // todo index out of bounds
                 getColumn(idx)
             } catch (e: Exception) {
                 Timber.e(e)
@@ -51,7 +52,7 @@ object CursorExt {
     }
 
     fun Cursor.getData(idx: Int): Any? {
-        return if (this is CachingCursor)
+        return if (this is CachingCursor<*>)
             getData(idx)
         else {
             try {
