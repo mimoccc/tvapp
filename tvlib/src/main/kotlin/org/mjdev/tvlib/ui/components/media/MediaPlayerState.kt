@@ -40,7 +40,7 @@ class MediaPlayerState(
     var mediaItems: List<MediaItem> = initItems
 
     @Json(name = "currentItemIndex")
-    var currentItemIndex = initItemIndex
+    var currentItemIndex = if (initItemIndex < 0) 0 else initItemIndex
 
     @Json(name = "currentPosition")
     var currentPosition = startSeek ?: 0L

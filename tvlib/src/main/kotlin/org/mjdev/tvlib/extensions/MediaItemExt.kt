@@ -40,8 +40,11 @@ object MediaItemExt {
 
     val Any?.uri: String
         get() = when (this) {
-            is MediaItem -> this.localConfiguration.uri
+            is MediaItem -> this.localConfiguration?.uri.toString()
             is ItemWithUri<*> -> (this as? ItemWithUri<*>)?.uri.toString()
+            is ItemAudio -> this.uri.toString()
+            is ItemVideo -> this.uri.toString()
+            is ItemPhoto -> this.uri.toString()
             else -> this.toString()
         }
 
