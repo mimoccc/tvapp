@@ -10,18 +10,32 @@ package org.mjdev.tvlib.ui.components.media
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.ui.PlayerControlView
+import org.mjdev.tvlib.annotations.TvPreview
 
+@TvPreview
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
-fun  PlayerControlView(
-    modifier: Modifier = Modifier
+fun PlayerControlView(
+    modifier: Modifier = Modifier,
+    state: MediaPlayerState = MediaPlayerState.rememberMediaPlayerState(),
 ) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context ->
-            PlayerControlView(context)
-        }
-    )
+//    val isEdit = isEditMode()
+//    val infoVisible = remember { mutableStateOf(isEdit) }
+//    AndroidView(
+//        modifier = modifier.conditional(isEdit) {
+//            fillMaxSize()
+//        },
+//        factory = { context ->
+//            PlayerControlView(context).apply {
+//                addVisibilityListener { visibility ->
+//                    infoVisible.value = (visibility == View.VISIBLE)
+//                }
+//                setPlayer(player)
+//            }
+//        }
+//    )
+//    ItemInfo(
+//        src = item,
+//        infoVisible = infoVisible
+//    )
 }

@@ -109,7 +109,7 @@ object HiltExt {
     }
 
     @Suppress("UNUSED_PARAMETER")
-    fun createInternal(
+    private fun createInternal(
         activity: Activity,
         owner: SavedStateRegistryOwner,
         defaultArgs: Bundle?,
@@ -118,7 +118,7 @@ object HiltExt {
         return createInternal(activity, delegateFactory)
     }
 
-    fun createInternal(
+    private fun createInternal(
         activity: Activity, delegateFactory: ViewModelProvider.Factory
     ): ViewModelProvider.Factory {
         val entryPoint = EntryPoints.get(

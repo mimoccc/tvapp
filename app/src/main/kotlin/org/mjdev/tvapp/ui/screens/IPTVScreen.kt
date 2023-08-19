@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Tv
@@ -19,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.viewmodel.DetailViewModel
@@ -27,8 +27,11 @@ import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
-import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
+import org.mjdev.tvlib.extensions.MediaItemExt.uri
+import org.mjdev.tvlib.extensions.ListExt.indexOf
+import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class IPTVScreen : Screen() {
 
     private val data = "data"
@@ -53,25 +56,25 @@ class IPTVScreen : Screen() {
             DetailViewModel.mockDetailViewModel(context)
         }
 
-        val data: Any? = remember { args[data] }
-
-        val dataList: List<Any?> = remember { viewModel.mediaItemsFor(data) }
-
-        val itemIndex = remember {
-            dataList.indexOf(data)
+        val data: Any? by lazy {
+            args[data]
         }
 
-        Box(
+        val dataList: List<MediaItem> = remember(data) {
+            viewModel.mediaItemsFor(data)
+        }
+
+        val state = rememberMediaPlayerState(
+            items = dataList,
+            itemToPlay = dataList.indexOf<Any?> { item -> item.uri == data.uri },
+        )
+
+        MediaPlayerContainer(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black, RectangleShape),
-        ) {
-            MediaPlayerContainer(
-                modifier = Modifier.fillMaxSize(),
-                items = dataList.map { item -> item.mediaItem },
-                itemToPlay = itemIndex
-            )
-        }
+            state = state
+        )
 
     }
 

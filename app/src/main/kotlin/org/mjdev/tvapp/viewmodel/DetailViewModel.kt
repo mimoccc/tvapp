@@ -26,6 +26,7 @@ import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 @Suppress("MemberVisibilityCanBePrivate")
 @HiltViewModel
@@ -46,21 +47,28 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
 
-    val mediaItems: List<MediaItem> by lazy {
-        dao.movieDao.all.map { item ->
-            item.mediaItem
-        }
-    }
+    val mediaItems: List<Any> get() = dao.movieDao.all
+
+    val cache = mutableMapOf<KClass<*>, List<MediaItem>>()
 
     // todo this should be improved
     fun mediaItemsFor(
         data: Any?
-    ): List<Any?> = when (data) {
-        is ItemAudio -> localAudioCursor
-        is ItemVideo -> localVideoCursor
-        is ItemPhoto -> localPhotoCursor
-        is Movie -> mediaItems
-        else -> listOf(data)
+    ): List<MediaItem> = when (data) {
+        is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
+        is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
+        is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
+        is Movie -> getCachedList<Movie> { mediaItems }
+        else -> listOf(data.mediaItem)
+    }
+
+    private inline fun <reified T> getCachedList(creator: () -> List<*>): List<MediaItem> {
+        if (!cache.containsKey(T::class)) {
+            creator().let { list ->
+                cache[T::class] = list.map { item -> item.mediaItem }
+            }
+        }
+        return cache[T::class] ?: emptyList()
     }
 
     companion object {

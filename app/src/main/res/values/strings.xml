@@ -40,6 +40,7 @@
     <string name="title_photo_local">Local photo files</string>
     <string name="title_iptv">Television</string>
     <string name="title_web">Internet</string>
+    <string name="title_loading">Loading</string>
 
     <string name="author">Created by Milan Jurkulak © 2023</string>
 

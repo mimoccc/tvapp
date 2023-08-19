@@ -16,6 +16,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
@@ -38,6 +39,7 @@ import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
 import coil.disk.DiskCache
 import coil.request.CachePolicy
+import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -77,6 +79,13 @@ object ComposeExt {
     ): State<T> = remember {
         derivedStateOf(function)
     }
+
+    @SuppressLint("ComposableNaming")
+    @Composable
+    fun runOnceOnStart(
+        key: Any?,
+        block: suspend CoroutineScope.() -> Unit
+    ) = LaunchedEffect(key, block)
 
     @Composable
     fun <T> textFrom(text: T?): String = when (text) {

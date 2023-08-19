@@ -39,7 +39,11 @@ object MediaItemExt {
         context.metadataRetriever.getInfo(this)
 
     val Any?.uri: String
-        get() = ((this as? ItemWithUri<*>)?.uri ?: this).toString()
+        get() = when (this) {
+            is MediaItem -> this.localConfiguration.uri
+            is ItemWithUri<*> -> (this as? ItemWithUri<*>)?.uri.toString()
+            else -> this.toString()
+        }
 
     val Any?.mediaType: Int
         get() = when (this) {
@@ -66,7 +70,7 @@ object MediaItemExt {
             .build()
 
     val Any?.mediaItem: MediaItem
-        get() = MediaItem.Builder()
+        get() = if (this is MediaItem) this else MediaItem.Builder()
             .setUri(uri)
             .setMediaMetadata(metaData)
             .build()

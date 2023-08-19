@@ -8,108 +8,220 @@
 
 package org.mjdev.tvlib.ui.components.media
 
+import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
+import androidx.media3.common.DeviceInfo
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.text.CueGroup
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
+import org.json.JSONObject
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
+import org.mjdev.tvlib.extensions.MediaItemExt.uri
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
+@JsonClass(generateAdapter = true)
 class MediaPlayerState(
-    val player: IMediaPlayer,
-    initItems: List<MediaItem>,
+    initItems: List<MediaItem> = emptyList(),
     initItemIndex: Int = 0,
     autoPlay: Boolean = true,
-    startSeek: Long = 0,
+    startSeek: Long? = null,
 ) : Player.Listener {
 
-    val mediaItems: MutableState<List<MediaItem>> = mutableStateOf(
-        initItems
-    )
+    @Json(name = "mediaItems")
+    var mediaItems: List<MediaItem> = initItems
 
-    val currentItemIndex = mutableIntStateOf(initItemIndex)
+    @Json(name = "currentItemIndex")
+    var currentItemIndex = initItemIndex
 
-    val currentItem = derivedStateOf {
-        mediaItems.value[currentItemIndex.intValue].mediaItem
-    }
+    @Json(name = "currentPosition")
+    var currentPosition = startSeek ?: 0L
 
-    val currentPosition = mutableLongStateOf(startSeek)
+    @Json(name = "isPlaying")
+    var isPlaying: Boolean = autoPlay
 
-    val isPlaying: MutableState<Boolean> = mutableStateOf(autoPlay)
+    @Json(name = "error", ignore = true)
+    var error: Exception? = null
 
-    val error: MutableState<Exception?> = mutableStateOf(null)
+    @Json(name = "hasMediaToPlay", ignore = true)
+    val hasMediaToPlay get() = mediaItems.isNotEmpty()
 
-    val hasMediaToPlay = mediaItems.value.isNotEmpty()
+    @Json(name = "isAutoPlay", ignore = true)
+    val isAutoPlay get() = isPlaying
 
-    val isAutoPlay = isPlaying.value
+    @Json(name = "currentItem", ignore = true)
+    val currentItem get() = mediaItems[currentItemIndex].mediaItem
 
-    init {
-        player.addListener(this)
-    }
+    @Json(name = "player", ignore = true)
+    var player: IMediaPlayer = IMediaPlayer.EMPTY
+        set(value) {
+            field.stop()
+            field.release()
+            field.dispose()
+            field.removeListener(this)
+            field = value
+            field.addListener(this)
+        }
 
     fun play() {
-        isPlaying.value = true
+        isPlaying = true
+        player.play()
     }
 
     fun stop() {
-        isPlaying.value = false
+        isPlaying = false
+        player.stop()
     }
 
     fun pause() {
-        isPlaying.value = false
+        isPlaying = false
+        player.pause()
     }
 
     fun resume() {
-        isPlaying.value = true
+        isPlaying = true
+        player.resume()
     }
 
     fun seekTo(ms: Long) {
-        currentPosition.longValue = ms
+        currentPosition = ms
+        player.seekTo(ms)
     }
 
     fun dispose() {
+        if (player.isPlaying) {
+            player.stop()
+        }
         player.release()
+        player.dispose()
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
-        this.isPlaying.value = isPlaying
+        this.isPlaying = isPlaying
     }
 
     override fun onPlayerError(error: PlaybackException) {
-        this.error.value = error
+        this.error = error
     }
 
     override fun onPlayerErrorChanged(error: PlaybackException?) {
-        this.error.value = error
+        this.error = error
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {
-        currentPosition.longValue = player.currentPosition
+        currentPosition = player.currentPosition
+    }
+
+    override fun onDeviceInfoChanged(deviceInfo: DeviceInfo) {
+        currentPosition = player.currentPosition
+    }
+
+    override fun onSeekForwardIncrementChanged(seekForwardIncrementMs: Long) {
+        currentPosition = player.currentPosition
+    }
+
+    override fun onSeekBackIncrementChanged(seekBackIncrementMs: Long) {
+        currentPosition = player.currentPosition
+    }
+
+    override fun onCues(cueGroup: CueGroup) {
+        currentPosition = player.currentPosition
+    }
+
+    override fun onMaxSeekToPreviousPositionChanged(maxSeekToPreviousPositionMs: Long) {
+        currentPosition = player.currentPosition
+    }
+
+    fun startPlay() {
+        val mediaItems = mediaItems
+        val currentItemIndex = currentItemIndex
+        val currentPosition = currentPosition
+        val isAutoPlay = isAutoPlay
+        if (hasMediaToPlay) {
+            player.setMediaItems(
+                mediaItems,
+                currentItemIndex,
+                currentPosition
+            )
+            player.prepare()
+            player.playWhenReady = isAutoPlay
+        }
     }
 
     companion object {
 
         @Composable
         fun rememberMediaPlayerState(
-            player: IMediaPlayer,
-            items: List<MediaItem>,
+            items: List<MediaItem> = listOf(),
             itemToPlay: Int = 0,
             autoPlay: Boolean = true,
-            startSeek: Long = 0,
-        ) = remember {
+            startSeek: Long? = null,
+            context: Context = LocalContext.current,
+        ) = rememberSaveable(
+            key = MediaPlayerState::class.simpleName,
+            inputs = arrayOf(items, itemToPlay),
+            saver = mediaPlayerStateSaver(context),
+        ) {
             MediaPlayerState(
-                player,
                 items,
                 itemToPlay,
                 autoPlay,
                 startSeek,
-            )
+            ).apply {
+                player = MediaPlayerContainerDefaults.exoPlayer(context)
+            }
+        }
+
+        fun mediaPlayerStateSaver(
+            context: Context
+        ): Saver<MediaPlayerState, String> = Saver(
+            save = { mps ->
+                Moshi.Builder()
+                    .add(MediaItemAdapter())
+                    .build()
+                    .adapter(MediaPlayerState::class.java)
+                    .toJson(mps)
+            },
+            restore = { json ->
+                Moshi.Builder()
+                    .add(MediaItemAdapter())
+                    .build()
+                    .adapter(MediaPlayerState::class.java)
+                    .fromJson(json)?.apply {
+                        player = MediaPlayerContainerDefaults.exoPlayer(context)
+                    }
+            }
+        )
+
+        // todo
+        class MediaItemAdapter {
+            // todo
+            @ToJson
+            fun toJson(item: MediaItem): String {
+                return StringBuilder()
+                    .append("{")
+                    .append("  ", "uri", "=", "\"", item.uri, "\"")
+                    .append("}")
+                    .toString()
+            }
+
+            // todo
+            @FromJson
+            fun fromJson(json: String): MediaItem {
+                return JSONObject(json).let { obj ->
+                    MediaItem.Builder()
+                        .setUri(obj.getString("uri"))
+                        .build()
+                }
+            }
         }
 
     }

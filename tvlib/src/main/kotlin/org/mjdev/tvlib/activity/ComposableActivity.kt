@@ -60,7 +60,9 @@ open class ComposableActivity : ComponentActivity() {
     open val roundCornerSize: Dp = 0.dp
     open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
-    lateinit var navController : NavHostControllerEx
+    lateinit var navController: NavHostControllerEx
+
+    var lastIntent: Intent? = null
 
     @TvPreview
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -95,13 +97,22 @@ open class ComposableActivity : ComponentActivity() {
                 )
             }
         }
-        onIntent(navController, intent)
+        if (intent != null) {
+            if ((lastIntent == null) || (lastIntent != intent)) {
+                lastIntent = intent
+                onIntent(navController, intent)
+            }
+        }
     }
 
-    // todo
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        onIntent(navController, intent)
+        if (intent != null) {
+            if ((lastIntent == null) || (lastIntent != intent)) {
+                lastIntent = intent
+                onIntent(navController, intent)
+            }
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

@@ -18,6 +18,7 @@ import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.ui.screens.IPTVScreen
+import org.mjdev.tvapp.ui.screens.LoadingScreen
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -34,14 +35,12 @@ class IPTVActivity : ComposableActivity() {
     override val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
 
         screen(
-            route = IPTVScreen(),
+            route = LoadingScreen(),
             isHomeScreen = true,
             isStartScreen = true,
         )
-
-        screen(
-            route = DetailScreen()
-        )
+        screen(route = IPTVScreen())
+        screen(route = DetailScreen())
 
     }
 

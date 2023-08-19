@@ -22,6 +22,8 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
+import org.mjdev.tvlib.extensions.ListExt.indexOf
+import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.gallery.Gallery
@@ -60,7 +62,7 @@ class DetailScreen : Screen() {
         Gallery(
             modifier = Modifier.fillMaxSize(),
             list = dataList,
-            index = dataList.indexOf(data)
+            index = dataList.indexOf<Any?> { item -> item.uri == data.uri },
         )
 
     }

@@ -9,9 +9,8 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.content.Context
-import androidx.media3.common.util.UnstableApi
 
-@UnstableApi
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object MediaPlayerContainerDefaults {
 
