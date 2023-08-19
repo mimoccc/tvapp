@@ -60,7 +60,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:clearTaskOnLaunch="true"
-            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTask">
@@ -89,24 +89,10 @@
 
         </activity>
 
-        <receiver
-            android:name=".widget.MyAppWidgetReceiver"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/main_app_widget_info" />
-
-        </receiver>
-
         <activity
             android:name=".activity.IPTVActivity"
             android:clearTaskOnLaunch="true"
-            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_iptv"
@@ -129,7 +115,7 @@
         <activity
             android:name=".activity.WebActivity"
             android:clearTaskOnLaunch="true"
-            android:configChanges="density|keyboard|layoutDirection|locale|orientation"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_web"
@@ -220,6 +206,20 @@
             android:exported="true"
             android:syncable="true"
             tools:ignore="ExportedContentProvider" />
+
+        <receiver
+            android:name=".widget.MyAppWidgetReceiver"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/main_app_widget_info" />
+
+        </receiver>
 
     </application>
 
