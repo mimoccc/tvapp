@@ -57,7 +57,11 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
         is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
         is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
         is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
-        is Movie -> getCachedList<Movie> { mediaItems }
+        is Movie -> getCachedList<Movie> {
+            mediaItems.filter { listItem ->
+                (listItem as? Movie?)?.category == data.category
+            }
+        }
         else -> listOf(data.mediaItem)
     }
 

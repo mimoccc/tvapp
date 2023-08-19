@@ -29,7 +29,6 @@ import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.extensions.ListExt.indexOf
-import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
@@ -57,7 +56,7 @@ class IPTVScreen : Screen() {
             IPTVViewModel.mock(context)
         }
 
-        val data: MediaItem = args[data].mediaItem
+        val data: Any? = args[data]
 
         val dataList: List<MediaItem> = remember(data) {
             viewModel.mediaItemsFor(data)
