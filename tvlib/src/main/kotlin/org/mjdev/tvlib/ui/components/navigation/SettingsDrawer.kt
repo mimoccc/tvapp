@@ -18,7 +18,7 @@ import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvlib.annotations.TvPreview
-import org.mjdev.tvlib.extensions.ComposeExt
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @TvPreview
@@ -26,7 +26,8 @@ import org.mjdev.tvlib.extensions.ComposeExt
 fun SettingsDrawer(
     modifier: Modifier = Modifier,
     drawerState: DrawerState = rememberDrawerState(
-        if (ComposeExt.isEditMode()) DrawerValue.Open else DrawerValue.Closed
+        if (isEditMode()) DrawerValue.Open
+        else DrawerValue.Closed
     ),
     onTouchOutside: () -> Unit = {},
     content: @Composable () -> Unit = {

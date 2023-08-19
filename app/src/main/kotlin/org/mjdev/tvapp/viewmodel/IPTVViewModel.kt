@@ -11,6 +11,7 @@
 package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
+import androidx.media3.common.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
@@ -29,7 +30,7 @@ import kotlin.reflect.KClass
 
 @Suppress("MemberVisibilityCanBePrivate")
 @HiltViewModel
-class DetailViewModel @Inject constructor() : BaseViewModel() {
+class IPTVViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var dao: DAO
@@ -48,11 +49,11 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
 
     val mediaItems: List<Any> get() = dao.movieDao.all
 
-    val cache = mutableMapOf<KClass<*>, List<*>>()
+    val cache = mutableMapOf<KClass<*>, List<MediaItem>>()
 
     fun mediaItemsFor(
         data: Any?
-    ): List<Any?> = when (data) {
+    ): List<MediaItem> = when (data) {
         is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
         is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
         is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
@@ -60,13 +61,13 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         else -> listOf(data.mediaItem)
     }
 
-    private inline fun <reified T> getCachedList(creator: () -> List<*>): List<*> {
+    private inline fun <reified T> getCachedList(creator: () -> List<*>): List<MediaItem> {
         if (!cache.containsKey(T::class)) {
             creator().let { list ->
-                cache[T::class] = list
+                cache[T::class] = list.map { item -> item.mediaItem }
             }
         }
-        return cache[T::class] ?: emptyList<Any>()
+        return cache[T::class] ?: emptyList()
     }
 
     companion object {
@@ -74,7 +75,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         @Suppress("unused")
         fun mock(
             context: Context
-        ): DetailViewModel = DetailViewModel().apply {
+        ): IPTVViewModel = IPTVViewModel().apply {
             dao = DAO(context)
             networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)

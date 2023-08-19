@@ -51,7 +51,7 @@ class MainPage : Page() {
     @Composable
     override fun Content() {
         val viewModel: MainViewModel = appViewModel { context ->
-            MainViewModel.mockMainViewModel(context)
+            MainViewModel.mock(context)
         }
 
         val streamingData = viewModel.movieList.collectAsState()

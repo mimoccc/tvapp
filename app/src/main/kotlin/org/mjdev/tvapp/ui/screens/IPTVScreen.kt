@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.viewmodel.DetailViewModel
+import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.navigation.AnyType
@@ -52,8 +52,8 @@ class IPTVScreen : Screen() {
     @Composable
     override fun ComposeScreen() {
 
-        val viewModel: DetailViewModel = appViewModel { context ->
-            DetailViewModel.mockDetailViewModel(context)
+        val viewModel: IPTVViewModel = appViewModel { context ->
+            IPTVViewModel.mock(context)
         }
 
         val data: Any? by lazy {

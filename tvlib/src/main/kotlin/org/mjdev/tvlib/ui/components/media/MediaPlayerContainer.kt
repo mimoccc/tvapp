@@ -13,8 +13,6 @@ package org.mjdev.tvlib.ui.components.media
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
@@ -40,8 +38,6 @@ fun MediaPlayerContainer(
         PlayerControlView(
             modifier = modifier
                 .recomposeHighlighter()
-                .navigationBarsPadding()
-                .statusBarsPadding()
                 .fillMaxSize(),
             state = state
         )

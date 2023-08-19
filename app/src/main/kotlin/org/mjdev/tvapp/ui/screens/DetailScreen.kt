@@ -50,7 +50,7 @@ class DetailScreen : Screen() {
     override fun ComposeScreen() {
 
         val viewModel: DetailViewModel = appViewModel { context ->
-            DetailViewModel.mockDetailViewModel(context)
+            DetailViewModel.mock(context)
         }
 
         val data: Any? = remember { args[data] }

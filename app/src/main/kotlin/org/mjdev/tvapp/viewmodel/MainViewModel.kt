@@ -122,7 +122,7 @@ class MainViewModel @Inject constructor(
     companion object {
 
         @Suppress("unused")
-        fun mockMainViewModel(
+        fun mock(
             context: Context
         ): MainViewModel = MainViewModel(context).apply {
             dao = DAO(context)

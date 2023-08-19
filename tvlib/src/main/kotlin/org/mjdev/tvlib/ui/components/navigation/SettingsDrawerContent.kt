@@ -26,6 +26,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 @Preview
 @Composable
 fun SettingsDrawerContent(
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier
