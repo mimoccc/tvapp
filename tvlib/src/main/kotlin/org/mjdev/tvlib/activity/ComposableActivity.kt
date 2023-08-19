@@ -48,7 +48,7 @@ import timber.log.Timber
 open class ComposableActivity : ComponentActivity() {
 
     @Suppress("PropertyName")
-    val ANR_TIMEOUT = 5000
+    val ANR_TIMEOUT = 2000
 
     val activityResultListeners = mutableListOf<ActivityResultHandler<*>>()
 
@@ -60,20 +60,14 @@ open class ComposableActivity : ComponentActivity() {
     open val roundCornerSize: Dp = 0.dp
     open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
-    fun reportANR() {
-        ANRWatchDog(ANR_TIMEOUT)
-            .setIgnoreDebugger(true)
-            .setANRListener { anr ->
-                anr.printStackTrace()
-            }.start()
-    }
+    lateinit var navController : NavHostControllerEx
 
     @TvPreview
     @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     @CallSuper
     open fun Compose() {
-        val navController = rememberNavControllerEx()
+        navController = rememberNavControllerEx()
         MaterialTheme {
             Surface(
                 modifier = Modifier
@@ -107,6 +101,7 @@ open class ComposableActivity : ComponentActivity() {
     // todo
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        onIntent(navController, intent)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -150,5 +145,13 @@ open class ComposableActivity : ComponentActivity() {
         onLaunch,
         onActivityResult
     )
+
+    fun reportANR() {
+        ANRWatchDog(ANR_TIMEOUT)
+            .setIgnoreDebugger(true)
+            .setANRListener { anr ->
+                anr.printStackTrace()
+            }.start()
+    }
 
 }
