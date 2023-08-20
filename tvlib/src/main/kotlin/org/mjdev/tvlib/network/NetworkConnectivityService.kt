@@ -22,7 +22,7 @@ interface NetworkConnectivityService {
         @Composable
         fun rememberNetworkService(): NetworkConnectivityService {
             val context = LocalContext.current
-            return remember {
+            return remember(Unit) {
                 NetworkConnectivityServiceImpl(context)
             }
         }

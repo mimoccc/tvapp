@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
+import timber.log.Timber
 
 class NetworkConnectivityServiceImpl constructor(
     val context: Context
@@ -45,17 +46,22 @@ class NetworkConnectivityServiceImpl constructor(
         networkState = status
     }
 
-    init {
-        connectivityManager.registerNetworkCallback(request, connectivityCallback)
-    }
-
     override val networkStatus: Flow<NetworkStatus?> = callbackFlow {
+        try {
+            connectivityManager.registerNetworkCallback(request, connectivityCallback)
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
         while (isActive) {
             trySend(networkState)
             delay(200L)
         }
         awaitClose {
-            connectivityManager.unregisterNetworkCallback(connectivityCallback)
+            try {
+                connectivityManager.unregisterNetworkCallback(connectivityCallback)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }.distinctUntilChanged().flowOn(Dispatchers.IO)
 
