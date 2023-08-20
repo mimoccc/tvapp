@@ -22,14 +22,12 @@ import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
-import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.data.local.Movie_
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvlib.helpers.apps.appsManager
-import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,9 +40,6 @@ class MainViewModel @Inject constructor(
     lateinit var dao: DAO
 
     @Inject
-    lateinit var networkInfo: NetworkConnectivityService
-
-    @Inject
     lateinit var localAudioCursor: AudioCursor
 
     @Inject
@@ -54,7 +49,7 @@ class MainViewModel @Inject constructor(
     lateinit var localPhotoCursor: PhotoCursor
 
     private val noCategoryString by lazy {
-        context.getString(R.string.no_category)
+        context.getString(R.string.title_no_category)
     }
 
     val apps = appsManager(
@@ -126,7 +121,6 @@ class MainViewModel @Inject constructor(
             context: Context
         ): MainViewModel = MainViewModel(context).apply {
             dao = DAO(context)
-            networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)
             localPhotoCursor = PhotoCursor(context)

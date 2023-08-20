@@ -9,22 +9,20 @@
 package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
-import org.mjdev.tvlib.extensions.StringExt.asException
 import org.mjdev.tvlib.interfaces.ItemWithTitle
-import org.mjdev.tvlib.network.NetworkStatus
-import org.mjdev.tvlib.network.isNotConnected
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.ui.components.carousel.BigCarousel
 
@@ -34,9 +32,12 @@ fun BrowseView(
     modifier: Modifier = Modifier,
     showHeader: Boolean = true,
     showNetworkState: Boolean = true,
+    showAppUpdateState: Boolean = true,
     title: Any? = "test",
     appIcon: Any? = R.drawable.person,
     userIcon: Any? = R.drawable.person,
+    githubUser: String = "mimoccc",
+    githubRepository: String = "tvapp",
     messages: List<Any?> = listOf(Unit, Unit, Unit),
     categories: List<Any?> = listOf(Unit, Unit, Unit),
     featuredItems: List<Any?> = listOf(Unit, Unit, Unit),
@@ -45,7 +46,6 @@ fun BrowseView(
         Unit to listOf(Unit, Unit, Unit, Unit),
         Unit to listOf(Unit, Unit, Unit, Unit),
     ),
-    networkState: State<NetworkStatus?> = mutableStateOf(NetworkStatus.Unknown),
     errorState: State<Throwable?> = mutableStateOf(null),
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(8.dp),
@@ -58,7 +58,7 @@ fun BrowseView(
     onItemClicked: (item: Any?) -> Unit = {}
 ) {
     val isEdit = isEditMode()
-    ScrollableTvLazyRow(
+    ScrollableTvLazyColumn(
         modifier = modifier
             .recomposeHighlighter()
             .fillMaxSize(),
@@ -77,18 +77,33 @@ fun BrowseView(
                 onUserPicClick = onUserPicClicked,
             )
         }
-        if (isEdit || (showNetworkState && networkState.isNotConnected)) item {
-            ErrorMessage(
-                error = stringResource(R.string.error_no_network).asException(),
-                backgroundColor = Color.Black,
-                dismissible = false
-            )
-        }
-        if (isEdit || (errorState.value is Exception)) item {
-            ErrorMessage(
-                error = errorState.value,
-                dismissible = false
-            )
+        item {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 0.dp)
+            ) {
+                if (isEdit || showNetworkState) {
+                    NetworkErrorMessage(
+                        message = R.string.error_no_network,
+                        dismissible = false
+                    )
+                }
+                if (isEdit || showAppUpdateState) {
+                    AppUpdateAvailableMessage(
+                        githubUser = githubUser,
+                        githubRepository = githubRepository,
+                        title = R.string.title_app_update,
+                        message = R.string.msg_update_available,
+                    )
+                }
+                if (isEdit || (errorState.value is Exception)) {
+                    ErrorMessage(
+                        error = errorState.value,
+                        dismissible = false
+                    )
+                }
+            }
         }
         if (isEdit || categories.isNotEmpty()) item {
             Tabs(

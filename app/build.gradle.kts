@@ -65,16 +65,31 @@ android {
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
 
+        buildConfigField("Boolean", "IS_COMPOSE_DEBUG", "false")
+
         buildConfigField(
             "String",
             "IPTV_API_URL",
             "\"https://iptv-org.github.io/api/\""
         )
 
+        buildConfigField(
+            "String",
+            "GITHUB_USER",
+            "\"mimoccc\""
+        )
+
+        buildConfigField(
+            "String",
+            "GITHUB_REPOSITORY",
+            "\"tvapp\""
+        )
+
         manifestPlaceholders.apply {
             put("auth0Domain", "@string/com_auth0_domain")
             put("auth0Scheme", "demo")
         }
+
     }
 
     buildTypes {
@@ -253,12 +268,12 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
     implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
     implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
+//    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
     implementation("androidx.media3:media3-datasource-cronet:1.1.0")
     implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
     implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
     implementation("androidx.media3:media3-ui:1.1.0")
-    implementation("androidx.media3:media3-ui-leanback:1.1.0")
+//    implementation("androidx.media3:media3-ui-leanback:1.1.0")
     implementation("androidx.media3:media3-session:1.1.0")
     implementation("androidx.media3:media3-extractor:1.1.0")
     implementation("androidx.media3:media3-cast:1.1.0")

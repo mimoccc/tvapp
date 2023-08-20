@@ -8,10 +8,25 @@
 
 package org.mjdev.tvlib.network
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.Flow
 
 interface NetworkConnectivityService {
 
     val networkStatus: Flow<NetworkStatus?>
+
+    companion object {
+
+        @Composable
+        fun rememberNetworkService(): NetworkConnectivityService {
+            val context = LocalContext.current
+            return remember {
+                NetworkConnectivityServiceImpl(context)
+            }
+        }
+
+    }
 
 }

@@ -16,14 +16,12 @@ import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
-import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
-import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -33,9 +31,6 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var dao: DAO
-
-    @Inject
-    lateinit var networkInfo: NetworkConnectivityService
 
     @Inject
     lateinit var localAudioCursor: AudioCursor
@@ -76,7 +71,6 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
             context: Context
         ): DetailViewModel = DetailViewModel().apply {
             dao = DAO(context)
-            networkInfo = NetworkConnectivityServiceImpl(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)
             localPhotoCursor = PhotoCursor(context)

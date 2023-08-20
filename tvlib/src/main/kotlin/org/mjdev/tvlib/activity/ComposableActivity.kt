@@ -48,7 +48,7 @@ import timber.log.Timber
 open class ComposableActivity : ComponentActivity() {
 
     @Suppress("PropertyName")
-    val ANR_TIMEOUT = 2000
+    val ANR_TIMEOUT = 5000
 
     val activityResultListeners = mutableListOf<ActivityResultHandler<*>>()
 
@@ -63,6 +63,14 @@ open class ComposableActivity : ComponentActivity() {
     lateinit var navController: NavHostControllerEx
 
     var lastIntent: Intent? = null
+
+    val anrWatchDog: ANRWatchDog by lazy {
+        ANRWatchDog(ANR_TIMEOUT)
+            .setIgnoreDebugger(true)
+            .setANRListener { anr ->
+                anr.printStackTrace()
+            }
+    }
 
     @TvPreview
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -127,7 +135,7 @@ open class ComposableActivity : ComponentActivity() {
         Timber.d("Activity ${this::class.simpleName} created.")
         super.onCreate(savedInstanceState)
         if (BuildConfig.DEBUG) {
-            reportANR()
+            anrWatchDog.start()
         }
         WindowCompat.setDecorFitsSystemWindows(window, !isATv)
         setContent {
@@ -156,13 +164,5 @@ open class ComposableActivity : ComponentActivity() {
         onLaunch,
         onActivityResult
     )
-
-    fun reportANR() {
-        ANRWatchDog(ANR_TIMEOUT)
-            .setIgnoreDebugger(true)
-            .setANRListener { anr ->
-                anr.printStackTrace()
-            }.start()
-    }
 
 }

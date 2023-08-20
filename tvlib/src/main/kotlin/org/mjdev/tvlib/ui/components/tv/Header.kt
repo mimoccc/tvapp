@@ -124,8 +124,7 @@ fun Header(
                 modifier = Modifier
                     .recomposeHighlighter()
                     .wrapContentHeight()
-                    .width(2.dp)
-                    .clip(CircleShape),
+                    .width(0.01.dp),
                 onFocusChange = { state ->
                     if ((!isPortrait) && state.isFocused) {
                         onTitleClick()

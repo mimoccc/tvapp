@@ -32,6 +32,7 @@ android {
         minSdk = projectMinSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("Boolean", "IS_COMPOSE_DEBUG", "false")
     }
 
     buildTypes {
@@ -85,7 +86,7 @@ android {
 dependencies {
     // base libs
     implementation("androidx.core:core-ktx:1.12.0-rc01")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // reflect / debug purposes only
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
     // window manager
@@ -104,14 +105,19 @@ dependencies {
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.0")
     // okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // sandwich
-    implementation ("com.github.skydoves:sandwich:1.3.8")
+    implementation("com.github.skydoves:sandwich:1.3.8")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")
@@ -140,12 +146,12 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
     implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
     implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
+//    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
     implementation("androidx.media3:media3-datasource-cronet:1.1.0")
     implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
     implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
     implementation("androidx.media3:media3-ui:1.1.0")
-    implementation("androidx.media3:media3-ui-leanback:1.1.0")
+//    implementation("androidx.media3:media3-ui-leanback:1.1.0")
     implementation("androidx.media3:media3-session:1.1.0")
     implementation("androidx.media3:media3-extractor:1.1.0")
     implementation("androidx.media3:media3-cast:1.1.0")

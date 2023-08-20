@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
@@ -58,7 +59,6 @@ class MainPage : Page() {
         val countryList = viewModel.countryList.collectAsState()
         val featuredMovieList = viewModel.featuredMovieList.collectAsState()
         val messages = viewModel.messages.collectAsState()
-        val networkState = viewModel.networkInfo.networkStatus.collectAsState(null)
 
         val errorState = remember(viewModel.error) { mutableStateOf(viewModel.error.value) }
         val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
@@ -103,12 +103,13 @@ class MainPage : Page() {
                 modifier = Modifier.fillMaxSize(),
                 appIcon = R.mipmap.ic_launcher_foreground,
                 userIcon = user.value?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,
+                githubUser = BuildConfig.GITHUB_USER,
+                githubRepository = BuildConfig.GITHUB_REPOSITORY,
                 title = titleState.value,
                 messages = messages.value,
                 categories = countryList.value,
                 featuredItems = featuredMovieList.value,
                 categoriesAndItemsMap = streamingData.value,
-                networkState = networkState,
                 errorState = errorState,
                 onTitleClicked = {
                     navController?.openMenu()

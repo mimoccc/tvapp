@@ -25,7 +25,7 @@ import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
 
 @TvPreview
 @Composable
-fun ScrollableTvLazyRow(
+fun ScrollableTvLazyColumn(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     reverseLayout: Boolean = false,

@@ -13,6 +13,7 @@
     <string name="app_name">Tv App</string>
 
     <string name="bt_dismiss">Zrušit</string>
+    <string name="bt_update">Aktualizovat</string>
 
     <string name="error_no_network">Internet není k dispozici.</string>
     <string name="error_unknown">Neznáma chyba.</string>
@@ -29,9 +30,12 @@
 
     <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
     <string name="text_author">Vytvorené autorem Milan Jurkulák © 2023</string>
+    <string name="text_unimplemented_yet">Funkce zatím není implementována.</string>
+    <string name="text_update_message">Aktualizace aplikace připravena.</string>
 
     <string name="title_about">O aplikaci</string>
     <string name="title_apps">Aplikace</string>
+    <string name="title_app_update">Update</string>
     <string name="title_error">Chyba</string>
     <string name="title_home">Domov</string>
     <string name="title_movie_detail">Detail videa</string>

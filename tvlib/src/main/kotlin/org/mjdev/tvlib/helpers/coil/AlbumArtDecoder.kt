@@ -127,7 +127,7 @@ class AlbumArtDecoder(
             val ins = try {
                 val response = call(url)
                 if (response.code == 200) {
-                    response.body?.byteStream()
+                    response.body.byteStream()
                 } else {
                     Timber.e(response.message)
                     null
@@ -145,7 +145,7 @@ class AlbumArtDecoder(
     private fun retrieveXMLFromURL(url: String): InputStream? = try {
         val response = call(url)
         if (response.code == 200) {
-            response.body?.byteStream()
+            response.body.byteStream()
         } else {
             Timber.e(response.message)
             null

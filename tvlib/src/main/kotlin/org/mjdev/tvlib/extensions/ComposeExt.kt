@@ -27,6 +27,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
@@ -64,6 +65,15 @@ object ComposeExt {
 
     @Composable
     fun isAtv(): Boolean = LocalContext.current.isATv
+
+    // todo more types
+    @Composable
+    fun Any?.asException() : Exception? = when (this) {
+        null -> null
+        is String -> Exception(this)
+        is Int -> Exception(stringResource(this))
+        else -> Exception(this.toString())
+    }
 
     @OptIn(ExperimentalTvMaterial3Api::class)
     val DrawerState.isOpen: Boolean

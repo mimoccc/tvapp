@@ -156,7 +156,7 @@ class DailyMotionVideoView @JvmOverloads constructor(
                         DM_URL,
                         URLEncoder.encode(q)
                     )
-                    val json = call(url).body?.string() ?: ""
+                    val json = call(url).body.string()
                     val result: SearchResult? = fromSimpleJSONString<SearchResult>(json)
                     val videoId = if (result?.list != null && result.list.isNotEmpty())
                         result.list[0].id

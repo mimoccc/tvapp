@@ -85,7 +85,7 @@ class AboutPage : Page() {
                             description = {
                                 TextAny(
                                     color = Color.White,
-                                    text = R.string.author
+                                    text = R.string.text_author
                                 )
                             }
                         )

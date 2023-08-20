@@ -43,6 +43,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import org.mjdev.tvlib.BuildConfig
 import timber.log.Timber
 import java.lang.Float.min
 import kotlin.math.abs
@@ -51,7 +52,10 @@ import kotlin.math.abs
 object ModifierExt {
 
     // used to debug library
-    const val isDebug = false
+    val isDebug: Boolean = BuildConfig.DEBUG
+
+    // used to debug composable in library
+    val isComposeDebug: Boolean = BuildConfig.IS_COMPOSE_DEBUG
 
     fun Modifier.conditional(
         condition: Boolean,
@@ -102,8 +106,10 @@ object ModifierExt {
 
     @Stable
     fun Modifier.recomposeHighlighter(): Modifier = conditional(
-        isDebug
-    ) { this.then(recomposeModifier) }
+        isComposeDebug
+    ) {
+        this.then(recomposeModifier)
+    }
 
     @SuppressLint("AutoboxingStateValueProperty")
     private val recomposeModifier = Modifier.composed(

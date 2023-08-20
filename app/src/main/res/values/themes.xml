@@ -14,7 +14,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">#FF444444</item>
         <item name="android:navigationBarColor">#00000000</item>
-        <item name="statusBarBackground">#00000000</item>
+<!--        <item name="statusBarBackground">#00000000</item>-->
         <item name="android:statusBarColor">#00000000</item>
         <item name="android:colorBackground">#FF444444</item>
         <item name="android:windowTranslucentStatus">true</item>

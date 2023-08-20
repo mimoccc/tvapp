@@ -33,6 +33,7 @@ class Category() :
     }
 
     @Id
+    @Json(name = "id")
     override var id: Long = 0
 
     @Json(name = "title")
