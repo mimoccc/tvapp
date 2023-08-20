@@ -72,7 +72,7 @@ class SubscriptionPage : Page() {
                             subtitle = {
                                 TextAny(
                                     color = Color.White,
-                                    text = R.string.text_unimplemented_yet
+                                    text = R.string.msg_unimplemented_yet
                                 )
                             },
                             description = {

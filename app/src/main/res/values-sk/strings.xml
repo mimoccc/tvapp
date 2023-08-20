@@ -23,9 +23,12 @@
     <string name="menu_title_home">Domov</string>
 
     <string name="msg_loading">Načítam …</string>
+    <string name="msg_update_available">Je k dispozicií nová verzia aplikácie.</string>
+    <string name="msg_unimplemented_yet">Táto funkcia žiaľ ešte nie je implementovaná.</string>
+    <string name="msg_no_items">Žiadne položky …</string>
 
     <string name="text_app_description">\n\n\nSimple TV Application for AndroidTV or SetTopBox with Android or any tablet or mobile device.\nAll in one solution for mobile app responsive to device.\nThis app is just an simple demonstration of Jetpack Compose and all other modern architecture components.\n\n\n</string>
-    <string name="text_unimplemented_yet">Táto funkcia žiaľ ešte nie je implementovaná.</string>
+    <string name="text_author">Vytvorené autorom Milan Jurkulák © 2023</string>
 
     <string name="title_about">O aplikácií</string>
     <string name="title_apps">Aplikácie</string>
@@ -40,11 +43,6 @@
     <string name="title_photo_local">Lokálne fotografie</string>
     <string name="title_iptv">Televízia</string>
     <string name="title_web">Internet</string>
-    <string name="title_loading">Loading</string>
-
-    <string name="author">Vytvorené autorom Milan Jurkulák © 2023</string>
-
-    <string name="no_items">Žiadne položky …</string>
-    <string name="no_category">Bez Kategórie</string>
+    <string name="title_no_category">Bez Kategórie</string>
 
 </resources>

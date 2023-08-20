@@ -85,7 +85,7 @@ class SplashScreen : Screen() {
             contentAlignment = Alignment.BottomCenter
         ) {
             TextAny(
-                text = R.string.author,
+                text = R.string.text_author,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White.copy(alpha = 0.5f)

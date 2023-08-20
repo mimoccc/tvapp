@@ -29,7 +29,7 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 
 class LoadingScreen : Screen() {
 
-    override val title = R.string.title_loading
+    override val title = R.string.msg_loading
     override val menuIcon: ImageVector get() = Icons.Filled.Tv
     override val immersive: Boolean = true
     override val showOnce: Boolean = true
