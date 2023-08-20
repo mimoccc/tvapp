@@ -16,7 +16,6 @@ import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
 import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.extensions.GlobalExt.safeGet
-import org.mjdev.tvlib.extensions.ListExt.contains
 import timber.log.Timber
 
 @Suppress("unused", "PrivatePropertyName")
@@ -67,16 +66,27 @@ class SyncAdapter(
                         }
                     }
                 }.collect { movie ->
-                    val exists = moviesSynced.contains { synced ->
+                    val exists = moviesSynced.firstOrNull { synced ->
                         synced.uri == movie.uri
                     }
-                    if (exists) {
-                        // todo duplicities
-                    } else {
+                    if (exists != null) {
+                        try {
+                            dao.movieDao.tx {
+                                remove(exists)
+                            }
+                            Timber.d("Movie: $exists removed.")
+                        } catch (e: Exception) {
+                            Timber.e(e)
+                        }
+                    }
+                    try {
                         dao.movieDao.tx {
                             put(movie)
                         }
+                        moviesSynced.add(movie)
                         Timber.d("Movie: $movie stored.")
+                    } catch (e: Exception) {
+                        Timber.e(e)
                     }
                 }
             }
