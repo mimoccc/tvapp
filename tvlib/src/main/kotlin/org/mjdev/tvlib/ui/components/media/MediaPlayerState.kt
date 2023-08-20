@@ -26,6 +26,7 @@ import com.squareup.moshi.ToJson
 import org.json.JSONObject
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
+import timber.log.Timber
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 @JsonClass(generateAdapter = true)
@@ -34,30 +35,34 @@ class MediaPlayerState(
     initItemIndex: Int = 0,
     autoPlay: Boolean = true,
     startSeek: Long? = null,
+    @Json(name = "play_next_on_error", ignore = true)
+    val playNextOnError: Boolean = true,
+    @Json(name = "on_error", ignore = true)
+    val onError: (e: Exception) -> Boolean = { false },
 ) : Player.Listener {
 
-    @Json(name = "mediaItems")
+    @Json(name = "media_items")
     var mediaItems: List<MediaItem> = initItems
 
-    @Json(name = "currentItemIndex")
+    @Json(name = "current_item_index")
     var currentItemIndex = if (initItemIndex < 0) 0 else initItemIndex
 
-    @Json(name = "currentPosition")
+    @Json(name = "current_position")
     var currentPosition = startSeek ?: 0L
 
-    @Json(name = "isPlaying")
+    @Json(name = "is_playing")
     var isPlaying: Boolean = autoPlay
 
     @Json(name = "error", ignore = true)
     var error: Exception? = null
 
-    @Json(name = "hasMediaToPlay", ignore = true)
+    @Json(name = "has_media_to_play", ignore = true)
     val hasMediaToPlay get() = mediaItems.isNotEmpty()
 
-    @Json(name = "isAutoPlay", ignore = true)
+    @Json(name = "is_auto_play", ignore = true)
     val isAutoPlay get() = isPlaying
 
-    @Json(name = "currentItem", ignore = true)
+    @Json(name = "current_item", ignore = true)
     val currentItem get() = mediaItems[currentItemIndex].mediaItem
 
     @Json(name = "player", ignore = true)
@@ -109,11 +114,19 @@ class MediaPlayerState(
     }
 
     override fun onPlayerError(error: PlaybackException) {
-        this.error = error
+        onPlayerErrorChanged(error)
     }
 
     override fun onPlayerErrorChanged(error: PlaybackException?) {
+        isPlaying = false
         this.error = error
+        Timber.e(error)
+        val handled: Boolean = error?.let { e -> onError(e) } ?: true
+        if ((!handled) && playNextOnError) {
+            player.playWhenReady = true
+            player.seekToNext()
+            player.prepare()
+        }
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {
@@ -163,8 +176,10 @@ class MediaPlayerState(
             items: List<MediaItem> = listOf(),
             itemToPlay: Int = 0,
             autoPlay: Boolean = true,
+            playNextOnError: Boolean = true,
             startSeek: Long? = null,
             context: Context = LocalContext.current,
+            onError: (e: Exception) -> Boolean = { false },
         ) = rememberSaveable(
             key = MediaPlayerState::class.simpleName,
             inputs = arrayOf(items, itemToPlay),
@@ -175,6 +190,8 @@ class MediaPlayerState(
                 itemToPlay,
                 autoPlay,
                 startSeek,
+                playNextOnError,
+                onError
             ).apply {
                 player = MediaPlayerContainerDefaults.exoPlayer(context)
             }

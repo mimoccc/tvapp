@@ -11,6 +11,7 @@ package org.mjdev.tvlib.ui.components.media
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 // todo new ui
 @TvPreview
@@ -18,7 +19,7 @@ import org.mjdev.tvlib.annotations.TvPreview
 @Composable
 fun PlayerControlView(
     modifier: Modifier = Modifier,
-    state: MediaPlayerState = MediaPlayerState.rememberMediaPlayerState(),
+    state: MediaPlayerState = rememberMediaPlayerState(),
 ) {
 //    val isEdit = isEditMode()
 //    val infoVisible = remember { mutableStateOf(isEdit) }
