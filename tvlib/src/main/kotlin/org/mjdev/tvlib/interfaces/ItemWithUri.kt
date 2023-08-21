@@ -12,7 +12,6 @@ interface ItemWithUri<T> {
 
     val uri: T?
 
-    val hasUri
-        get() = (uri != null) && (uri.toString().isNotEmpty())
+    val hasUri get() = (uri != null) && (uri.toString().isNotEmpty())
 
 }

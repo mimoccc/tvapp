@@ -48,6 +48,7 @@ class IPTVActivity : ComposableActivity() {
     override fun onIntent(navController: NavHostControllerEx, intent: Intent?) {
         val data = intent?.getSerializableExtra(IPTV_DATA)
         when (data) {
+            null -> finish()
             is Movie -> navController.openAsTop<IPTVScreen>(data)
             is ItemAudio -> navController.openAsTop<IPTVScreen>(data)
             is ItemVideo -> navController.openAsTop<IPTVScreen>(data)
