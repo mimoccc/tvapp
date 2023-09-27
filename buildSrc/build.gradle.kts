@@ -21,6 +21,7 @@ repositories {
 
 plugins {
     `kotlin-dsl`
+    `kotlin-dsl-precompiled-script-plugins`
 //    `java-gradle-plugin`
 //    `groovy-gradle-plugin`
 //    id("org.jetbrains.dokka") version "1.8.10"
@@ -30,6 +31,12 @@ plugins {
 dependencies {
     implementation(localGroovy())
     implementation(gradleApi())
+
+//    implementation("com.android.tools.build:gradle:3.4.2")
+//    implementation("com.android.tools.build:gradle-api:3.4.3")
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0")
+//    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
+
 //    implementation(kotlin("reflect", "1.8.21"))
 //    implementation("com.google.code.gson:gson:2.10.1")
 //    implementation("com.twelvemonkeys.imageio:imageio-core:3.9.4")

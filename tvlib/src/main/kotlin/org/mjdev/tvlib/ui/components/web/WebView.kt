@@ -16,12 +16,12 @@ import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @Suppress("LocalVariableName")
 @SuppressLint("SetJavaScriptEnabled")
-@TvPreview
+@Previews
 @Composable
 fun WebView(
     modifier: Modifier = Modifier,

@@ -35,6 +35,7 @@ plugins {
     kotlin("kapt")
     id("com.google.devtools.ksp")
 //    id("org.jetbrains.dokka") version "1.8.10"
+//    id ("app.cash.paparazzi") version "1.3.1"
 }
 
 android {
@@ -64,8 +65,6 @@ android {
         versionName = project.versionName
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
-
-        buildConfigField("Boolean", "IS_COMPOSE_DEBUG", "false")
 
         buildConfigField(
             "String",
@@ -102,7 +101,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "false")
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
@@ -123,7 +121,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "false")
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
@@ -144,7 +141,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("Boolean", "DEBUG_RECOMPOSE", "true")
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
@@ -205,22 +201,22 @@ dependencies {
     // tv library by mjde milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-rc01")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.06.01"))
+    implementation(platform("androidx.compose:compose-bom:2023.09.01"))
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.1")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
-    implementation("androidx.tv:tv-material:1.0.0-alpha08")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
+    implementation("androidx.tv:tv-material:1.0.0-alpha09")
     // dagger - hilt
-    implementation("com.google.dagger:dagger-android:2.47")
-    implementation("com.google.dagger:dagger-android-support:2.47")
-    implementation("com.google.dagger:dagger:2.47")
-    implementation("com.google.dagger:hilt-android:2.47")
+    implementation("com.google.dagger:dagger-android:2.48")
+    implementation("com.google.dagger:dagger-android-support:2.48")
+    implementation("com.google.dagger:dagger:2.48")
+    implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
@@ -232,24 +228,24 @@ dependencies {
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // kapt
-    kapt("com.google.dagger:dagger-compiler:2.47")
-    kapt("com.google.dagger:dagger-android-processor:2.47")
-    kapt("com.google.dagger:hilt-compiler:2.47")
+    kapt("com.google.dagger:dagger-compiler:2.48")
+    kapt("com.google.dagger:dagger-android-processor:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // view model
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.3")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // sandwich
-    implementation("com.github.skydoves:sandwich:1.3.8")
+    implementation("com.github.skydoves:sandwich:1.3.9")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.33.0-alpha")
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     // previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // lottie
@@ -258,37 +254,37 @@ dependencies {
     implementation("com.auth0.android:auth0:2.10.1")
     implementation("com.auth0.android:jwtdecode:2.0.2")
     // widgets
-    implementation("androidx.glance:glance-appwidget:1.0.0-rc01")
-    implementation("androidx.glance:glance-material:1.0.0-rc01")
-    implementation("androidx.glance:glance-material3:1.0.0-rc01")
+    implementation("androidx.glance:glance-appwidget:1.0.0")
+    implementation("androidx.glance:glance-material:1.0.0")
+    implementation("androidx.glance:glance-material3:1.0.0")
     // fix duplicates
     implementation("androidx.work:work-runtime-ktx:2.8.1")
     // exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
+    implementation("androidx.media3:media3-exoplayer:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.1")
 //    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
-    implementation("androidx.media3:media3-datasource-cronet:1.1.0")
-    implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
-    implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
-    implementation("androidx.media3:media3-ui:1.1.0")
+    implementation("androidx.media3:media3-datasource-cronet:1.1.1")
+    implementation("androidx.media3:media3-datasource-okhttp:1.1.1")
+    implementation("androidx.media3:media3-datasource-rtmp:1.1.1")
+    implementation("androidx.media3:media3-ui:1.1.1")
 //    implementation("androidx.media3:media3-ui-leanback:1.1.0")
-    implementation("androidx.media3:media3-session:1.1.0")
-    implementation("androidx.media3:media3-extractor:1.1.0")
-    implementation("androidx.media3:media3-cast:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.0")
-    implementation("androidx.media3:media3-transformer:1.1.0")
-    implementation("androidx.media3:media3-database:1.1.0")
-    implementation("androidx.media3:media3-decoder:1.1.0")
-    implementation("androidx.media3:media3-datasource:1.1.0")
-    implementation("androidx.media3:media3-common:1.1.0")
+    implementation("androidx.media3:media3-session:1.1.1")
+    implementation("androidx.media3:media3-extractor:1.1.1")
+    implementation("androidx.media3:media3-cast:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.1")
+    implementation("androidx.media3:media3-transformer:1.1.1")
+    implementation("androidx.media3:media3-database:1.1.1")
+    implementation("androidx.media3:media3-decoder:1.1.1")
+    implementation("androidx.media3:media3-datasource:1.1.1")
+    implementation("androidx.media3:media3-common:1.1.1")
     // libs mismatch
     constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
         }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")?.apply {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0").apply {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }

@@ -32,7 +32,6 @@ android {
         minSdk = projectMinSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("Boolean", "IS_COMPOSE_DEBUG", "false")
     }
 
     buildTypes {
@@ -85,25 +84,25 @@ android {
 
 dependencies {
     // base libs
-    implementation("androidx.core:core-ktx:1.12.0-rc01")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // reflect / debug purposes only
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
     // window manager
     implementation("androidx.window:window:1.1.0")
     // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.06.01"))
+    implementation(platform("androidx.compose:compose-bom:2023.09.01"))
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.1")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha08")
-    implementation("androidx.tv:tv-material:1.0.0-alpha08")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
+    implementation("androidx.tv:tv-material:1.0.0-alpha09")
     // view model
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.3")
     // okhttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
     implementation("com.squareup.okhttp3:okhttp")
@@ -117,52 +116,52 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // sandwich
-    implementation("com.github.skydoves:sandwich:1.3.8")
+    implementation("com.github.skydoves:sandwich:1.3.9")
     // image loading
     implementation("io.coil-kt:coil-base:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")
     implementation("io.coil-kt:coil-svg:2.4.0")
     implementation("io.coil-kt:coil-video:2.4.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.github.skydoves:landscapist-coil:2.2.5")
+    implementation("com.github.skydoves:landscapist-coil:2.2.9")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
-    implementation("com.google.dagger:dagger:2.47")
-    implementation("androidx.compose.material3:material3:1.1.1")
-    kapt("com.google.dagger:dagger-compiler:2.47")
+    implementation("com.google.dagger:dagger:2.48")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    kapt("com.google.dagger:dagger-compiler:2.48")
     // dagger android
-    implementation("com.google.dagger:dagger-android:2.47")
-    implementation("com.google.dagger:dagger-android-support:2.47")
-    kapt("com.google.dagger:dagger-android-processor:2.47")
+    implementation("com.google.dagger:dagger-android:2.48")
+    implementation("com.google.dagger:dagger-android-support:2.48")
+    kapt("com.google.dagger:dagger-android-processor:2.48")
     // dagger - hilt
-    implementation("com.google.dagger:hilt-android:2.47")
+    implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.47")
+    kapt("com.google.dagger:hilt-compiler:2.48")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.0")
+    implementation("androidx.media3:media3-exoplayer:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.1")
 //    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
-    implementation("androidx.media3:media3-datasource-cronet:1.1.0")
-    implementation("androidx.media3:media3-datasource-okhttp:1.1.0")
-    implementation("androidx.media3:media3-datasource-rtmp:1.1.0")
-    implementation("androidx.media3:media3-ui:1.1.0")
+    implementation("androidx.media3:media3-datasource-cronet:1.1.1")
+    implementation("androidx.media3:media3-datasource-okhttp:1.1.1")
+    implementation("androidx.media3:media3-datasource-rtmp:1.1.1")
+    implementation("androidx.media3:media3-ui:1.1.1")
 //    implementation("androidx.media3:media3-ui-leanback:1.1.0")
-    implementation("androidx.media3:media3-session:1.1.0")
-    implementation("androidx.media3:media3-extractor:1.1.0")
-    implementation("androidx.media3:media3-cast:1.1.0")
-    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.0")
-    implementation("androidx.media3:media3-transformer:1.1.0")
-    implementation("androidx.media3:media3-database:1.1.0")
-    implementation("androidx.media3:media3-decoder:1.1.0")
-    implementation("androidx.media3:media3-datasource:1.1.0")
-    implementation("androidx.media3:media3-common:1.1.0")
+    implementation("androidx.media3:media3-session:1.1.1")
+    implementation("androidx.media3:media3-extractor:1.1.1")
+    implementation("androidx.media3:media3-cast:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.1")
+    implementation("androidx.media3:media3-transformer:1.1.1")
+    implementation("androidx.media3:media3-database:1.1.1")
+    implementation("androidx.media3:media3-decoder:1.1.1")
+    implementation("androidx.media3:media3-datasource:1.1.1")
+    implementation("androidx.media3:media3-common:1.1.1")
     // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.33.0-alpha")
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     // for previews
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // pallette
@@ -173,16 +172,18 @@ dependencies {
     implementation("androidx.exifinterface:exifinterface:1.3.6")
     // anr
     implementation("com.github.anrwatchdog:anrwatchdog:1.4.0")
+    // jsoup
+    implementation("org.jsoup:jsoup:1.16.1")
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
     // yt
     // ...
     // constraints
     constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")?.apply {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
         }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")?.apply {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0").apply {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
