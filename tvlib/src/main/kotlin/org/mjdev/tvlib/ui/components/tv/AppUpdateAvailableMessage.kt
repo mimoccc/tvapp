@@ -14,11 +14,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.asException
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.updater.AppUpdater
 import org.mjdev.tvlib.updater.AppUpdater.Companion.rememberAppUpdater
 
-@Preview
+@Previews
 @Composable
 fun AppUpdateAvailableMessage(
     title: Any? = R.string.title_app_update,
@@ -34,7 +37,8 @@ fun AppUpdateAvailableMessage(
     dismissState: MutableState<Boolean> = mutableStateOf(false),
     onButtonClick : ()->Unit = { appUpdater.updateApp() },
 ) {
-    if (appUpdater.isUpdateAvailable) {
+    val isEdit = isEditMode()
+    if (isEdit || appUpdater.isUpdateAvailable) {
         ErrorMessage(
             title = title,
             dismissText = buttonText,

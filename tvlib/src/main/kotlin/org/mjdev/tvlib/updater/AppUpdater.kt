@@ -26,8 +26,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.data.github.remote.Release
-import org.mjdev.tvlib.extensions.ModifierExt.isDebug
 import org.mjdev.tvlib.network.CacheInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -176,7 +176,7 @@ class AppUpdater(
             httpLoggingInterceptor: HttpLoggingInterceptor = httpLoggingInterceptor(),
         ): OkHttpClient = OkHttpClient.Builder().apply {
             addNetworkInterceptor(cacheInterceptor)
-            if (isDebug) {
+            if (BuildConfig.DEBUG) {
                 addInterceptor(httpLoggingInterceptor)
             }
         }.build()
