@@ -28,18 +28,18 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 @SuppressLint("ModifierParameter")
-@Preview
+@Previews
 @Composable
 fun ImageAny(
     modifier: Modifier = Modifier,
@@ -50,7 +50,8 @@ fun ImageAny(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
 ) = BoxWithConstraints(
-    modifier = modifier
+    modifier = modifier,
+    contentAlignment = Alignment.Center
 ) {
 
     val imageLoader = rememberImageLoader()

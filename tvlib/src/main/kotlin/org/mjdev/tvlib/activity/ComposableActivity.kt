@@ -32,7 +32,7 @@ import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -72,7 +72,7 @@ open class ComposableActivity : ComponentActivity() {
             }
     }
 
-    @TvPreview
+    @Previews
     @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     @CallSuper

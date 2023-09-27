@@ -20,10 +20,10 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
@@ -32,7 +32,7 @@ import org.mjdev.tvlib.ui.components.card.FocusHelper
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("AutoboxingStateValueProperty")
-@Preview
+@Previews
 @Composable
 fun BigCarousel(
     modifier: Modifier = Modifier,

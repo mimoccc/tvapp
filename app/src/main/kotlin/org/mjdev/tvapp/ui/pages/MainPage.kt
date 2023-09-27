@@ -26,7 +26,6 @@ import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
 import org.mjdev.tvapp.data.local.User
 import org.mjdev.tvapp.helpers.AuthManager.Companion.rememberAuthManager
-import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.ui.components.page.Page
@@ -36,6 +35,7 @@ import org.mjdev.tvlib.ui.components.tv.LocalAudioRow
 import org.mjdev.tvlib.ui.components.tv.LocalPhotosRow
 import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.viewmodel.MainViewModel
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -48,7 +48,7 @@ class MainPage : Page() {
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
-    @TvPreview
+    @Previews
     @Composable
     override fun Content() {
         val viewModel: MainViewModel = appViewModel { context ->

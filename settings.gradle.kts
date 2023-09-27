@@ -18,6 +18,7 @@ pluginManagement {
         jcenter()
         maven(url = "https://plugins.gradle.org/m2/")
         maven(url = "https://mvn.dailymotion.com/repository/releases/")
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 

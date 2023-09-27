@@ -33,7 +33,8 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ModifierExt.onlyPortrait
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
@@ -72,7 +73,7 @@ open class Screen {
     var backStackEntry: NavBackStackEntry? = null
     var args: Map<String, Any?> = emptyMap()
 
-    @TvPreview
+    @Previews
     @Composable
     @CallSuper
     open fun Compose() {
@@ -97,7 +98,9 @@ open class Screen {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding()
+                .onlyPortrait {
+                    navigationBarsPadding()
+                }
                 .statusBarsPadding()
         ) {
             ComposeScreen()

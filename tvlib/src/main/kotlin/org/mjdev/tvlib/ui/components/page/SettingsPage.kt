@@ -13,7 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import org.mjdev.tvlib.R
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 
 open class SettingsPage : Page() {
 
@@ -21,7 +21,7 @@ open class SettingsPage : Page() {
     override val icon: Any? = Icons.Default.Settings
 
     @SuppressLint("ComposableNaming")
-    @TvPreview
+    @Previews
     @Composable
     override fun Content() = super.Content()
 

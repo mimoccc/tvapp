@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.R
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.text.TextAny
 
@@ -34,7 +34,7 @@ class LoadingScreen : Screen() {
     override val immersive: Boolean = true
     override val showOnce: Boolean = true
 
-    @TvPreview
+    @Previews
     @Composable
     override fun ComposeScreen() {
         Box(

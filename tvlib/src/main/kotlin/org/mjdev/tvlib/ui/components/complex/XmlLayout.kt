@@ -18,10 +18,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.allViews
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 
 @SuppressLint("PrivateResource")
-@TvPreview
+@Previews
 @Composable
 fun XmlLayout(
     modifier: Modifier = Modifier,

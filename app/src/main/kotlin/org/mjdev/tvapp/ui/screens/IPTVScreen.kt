@@ -22,7 +22,7 @@ import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
@@ -48,7 +48,7 @@ class IPTVScreen : Screen() {
         }
     )
 
-    @TvPreview
+    @Previews
     @Composable
     override fun ComposeScreen() {
 

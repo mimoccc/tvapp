@@ -29,7 +29,7 @@ import androidx.tv.material3.Tab
 import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
@@ -40,7 +40,7 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Previews
 @Composable
 fun Tabs(
     modifier: Modifier = Modifier,

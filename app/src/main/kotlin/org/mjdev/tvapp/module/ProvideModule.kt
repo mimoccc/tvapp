@@ -39,7 +39,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ProvideModule {
 
-    private val isDebug = BuildConfig.DEBUG
     private val baseUrl = BuildConfig.IPTV_API_URL
 
     @Singleton
@@ -94,7 +93,7 @@ class ProvideModule {
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient = OkHttpClient.Builder().apply {
         addNetworkInterceptor(cacheInterceptor)
-        if (isDebug) {
+        if (BuildConfig.DEBUG) {
             addInterceptor(httpLoggingInterceptor)
         }
     }.build()

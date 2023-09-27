@@ -17,7 +17,7 @@ import org.mjdev.tvapp.ui.pages.AboutPage
 import org.mjdev.tvapp.ui.pages.MainPage
 import org.mjdev.tvapp.ui.pages.PluginsPage
 import org.mjdev.tvapp.ui.pages.SubscriptionPage
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.ScreenWithPages
 import org.mjdev.tvlib.ui.components.page.PagerScope
 import org.mjdev.tvlib.ui.components.page.SearchPage
@@ -29,7 +29,7 @@ class MainScreen : ScreenWithPages() {
     override val menuIcon: ImageVector = Icons.Default.Home
     override val immersive: Boolean = false
 
-    @TvPreview
+    @Previews
     @Composable
     override fun Compose() = super.Compose()
 

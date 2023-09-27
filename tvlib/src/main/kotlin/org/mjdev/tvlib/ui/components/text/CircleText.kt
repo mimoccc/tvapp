@@ -23,19 +23,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
-@Preview
+@Previews
 @Composable
 fun CircleText(
     modifier: Modifier = Modifier,
@@ -47,12 +48,12 @@ fun CircleText(
     textSize: TextUnit = 20.sp,
     contentPadding: Dp = 0.dp,
 ) {
-
+    val isPortrait = isPortraitMode()
     Box(
         modifier = modifier.recomposeHighlighter()
             .size(textSize.value.dp * 2)
             .padding(contentPadding)
-            .tvAspectRatio(1f)
+            .tvAspectRatio(1f, !isPortrait)
             .clip(CircleShape)
             .background(backGroundColor, CircleShape)
             .border(

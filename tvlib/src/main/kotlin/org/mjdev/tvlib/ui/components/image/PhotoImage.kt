@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toDrawable
@@ -35,6 +34,7 @@ import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.coil.CoilImageState
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ColorExt.contrastAndBrightness
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -45,7 +45,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
-@Preview
+@Previews
 @Composable
 fun PhotoImage(
     src: Any? = null,
@@ -90,9 +90,10 @@ fun PhotoImage(
             src
         },
         modifier = modifier
+            .defaultMinSize(80.dp)
             .recomposeHighlighter()
             .conditional(isEdit) {
-                aspectRatio(16f / 9f).defaultMinSize(80.dp)
+                aspectRatio(16f / 9f)
             }
             .border(
                 BorderStroke(borderSize, borderColor),

@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ModifierExt.bringIntoViewIfChildrenAreFocused
@@ -47,9 +48,10 @@ import org.mjdev.tvlib.ui.components.carousel.ModifierExt.handleKeyEvents
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("ServiceCast")
 @Suppress("IllegalExperimentalApiUsage")
+@Previews
 @Composable
 fun Carousel(
-    itemCount: Int,
+    itemCount: Int=0,
     modifier: Modifier = Modifier,
     carouselState: CarouselState = remember { CarouselState() },
     autoScrollDurationMillis: Long = CarouselDefaults.TimeToDisplayItemMillis,
@@ -66,7 +68,7 @@ fun Carousel(
     },
     isAutoScrollActive: MutableState<Boolean> = remember { mutableStateOf(false) },
     focusState: MutableState<FocusState?> = remember { mutableStateOf(null) },
-    content: @Composable AnimatedContentScope.(index: Int) -> Unit
+    content: @Composable AnimatedContentScope.(index: Int) -> Unit = {}
 ) {
 
     CarouselStateUpdater(carouselState, itemCount)

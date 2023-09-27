@@ -32,11 +32,11 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @ExperimentalTvMaterial3Api
-@TvPreview
+@Previews
 @Composable
 fun ModalNavigationDrawer(
     modifier: Modifier = Modifier,
@@ -89,14 +89,16 @@ fun ModalNavigationDrawer(
         )
         Box(
             modifier = when (contentAlignment) {
-                Alignment.TopStart -> Modifier.padding(
+                Alignment.TopStart -> Modifier
+                    .padding(
                     closedDrawerWidth.value ?: closeDrawerWidth,
                     0.dp,
                     0.dp,
                     0.dp
                 )
 
-                Alignment.TopEnd -> Modifier.padding(
+                Alignment.TopEnd -> Modifier
+                    .padding(
                     0.dp,
                     0.dp,
                     closedDrawerWidth.value ?: closeDrawerWidth,

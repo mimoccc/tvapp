@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +20,13 @@ import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
 
-@TvPreview
+@Previews
 @Composable
 fun ScrollableTvLazyColumn(
     modifier: Modifier = Modifier,
@@ -37,12 +40,21 @@ fun ScrollableTvLazyColumn(
     state: TvLazyListState = rememberTvLazyListState(),
     content: TvLazyListScope.() -> Unit = {}
 ) {
+    val isEdit = isEditMode()
     VerticalScrollableBox(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier
+            .conditional(isEdit) {
+                fillMaxSize()
+            }
+            .recomposeHighlighter(),
         state = state
     ) {
         TvLazyColumn(
-            modifier = modifier.recomposeHighlighter(),
+            modifier = modifier
+                .conditional(isEdit) {
+                    fillMaxSize()
+                }
+                .recomposeHighlighter(),
             state = state,
             contentPadding = contentPadding,
             reverseLayout = reverseLayout,

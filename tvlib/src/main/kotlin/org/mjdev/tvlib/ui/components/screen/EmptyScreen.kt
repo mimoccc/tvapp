@@ -9,14 +9,14 @@
 package org.mjdev.tvlib.ui.components.screen
 
 import androidx.compose.runtime.Composable
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.Screen
 
 internal class EmptyScreen : Screen() {
 
     override val route: String = ROUTE_NONE
 
-    @TvPreview
+    @Previews
     @Composable
     override fun Compose() = super.Compose()
 

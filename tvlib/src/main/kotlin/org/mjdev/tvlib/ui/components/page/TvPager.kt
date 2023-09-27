@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItemClickListener
@@ -39,7 +39,7 @@ import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.page.Page.Companion.EMPTY_PAGE
 
 @SuppressLint("AutoboxingStateValueProperty", "UnusedContentLambdaTargetStateParameter")
-@TvPreview
+@Previews
 @Composable
 fun TvPager(
     navController: NavHostControllerEx = rememberNavControllerEx(),

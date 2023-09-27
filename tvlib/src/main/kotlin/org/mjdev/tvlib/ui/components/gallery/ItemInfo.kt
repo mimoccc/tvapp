@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ColorExt.invert
 import org.mjdev.tvlib.helpers.media.MetadataRetriever
 import org.mjdev.tvlib.helpers.media.MetadataRetriever.Companion.rememberMetaDataRetriever
@@ -38,7 +38,7 @@ import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
 import org.mjdev.tvlib.ui.components.image.ImageBackground
 
-@TvPreview
+@Previews
 @Composable
 fun ItemInfo(
     src: Any? = null,

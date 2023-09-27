@@ -22,15 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.helpers.apps.App
 import org.mjdev.tvlib.helpers.apps.rememberAppsManager
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.card.ItemCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Previews
 @Composable
 fun AppsRow(
     title: Any? = R.string.title_apps,

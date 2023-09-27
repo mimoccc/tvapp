@@ -20,17 +20,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.LocalTextStyle
 import androidx.tv.material3.Text
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.textFrom
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
-@Preview
+@Previews
 @Composable
 fun TextAny(
     text: Any? = "test",

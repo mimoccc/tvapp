@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.ui.components.immersivelist
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
@@ -22,19 +23,24 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.bringIntoViewIfChildrenAreFocused
 
+@Previews
+@SuppressLint("ModifierParameter")
 @Suppress("IllegalExperimentalApiUsage")
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalTvMaterial3Api
 @Composable
 fun ImmersiveList(
-    background: @Composable ImmersiveListBackgroundScope.(index: Int, listHasFocus: Boolean) -> Unit,
-    modifier: Modifier = Modifier,
+    background: @Composable ImmersiveListBackgroundScope.(
+        index: Int, listHasFocus: Boolean
+    ) -> Unit = { idx, focus -> },
+     modifier: Modifier = Modifier,
     listAlignment: Alignment = Alignment.BottomEnd,
     currentItemIndex: MutableIntState = remember { mutableIntStateOf(0) },
     listHasFocus: MutableState<Boolean> = remember { mutableStateOf(false) },
-    list: @Composable ImmersiveListScope.() -> Unit,
+    list: @Composable ImmersiveListScope.() -> Unit = {},
 ) {
     Box(
         modifier.bringIntoViewIfChildrenAreFocused()

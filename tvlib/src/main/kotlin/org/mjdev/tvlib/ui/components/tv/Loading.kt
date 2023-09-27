@@ -22,12 +22,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Previews
 @Composable
 fun Loading(
     modifier: Modifier = Modifier,

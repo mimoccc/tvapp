@@ -30,7 +30,7 @@ fun SettingsDrawerContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .recomposeHighlighter()
             .fillMaxHeight()
             .conditional(isEditMode()) {

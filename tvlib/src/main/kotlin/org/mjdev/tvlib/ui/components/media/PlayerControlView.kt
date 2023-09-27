@@ -10,11 +10,11 @@ package org.mjdev.tvlib.ui.components.media
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 // todo new ui
-@TvPreview
+@Previews
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 fun PlayerControlView(

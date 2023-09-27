@@ -20,36 +20,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("AutoboxingStateValueProperty")
-@Preview
+@Previews
 @Composable
 fun VerticalScrollableBox(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.TopStart,
-    propagateMinConstraints: Boolean = false,
+    propagateMinConstraints: Boolean = isLandscapeMode(),
     state: TvLazyListState? = null,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     val isEdit = isEditMode()
     val scrollDelta = remember { mutableFloatStateOf(0f) }
     Box(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
             .conditional(isEdit) {
-                tvAspectRatio(16f / 9f).defaultMinSize(80.dp)
+                defaultMinSize(80.dp)
+                    .tvAspectRatio(16f / 9f).defaultMinSize(80.dp)
             }
             .pointerInput(Unit) {
                 detectDragGestures { _, dragAmount ->
                     scrollDelta.value = dragAmount.y
                 }
-            },
+            }
+            .recomposeHighlighter(),
         contentAlignment = contentAlignment,
         propagateMinConstraints = propagateMinConstraints,
     ) {

@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.viewmodel.DetailViewModel
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.extensions.ListExt.indexOf
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
@@ -45,7 +45,7 @@ class DetailScreen : Screen() {
         }
     )
 
-    @TvPreview
+    @Previews
     @Composable
     override fun ComposeScreen() {
 

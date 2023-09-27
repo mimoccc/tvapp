@@ -9,7 +9,6 @@
 package org.mjdev.tvlib.ui.components.navigation
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Box
@@ -30,12 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 
 @Suppress("IllegalExperimentalApiUsage")
-@OptIn(ExperimentalTvMaterial3Api::class, ExperimentalFoundationApi::class)
-@TvPreview
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Previews
 @Composable
 fun DrawerSheet(
     modifier: Modifier = Modifier,

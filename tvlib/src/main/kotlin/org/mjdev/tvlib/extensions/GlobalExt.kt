@@ -17,6 +17,8 @@ import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.toFlow
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
+import java.net.MalformedURLException
+import java.net.URL
 
 @Suppress("unused")
 object GlobalExt {
@@ -58,5 +60,13 @@ object GlobalExt {
     } catch (e: Exception) {
         Result.failure(e)
     }
+
+    @Suppress("SENSELESS_COMPARISON")
+    val String.isUrl:Boolean
+        get() = try {
+            URL(this) != null
+        } catch (e: MalformedURLException) {
+            false
+        }
 
 }

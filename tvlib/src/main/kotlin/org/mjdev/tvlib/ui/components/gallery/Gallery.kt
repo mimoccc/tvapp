@@ -55,7 +55,7 @@ import androidx.tv.foundation.lazy.list.itemsIndexed
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.GlobalExt.toggle
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
@@ -70,7 +70,7 @@ import org.mjdev.tvlib.ui.components.tv.TVRow
 import timber.log.Timber
 
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalAnimationApi::class)
-@TvPreview
+@Previews
 @Composable
 fun Gallery(
     modifier: Modifier = Modifier,

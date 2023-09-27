@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -24,18 +25,18 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.LocalContentColor
 import coil.compose.AsyncImage
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
-@Preview
+@Previews
 @Composable
 fun IconAny(
     modifier: Modifier = Modifier,
@@ -43,7 +44,8 @@ fun IconAny(
     contentDescription: String? = null,
     tint: Color = LocalContentColor.current
 ) = BoxWithConstraints(
-    modifier = modifier
+    modifier = modifier,
+    contentAlignment = Alignment.Center
 ) {
 
     val width = constraints.minWidth

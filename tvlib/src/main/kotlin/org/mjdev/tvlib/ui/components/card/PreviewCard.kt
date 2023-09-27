@@ -26,7 +26,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -50,6 +49,7 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
@@ -57,7 +57,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Suppress("unused")
 @UnstableApi
-@Preview
+@Previews
 @Composable
 fun PreviewCard(
     modifier: Modifier = Modifier,
@@ -134,7 +134,9 @@ fun PreviewCard(
                 lifecycle.removeObserver(observer)
             }
         }
-        Crossfade(targetState = hasFocus, animationSpec = tween(durationMillis = 700)) { focused ->
+        Crossfade(targetState = hasFocus, animationSpec = tween(durationMillis = 700),
+            label = ""
+        ) { focused ->
             if (focused) {
                 Box {
                     AndroidView(
@@ -172,7 +174,7 @@ fun PreviewCard(
     }
 }
 
-@Preview
+@Previews
 @Composable
 fun PreviewThumbnail(
     thumbnail: String? = "",

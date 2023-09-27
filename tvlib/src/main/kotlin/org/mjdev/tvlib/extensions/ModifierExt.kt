@@ -6,6 +6,8 @@
  *  w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvlib.extensions
 
 import android.annotation.SuppressLint
@@ -15,6 +17,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.relocation.BringIntoViewResponder
 import androidx.compose.foundation.relocation.bringIntoViewResponder
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
@@ -44,6 +47,8 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
+import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import timber.log.Timber
 import java.lang.Float.min
 import kotlin.math.abs
@@ -51,15 +56,10 @@ import kotlin.math.abs
 @Suppress("MemberVisibilityCanBePrivate")
 object ModifierExt {
 
-    // used to debug library
-    val isDebug: Boolean = BuildConfig.DEBUG
-
-    // used to debug composable in library
-    val isComposeDebug: Boolean = BuildConfig.IS_COMPOSE_DEBUG
-
+    @Composable
     fun Modifier.conditional(
         condition: Boolean,
-        other: Modifier.() -> Modifier
+        other: @Composable Modifier.() -> Modifier
     ): Modifier {
         return when (condition) {
             true -> this.then(other.invoke(this))
@@ -67,9 +67,32 @@ object ModifierExt {
         }
     }
 
+    @Composable
+    fun Modifier.onlyPortrait(
+        condition: Boolean = isPortraitMode(),
+        other: @Composable Modifier.() -> Modifier
+    ): Modifier {
+        return when (condition) {
+            true -> this.then(other.invoke(this))
+            else -> this
+        }
+    }
+
+    @Composable
+    fun Modifier.onlyLandscape(
+        condition: Boolean = isLandscapeMode(),
+        other: @Composable Modifier.() -> Modifier
+    ): Modifier {
+        return when (condition) {
+            true -> this.then(other.invoke(this))
+            else -> this
+        }
+    }
+
+    @Composable
     fun Modifier.tvAspectRatio(
         ratio: Float?,
-        matchHeightConstraintsFirst: Boolean = false
+        matchHeightConstraintsFirst: Boolean = isLandscapeMode()
     ): Modifier = conditional(ratio != null) {
         aspectRatio(
             ratio!!,
@@ -104,8 +127,11 @@ object ModifierExt {
         )
     }
 
+    @Composable
     @Stable
-    fun Modifier.recomposeHighlighter(): Modifier = conditional(
+    fun Modifier.recomposeHighlighter(
+        isComposeDebug: Boolean = BuildConfig.DEBUG
+    ): Modifier = conditional(
         isComposeDebug
     ) {
         this.then(recomposeModifier)

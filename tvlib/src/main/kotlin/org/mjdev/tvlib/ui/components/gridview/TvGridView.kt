@@ -23,17 +23,19 @@ import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import androidx.tv.foundation.lazy.grid.items
 import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.ui.components.card.PhotoCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
-@TvPreview
+@Previews
 @Composable
 fun TvGridView(
     modifier: Modifier = Modifier,
     items: List<Any?> = listOf(
+        Unit, Unit, Unit,
+        Unit, Unit, Unit,
         Unit, Unit, Unit,
         Unit, Unit, Unit,
         Unit, Unit, Unit,

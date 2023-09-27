@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.card.Card
 import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.card.CardContent
@@ -39,7 +39,7 @@ class AboutPage : Page() {
     override val icon: ImageVector = Icons.Default.Info
 
     @OptIn(ExperimentalTvMaterial3Api::class)
-    @TvPreview
+    @Previews
     @Composable
     override fun Content() {
         Box(
@@ -52,6 +52,7 @@ class AboutPage : Page() {
                 onClick = {},
                 onLongClick = {},
                 shape = CardDefaults.shape(),
+                aspectRatio = null,
                 colors = CardDefaults.colors(
                     containerColor = Color(0xff242424)
                 ),

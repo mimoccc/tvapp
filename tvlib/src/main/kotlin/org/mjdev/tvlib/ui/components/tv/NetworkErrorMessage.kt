@@ -13,12 +13,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.asException
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvlib.network.NetworkConnectivityService.Companion.rememberNetworkService
 import org.mjdev.tvlib.network.NetworkStatus
 import org.mjdev.tvlib.network.isNotConnected
 
+@Previews
 @Composable
 fun NetworkErrorMessage(
     message: Any? = R.string.error_no_network,
@@ -28,7 +31,8 @@ fun NetworkErrorMessage(
     networkState: State<NetworkStatus?> = networkService.networkStatus
         .collectAsState(NetworkStatus.Connected(null)),
 ) {
-    if (networkState.isNotConnected) {
+    val isEdit = isEditMode()
+    if (isEdit || networkState.isNotConnected) {
         ErrorMessage(
             error = message.asException(),
             backgroundColor = backgroundColor,

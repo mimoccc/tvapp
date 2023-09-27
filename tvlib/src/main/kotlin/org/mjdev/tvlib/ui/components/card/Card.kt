@@ -23,7 +23,6 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
@@ -35,12 +34,14 @@ import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
+import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
-@Preview
+@Previews
 @Composable
 fun Card(
     modifier: Modifier = Modifier,
@@ -64,7 +65,9 @@ fun Card(
     modifier = modifier
         .recomposeHighlighter()
         .widthIn(max = 320.dp)
-        .tvAspectRatio(aspectRatio)
+        .conditional(aspectRatio != null) {
+            tvAspectRatio(aspectRatio)
+        }
         .clickable {
             onClick()
         },

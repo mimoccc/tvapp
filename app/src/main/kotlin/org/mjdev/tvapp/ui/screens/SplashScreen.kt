@@ -33,7 +33,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.delay
 import org.mjdev.tvapp.R
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
 import org.mjdev.tvlib.permission.rememberPermissionManager
@@ -48,7 +48,7 @@ class SplashScreen : Screen() {
     override val immersive: Boolean = true
 
     @OptIn(ExperimentalPermissionsApi::class)
-    @TvPreview
+    @Previews
     @Composable
     override fun ComposeScreen() {
 
@@ -66,7 +66,7 @@ class SplashScreen : Screen() {
             contentAlignment = Alignment.Center
         ) {
             LottieAnimation(
-                modifier = Modifier.padding(120.dp) ,
+                modifier = Modifier.padding(120.dp),
                 composition = composition.value,
                 progress = {
                     progress.value
@@ -76,12 +76,7 @@ class SplashScreen : Screen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    0.dp,
-                    0.dp,
-                    0.dp,
-                    4.dp
-                ),
+                .padding(0.dp, 0.dp, 0.dp, 4.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
             TextAny(

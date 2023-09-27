@@ -19,14 +19,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.mjdev.tvlib.annotations.TvPreview
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.R
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.carousel.BigCarousel
 
-@TvPreview
+@Previews
 @Composable
 fun BrowseView(
     modifier: Modifier = Modifier,
@@ -60,8 +60,8 @@ fun BrowseView(
     val isEdit = isEditMode()
     ScrollableTvLazyColumn(
         modifier = modifier
-            .recomposeHighlighter()
-            .fillMaxSize(),
+            .fillMaxSize()
+            .recomposeHighlighter(),
         verticalArrangement = verticalArrangement,
         contentPadding = contentPadding
     ) {

@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.R
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoItem
 
 @Suppress("DEPRECATION")
-@TvPreview
+@Previews
 @Composable
 fun LocalPhotosRow(
     title: Any? = R.string.title_photo_local,

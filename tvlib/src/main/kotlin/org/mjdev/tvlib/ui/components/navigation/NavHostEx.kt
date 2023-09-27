@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
-import org.mjdev.tvlib.annotations.TvPreview
+import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.createGraph
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -33,7 +33,7 @@ import org.mjdev.tvlib.ui.components.image.FadingPhotoImage
 import org.mjdev.tvlib.ui.components.screen.EmptyScreen
 import org.mjdev.tvlib.ui.components.screen.ScreenView
 
-@TvPreview
+@Previews
 @Composable
 fun NavHostEx(
     modifier: Modifier = Modifier,
