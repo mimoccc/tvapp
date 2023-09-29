@@ -73,12 +73,12 @@ fun PreviewCard(
         modifier = modifier.tvAspectRatio(aspectRatio).recomposeHighlighter()
     ) {
         val context = LocalContext.current
-        var currentlyPlaying by remember { mutableStateOf(false) }
-        var isBuffering by remember { mutableStateOf(true) }
-        var thumbnailBitmap by rememberSaveable {
+        var currentlyPlaying by remember(videoUrl) { mutableStateOf(false) }
+        var isBuffering by remember(videoUrl) { mutableStateOf(true) }
+        var thumbnailBitmap by rememberSaveable(videoUrl) {
             mutableStateOf<Bitmap?>(null)
         }
-        val exoPlayer = remember {
+        val exoPlayer = remember(videoUrl) {
             ExoPlayer.Builder(context).build().apply {
                 repeatMode = REPEAT_MODE_ONE
                 volume = 0f

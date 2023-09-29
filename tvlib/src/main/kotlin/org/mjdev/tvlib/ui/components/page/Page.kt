@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
@@ -49,18 +50,18 @@ open class Page {
         ) {
             VerticalScrollableBox(
                 modifier = Modifier
-                    .recomposeHighlighter()
                     .fillMaxSize()
                     .requestFocusOnTouch(
                         focusRequester = focusRequester
-                    ),
+                    )
+                    .recomposeHighlighter(),
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
                     modifier = Modifier
-                        .recomposeHighlighter()
                         .fillMaxSize()
                         .focusRequester(focusRequester)
+                        .recomposeHighlighter()
                 ) {
                     Content()
                 }
@@ -78,7 +79,9 @@ open class Page {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextAny(
+                modifier = Modifier.fillMaxSize().recomposeHighlighter(),
                 text = title ?: "Empty Page",
+                textAlign = TextAlign.Center,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,

@@ -56,19 +56,21 @@ object ComposeExt {
     fun isEditMode() = LocalInspectionMode.current
 
     @Composable
-    fun isLandscapeMode(): Boolean =
-        LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    fun isLandscapeMode(): Boolean = with(LocalConfiguration.current) {
+        (orientation == Configuration.ORIENTATION_LANDSCAPE) || (screenWidthDp > screenHeightDp)
+    }
 
     @Composable
-    fun isPortraitMode(): Boolean =
-        LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
+    fun isPortraitMode(): Boolean = with(LocalConfiguration.current) {
+        (orientation == Configuration.ORIENTATION_PORTRAIT) || (screenHeightDp > screenWidthDp)
+    }
 
     @Composable
     fun isAtv(): Boolean = LocalContext.current.isATv
 
     // todo more types
     @Composable
-    fun Any?.asException() : Exception? = when (this) {
+    fun Any?.asException(): Exception? = when (this) {
         null -> null
         is String -> Exception(this)
         is Int -> Exception(stringResource(this))
@@ -85,8 +87,9 @@ object ComposeExt {
 
     @Composable
     fun <T> rememberDerivedStateOf(
-        function: () -> T
-    ): State<T> = remember {
+        function: () -> T,
+        key: Any? = function
+    ): State<T> = remember(key) {
         derivedStateOf(function)
     }
 
@@ -108,14 +111,16 @@ object ComposeExt {
     }
 
     @Composable
-    fun rememberMutableInteractionSource() = remember {
+    fun rememberMutableInteractionSource(
+        key: Any? = null
+    ) = remember(key) {
         MutableInteractionSource()
     }
 
     @Composable
     fun rememberFocusState(
         initial: FocusState? = null
-    ) = remember {
+    ) = remember(initial) {
         mutableStateOf(initial)
     }
 
@@ -158,11 +163,9 @@ object ComposeExt {
 
     @SuppressLint("RememberReturnType", "ComposableNaming")
     @Composable
-    fun rememberContentResolver(
-        key: Any? = Unit
-    ): ContentResolver {
+    fun rememberContentResolver(): ContentResolver {
         val context = LocalContext.current
-        return remember(key) {
+        return remember(context) {
             context.contentResolver
         }
     }
@@ -171,7 +174,7 @@ object ComposeExt {
     @Composable
     fun rememberImageLoader(): ImageLoader {
         val context = LocalContext.current
-        return remember {
+        return remember(context) {
             ImageLoader.Builder(context)
                 .allowHardware(false)
                 .addLastModifiedToFileCacheKey(true)

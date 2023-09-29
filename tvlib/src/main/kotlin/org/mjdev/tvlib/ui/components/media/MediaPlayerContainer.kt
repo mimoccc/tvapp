@@ -37,8 +37,8 @@ fun MediaPlayerContainer(
         )
         PlayerControlView(
             modifier = modifier
-                .recomposeHighlighter()
-                .fillMaxSize(),
+                .fillMaxSize()
+                .recomposeHighlighter(),
             state = state
         )
     }

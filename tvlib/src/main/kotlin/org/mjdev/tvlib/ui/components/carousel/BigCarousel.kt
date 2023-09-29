@@ -38,16 +38,16 @@ fun BigCarousel(
     modifier: Modifier = Modifier,
     items: List<Any?> = listOf(Unit, Unit, Unit),
     autoScrollDurationMillis: Long = 8000,
-    carouselState: CarouselState = remember { CarouselState() },
-    onItemSelected: (movie: Any?) -> Unit = {},
-    onItemClicked: (movie: Any?) -> Unit = {},
+    carouselState: CarouselState = remember(items) { CarouselState() },
+    onItemSelected: ((movie: Any?) -> Unit)? = null,
+    onItemClicked: ((movie: Any?) -> Unit)? = null,
 ) {
     val height = LocalConfiguration.current.let { config ->
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
         else config.screenHeightDp * 0.4f
     }
-    val focusRequester = rememberFocusRequester()
-    val cardFocusState = rememberFocusState()
+    val focusRequester = rememberFocusRequester(items)
+    val cardFocusState = rememberFocusState(items)
     Carousel(
         autoScrollDurationMillis = autoScrollDurationMillis,
         carouselState = carouselState,
@@ -76,7 +76,7 @@ fun BigCarousel(
             },
     ) { indexOfCarouselItem ->
         val selectedItem = items[indexOfCarouselItem]
-        onItemSelected(selectedItem)
+        onItemSelected?.invoke(selectedItem)
         CarouselCard(
             item = selectedItem,
             modifier = modifier
@@ -85,9 +85,11 @@ fun BigCarousel(
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
             focusState = cardFocusState,
-            onFocus = onItemSelected,
+            onFocus = {
+                onItemSelected?.invoke(it)
+            },
             onClick = {
-                onItemClicked(selectedItem)
+                onItemClicked?.invoke(selectedItem)
             }
         )
     }

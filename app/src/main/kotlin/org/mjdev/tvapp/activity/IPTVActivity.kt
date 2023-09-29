@@ -20,6 +20,7 @@ import org.mjdev.tvapp.ui.screens.IPTVScreen
 import org.mjdev.tvapp.ui.screens.LoadingScreen
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvlib.helpers.other.SystemUIController
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
@@ -27,6 +28,16 @@ import org.mjdev.tvlib.navigation.NavHostControllerEx
 
 @AndroidEntryPoint
 class IPTVActivity : ComposableActivity() {
+
+    private val systemUIController by lazy {
+        SystemUIController(this) {
+            if (isLandscape) hideSystemUI() else showSystemUI()
+        }
+    }
+
+    init {
+        systemUIController.register()
+    }
 
     @Previews
     @Composable

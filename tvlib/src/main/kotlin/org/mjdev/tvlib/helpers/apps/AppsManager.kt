@@ -28,7 +28,7 @@ fun rememberAppsManager(
     vararg excluded: ComponentName
 ): Flow<List<App>> {
     val context: Context = LocalContext.current
-    return remember {
+    return remember(context) {
         appsManager(context, *excluded)
     }
 }

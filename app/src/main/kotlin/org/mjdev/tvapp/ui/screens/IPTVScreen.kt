@@ -37,6 +37,7 @@ class IPTVScreen : Screen() {
     private val data = "data"
 
     override val title = R.string.title_iptv
+
     override val menuIcon: ImageVector get() = Icons.Filled.Tv
     override val immersive: Boolean = true
     override val showOnce: Boolean = true

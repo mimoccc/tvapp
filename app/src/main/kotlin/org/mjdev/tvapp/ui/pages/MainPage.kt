@@ -96,6 +96,14 @@ class MainPage : Page() {
         val authManager = rememberAuthManager { u -> user.value = u }
         val apps = remember { viewModel.apps }.collectAsState(emptyList())
 
+//        val systemUIController = rememberSystemUIController {
+//            if (isLandscape)  {
+//                hideSystemUI()
+//            } else {
+//                showSystemUI()
+//            }
+//        }
+
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {

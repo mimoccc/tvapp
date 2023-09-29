@@ -205,7 +205,7 @@ class AppUpdater(
             githubRepository: String = "tvapp",
         ): AppUpdater {
             val context = LocalContext.current
-            return remember(Unit) {
+            return remember(context) {
                 AppUpdater(context, githubUser, githubRepository)
             }
         }

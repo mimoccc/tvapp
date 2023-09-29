@@ -53,7 +53,7 @@ class SplashScreen : Screen() {
     override fun ComposeScreen() {
 
         val isEdit = isEditMode()
-        val scale = remember { Animatable(if (isEdit) 1f else 0f) }
+        val scale = remember (isEdit) { Animatable(if (isEdit) 1f else 0f) }
         val permissionManager = rememberPermissionManager()
         val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash))
         val progress = animateLottieCompositionAsState(composition.value)

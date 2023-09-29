@@ -57,7 +57,7 @@ fun Button(
     borderColor: Color = Color.White,
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
-    focusState: MutableState<FocusState?> = rememberFocusState(text),
+    focusState: MutableState<FocusState?> = rememberFocusState(),
     content: @Composable RowScope.() -> Unit = {
         TextAny(text = text)
     },

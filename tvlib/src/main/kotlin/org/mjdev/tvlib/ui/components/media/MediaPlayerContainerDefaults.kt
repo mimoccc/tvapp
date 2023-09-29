@@ -14,6 +14,10 @@ import android.content.Context
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object MediaPlayerContainerDefaults {
 
+    @Suppress("UNUSED_PARAMETER")
+    fun empty(context: Context): IMediaPlayer =
+        IMediaPlayer.EMPTY
+
     fun exoPlayer(context: Context): IMediaPlayer =
         ExoPlayerImpl(context)
 

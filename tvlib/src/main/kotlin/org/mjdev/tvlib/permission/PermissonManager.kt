@@ -29,7 +29,7 @@ import timber.log.Timber
 @Composable
 fun manifestPermissions(): List<String> {
     val context = LocalContext.current
-    return rememberSaveable {
+    return rememberSaveable (context) {
         try {
             val packageManager = context.packageManager
             arrayListOf<String>().apply {

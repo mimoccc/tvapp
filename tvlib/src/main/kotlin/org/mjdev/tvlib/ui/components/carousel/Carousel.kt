@@ -51,9 +51,9 @@ import org.mjdev.tvlib.ui.components.carousel.ModifierExt.handleKeyEvents
 @Previews
 @Composable
 fun Carousel(
-    itemCount: Int=0,
+    itemCount: Int = 0,
     modifier: Modifier = Modifier,
-    carouselState: CarouselState = remember { CarouselState() },
+    carouselState: CarouselState = remember(itemCount) { CarouselState() },
     autoScrollDurationMillis: Long = CarouselDefaults.TimeToDisplayItemMillis,
     contentTransformStartToEnd: ContentTransform = CarouselDefaults.contentTransform,
     contentTransformEndToStart: ContentTransform = CarouselDefaults.contentTransform,
@@ -66,8 +66,8 @@ fun Carousel(
                 .padding(16.dp),
         )
     },
-    isAutoScrollActive: MutableState<Boolean> = remember { mutableStateOf(false) },
-    focusState: MutableState<FocusState?> = remember { mutableStateOf(null) },
+    isAutoScrollActive: MutableState<Boolean> = remember(itemCount) { mutableStateOf(false) },
+    focusState: MutableState<FocusState?> = remember(itemCount) { mutableStateOf(null) },
     content: @Composable AnimatedContentScope.(index: Int) -> Unit = {}
 ) {
 

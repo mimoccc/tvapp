@@ -47,7 +47,7 @@ object NavExt {
     ): NavHostControllerEx {
         val context = LocalContext.current
         return rememberSaveable(
-            inputs = navigators,
+            inputs = arrayOf(context, navigators),
             saver = NavControllerSaver(context)
         ) {
             createNavController(context)

@@ -360,11 +360,19 @@ open class CachingCursor<T>(
             if (uri == null) return null
             else {
                 val context = LocalContext.current
-                var cursor by remember {
+                var cursor by remember(
+                    uri,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    sortOrder,
+                    transform,
+                    context
+                ) {
                     mutableStateOf<CachingCursor<RT>?>(null)
                 }
                 DisposableEffect(uri) {
-                    cursor = CachingCursor<RT>(
+                    cursor = CachingCursor(
                         context,
                         uri,
                         projection,

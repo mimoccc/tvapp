@@ -79,7 +79,7 @@ fun NavigationRow(
         text,
         FocusHelper(focused)
     ),
-    focusRequester: FocusRequester = rememberFocusRequester(),
+    focusRequester: FocusRequester = rememberFocusRequester(id),
     onFocus: (id: Int) -> Unit = {},
     onClick: (id: Int) -> Unit = {},
 ) {

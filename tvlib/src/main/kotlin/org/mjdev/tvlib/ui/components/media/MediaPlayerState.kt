@@ -24,6 +24,7 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
 import org.json.JSONObject
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import timber.log.Timber
@@ -180,6 +181,7 @@ class MediaPlayerState(
             startSeek: Long? = null,
             context: Context = LocalContext.current,
             onError: (e: Exception) -> Boolean = { false },
+            isEdit: Boolean = isEditMode()
         ) = rememberSaveable(
             key = MediaPlayerState::class.simpleName,
             inputs = arrayOf(items, itemToPlay),
@@ -193,7 +195,10 @@ class MediaPlayerState(
                 playNextOnError,
                 onError
             ).apply {
-                player = MediaPlayerContainerDefaults.exoPlayer(context)
+                player = when (isEdit) {
+                    true -> MediaPlayerContainerDefaults.empty(context)
+                    false -> MediaPlayerContainerDefaults.exoPlayer(context)
+                }
             }
         }
 

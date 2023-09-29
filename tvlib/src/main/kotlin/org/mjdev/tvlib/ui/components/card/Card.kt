@@ -35,6 +35,7 @@ import androidx.tv.material3.CardShape
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
@@ -58,7 +59,7 @@ fun Card(
         unFocusGlowColor
     ),
     aspectRatio: Float? = 16f / 9f,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
     content: @Composable ColumnScope.() -> Unit = {}
 ) = androidx.tv.material3.Card(
     onClick = onClick,
@@ -156,7 +157,9 @@ fun CardDefaults.colorFocusBorder(
 
 @Suppress("unused")
 @Composable
-fun rainbowColorsBrush() = remember {
+fun rainbowColorsBrush(
+    key:Any?=null
+) = remember(key) {
     Brush.sweepGradient(
         listOf(
             Color(0xFF9575CD),

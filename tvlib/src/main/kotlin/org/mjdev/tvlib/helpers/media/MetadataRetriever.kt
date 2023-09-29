@@ -96,7 +96,7 @@ class MetadataRetriever(
                 String.format("%s %s", n, v)
             }
         ) = LocalContext.current.let { context ->
-            remember { MetadataRetriever(context, translateMeta) }
+            remember(context) { MetadataRetriever(context, translateMeta) }
         }
 
     }

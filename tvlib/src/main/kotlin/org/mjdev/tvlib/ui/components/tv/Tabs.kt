@@ -50,7 +50,7 @@ fun Tabs(
     activeContentColor: Color = Color.Green,
     selectedContentColor: Color = Color.White,
     focusedContentColor: Color = Color.White,
-    interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
+    interactionSource: MutableInteractionSource = rememberMutableInteractionSource(items),
     onItemClick: (item: Any?) -> Unit = {}
 ) {
     val selectedTabIndex = remember { mutableIntStateOf(0) }

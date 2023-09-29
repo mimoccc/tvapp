@@ -53,7 +53,7 @@ class DetailScreen : Screen() {
             DetailViewModel.mock(context)
         }
 
-        val data: Any? = remember { args[data] }
+        val data: Any? = remember(args) { args[data] }
 
         val dataList = remember(data) {
             viewModel.mediaItemsFor(data)

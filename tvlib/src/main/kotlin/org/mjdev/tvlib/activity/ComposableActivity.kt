@@ -37,6 +37,7 @@ import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
+import org.mjdev.tvlib.helpers.other.ConfigChangeCallback
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.navigation.NavHostEx
@@ -51,6 +52,7 @@ open class ComposableActivity : ComponentActivity() {
     val ANR_TIMEOUT = 5000
 
     val activityResultListeners = mutableListOf<ActivityResultHandler<*>>()
+    val configChangeCallbacks = mutableListOf<ConfigChangeCallback>()
 
     open val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
         screen(route = EmptyScreen())
@@ -126,6 +128,9 @@ open class ComposableActivity : ComponentActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         Timber.d("Config change")
+        configChangeCallbacks.forEach { cb ->
+            cb.invoke(newConfig)
+        }
     }
 
     open fun onIntent(navController: NavHostControllerEx, intent: Intent?) {
@@ -153,6 +158,12 @@ open class ComposableActivity : ComponentActivity() {
                 Timber.e(e)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        configChangeCallbacks.clear()
+        activityResultListeners.clear()
     }
 
     fun <T> registerForActivityResult(

@@ -153,7 +153,7 @@ class AuthManager(
         fun rememberAuthManager(
             onUserChange: AuthManager.(user: User?) -> Unit
         ) = LocalContext.current.let { ctx ->
-            remember {
+            remember(ctx) {
                 AuthManager(ctx, onUserChange)
             }
         }

@@ -46,7 +46,7 @@ class WebScreen : Screen() {
     @Composable
     override fun ComposeScreen() {
 
-        val data: Any? = remember { args[data] }
+        val data: Any? = remember(args) { args[data] }
 
         Box(
             modifier = Modifier

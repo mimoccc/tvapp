@@ -29,7 +29,7 @@ fun rememberLifeCycleHandler(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     onEvent: (Lifecycle.Event) -> Unit
 ) {
-    val lifecycleEvent = remember {
+    val lifecycleEvent = remember(lifecycleOwner) {
         mutableStateOf(Lifecycle.Event.ON_ANY)
     }
     DisposableEffect(lifecycleOwner) {

@@ -16,9 +16,20 @@ import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.SplashScreen
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.helpers.other.SystemUIController
 
 @AndroidEntryPoint
 class MainActivity : ComposableActivity() {
+
+    private val systemUIController by lazy {
+        SystemUIController(this) {
+            if (isLandscape) hideSystemUI() else showSystemUI()
+        }
+    }
+
+    init {
+        systemUIController.register()
+    }
 
     @Previews
     @Composable

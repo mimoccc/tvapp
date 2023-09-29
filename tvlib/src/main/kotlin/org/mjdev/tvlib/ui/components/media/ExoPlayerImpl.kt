@@ -267,6 +267,7 @@ class ExoPlayerImpl(
         val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
         val lifecycleObserver = rememberPlayPauseLifeCycleObserver(
+            context,
             ::onPause,
             ::onResume
         )
