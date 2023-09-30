@@ -30,12 +30,14 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
+import coil.ImageLoader
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
-import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
+import org.mjdev.tvlib.extensions.NavExt.navControllerEx
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvlib.helpers.other.ConfigChangeCallback
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
@@ -62,7 +64,9 @@ open class ComposableActivity : ComponentActivity() {
     open val roundCornerSize: Dp = 0.dp
     open val backgroundShape: Shape = RoundedCornerShape(roundCornerSize)
 
-    lateinit var navController: NavHostControllerEx
+    val navController: NavHostControllerEx by lazy {
+        navControllerEx(this)
+    }
 
     var lastIntent: Intent? = null
 
@@ -74,12 +78,15 @@ open class ComposableActivity : ComponentActivity() {
             }
     }
 
+    val imageLoader: ImageLoader
+        @Composable
+        get() = rememberImageLoader()
+
     @Previews
     @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     @CallSuper
     open fun Compose() {
-        navController = rememberNavControllerEx()
         MaterialTheme {
             Surface(
                 modifier = Modifier
@@ -103,7 +110,8 @@ open class ComposableActivity : ComponentActivity() {
                 NavHostEx(
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    builder = navGraphBuilder
+                    builder = navGraphBuilder,
+                    imageLoader = imageLoader
                 )
             }
         }

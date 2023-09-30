@@ -13,7 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
@@ -26,6 +29,7 @@ import org.mjdev.tvlib.ui.components.page.Page
 fun ScreenView(
     modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
+//    imageLoader: ImageLoader = rememberImageLoader(),
     content: @Composable () -> Unit = { Page() }
 ) {
     Box(
@@ -37,7 +41,8 @@ fun ScreenView(
         if (navController.isMenuEnabled) {
             Navigation(
                 navController = navController,
-                content = content
+                content = content,
+//                imageLoader = imageLoader
             )
         } else content()
     }

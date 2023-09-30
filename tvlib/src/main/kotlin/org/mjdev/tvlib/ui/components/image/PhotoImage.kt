@@ -29,7 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toDrawable
+import coil.ImageLoader
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.coil.CoilImageState
@@ -39,6 +39,7 @@ import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ColorExt.contrastAndBrightness
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
+import org.mjdev.tvlib.extensions.ComposeExt.toDrawable
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -70,18 +71,17 @@ fun PhotoImage(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
-    onImageStateChanged: (state: CoilImageState) -> Unit = {}
-) {
-    val isEdit = isEditMode()
-    val context = LocalContext.current
-    val imageLoader = rememberImageLoader()
-    val imageOptions = ImageOptions(
+    imageLoader: ImageLoader = rememberImageLoader(),
+    imageOptions: ImageOptions = ImageOptions(
         contentScale = contentScale,
         alignment = alignment,
         contentDescription = contentDescription,
         alpha = alpha,
         colorFilter = colorFilter,
-    )
+    ),
+    onImageStateChanged: (state: CoilImageState) -> Unit = {}
+) {
+    val isEdit = isEditMode()
     CoilImage(
         imageLoader = {
             imageLoader
@@ -116,7 +116,7 @@ fun PhotoImage(
             ) {
                 ImageAny(
                     src = bitmap
-                        ?.toDrawable(context.resources)
+                        ?.toDrawable()
                         ?.asPhoto(),
                     modifier = modifier.recomposeHighlighter(),
                     alignment = alignment,

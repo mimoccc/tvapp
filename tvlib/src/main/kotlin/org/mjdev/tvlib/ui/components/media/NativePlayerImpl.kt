@@ -38,6 +38,7 @@ import androidx.media3.common.VideoSize
 import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 import org.mjdev.tvlib.extensions.ComposeExt
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 // todo
@@ -54,7 +55,7 @@ class NativePlayerImpl(
     ) {
         val width = LocalConfiguration.current.screenWidthDp
         val height = LocalConfiguration.current.screenHeightDp
-        val isEdit = ComposeExt.isEditMode()
+        val isEdit = isEditMode()
         Box(
             modifier = Modifier
                 .recomposeHighlighter()

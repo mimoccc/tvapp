@@ -81,18 +81,16 @@ class MainViewModel @Inject constructor(
         }
     }.stateInViewModel()
 
+    // todo anr
     val movieList: StateFlow<Map<String, List<Movie>>> = flow {
-        dao.movieDao.all.map { movie ->
-            movie.apply {
-                category = category ?: noCategoryString
+        dao.movieDao.all
+            .sortedBy { m ->
+                m.category
+            }.asMap { m ->
+                Pair(m.category, m)
+            }.also { map ->
+                emit(map)
             }
-        }.sortedBy { m ->
-            m.category
-        }.asMap { m ->
-            Pair(m.category, m)
-        }.also { map ->
-            emit(map)
-        }
     }.stateInViewModel()
 
     val countryList: StateFlow<List<String>> = flow {

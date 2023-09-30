@@ -202,7 +202,7 @@ dependencies {
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.09.01"))
     implementation("androidx.compose.ui:ui-tooling")
@@ -227,6 +227,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("com.android.volley:volley:1.2.1")
     // kapt
     kapt("com.google.dagger:dagger-compiler:2.48")
     kapt("com.google.dagger:dagger-android-processor:2.48")
@@ -279,6 +280,9 @@ dependencies {
     implementation("androidx.media3:media3-decoder:1.1.1")
     implementation("androidx.media3:media3-datasource:1.1.1")
     implementation("androidx.media3:media3-common:1.1.1")
+    // images
+    implementation("io.coil-kt:coil-base:2.4.0")
+    implementation("com.github.skydoves:landscapist-coil:2.2.9")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {

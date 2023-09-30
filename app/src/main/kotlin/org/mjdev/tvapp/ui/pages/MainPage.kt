@@ -96,14 +96,6 @@ class MainPage : Page() {
         val authManager = rememberAuthManager { u -> user.value = u }
         val apps = remember { viewModel.apps }.collectAsState(emptyList())
 
-//        val systemUIController = rememberSystemUIController {
-//            if (isLandscape)  {
-//                hideSystemUI()
-//            } else {
-//                showSystemUI()
-//            }
-//        }
-
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
@@ -124,6 +116,7 @@ class MainPage : Page() {
                 },
                 onItemFocused = onItemSelect,
                 onItemClicked = onItemClick,
+                imageLoader = imageLoader,
                 onUserPicClicked = {
                     if (authManager.isUserLoggedIn) {
                         navController?.openSettings()
@@ -133,13 +126,17 @@ class MainPage : Page() {
                 },
                 customRows = mutableListOf<@Composable () -> Unit>().apply {
                     add {
-                        AppsRow(apps = apps)
+                        AppsRow(
+                            apps = apps,
+                            imageLoader = imageLoader
+                        )
                     }
                     if (viewModel.localAudioCursor.count > 0) add {
                         LocalAudioRow(
                             cursor = viewModel.localAudioCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
+                            imageLoader = imageLoader
                         )
                     }
                     if (viewModel.localVideoCursor.count > 0) add {
@@ -147,6 +144,7 @@ class MainPage : Page() {
                             cursor = viewModel.localVideoCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
+                            imageLoader = imageLoader
                         )
                     }
                     if (viewModel.localPhotoCursor.count > 0) add {
@@ -154,6 +152,7 @@ class MainPage : Page() {
                             cursor = viewModel.localPhotoCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
+                            imageLoader = imageLoader
                         )
                     }
                 }

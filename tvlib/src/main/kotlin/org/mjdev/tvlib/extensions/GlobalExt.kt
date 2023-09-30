@@ -62,7 +62,7 @@ object GlobalExt {
     }
 
     @Suppress("SENSELESS_COMPARISON")
-    val String.isUrl:Boolean
+    val String.isUrl: Boolean
         get() = try {
             URL(this) != null
         } catch (e: MalformedURLException) {

@@ -19,11 +19,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.ui.components.carousel.BigCarousel
 
 @Previews
@@ -50,6 +53,7 @@ fun BrowseView(
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(8.dp),
     customRows: List<@Composable () -> Unit> = emptyList(),
+    imageLoader: ImageLoader = rememberImageLoader(),
     onTitleClicked: () -> Unit = {},
     onClockClicked: () -> Unit = {},
     onMessageBadgeClicked: () -> Unit = {},
@@ -75,6 +79,7 @@ fun BrowseView(
                 onClockClick = onClockClicked,
                 onMessageBadgeClick = onMessageBadgeClicked,
                 onUserPicClick = onUserPicClicked,
+                imageLoader = imageLoader,
             )
         }
         item {
@@ -120,7 +125,8 @@ fun BrowseView(
                 modifier = Modifier.recomposeHighlighter(),
                 items = featuredItems,
                 onItemSelected = onItemFocused,
-                onItemClicked = onItemClicked
+                onItemClicked = onItemClicked,
+                imageLoader = imageLoader
             )
         }
         items(customRows) { row -> row.invoke() }
@@ -133,7 +139,8 @@ fun BrowseView(
                 onItemFocus = {
                     onItemFocused(it)
                 },
-                onItemClick = onItemClicked
+                onItemClick = onItemClicked,
+                imageLoader = imageLoader,
             )
         }
     }

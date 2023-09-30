@@ -67,7 +67,8 @@ class AboutPage : Page() {
                         CircleImage(
                             modifier = Modifier.size(128.dp),
                             contentPadding = 10.dp,
-                            src = R.drawable.milanj
+                            src = R.drawable.milanj,
+                            imageLoader = imageLoader
                         )
                         CardContent(
                             modifier = Modifier.fillMaxWidth(),

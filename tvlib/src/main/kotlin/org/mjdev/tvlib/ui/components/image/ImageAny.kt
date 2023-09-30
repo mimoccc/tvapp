@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import org.mjdev.tvlib.R
@@ -49,12 +50,12 @@ fun ImageAny(
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
+    imageLoader: ImageLoader = rememberImageLoader(),
 ) = BoxWithConstraints(
     modifier = modifier,
     contentAlignment = Alignment.Center
 ) {
 
-    val imageLoader = rememberImageLoader()
     val width = if (constraints.minWidth == 0) 1 else constraints.minWidth
     val height = if (constraints.minHeight == 0) 1 else constraints.minHeight
 

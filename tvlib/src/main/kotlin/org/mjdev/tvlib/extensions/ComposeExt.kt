@@ -13,6 +13,9 @@ package org.mjdev.tvlib.extensions
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.res.Configuration
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
@@ -30,6 +33,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toDrawable
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -169,6 +173,11 @@ object ComposeExt {
             context.contentResolver
         }
     }
+
+    @Composable
+    fun Bitmap.toDrawable(
+        resources: Resources = LocalContext.current.resources
+    ): BitmapDrawable = BitmapDrawable(resources, this)
 
     @SuppressLint("RememberReturnType", "ComposableNaming")
     @Composable

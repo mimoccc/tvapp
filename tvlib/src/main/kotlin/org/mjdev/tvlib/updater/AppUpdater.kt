@@ -20,9 +20,10 @@ import androidx.compose.ui.platform.LocalContext
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import com.skydoves.sandwich.getOrNull
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -52,17 +53,22 @@ class AppUpdater(
         )
     }
 
-    private val lastReleaseTimestamp: Long get() = releases.filter { release ->
-        release.hasAPK
-    }.maxByOrNull { release ->
-        release.publishedAt.asTimestamp
-    }?.publishedAt?.asTimestamp ?: 0L
+    private val releases: Flow<List<Release>> = flow {
+        emit(service.releases().getOrNull() ?: emptyList())
+    }
 
-    private val installedTimestamp = prefs.getLong(AppUpdater::class.simpleName, 0L)
+    private val lastRelease
+        get() = releases.map { list ->
+            list.filter { it.hasAPK }.maxOfOrNull { it.publishedAt }
+        }
 
-//    private val httpClient by lazy {
-//        okHttpClient()
-//    }
+    private val serverTimestamp: Long
+        get() = runBlocking {
+            lastRelease.firstOrNull()?.asTimestamp ?: 0L
+        }
+
+    private val installedTimestamp
+        get() = prefs.getLong(AppUpdater::class.simpleName, serverTimestamp)
 
 //    private val externalFile: File
 //        get() = File(
@@ -70,44 +76,31 @@ class AppUpdater(
 //            "$githubRepository-update.apk"
 //        )
 
-    private val releases: List<Release>
-        get() = runBlocking {
-            service.releases().getOrNull() ?: emptyList()
-        }
-
-    val isUpdateAvailable: Boolean get() = checkUpdate()
-
-    private fun checkUpdate(): Boolean {
-        return if (installedTimestamp == 0L) {
-            prefs.edit()
-                .putLong(AppUpdater::class.simpleName, lastReleaseTimestamp)
-                .apply()
-            false
-        } else {
-            true
-        }
-    }
+    val isUpdateAvailable: Boolean get() = serverTimestamp > installedTimestamp
 
     @MainThread
     fun updateApp() {
-        CoroutineScope(Dispatchers.IO).launch {
-            releases.filter { release ->
-                release.hasAPK
-            }.maxByOrNull { release ->
-                release.publishedAt.asTimestamp
-            }?.let { release ->
-                release.apkAsset?.downloadUrl
-            }?.also { url ->
-                downloadFile(url) {
-                    prefs.edit()
-                        .putLong(AppUpdater::class.simpleName, lastReleaseTimestamp)
-                        .apply()
-//                    CoroutineScope(Dispatchers.Main).launch {
-//                        startUpdate()
+        // todo
+//        CoroutineScope(Dispatchers.IO).launch {
+//            releases.collectLatest { rs ->
+//                rs.filter { r ->
+//                    r.hasAPK
+//                }.maxByOrNull { r ->
+//                    r.publishedAt.asTimestamp
+//                }?.let { release ->
+//                    release.apkAsset?.downloadUrl
+//                }?.also { url ->
+//                    downloadFile(url) {
+//                        prefs.edit()
+//                            .putLong(AppUpdater::class.simpleName, lastReleaseTimestamp)
+//                            .apply()
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            startUpdate()
+////                        }
 //                    }
-                }
-            }
-        }
+//                }
+//            }
+//        }
     }
 
     @AnyThread

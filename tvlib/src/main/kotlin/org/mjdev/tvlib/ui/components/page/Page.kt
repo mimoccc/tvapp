@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
@@ -37,12 +38,19 @@ open class Page {
     open val title: Any? = null
     open val icon: Any? = null
 
+    val focusRequester
+        @Composable
+        get() = rememberFocusRequester(title)
+
+    val imageLoader
+        @Composable
+        get() = rememberImageLoader()
+
     @SuppressLint("ComposableNaming")
     @Previews
     @Composable
     @CallSuper
     fun content() {
-        val focusRequester = rememberFocusRequester(title)
         Column(
             Modifier
                 .fillMaxSize()
@@ -79,7 +87,9 @@ open class Page {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextAny(
-                modifier = Modifier.fillMaxSize().recomposeHighlighter(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .recomposeHighlighter(),
                 text = title ?: "Empty Page",
                 textAlign = TextAlign.Center,
                 fontSize = 32.sp,

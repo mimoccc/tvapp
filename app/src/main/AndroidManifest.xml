@@ -172,7 +172,8 @@
 
         <service
             android:name=".sync.SyncService"
-            android:exported="false">
+            android:process=":sync"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
@@ -204,6 +205,7 @@
             android:enabled="true"
             android:exported="true"
             android:syncable="true"
+            android:process=":provider"
             tools:ignore="ExportedContentProvider" />
 
         <receiver

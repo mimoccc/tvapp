@@ -36,8 +36,11 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.CursorExt.getData
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -64,6 +67,7 @@ fun CursorRow(
     selection: String? = null,
     selectionArgs: Array<String>? = null,
     sortOrder: String? = null,
+    imageLoader: ImageLoader = rememberImageLoader(),
     transform: (Cursor) -> Any? = { it },
     cursor: Cursor? = rememberCursor(
         uri = uri,
@@ -119,6 +123,7 @@ fun CursorRow(
                         onClick = { i ->
                             openItem(context, i)
                         },
+                        imageLoader = imageLoader
                     )
                 }
             }

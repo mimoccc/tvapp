@@ -25,6 +25,7 @@ import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt
+import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.ui.components.card.PhotoCard
 
@@ -42,7 +43,7 @@ fun TvGridView(
         Unit, Unit, Unit
     ),
     state: TvLazyGridState = rememberTvLazyGridState(),
-    cardWidth: Dp = ComposeExt.computeCardWidth(),
+    cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     contentScale: ContentScale = ContentScale.Crop,
     onItemFocus: (item: Any?) -> Unit = {},

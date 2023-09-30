@@ -23,9 +23,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.card.FocusHelper
@@ -38,6 +41,7 @@ fun BigCarousel(
     modifier: Modifier = Modifier,
     items: List<Any?> = listOf(Unit, Unit, Unit),
     autoScrollDurationMillis: Long = 8000,
+    imageLoader: ImageLoader = rememberImageLoader(),
     carouselState: CarouselState = remember(items) { CarouselState() },
     onItemSelected: ((movie: Any?) -> Unit)? = null,
     onItemClicked: ((movie: Any?) -> Unit)? = null,
@@ -85,6 +89,7 @@ fun BigCarousel(
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
             focusState = cardFocusState,
+            imageLoader = imageLoader,
             onFocus = {
                 onItemSelected?.invoke(it)
             },

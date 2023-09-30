@@ -29,7 +29,9 @@ import androidx.tv.material3.Tab
 import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
+import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
@@ -50,6 +52,7 @@ fun Tabs(
     activeContentColor: Color = Color.Green,
     selectedContentColor: Color = Color.White,
     focusedContentColor: Color = Color.White,
+//    imageLoader: ImageLoader = rememberImageLoader(),
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(items),
     onItemClick: (item: Any?) -> Unit = {}
 ) {

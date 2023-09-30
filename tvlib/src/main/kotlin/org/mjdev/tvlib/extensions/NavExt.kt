@@ -58,6 +58,17 @@ object NavExt {
         }
     }
 
+    fun navControllerEx(
+        context:Context,
+        vararg navigators: Navigator<out NavDestination>
+    ): NavHostControllerEx {
+        return createNavController(context).apply {
+            for (navigator in navigators) {
+                navigatorProvider.addNavigator(navigator)
+            }
+        }
+    }
+
     private fun createNavController(context: Context) =
         NavHostControllerEx(context).apply {
             navigatorProvider.addNavigator(ComposeNavigator())

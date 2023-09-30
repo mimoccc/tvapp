@@ -43,10 +43,12 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.R
 import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import timber.log.Timber
@@ -127,10 +129,15 @@ object ModifierExt {
         )
     }
 
+
+    val isRecomposeHighlighterEnabled: Boolean
+        @Composable
+        get() = BuildConfig.RECOMPOSE_ENABLED
+
     @Composable
     @Stable
     fun Modifier.recomposeHighlighter(
-        isComposeDebug: Boolean = BuildConfig.DEBUG
+        isComposeDebug: Boolean = isRecomposeHighlighterEnabled
     ): Modifier = conditional(
         isComposeDebug
     ) {

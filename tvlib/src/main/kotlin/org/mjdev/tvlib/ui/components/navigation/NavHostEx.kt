@@ -22,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
+import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.createGraph
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -40,6 +42,7 @@ fun NavHostEx(
     route: String? = null,
     startRoute: String? = null,
     navController: NavHostControllerEx = rememberNavControllerEx(),
+    imageLoader: ImageLoader = rememberImageLoader(),
     contentAlignment: Alignment = Alignment.Center,
     enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition) = {
         fadeIn(animationSpec = tween(700))
@@ -61,11 +64,13 @@ fun NavHostEx(
         contrast = 4f,
         alpha = 0.7f,
         brightness = -255f,
-        contentScale = ContentScale.Crop
+        contentScale = ContentScale.Crop,
+        imageLoader = imageLoader
     )
     ScreenView(
         modifier = modifier.recomposeHighlighter(),
         navController = navController,
+//        imageLoader = imageLoader
     ) {
         NavHost(
             modifier = modifier.recomposeHighlighter(),
@@ -83,6 +88,7 @@ fun NavHostEx(
             exitTransition = exitTransition,
             popEnterTransition = popEnterTransition,
             popExitTransition = popExitTransition,
+//            imageLoader = imageLoader
         )
     }
 }
