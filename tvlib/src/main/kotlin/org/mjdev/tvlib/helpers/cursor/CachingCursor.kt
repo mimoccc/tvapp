@@ -6,8 +6,6 @@
  *  w: https://mjdev.org
  */
 
-@file:Suppress("unused")
-
 package org.mjdev.tvlib.helpers.cursor
 
 import android.annotation.SuppressLint
@@ -34,7 +32,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
@@ -252,8 +249,7 @@ open class CachingCursor<T>(
     @Suppress("SpellCheckingInspection", "DEPRECATION")
     private fun _requery(): Boolean {
         cache.clear()
-        val ret = cursor?.requery() ?: false
-        return ret
+        return cursor?.requery() ?: false
     }
 
     override fun isClosed(): Boolean =

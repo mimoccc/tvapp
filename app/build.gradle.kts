@@ -6,8 +6,6 @@
  * w: https://mjdev.org
  */
 
-@file:Suppress("UnstableApiUsage")
-
 import org.mjdev.gradle.extensions.implementation
 import org.mjdev.gradle.extensions.kapt
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion

@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 import org.mjdev.gradle.extensions.implementation
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion

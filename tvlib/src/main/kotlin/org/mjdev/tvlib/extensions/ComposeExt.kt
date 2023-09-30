@@ -12,6 +12,7 @@ package org.mjdev.tvlib.extensions
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -33,7 +34,6 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toDrawable
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -48,6 +48,7 @@ import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.mjdev.tvlib.activity.ComposableActivity
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
 import org.mjdev.tvlib.network.CacheInterceptor
@@ -183,50 +184,55 @@ object ComposeExt {
     @Composable
     fun rememberImageLoader(): ImageLoader {
         val context = LocalContext.current
-        return remember(context) {
-            ImageLoader.Builder(context)
-                .allowHardware(false)
-                .addLastModifiedToFileCacheKey(true)
-                .crossfade(false)
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .memoryCachePolicy(CachePolicy.DISABLED)
-                .okHttpClient {
-                    OkHttpClient.Builder()
-                        .cache(
-                            Cache(
-                                directory = File(
-                                    context.applicationContext.cacheDir,
-                                    "http_cache"
-                                ),
-                                maxSize = 1024L * 1024L * 1024L
-                            )
-                        )
-                        .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                            level = HttpLoggingInterceptor.Level.BODY
-                        })
-                        .addNetworkInterceptor(CacheInterceptor())
-                        .build()
-                }
-                .diskCache {
-                    DiskCache.Builder()
-                        .directory(context.cacheDir.resolve("image_cache"))
-                        .maxSizePercent(0.7)
-                        .build()
-                }
-//                .respectCacheHeaders(false)
-//                .networkObserverEnabled(true)
-                .components {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        add(ImageDecoderDecoder.Factory())
-                    } else {
-                        add(GifDecoder.Factory())
-                    }
-                    add(AlbumArtDecoder.Factory())
-                    add(VideoFrameDecoder.Factory())
-                    add(SvgDecoder.Factory())
-                }
-                .build()
+        val activity = context as? ComposableActivity
+        val cachedImageLoader = activity?.imageLoader
+        return cachedImageLoader ?: remember(context) {
+            createImageLoader(context)
         }
     }
+
+    fun createImageLoader(context: Context) = ImageLoader.Builder(context)
+        .allowHardware(false)
+        .allowRgb565(true)
+        .addLastModifiedToFileCacheKey(false)
+        .crossfade(false)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .memoryCachePolicy(CachePolicy.DISABLED)
+        .respectCacheHeaders(false)
+        .networkObserverEnabled(true)
+        .okHttpClient {
+            OkHttpClient.Builder()
+                .cache(
+                    Cache(
+                        directory = File(
+                            context.applicationContext.cacheDir,
+                            "http_cache"
+                        ),
+                        maxSize = 1024L * 1024L * 1024L
+                    )
+                )
+                .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
+                .addNetworkInterceptor(CacheInterceptor())
+                .build()
+        }
+        .diskCache {
+            DiskCache.Builder()
+                .directory(context.cacheDir.resolve("image_cache"))
+                .maxSizePercent(0.7)
+                .build()
+        }
+        .components {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                add(ImageDecoderDecoder.Factory())
+            } else {
+                add(GifDecoder.Factory())
+            }
+            add(AlbumArtDecoder.Factory())
+            add(VideoFrameDecoder.Factory())
+            add(SvgDecoder.Factory())
+        }
+        .build()
 
 }

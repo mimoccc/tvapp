@@ -24,15 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -57,7 +54,6 @@ fun PhotoCard(
     contrast: Float = 5f,
     @FloatRange(from = -255.0, to = 255.0)
     brightness: Float = -255f,
-    imageLoader: ImageLoader = rememberImageLoader(),
     imageRenderer: @Composable () -> Unit = {
         PhotoImage(
             modifier = Modifier.fillMaxSize(),
@@ -65,7 +61,6 @@ fun PhotoCard(
             contentScale = contentScale,
             contrast = contrast,
             brightness = brightness,
-            imageLoader = imageLoader,
             borderColor = if (focusState.isFocused) Color.Green else Color.Black,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
         )
@@ -81,7 +76,6 @@ fun PhotoCard(
 ) {
     ItemCard(
         item = item,
-        imageLoader = imageLoader,
         modifier = modifier.recomposeHighlighter(),
         contentScale = contentScale,
         textColor = textColor,

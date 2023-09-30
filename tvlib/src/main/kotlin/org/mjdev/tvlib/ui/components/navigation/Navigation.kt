@@ -35,7 +35,6 @@ fun Navigation(
     modifier: Modifier = Modifier,
     navController: NavHostControllerEx = rememberNavControllerEx(),
     content: @Composable () -> Unit = { Page() },
-//    imageLoader: ImageLoader = rememberImageLoader(),
     menuItems: List<MenuItem> = if (isEditMode()) listOf(
         MenuItem.MENU_ITEM_EXIT,
         MenuItem.MENU_ITEM_SETTINGS,
@@ -65,8 +64,7 @@ fun Navigation(
             drawerState = navController.settingsDrawerState,
             onTouchOutside = {
                 navController.closeSettings()
-            },
-//            imageLoader = imageLoader
+            }
         ) {
             if (navController.isMenuEnabled) {
                 val drawerContent: @Composable (DrawerValue) -> Unit = { state ->
@@ -96,8 +94,7 @@ fun Navigation(
                         modifier = modifier.fillMaxHeight(),
                         drawerState = navController.menuDrawerState,
                         content = mainContent,
-                        drawerContent = drawerContent,
-//                        imageLoader = imageLoader
+                        drawerContent = drawerContent
                     )
                 }
             } else {

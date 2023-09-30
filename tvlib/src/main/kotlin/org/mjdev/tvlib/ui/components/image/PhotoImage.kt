@@ -26,10 +26,8 @@ import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.coil.CoilImageState
@@ -71,20 +69,13 @@ fun PhotoImage(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
-    imageLoader: ImageLoader = rememberImageLoader(),
-    imageOptions: ImageOptions = ImageOptions(
-        contentScale = contentScale,
-        alignment = alignment,
-        contentDescription = contentDescription,
-        alpha = alpha,
-        colorFilter = colorFilter,
-    ),
+
     onImageStateChanged: (state: CoilImageState) -> Unit = {}
 ) {
     val isEdit = isEditMode()
     CoilImage(
         imageLoader = {
-            imageLoader
+            rememberImageLoader()
         },
         imageModel = {
             src
@@ -99,7 +90,13 @@ fun PhotoImage(
                 BorderStroke(borderSize, borderColor),
                 shape
             ),
-        imageOptions = imageOptions,
+        imageOptions = ImageOptions(
+            contentScale = contentScale,
+            alignment = alignment,
+            contentDescription = contentDescription,
+            alpha = alpha,
+            colorFilter = colorFilter,
+        ),
         failure = { failure ->
             Timber.e(failure.reason)
             placeholder()

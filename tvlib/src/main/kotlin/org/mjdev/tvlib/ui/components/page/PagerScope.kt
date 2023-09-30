@@ -43,7 +43,6 @@ class PagerScope(
         menuGravity: MenuItem.Gravity = Center,
         isStartPage: Boolean = false
     ) {
-        page.navController = navController
         addUnique(page)
         if (isStartPage) {
             currentPage.value = size - 1

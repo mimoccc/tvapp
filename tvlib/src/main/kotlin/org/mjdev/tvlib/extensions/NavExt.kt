@@ -19,6 +19,7 @@ import androidx.navigation.Navigator
 import androidx.navigation.NavigatorProvider
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
+import org.mjdev.tvlib.activity.ComposableActivity
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
@@ -46,12 +47,15 @@ object NavExt {
         vararg navigators: Navigator<out NavDestination>
     ): NavHostControllerEx {
         val context = LocalContext.current
-        return rememberSaveable(
+        val activity = context as? ComposableActivity
+        val navigatorCached = activity?.navController
+        // todo navigators check
+        return (navigatorCached ?: rememberSaveable(
             inputs = arrayOf(context, navigators),
             saver = NavControllerSaver(context)
         ) {
             createNavController(context)
-        }.apply {
+        }).apply {
             for (navigator in navigators) {
                 navigatorProvider.addNavigator(navigator)
             }

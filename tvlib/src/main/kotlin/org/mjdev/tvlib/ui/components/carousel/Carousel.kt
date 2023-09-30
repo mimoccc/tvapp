@@ -51,8 +51,8 @@ import org.mjdev.tvlib.ui.components.carousel.ModifierExt.handleKeyEvents
 @Previews
 @Composable
 fun Carousel(
-    itemCount: Int = 0,
     modifier: Modifier = Modifier,
+    itemCount: Int = 0,
     carouselState: CarouselState = remember(itemCount) { CarouselState() },
     autoScrollDurationMillis: Long = CarouselDefaults.TimeToDisplayItemMillis,
     contentTransformStartToEnd: ContentTransform = CarouselDefaults.contentTransform,

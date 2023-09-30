@@ -24,11 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("ModifierParameter")
@@ -41,8 +38,7 @@ fun CircleImage(
     borderSize: Dp = 3.dp,
     contentDescription: String = "",
     contentPadding: Dp = 2.dp,
-    src: Any? = R.drawable.person,
-    imageLoader: ImageLoader = rememberImageLoader(),
+    src: Any? = R.drawable.person
 ) {
     Box(
         modifier = modifier
@@ -65,8 +61,7 @@ fun CircleImage(
                 ),
             src = src,
             contentDescription = contentDescription,
-            contentScale = ContentScale.Crop,
-            imageLoader = imageLoader
+            contentScale = ContentScale.Crop
         )
     }
 }

@@ -34,7 +34,7 @@ import coil.ImageLoader
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
+import org.mjdev.tvlib.extensions.ComposeExt.createImageLoader
 import org.mjdev.tvlib.extensions.ContextExt.isATv
 import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.NavExt.navControllerEx
@@ -78,9 +78,9 @@ open class ComposableActivity : ComponentActivity() {
             }
     }
 
-    val imageLoader: ImageLoader
-        @Composable
-        get() = rememberImageLoader()
+    val imageLoader: ImageLoader by lazy {
+        createImageLoader(this)
+    }
 
     @Previews
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -111,7 +111,6 @@ open class ComposableActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
                     builder = navGraphBuilder,
-                    imageLoader = imageLoader
                 )
             }
         }

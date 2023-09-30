@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.MainActivity
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
@@ -48,9 +47,9 @@ class MainViewModel @Inject constructor(
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
 
-    private val noCategoryString by lazy {
-        context.getString(R.string.title_no_category)
-    }
+//    private val noCategoryString by lazy {
+//        context.getString(R.string.title_no_category)
+//    }
 
     val apps = appsManager(
         context, ComponentName(
@@ -81,16 +80,21 @@ class MainViewModel @Inject constructor(
         }
     }.stateInViewModel()
 
-    // todo anr
     val movieList: StateFlow<Map<String, List<Movie>>> = flow {
         dao.movieDao.all
-            .sortedBy { m ->
-                m.category
-            }.asMap { m ->
-                Pair(m.category, m)
-            }.also { map ->
-                emit(map)
-            }
+// todo anr
+//            .map { movie ->
+//            movie.apply {
+//                category = category ?: noCategoryString
+//            }
+//        }
+        .sortedBy { m ->
+            m.category
+        }.asMap { m ->
+            Pair(m.category, m)
+        }.also { map ->
+            emit(map)
+        }
     }.stateInViewModel()
 
     val countryList: StateFlow<List<String>> = flow {

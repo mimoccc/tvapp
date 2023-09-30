@@ -35,13 +35,13 @@ open class CustomWebViewClient(
 //            Timber.d("Blocked url: ${request?.url}")
 //            return null
 //        } else {
-            uri?.let {
-                if (!loadedResources.contains(it)) {
-                    loadedResources.add(it)
-                }
+        uri?.let {
+            if (!loadedResources.contains(it)) {
+                loadedResources.add(it)
             }
-            Timber.d("Loading url: $uri")
-            return WebViewCacheInterceptorInst.instance?.interceptRequest(request)
+        }
+        Timber.d("Loading url: $uri")
+        return WebViewCacheInterceptorInst.instance?.interceptRequest(request)
 //        }
     }
 
@@ -127,7 +127,8 @@ open class CustomWebViewClient(
         Timber.e("$errorCode : $description")
     }
 
-    @Deprecated("Deprecated in Java",
+    @Deprecated(
+        "Deprecated in Java",
         ReplaceWith("Timber.e(\"Too many redirects.\")", "timber.log.Timber")
     )
     override fun onTooManyRedirects(

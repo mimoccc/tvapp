@@ -17,34 +17,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
-import org.mjdev.tvlib.navigation.NavHostControllerEx
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 open class Page {
 
-    var navController: NavHostControllerEx? = null
-
     open val title: Any? = null
     open val icon: Any? = null
 
-    val focusRequester
-        @Composable
-        get() = rememberFocusRequester(title)
-
-    val imageLoader
-        @Composable
-        get() = rememberImageLoader()
+    private val focusRequester by lazy {
+        FocusRequester()
+    }
 
     @SuppressLint("ComposableNaming")
     @Previews

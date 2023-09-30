@@ -19,12 +19,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
-import coil.ImageLoader
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.helpers.cursor.AudioItem
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 
@@ -43,7 +40,6 @@ fun LocalAudioRow(
     sortOrder: String? = AudioItem.SORT_ORDER_DATE_DESC,
     cardWidth: Dp = computeCardWidth(),
     contentScale: ContentScale = ContentScale.Crop,
-    imageLoader: ImageLoader = rememberImageLoader(),
     transform: (Cursor) -> Any? = { c -> AudioItem(c) },
     cursor: Cursor? = rememberCursor(
         uri = AudioItem.URI,
@@ -72,6 +68,5 @@ fun LocalAudioRow(
     transform = transform,
     onItemFocus = onItemFocus,
     openItem = openItem,
-    cursor = cursor,
-    imageLoader = imageLoader
+    cursor = cursor
 )

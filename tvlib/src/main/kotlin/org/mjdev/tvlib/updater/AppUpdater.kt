@@ -8,11 +8,7 @@
 
 package org.mjdev.tvlib.updater
 
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -103,34 +99,34 @@ class AppUpdater(
 //        }
     }
 
-    @AnyThread
-    private fun downloadFile(
-        url: String,
-        finalizeBlock: () -> Unit
-    ) {
-        // todo simply open download yet, until finished
-        try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            })
-            finalizeBlock()
-        } catch (e: ActivityNotFoundException) {
-            Timber.e(e)
-        }
-        // todo
-//        httpClient.download(url) { result ->
-//            result.onSuccess { data ->
-//                FileOutputStream(externalFile).apply {
-//                    write(data)
-//                    flush()
-//                    close()
-//                    finalizeBlock()
-//                }
-//            }.onFailure { e ->
-//                Timber.e(e)
-//            }
+//    @AnyThread
+//    private fun downloadFile(
+//        url: String,
+//        finalizeBlock: () -> Unit
+//    ) {
+//        // todo simply open download yet, until finished
+//        try {
+//            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            })
+//            finalizeBlock()
+//        } catch (e: ActivityNotFoundException) {
+//            Timber.e(e)
 //        }
-    }
+//        // todo
+////        httpClient.download(url) { result ->
+////            result.onSuccess { data ->
+////                FileOutputStream(externalFile).apply {
+////                    write(data)
+////                    flush()
+////                    close()
+////                    finalizeBlock()
+////                }
+////            }.onFailure { e ->
+////                Timber.e(e)
+////            }
+////        }
+//    }
 
 //    @AnyThread
 //    private suspend fun startUpdate() {

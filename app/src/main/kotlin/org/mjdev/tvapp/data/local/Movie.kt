@@ -63,7 +63,6 @@ class Movie :
     @Json(name = "category")
     var category: String? = ""
         get() = (field ?: country)?.replaceFirstChar { ch ->
-            // todo : and
             ch.titlecase(Locale.ROOT)
         }
 

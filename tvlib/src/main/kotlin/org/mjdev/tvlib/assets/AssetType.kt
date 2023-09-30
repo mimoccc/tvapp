@@ -1,9 +1,12 @@
-package org.mjdev.tvlib.assets;
+package org.mjdev.tvlib.assets
 
 import java.io.File
 import kotlin.reflect.KClass
 
-enum class AssetType(val fileExt: String, val parserClass: KClass<*>) {
+enum class AssetType(
+    val fileExt: String,
+    val parserClass: KClass<*>
+) {
 
     UNKNOWN("", Unit::class),
     DIRECTORY("", Unit::class);

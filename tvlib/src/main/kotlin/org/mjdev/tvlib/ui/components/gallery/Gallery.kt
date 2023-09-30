@@ -145,7 +145,6 @@ fun Gallery(
         }
     },
     listState: TvLazyListState = rememberTvLazyListState(),
-
     customOverlay: @Composable (item: Any?) -> Unit = {}
 ) {
     val initialized = remember { mutableStateOf(false) }

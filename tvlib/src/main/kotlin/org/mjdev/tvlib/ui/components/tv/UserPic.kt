@@ -19,14 +19,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import coil.ImageLoader
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.image.CircleImage
 
@@ -41,7 +38,6 @@ fun UserPic(
     borderColor: Color = Color.White,
     borderSize: Dp = 2.dp,
     contentPadding: Dp = 2.dp,
-    imageLoader: ImageLoader = rememberImageLoader(),
     onClick: () -> Unit = {}
 ) = FocusableBox(
     modifier = modifier.wrapContentSize(),
@@ -58,7 +54,6 @@ fun UserPic(
         borderSize = borderSize,
         borderColor = borderColor,
         contentPadding = contentPadding + borderSize,
-        src = src,
-        imageLoader = imageLoader
+        src = src
     )
 }

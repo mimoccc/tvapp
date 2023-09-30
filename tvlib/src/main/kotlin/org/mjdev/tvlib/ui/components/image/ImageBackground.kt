@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
+import coil.ImageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import org.mjdev.tvlib.annotations.Previews
@@ -50,10 +51,10 @@ fun ImageBackground(
     shape: Shape = RectangleShape,
     transform: ((color: Color) -> Brush)? = null,
     contentAlignment: Alignment = Alignment.TopStart,
+    imageLoader: ImageLoader = rememberImageLoader(),
     content: @Composable (bckColor: Color) -> Unit = {}
 ) {
     val context = LocalContext.current
-    val imageLoader = rememberImageLoader()
     val bckColor = remember { mutableStateOf(Color.Transparent) }
     Box(
         modifier = modifier

@@ -36,6 +36,7 @@ import org.mjdev.tvlib.ui.components.tv.LocalPhotosRow
 import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.viewmodel.MainViewModel
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -51,6 +52,8 @@ class MainPage : Page() {
     @Previews
     @Composable
     override fun Content() {
+        val navController = rememberNavControllerEx()
+
         val viewModel: MainViewModel = appViewModel { context ->
             MainViewModel.mock(context)
         }
@@ -67,10 +70,10 @@ class MainPage : Page() {
             val dataId = (item as? ItemWithId)?.id
             if (dataId != null) {
                 viewModel.findMovie(dataId) { movie ->
-                    navController?.startActivity<IPTVActivity>(IPTV_DATA to movie)
+                    navController.startActivity<IPTVActivity>(IPTV_DATA to movie)
                 }
             } else if (item is Serializable) {
-                navController?.startActivity<IPTVActivity>(IPTV_DATA to item)
+                navController.startActivity<IPTVActivity>(IPTV_DATA to item)
             }
         }
 
@@ -84,7 +87,7 @@ class MainPage : Page() {
                 is ItemWithImage<*> -> item.image
                 else -> item.toString()
             }.also { uri ->
-                navController?.backgroundState?.value = uri
+                navController.backgroundState.value = uri
             }
         }
 
@@ -112,14 +115,13 @@ class MainPage : Page() {
                 categoriesAndItemsMap = streamingData.value,
                 errorState = errorState,
                 onTitleClicked = {
-                    navController?.openMenu()
+                    navController.openMenu()
                 },
                 onItemFocused = onItemSelect,
                 onItemClicked = onItemClick,
-                imageLoader = imageLoader,
                 onUserPicClicked = {
                     if (authManager.isUserLoggedIn) {
-                        navController?.openSettings()
+                        navController.openSettings()
                     } else {
                         authManager.login()
                     }
@@ -127,8 +129,7 @@ class MainPage : Page() {
                 customRows = mutableListOf<@Composable () -> Unit>().apply {
                     add {
                         AppsRow(
-                            apps = apps,
-                            imageLoader = imageLoader
+                            apps = apps
                         )
                     }
                     if (viewModel.localAudioCursor.count > 0) add {
@@ -136,7 +137,6 @@ class MainPage : Page() {
                             cursor = viewModel.localAudioCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
-                            imageLoader = imageLoader
                         )
                     }
                     if (viewModel.localVideoCursor.count > 0) add {
@@ -144,7 +144,6 @@ class MainPage : Page() {
                             cursor = viewModel.localVideoCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
-                            imageLoader = imageLoader
                         )
                     }
                     if (viewModel.localPhotoCursor.count > 0) add {
@@ -152,7 +151,6 @@ class MainPage : Page() {
                             cursor = viewModel.localPhotoCursor,
                             openItem = { item -> onItemClick(item) },
                             onItemFocus = onItemSelect,
-                            imageLoader = imageLoader
                         )
                     }
                 }

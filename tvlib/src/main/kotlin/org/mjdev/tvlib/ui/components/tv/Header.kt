@@ -30,13 +30,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.ImageLoader
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.ui.components.badge.Badge
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 
@@ -54,7 +52,6 @@ fun Header(
     padding: Dp = 0.dp,
     contentPadding: Dp = 2.dp,
     messagesCount: Int = 0,
-    imageLoader: ImageLoader = rememberImageLoader(),
     onTitleClick: () -> Unit = {},
     onClockClick: () -> Unit = {},
     onMessageBadgeClick: () -> Unit = {},
@@ -113,8 +110,7 @@ fun Header(
                 borderColor = Color.White,
                 contentPadding = contentPadding,
                 borderSize = 1.dp,
-                onClick = onUserPicClick,
-                imageLoader = imageLoader
+                onClick = onUserPicClick
             )
         }
         Row(

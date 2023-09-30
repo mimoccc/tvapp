@@ -3,6 +3,7 @@ package org.mjdev.tvlib.webclient.html
 import org.mjdev.tvlib.webclient.javascript.JSI
 import org.jsoup.nodes.Element
 
+@Suppress("unused", "MemberVisibilityCanBePrivate", "SpellCheckingInspection")
 abstract class HtmlElement(var element: Element, val jsi: JSI) {
     abstract val tag: String
 
@@ -13,7 +14,7 @@ abstract class HtmlElement(var element: Element, val jsi: JSI) {
     val childs: List<HtmlElement>
         get() = element.children().map { e -> parseElement(e, jsi) }
     val firstChild: HtmlElement
-        get() = element.child(0).let { e -> parseElement(e, jsi) }
+        get() = parseElement(element.child(0), jsi)
 
     fun childrenSize(): Int = element.childrenSize()
 
@@ -23,7 +24,7 @@ abstract class HtmlElement(var element: Element, val jsi: JSI) {
         }
     }
 
-    fun ownText(): String = element.ownText() ?: ""
+    fun ownText(): String = element.ownText()
 
     inline fun <reified T> newInstance(jsi: JSI): T = T::class
         .java
@@ -36,9 +37,9 @@ abstract class HtmlElement(var element: Element, val jsi: JSI) {
 
     inline fun <reified T : HtmlElement> getAllElements(): List<T> {
         val instance: T = newInstance(jsi)
-        return element.getElementsByTag(instance.tag).map {
+        return element.getElementsByTag(instance.tag).mapNotNull {
             parseElement(it, jsi) as T?
-        }.filterNotNull()
+        }
     }
 
     inline fun <reified T : HtmlElement> getElement(): T {
@@ -48,8 +49,7 @@ abstract class HtmlElement(var element: Element, val jsi: JSI) {
         } ?: newInstance(jsi)
     }
 
-    fun attr(attrName: String, defaultValue: String = ""): String =
-        element.attr(attrName) ?: defaultValue
+    fun attr(attrName: String): String =  element.attr(attrName)
 
     fun attr(attrName: String, value: Any?) {
         element.attr(attrName, value.toString())

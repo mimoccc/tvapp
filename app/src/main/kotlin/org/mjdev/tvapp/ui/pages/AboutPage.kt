@@ -68,7 +68,6 @@ class AboutPage : Page() {
                             modifier = Modifier.size(128.dp),
                             contentPadding = 10.dp,
                             src = R.drawable.milanj,
-                            imageLoader = imageLoader
                         )
                         CardContent(
                             modifier = Modifier.fillMaxWidth(),

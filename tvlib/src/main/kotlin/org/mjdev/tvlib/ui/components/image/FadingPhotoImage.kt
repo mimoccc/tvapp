@@ -26,10 +26,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 
 @Previews
 @Composable
@@ -54,7 +52,6 @@ fun FadingPhotoImage(
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
     alignment: Alignment = Alignment.Center,
-    imageLoader: ImageLoader = rememberImageLoader(),
 ) {
     val fadingImage = remember { mutableStateOf(initialImage) }
     Crossfade(
@@ -75,8 +72,7 @@ fun FadingPhotoImage(
             alpha = alpha,
             colorFilter = colorFilter,
             contentDescription = contentDescription,
-            alignment = alignment,
-            imageLoader = imageLoader
+            alignment = alignment
         )
     }
     LaunchedEffect(fadingImageState.value) {

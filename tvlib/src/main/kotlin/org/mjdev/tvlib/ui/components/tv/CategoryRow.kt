@@ -31,11 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.card.PhotoCard
 import org.mjdev.tvlib.ui.components.text.TextAny
@@ -56,15 +53,13 @@ fun CategoryRow(
     backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
     onItemFocus: (item: Any?) -> Unit = {},
     onItemClick: (item: Any?) -> Unit = {},
-    imageLoader: ImageLoader = rememberImageLoader(),
     contentOfItem: @Composable (item: Any?) -> Unit = { item ->
         PhotoCard(
             item = item,
             contentScale = contentScale,
             cardWidth = cardWidth,
             onClick = onItemClick,
-            onFocus = onItemFocus,
-            imageLoader = imageLoader,
+            onFocus = onItemFocus
         )
     },
 ) {

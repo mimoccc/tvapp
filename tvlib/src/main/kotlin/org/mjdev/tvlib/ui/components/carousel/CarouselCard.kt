@@ -20,12 +20,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithBackground
@@ -59,7 +56,6 @@ fun CarouselCard(
             contentScale = contentScale,
         )
     },
-    imageLoader: ImageLoader = rememberImageLoader(),
     titlePadding: PaddingValues = PaddingValues(8.dp, 12.dp, 8.dp, 12.dp),
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {}
@@ -80,7 +76,6 @@ fun CarouselCard(
         imageRenderer = imageRenderer,
         titlePadding = titlePadding,
         onFocus = onFocus,
-        imageLoader = imageLoader,
         onClick = { onClick(item) }
     )
 }

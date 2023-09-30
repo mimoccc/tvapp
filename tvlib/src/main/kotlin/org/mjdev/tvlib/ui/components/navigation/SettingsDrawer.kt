@@ -17,9 +17,7 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.rememberDrawerState
-import coil.ImageLoader
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -27,7 +25,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 @Composable
 fun SettingsDrawer(
     modifier: Modifier = Modifier,
-//    imageLoader: ImageLoader = ComposeExt.rememberImageLoader(),
     drawerState: DrawerState = rememberDrawerState(
         if (isEditMode()) DrawerValue.Open
         else DrawerValue.Closed
