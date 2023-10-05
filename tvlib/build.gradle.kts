@@ -42,7 +42,7 @@ android {
             buildConfigField("Boolean", "RECOMPOSE_ENABLED", "false")
         }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false // todo
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

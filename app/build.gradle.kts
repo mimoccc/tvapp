@@ -100,7 +100,7 @@ android {
         release {
             applicationIdSuffix = ""
             isDebuggable = false
-            isMinifyEnabled = true
+            isMinifyEnabled = false // todo
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
