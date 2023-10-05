@@ -11,17 +11,17 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
-        <!--<item name="android:enforceNavigationBarContrast">false</item>-->
-        <!--<item name="android:enforceStatusBarContrast">false</item>-->
-        <!--<item name="android:navigationBarDividerColor">-->
-        <!--    @color/transparent-->
-        <!--</item>-->
-        <!--<item name="android:windowLightStatusBar">false</item>-->
-        <!--<item name="android:windowLightNavigationBar">false</item>-->
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:navigationBarDividerColor">
+            @color/transparent
+        </item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!--<item name="android:windowLayoutInDisplayCutoutMode">always</item>-->
+<!--        <item name="android:windowLayoutInDisplayCutoutMode">always</item>-->
         <item name="android:windowFullscreen">false</item>
     </style>
 </resources>

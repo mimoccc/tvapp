@@ -10,6 +10,7 @@ import io.objectbox.kotlin.awaitCallInTx
 import io.objectbox.kotlin.boxFor
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.data.local.Category
+import org.mjdev.tvapp.data.local.Country
 import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.data.local.MyObjectBox
@@ -31,11 +32,20 @@ class DAO(
             transaction(this)
         }
 
+        // todo remove reflection
+        inline fun <reified T> Box<T>.findById(id: Long?): T? = if (id == null) all.firstOrNull()
+        else all.firstOrNull { o -> o.property("id") == id }
+
+        // todo remove reflection
+        inline fun <reified T> T.property(name: String): Any? = T::class.members.firstOrNull {
+            it.name == name
+        }?.call(this)
+
     }
 
     private val store: BoxStore by lazy {
         MyObjectBox.builder()
-            .androidContext(context.applicationContext)
+            .androidContext(context)
             .name(DATABASE_NAME)
             .build()
     }
@@ -53,6 +63,10 @@ class DAO(
     }
 
     val messagesDao: Box<Message> by lazy {
+        store.boxFor()
+    }
+
+    val countriesDao: Box<Country> by lazy {
         store.boxFor()
     }
 

@@ -62,9 +62,11 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
-            android:theme="@style/Theme.TvApp"
             android:finishOnTaskLaunch="true"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowLayoutInDisplayCutoutMode="default"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.TvApp">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -95,16 +97,18 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
-            android:theme="@style/Theme.TvApp"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_iptv"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowLayoutInDisplayCutoutMode="default"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.TvApp">
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -119,10 +123,12 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
-            android:theme="@style/Theme.TvApp"
             android:finishOnTaskLaunch="true"
+            android:windowLayoutInDisplayCutoutMode="default"
             android:label="@string/title_web"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.TvApp">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -131,7 +137,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-<!--ebug-->
+            <!--ebug-->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -172,8 +178,8 @@
 
         <service
             android:name=".sync.SyncService"
-            android:process=":sync"
             android:exported="true"
+            android:process=":sync"
             tools:ignore="ExportedService">
 
             <intent-filter>
@@ -205,9 +211,19 @@
             android:authorities="@string/sync_auth"
             android:enabled="true"
             android:exported="true"
-            android:syncable="true"
             android:process=":provider"
+            android:syncable="true"
             tools:ignore="ExportedContentProvider" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="org.mjdev.tvapp.helpers.SyncAdapterInitializer"
+                android:value="androidx.startup" />
+        </provider>
 
         <receiver
             android:name=".widget.MyAppWidgetReceiver"

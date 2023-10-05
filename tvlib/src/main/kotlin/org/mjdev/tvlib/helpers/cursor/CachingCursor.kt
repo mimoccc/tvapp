@@ -127,6 +127,25 @@ open class CachingCursor<T>(
         } > 0
     }
 
+    fun take(count: Int, idx: Int = 0): List<T> = mutableListOf<T>().apply {
+        (idx..(idx + count)).forEach { current ->
+            add(get(current))
+        }
+    }
+
+    fun takeIf(
+        count: Int,
+        idx: Int = 0,
+        condition: T.() -> Boolean
+    ): List<T> = mutableListOf<T>().apply {
+        var index = idx
+        while ((index < this@CachingCursor.count) && (size < count)) {
+            val item = _get(index)
+            if ((item != null) && condition(item)) add(item)
+            index++
+        }
+    }
+
     override fun close() {
         cache.clear()
         cursor?.unregisterContentObserver(observer)

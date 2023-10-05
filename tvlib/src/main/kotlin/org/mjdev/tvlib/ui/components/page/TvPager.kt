@@ -42,7 +42,6 @@ import org.mjdev.tvlib.ui.components.page.Page.Companion.EMPTY_PAGE
 @Previews
 @Composable
 fun TvPager(
-    navController: NavHostControllerEx = rememberNavControllerEx(),
     startIndex: Int = 0,
     roundCornerSize: Dp = 0.dp,
     backGroundColor: Color = Color.Transparent,
@@ -54,6 +53,7 @@ fun TvPager(
     }
 ) {
 
+    val navController: NavHostControllerEx = rememberNavControllerEx()
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
     val pagerScope = rememberPagerScope(navController, startIndex, pages, onPageChange)

@@ -18,6 +18,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
+import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
 @SuppressLint("UnsafeOptInUsageError")
@@ -27,18 +28,21 @@ fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
     state: MediaPlayerState = rememberMediaPlayerState(),
 ) {
+    val nextItem: () -> Unit = { state.player.seekToNext() }
+    val prevItem: () -> Unit = { state.player.seekToPrevious() }
     Box(
         modifier = modifier
-            .recomposeHighlighter()
             .fillMaxSize()
+            .swipeGestures(
+                onSwipeLeft = { nextItem() },
+                onSwipeRight = { prevItem() },
+                onSwipeUp = { nextItem() },
+                onSwipeDown = { prevItem() },
+            )
+            .recomposeHighlighter()
     ) {
-        state.player.GetPlayerView(
-            modifier = modifier.recomposeHighlighter()
-        )
+        state.player.GetPlayerView()
         PlayerControlView(
-            modifier = modifier
-                .fillMaxSize()
-                .recomposeHighlighter(),
             state = state
         )
     }

@@ -61,7 +61,8 @@ open class Page {
                     modifier = Modifier
                         .fillMaxSize()
                         .focusRequester(focusRequester)
-                        .recomposeHighlighter()
+                        .recomposeHighlighter(),
+                    contentAlignment = Alignment.Center
                 ) {
                     Content()
                 }
@@ -79,9 +80,7 @@ open class Page {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextAny(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .recomposeHighlighter(),
+                modifier = Modifier.recomposeHighlighter(),
                 text = title ?: "Empty Page",
                 textAlign = TextAlign.Center,
                 fontSize = 32.sp,

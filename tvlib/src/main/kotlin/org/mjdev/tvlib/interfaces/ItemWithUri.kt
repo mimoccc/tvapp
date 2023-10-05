@@ -9,9 +9,9 @@
 package org.mjdev.tvlib.interfaces
 
 interface ItemWithUri<T> {
-
     val uri: T?
 
-    val hasUri get() = (uri != null) && (uri.toString().isNotEmpty())
-
+    companion object {
+        val <T> ItemWithUri<T>.hasUri get() = uri?.toString()?.isNotEmpty() == true
+    }
 }

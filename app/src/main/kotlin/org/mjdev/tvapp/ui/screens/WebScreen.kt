@@ -44,7 +44,7 @@ class WebScreen : Screen() {
 
     @Previews
     @Composable
-    override fun ComposeScreen() {
+    override fun Content() {
 
         val data: Any? = remember(args) { args[data] }
 

@@ -38,13 +38,13 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ComposeExt.isOpen
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
+import org.mjdev.tvlib.extensions.ComposeExt.rememberDrawerState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.focusState
@@ -73,7 +73,7 @@ fun NavigationRow(
     strokeWidth: Dp = 1.dp,
     margin: Dp = 0.dp,
     padding: Dp = 4.dp,
-    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
+    drawerState: DrawerState = rememberDrawerState(),
     focused: Boolean = isEditMode(),
     focusState: MutableState<FocusState?> = rememberFocusState(
         text,

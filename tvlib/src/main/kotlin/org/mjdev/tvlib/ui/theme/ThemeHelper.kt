@@ -10,20 +10,32 @@
 
 package org.mjdev.tvlib.ui.theme
 
+import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.Indication
+import androidx.compose.foundation.IndicationInstance
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.tv.material3.ColorScheme
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
@@ -38,7 +50,12 @@ fun ThemeHelper(
     dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
     content: @Composable () -> Unit,
 ) {
-//    val context = LocalContext.current
+    val context = LocalContext.current
+    val view = LocalView.current
+    val activity = context as? Activity
+    val window = activity?.window
+    val isEditMode = view.isInEditMode
+
     val colorScheme: ColorScheme = when {
 //        dynamicColor -> {
 //            if (useDarkTheme)
@@ -55,19 +72,35 @@ fun ThemeHelper(
         }
     }
 
-//    val view = LocalView.current
-//    if (!view.isInEditMode) {
-//        SideEffect {
-//            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-//            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = useDarkTheme
-//        }
-//    }
+    if (!isEditMode) {
+        SideEffect {
+            window?.apply {
+                navigationBarColor = Color.Transparent.toArgb()
+                statusBarColor = Color.Transparent.toArgb()
+                WindowCompat.getInsetsController(window, view).apply {
+                    isAppearanceLightStatusBars = !useDarkTheme
+                    isAppearanceLightNavigationBars = !useDarkTheme
+                }
+            }
+        }
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        content = content
+        content = {
+            CompositionLocalProvider(
+                LocalIndication provides NoRipple,
+                content = content,
+            )
+        },
     )
 
+}
+
+private object NoRipple : Indication, IndicationInstance {
+    @Composable
+    override fun rememberUpdatedInstance(interactionSource: InteractionSource) = this
+    override fun ContentDrawScope.drawIndication() = drawContent()
 }
 
 val LocalCardShape = staticCompositionLocalOf<Shape> {
@@ -86,10 +119,12 @@ class ThemeProvider {
     val detailTextPaddingVertical: Dp = 32.dp
     val detailsTextColor: Color = Color.White
     val detailTextBackgroundColor: Color = Color.Black
+
     @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTitleTextStyle: TextStyle
         @Composable
         get() = MaterialTheme.typography.headlineSmall
+
     @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTextStyle: TextStyle
         @Composable

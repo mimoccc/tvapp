@@ -10,6 +10,7 @@
 
 package org.mjdev.tvlib.screen
 
+import android.annotation.SuppressLint
 import androidx.annotation.CallSuper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,9 +36,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.onlyPortrait
-import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
-import org.mjdev.tvlib.navigation.NavHostControllerEx
 
 @Suppress("unused", "LeakingThis")
 open class Screen {
@@ -69,47 +68,29 @@ open class Screen {
             menuRoute = route
         ) else null
 
-    var navController: NavHostControllerEx? = null
     var backStackEntry: NavBackStackEntry? = null
     var args: Map<String, Any?> = emptyMap()
 
+    @SuppressLint("ComposableNaming")
     @Previews
     @Composable
     @CallSuper
-    open fun Compose() {
-        val navController = rememberNavControllerEx()
-        Compose(
-            navController,
-            null,
-            mapOf()
-        )
-    }
-
-    @Composable
-    open fun Compose(
-        navController: NavHostControllerEx,
-        backStackEntry: NavBackStackEntry?,
-        args: Map<String, Any?>
-    ) {
-        this.navController = navController
-        this.backStackEntry = backStackEntry
-        this.args = args
-        navController.menuState.value = !immersive
+    open fun recompose() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .onlyPortrait {
-                    navigationBarsPadding()
+                    // todo not working on lollipop
+                    navigationBarsPadding().statusBarsPadding()
                 }
-                .statusBarsPadding()
         ) {
-            ComposeScreen()
+            Content()
         }
     }
 
     @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
-    open fun ComposeScreen() {
+    open fun Content() {
         Column(
             modifier = Modifier
                 .fillMaxSize()

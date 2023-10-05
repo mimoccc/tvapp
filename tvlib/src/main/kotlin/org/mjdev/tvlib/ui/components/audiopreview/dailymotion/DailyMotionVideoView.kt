@@ -68,7 +68,7 @@ class DailyMotionVideoView @JvmOverloads constructor(
     private val httpCache by lazy {
         Cache(
             directory = File(
-                context.applicationContext.cacheDir,
+                context.cacheDir,
                 "http_cache"
             ),
             maxSize = 1024L * 1024L * 1024L

@@ -19,7 +19,7 @@ class PlaybackService : MediaSessionService() {
     private var mediaSession: MediaSession? = null
 
     val player by lazy {
-        ExoPlayer.Builder(applicationContext)
+        ExoPlayer.Builder(baseContext)
             .setAudioAttributes(
                 AudioAttributes.Builder()
                     .setUsage(C.USAGE_MEDIA)

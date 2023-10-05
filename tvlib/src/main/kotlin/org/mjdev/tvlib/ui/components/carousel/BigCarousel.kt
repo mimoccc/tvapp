@@ -17,7 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -26,8 +26,8 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
+import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.ui.components.card.FocusHelper
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -41,6 +41,8 @@ fun BigCarousel(
     carouselState: CarouselState = remember(items) { CarouselState() },
     onItemSelected: ((movie: Any?) -> Unit)? = null,
     onItemClicked: ((movie: Any?) -> Unit)? = null,
+    onSwipeUp: (dragAmount: Offset) -> Unit = {},
+    onSwipeDown: (dragAmount: Offset) -> Unit = {},
 ) {
     val height = LocalConfiguration.current.let { config ->
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
@@ -53,27 +55,27 @@ fun BigCarousel(
         carouselState = carouselState,
         itemCount = items.size,
         modifier = modifier
-            .recomposeHighlighter()
             .focusRequester(focusRequester)
             .fillMaxWidth()
             .height(height.dp)
             .onFocusChanged { state ->
                 cardFocusState.value = state
             }
-            .pointerInput(Unit) {
-                detectSwipe(
-                    onSwipeLeft = {
-                        carouselState.moveToNextItem(items.size)
-                        cardFocusState.value = FocusHelper(true)
-                        focusRequester.requestFocus()
-                    },
-                    onSwipeRight = {
-                        carouselState.moveToPreviousItem(items.size)
-                        cardFocusState.value = FocusHelper(true)
-                        focusRequester.requestFocus()
-                    },
-                )
-            },
+            .swipeGestures(
+                onSwipeLeft = {
+                    carouselState.moveToNextItem(items.size)
+                    cardFocusState.value = FocusHelper(true)
+                    focusRequester.requestFocus()
+                },
+                onSwipeRight = {
+                    carouselState.moveToPreviousItem(items.size)
+                    cardFocusState.value = FocusHelper(true)
+                    focusRequester.requestFocus()
+                },
+                onSwipeDown = onSwipeDown,
+                onSwipeUp = onSwipeUp
+            )
+            .recomposeHighlighter(),
     ) { indexOfCarouselItem ->
         val selectedItem = items[indexOfCarouselItem]
         onItemSelected?.invoke(selectedItem)

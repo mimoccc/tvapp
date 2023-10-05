@@ -16,8 +16,10 @@ import android.graphics.drawable.Drawable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.flowOn
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithIntent
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -80,7 +82,7 @@ fun appsManager(
     }.also { list ->
         send(list)
     }
-}
+}.flowOn(Dispatchers.IO)
 
 data class App(
     override var title: String?,

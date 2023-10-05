@@ -1,15 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
- */
--->
-
+  ~  Copyright (c) Milan Jurkulák 2023.
+  ~  Contact:
+  ~  e: mimoccc@gmail.com
+  ~  e: mj@mjdev.org
+  ~  w: https://mjdev.org
+  -->
 <resources>
-
     <color name="black">#ff000000</color>
-
+    <color name="white">#ffffffff</color>
+    <color name="dark_gray">#ff444444</color>
+    <color name="transparent">#00000000</color>
 </resources>

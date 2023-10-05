@@ -133,8 +133,6 @@ class NavHostControllerEx(
         menuDrawerState.setValue(DrawerValue.Closed)
     }
 
-    val isMenuEnabled: Boolean get() = menuState.value
-
     inline fun <reified T : Activity> startActivity(
         vararg params: Pair<String, Serializable?>
     ) {

@@ -34,9 +34,8 @@ fun ScreenView(
             .recomposeHighlighter(),
         contentAlignment = Alignment.Center,
     ) {
-        if (navController.isMenuEnabled) {
+        if (navController.menuState.value) {
             Navigation(
-                navController = navController,
                 content = content
             )
         } else content()

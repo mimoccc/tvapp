@@ -16,11 +16,11 @@ import androidx.compose.runtime.State
 @Suppress("unused")
 sealed class NetworkStatus {
 
-    object Unknown : NetworkStatus()
+    data object Unknown : NetworkStatus()
 
-    class Connected(val network: Network?) : NetworkStatus()
+    class Connected(val network: Network? = null) : NetworkStatus()
 
-    object Disconnected : NetworkStatus()
+    class Disconnected(val network: Network? = null) : NetworkStatus()
 
 }
 

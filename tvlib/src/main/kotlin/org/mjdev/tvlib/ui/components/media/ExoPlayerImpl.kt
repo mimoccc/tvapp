@@ -26,13 +26,11 @@ import android.view.TextureView
 import android.view.View
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.getSystemService
 import androidx.media3.common.AudioAttributes
@@ -259,12 +257,8 @@ class ExoPlayerImpl(
     @Suppress("UNUSED_VARIABLE")
     @UnstableApi
     @Composable
-    override fun GetPlayerView(
-        modifier: Modifier
-    ) {
+    override fun GetPlayerView() {
         val context = LocalContext.current
-        val width = LocalConfiguration.current.screenWidthDp
-        val height = LocalConfiguration.current.screenHeightDp
         val isEdit = isEditMode()
         val lifecycleObserver = rememberPlayPauseLifeCycleObserver(
             context,
@@ -273,8 +267,8 @@ class ExoPlayerImpl(
         )
         Box(
             modifier = Modifier
+                .fillMaxSize()
                 .recomposeHighlighter()
-                .size(width.dp, height.dp)
                 .onPreviewKeyEvent { ev ->
                     val controller = playerView.controller
                     if (controller?.isShown == true) {
@@ -289,7 +283,7 @@ class ExoPlayerImpl(
             if (!isEdit) {
                 AndroidView(
                     modifier = Modifier
-                        .size(width.dp, height.dp)
+                        .fillMaxSize()
                         .recomposeHighlighter(),
                     factory = {
                         playerView

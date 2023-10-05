@@ -10,7 +10,6 @@ package org.mjdev.tvlib.extensions
 
 import android.app.Activity
 import android.content.Context
-import android.content.ContextWrapper
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +29,7 @@ import dagger.hilt.android.internal.builders.ViewModelComponentBuilder
 import dagger.hilt.android.internal.lifecycle.HiltViewModelFactory
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ContextExt.activity
 import kotlin.reflect.KClass
 import kotlin.reflect.full.companionObject
 import kotlin.reflect.full.functions
@@ -41,9 +41,9 @@ object HiltExt {
     inline fun <reified VM : ViewModel> appViewModel(
         viewModelStoreOwner: ViewModelStoreOwner? = null,
         key: String? = null,
-        mockFnName :String = String.format("mock%s", VM::class.simpleName),
+        mockFnName: String = String.format("mock%s", VM::class.simpleName),
         companion: KClass<*>? = VM::class.companionObject,
-        noinline modelMockFnc: ((context: Context) -> VM)? =  { context ->
+        noinline modelMockFnc: ((context: Context) -> VM)? = { context ->
             companion?.functions?.firstOrNull { fn ->
                 fn.name == mockFnName
             }?.call(companion, context) as VM
@@ -83,21 +83,12 @@ object HiltExt {
         modelCreator: MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit = {}
     ): ViewModelProvider.Factory {
         val navBackStackEntry: NavBackStackEntry? = viewModelStoreOwner as? NavBackStackEntry
-        return if (navBackStackEntry == null || isEditMode())
+        return if (isEditMode() || navBackStackEntry == null)
             createInternal(context, modelCreator)
         else {
-            val activity = context.let {
-                var ctx = it
-                while (ctx is ContextWrapper) {
-                    if (ctx is Activity) {
-                        return@let ctx
-                    }
-                    ctx = ctx.baseContext
-                }
-                throw IllegalStateException(
-                    "Expected an activity context for creating a HiltViewModelFactory for a " +
-                        "NavBackStackEntry but instead found: $ctx"
-                )
+            val activity: Activity = context.activity {
+                "Expected an activity context for creating a HiltViewModelFactory for a " +
+                        "NavBackStackEntry but instead found: $context"
             }
             createInternal(
                 activity,

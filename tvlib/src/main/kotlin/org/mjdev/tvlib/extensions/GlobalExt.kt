@@ -8,6 +8,8 @@
 
 package org.mjdev.tvlib.extensions
 
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.runtime.MutableState
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.getOrNull
@@ -22,6 +24,13 @@ import java.net.URL
 
 @Suppress("unused")
 object GlobalExt {
+
+    fun <T> T.postDelayed(
+        delay: Long,
+        block: T.() -> Unit
+    ) = Handler(Looper.myLooper() ?: Looper.getMainLooper()).postDelayed({
+        block.invoke(this)
+    }, delay)
 
     @Suppress("MemberVisibilityCanBePrivate")
     class CodeException(

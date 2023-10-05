@@ -26,6 +26,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.platform.LocalConfiguration
@@ -49,7 +50,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.activity.ComposableActivity
-import org.mjdev.tvlib.extensions.ContextExt.isATv
+import org.mjdev.tvlib.extensions.ContextExt.activity
 import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
 import org.mjdev.tvlib.network.CacheInterceptor
 import java.io.File
@@ -70,9 +71,6 @@ object ComposeExt {
         (orientation == Configuration.ORIENTATION_PORTRAIT) || (screenHeightDp > screenWidthDp)
     }
 
-    @Composable
-    fun isAtv(): Boolean = LocalContext.current.isATv
-
     // todo more types
     @Composable
     fun Any?.asException(): Exception? = when (this) {
@@ -89,6 +87,16 @@ object ComposeExt {
     @OptIn(ExperimentalTvMaterial3Api::class)
     val DrawerState.isClosed: Boolean
         get() = currentValue == DrawerValue.Closed
+
+    @Composable
+    @ExperimentalTvMaterial3Api
+    fun rememberDrawerState(
+        initialValue: DrawerValue = if (isEditMode()) DrawerValue.Open else DrawerValue.Closed
+    ): DrawerState {
+        return rememberSaveable(saver = DrawerState.Saver) {
+            DrawerState(initialValue)
+        }
+    }
 
     @Composable
     fun <T> rememberDerivedStateOf(
@@ -184,7 +192,7 @@ object ComposeExt {
     @Composable
     fun rememberImageLoader(): ImageLoader {
         val context = LocalContext.current
-        val activity = context as? ComposableActivity
+        val activity = runCatching { context.activity<ComposableActivity>() }.getOrNull()
         val cachedImageLoader = activity?.imageLoader
         return cachedImageLoader ?: remember(context) {
             createImageLoader(context)
@@ -205,7 +213,7 @@ object ComposeExt {
                 .cache(
                     Cache(
                         directory = File(
-                            context.applicationContext.cacheDir,
+                            context.cacheDir,
                             "http_cache"
                         ),
                         maxSize = 1024L * 1024L * 1024L

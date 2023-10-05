@@ -8,18 +8,21 @@
 
 package org.mjdev.tvapp.app
 
-import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import org.mjdev.tvapp.sync.SyncService
 import org.mjdev.tvapp.sync.SyncService.Companion.createSyncAccount
+import org.mjdev.tvlib.application.TvApplication
+import org.mjdev.tvlib.extensions.GlobalExt.postDelayed
 
 @HiltAndroidApp
-class Application : Application() {
+class Application : TvApplication() {
 
     override fun onCreate() {
         super.onCreate()
         createSyncAccount()?.also { account ->
-            SyncService.requestSync(account)
+            postDelayed(20000) {
+                SyncService.requestSync(account)
+            }
         }
     }
 

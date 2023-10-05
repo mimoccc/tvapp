@@ -20,6 +20,8 @@ import androidx.navigation.NavigatorProvider
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
 import org.mjdev.tvlib.activity.ComposableActivity
+import org.mjdev.tvlib.extensions.ContextExt.activity
+import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
@@ -47,7 +49,7 @@ object NavExt {
         vararg navigators: Navigator<out NavDestination>
     ): NavHostControllerEx {
         val context = LocalContext.current
-        val activity = context as? ComposableActivity
+        val activity = runCatching { context.activity<ComposableActivity>() }.getOrNull()
         val navigatorCached = activity?.navController
         // todo navigators check
         return (navigatorCached ?: rememberSaveable(
@@ -62,8 +64,13 @@ object NavExt {
         }
     }
 
+    @Composable
+    fun rememberNavControllerEx(menuItems: List<MenuItem>) = rememberNavControllerEx().apply {
+        addMenuItem(*menuItems.toTypedArray())
+    }
+
     fun navControllerEx(
-        context:Context,
+        context: Context,
         vararg navigators: Navigator<out NavDestination>
     ): NavHostControllerEx {
         return createNavController(context).apply {

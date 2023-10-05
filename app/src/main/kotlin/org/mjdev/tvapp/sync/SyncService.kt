@@ -30,7 +30,7 @@ class SyncService : Service() {
         super.onCreate()
         synchronized(sSyncAdapterLock) {
             sSyncAdapter = sSyncAdapter ?: SyncAdapter(
-                context = applicationContext,
+                context = this,
                 apiService = apiService,
                 dao = dao
             )

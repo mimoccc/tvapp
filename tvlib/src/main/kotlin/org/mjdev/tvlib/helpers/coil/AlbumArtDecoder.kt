@@ -47,7 +47,7 @@ class AlbumArtDecoder(
     private val httpCache by lazy {
         Cache(
             directory = File(
-                context.applicationContext.cacheDir,
+                context.cacheDir,
                 "http_cache"
             ),
             maxSize = 1024L * 1024L * 1024L

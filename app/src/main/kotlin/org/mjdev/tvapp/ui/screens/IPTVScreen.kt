@@ -51,7 +51,7 @@ class IPTVScreen : Screen() {
 
     @Previews
     @Composable
-    override fun ComposeScreen() {
+    override fun Content() {
 
         val viewModel: IPTVViewModel = appViewModel { context ->
             IPTVViewModel.mock(context)

@@ -24,6 +24,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -68,26 +69,19 @@ object ModifierExt {
     }
 
     @Composable
-    fun Modifier.onlyPortrait(
-        condition: Boolean = isPortraitMode(),
+    fun Modifier.onEditMode(
         other: @Composable Modifier.() -> Modifier
-    ): Modifier {
-        return when (condition) {
-            true -> this.then(other.invoke(this))
-            else -> this
-        }
-    }
+    ) = conditional(ComposeExt.isEditMode(), other)
+
+    @Composable
+    fun Modifier.onlyPortrait(
+        other: @Composable Modifier.() -> Modifier
+    ) = conditional(isPortraitMode(), other)
 
     @Composable
     fun Modifier.onlyLandscape(
-        condition: Boolean = isLandscapeMode(),
         other: @Composable Modifier.() -> Modifier
-    ): Modifier {
-        return when (condition) {
-            true -> this.then(other.invoke(this))
-            else -> this
-        }
-    }
+    ) = conditional(isLandscapeMode(), other)
 
     @Composable
     fun Modifier.tvAspectRatio(
@@ -223,14 +217,41 @@ object ModifierExt {
         }
     )
 
-    suspend fun PointerInputScope.detectSwipe(
+    fun Modifier.swipeGestures(
         swipeState: MutableIntState = mutableIntStateOf(-1),
-        onSwipeLeft: () -> Unit = {},
-        onSwipeRight: () -> Unit = {},
-        onSwipeUp: () -> Unit = {},
-        onSwipeDown: () -> Unit = {},
+        onSwipeLeft: (dragAmount: Offset) -> Unit = {},
+        onSwipeRight: (dragAmount: Offset) -> Unit = {},
+        onSwipeUp: (dragAmount: Offset) -> Unit = {},
+        onSwipeDown: (dragAmount: Offset) -> Unit = {},
+        onDoubleTap: (Offset) -> Unit = {},
+        onTap: (Offset) -> Unit = {},
+        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero)
+    ) = pointerInput(Unit) {
+        detectTapGestures(
+            onTap = onTap,
+            onDoubleTap = onDoubleTap,
+        )
+    }.pointerInput(Unit) {
+        detectSwipe(
+            swipeState = swipeState,
+            onSwipeLeft = onSwipeLeft,
+            onSwipeRight = onSwipeRight,
+            onSwipeUp = onSwipeUp,
+            onSwipeDown = onSwipeDown,
+            dragValue = dragValue
+        )
+    }
+
+    private suspend fun PointerInputScope.detectSwipe(
+        swipeState: MutableIntState = mutableIntStateOf(-1),
+        onSwipeLeft: (dragAmount: Offset) -> Unit = {},
+        onSwipeRight: (dragAmount: Offset) -> Unit = {},
+        onSwipeUp: (dragAmount: Offset) -> Unit = {},
+        onSwipeDown: (dragAmount: Offset) -> Unit = {},
+        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero)
     ) = detectDragGestures(
         onDrag = { change, dragAmount ->
+            dragValue.value = dragAmount
             change.consume()
             val (x, y) = dragAmount
             if (abs(x) > abs(y)) {
@@ -247,10 +268,10 @@ object ModifierExt {
         },
         onDragEnd = {
             when (swipeState.intValue) {
-                0 -> onSwipeRight()
-                1 -> onSwipeLeft()
-                2 -> onSwipeDown()
-                3 -> onSwipeUp()
+                0 -> onSwipeRight(dragValue.value)
+                1 -> onSwipeLeft(dragValue.value)
+                2 -> onSwipeDown(dragValue.value)
+                3 -> onSwipeUp(dragValue.value)
             }
         }
     )

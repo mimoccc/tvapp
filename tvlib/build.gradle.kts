@@ -39,23 +39,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "Boolean",
-                "RECOMPOSE_ENABLED",
-                "false"
-            )
+            buildConfigField("Boolean", "RECOMPOSE_ENABLED", "false")
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "Boolean",
-                "RECOMPOSE_ENABLED",
-                "false"
-            )
+            buildConfigField("Boolean", "RECOMPOSE_ENABLED", "false")
         }
         create("recomposing") {
             isMinifyEnabled = false
@@ -63,11 +55,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "Boolean",
-                "RECOMPOSE_ENABLED",
-                "true"
-            )
+            buildConfigField("Boolean", "RECOMPOSE_ENABLED", "true")
         }
     }
 
@@ -110,6 +98,10 @@ android {
 }
 
 dependencies {
+    // todo remove
+    implementation(kotlin("reflect"))
+    // startups
+    implementation("androidx.startup:startup-runtime:1.1.1")
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -122,7 +114,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.1")
+    implementation("androidx.compose.material:material-icons-extended:1.5.2")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
     implementation("androidx.tv:tv-material:1.0.0-alpha09")
@@ -150,7 +142,7 @@ dependencies {
     implementation("io.coil-kt:coil-svg:2.4.0")
     implementation("io.coil-kt:coil-video:2.4.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.github.skydoves:landscapist-coil:2.2.9")
+    implementation("com.github.skydoves:landscapist-coil:2.2.10")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
@@ -203,6 +195,8 @@ dependencies {
     implementation("org.jsoup:jsoup:1.16.1")
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
+    // dynamic theme
+//    implementation("com.google.android.material:material:1.9.0")
     // yt
     // ...
     // constraints

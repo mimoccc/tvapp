@@ -22,7 +22,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -47,7 +46,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
@@ -58,7 +56,7 @@ import kotlinx.coroutines.delay
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.GlobalExt.toggle
-import org.mjdev.tvlib.extensions.ModifierExt.detectSwipe
+import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -149,6 +147,18 @@ fun Gallery(
 ) {
     val initialized = remember { mutableStateOf(false) }
     val imageState: MutableState<Any?> = remember { mutableStateOf(Color.DarkGray) }
+    val nextItem: () -> Unit = {
+        if (currentItemIndex.intValue < (list.size - 1)) {
+            currentItemIndex.intValue += 1
+            imageState.value = list[currentItemIndex.intValue]
+        }
+    }
+    val prevItem: () -> Unit = {
+        if (currentItemIndex.intValue > 0) {
+            currentItemIndex.intValue -= 1
+            imageState.value = list[currentItemIndex.intValue]
+        }
+    }
     Box(
         modifier = modifier.background(Color.Black, RectangleShape),
         contentAlignment = Alignment.BottomCenter,
@@ -173,32 +183,26 @@ fun Gallery(
                             .fillMaxSize()
                             .focusable()
                             .focusRequester(focusRequester)
-                            .pointerInput(Unit) {
-                                detectTapGestures(
-                                    onDoubleTap = {
-                                        switchImageScale()
-                                    },
-                                    onTap = {
-                                        infoVisible.toggle()
-                                    }
-                                )
-                            }
-                            .pointerInput(Unit) {
-                                detectSwipe(
-                                    onSwipeLeft = {
-                                        if (currentItemIndex.intValue < (list.size - 1)) {
-                                            currentItemIndex.intValue += 1
-                                            imageState.value = list[currentItemIndex.intValue]
-                                        }
-                                    },
-                                    onSwipeRight = {
-                                        if (currentItemIndex.intValue > 0) {
-                                            currentItemIndex.intValue -= 1
-                                            imageState.value = list[currentItemIndex.intValue]
-                                        }
-                                    },
-                                )
-                            }
+                            .swipeGestures(
+                                onDoubleTap = {
+                                    switchImageScale()
+                                },
+                                onTap = {
+                                    infoVisible.toggle()
+                                },
+                                onSwipeLeft = {
+                                    nextItem()
+                                },
+                                onSwipeRight = {
+                                    prevItem()
+                                },
+                                onSwipeUp = {
+                                    nextItem()
+                                },
+                                onSwipeDown = {
+                                    prevItem()
+                                },
+                            )
                             .onKeyEvent { ev -> handleKey(ev) }
                     )
                     customOverlay(list[currentItemIndex.intValue])

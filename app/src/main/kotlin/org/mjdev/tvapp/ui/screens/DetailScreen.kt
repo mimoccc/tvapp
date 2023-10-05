@@ -47,8 +47,7 @@ class DetailScreen : Screen() {
 
     @Previews
     @Composable
-    override fun ComposeScreen() {
-
+    override fun Content() {
         val viewModel: DetailViewModel = appViewModel { context ->
             DetailViewModel.mock(context)
         }

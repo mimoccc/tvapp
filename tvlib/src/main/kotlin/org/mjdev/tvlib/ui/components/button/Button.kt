@@ -22,6 +22,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -59,28 +60,27 @@ fun Button(
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
     focusState: MutableState<FocusState?> = rememberFocusState(),
     content: @Composable RowScope.() -> Unit = {
-        TextAny(text = text)
+        TextAny(
+            text = text,
+            color = color,
+            textAlign = TextAlign.Center,
+            maxLines = 1
+        )
     },
     onClick: () -> Unit = {},
-) {
-
-    Button(
-        modifier = modifier
-            .recomposeHighlighter()
-            .border(BorderStroke(borderSize, borderColor), shape)
-            .clickable {
-               onClick()
-            },
-        glow = glow,
-        scale = scale,
-        onClick = onClick,
-        colors = ButtonDefaults.colors(containerColor = containerColor),
-        shape = ButtonDefaults.shape(shape),
-        contentPadding = contentPadding,
-        content = content
-    )
-
-}
+) = Button(
+    modifier = modifier
+        .border(BorderStroke(borderSize, borderColor), shape)
+        .clickable { onClick() }
+        .recomposeHighlighter(),
+    glow = glow,
+    scale = scale,
+    onClick = onClick,
+    colors = ButtonDefaults.colors(containerColor = containerColor),
+    shape = ButtonDefaults.shape(shape),
+    contentPadding = contentPadding,
+    content = content
+)
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 val ButtonDefaults.NO_GLOW

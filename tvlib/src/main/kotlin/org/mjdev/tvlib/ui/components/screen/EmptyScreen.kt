@@ -18,7 +18,7 @@ internal class EmptyScreen : Screen() {
 
     @Previews
     @Composable
-    override fun Compose() = super.Compose()
+    override fun Content() = super.Content()
 
     companion object {
 

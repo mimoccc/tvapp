@@ -8,8 +8,11 @@
 
 package org.mjdev.tvlib.interfaces
 
+@Suppress("unused")
 interface ItemWithId {
     val id: Long
 
-    val hasId: Boolean get() = (id != -1L)
+    companion object {
+        val ItemWithId.hasId: Boolean get() = (id != -1L)
+    }
 }

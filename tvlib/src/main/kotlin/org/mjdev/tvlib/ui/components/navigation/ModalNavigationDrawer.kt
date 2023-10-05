@@ -25,28 +25,28 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.rememberDrawerState
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.ComposeExt.rememberDrawerState
 
 @ExperimentalTvMaterial3Api
 @Previews
 @Composable
 fun ModalNavigationDrawer(
     modifier: Modifier = Modifier,
-    drawerState: DrawerState = rememberDrawerState(
-        if (isEditMode()) DrawerValue.Open else DrawerValue.Closed
-    ),
+    drawerState: DrawerState = rememberDrawerState(),
     scrimColor: Color = Color.Black.copy(alpha = 0.5f),
-    closeDrawerWidth: Dp = 200.dp,
+    visible: Boolean = true,
+    closeDrawerWidth: Dp = if (visible) 200.dp else 0.dp,
     contentAlignment: Alignment = Alignment.TopStart,
     closedDrawerWidth: MutableState<Dp?> = remember { mutableStateOf(null) },
+    localDensity: Density = LocalDensity.current,
     onTouchOutside: () -> Unit = {},
     drawerContent: @Composable (DrawerValue) -> Unit = {
         Box(
@@ -57,9 +57,8 @@ fun ModalNavigationDrawer(
         Box(
             modifier = Modifier.fillMaxSize()
         )
-    },
+    }
 ) {
-    val localDensity = LocalDensity.current
     Box(
         modifier = modifier,
         contentAlignment = contentAlignment
@@ -91,19 +90,19 @@ fun ModalNavigationDrawer(
             modifier = when (contentAlignment) {
                 Alignment.TopStart -> Modifier
                     .padding(
-                    closedDrawerWidth.value ?: closeDrawerWidth,
-                    0.dp,
-                    0.dp,
-                    0.dp
-                )
+                        closedDrawerWidth.value ?: closeDrawerWidth,
+                        0.dp,
+                        0.dp,
+                        0.dp
+                    )
 
                 Alignment.TopEnd -> Modifier
                     .padding(
-                    0.dp,
-                    0.dp,
-                    closedDrawerWidth.value ?: closeDrawerWidth,
-                    0.dp
-                )
+                        0.dp,
+                        0.dp,
+                        closedDrawerWidth.value ?: closeDrawerWidth,
+                        0.dp
+                    )
 
                 else -> Modifier.padding(0.dp)
             },

@@ -64,23 +64,9 @@ android {
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
 
-        buildConfigField(
-            "String",
-            "IPTV_API_URL",
-            "\"https://iptv-org.github.io/api/\""
-        )
-
-        buildConfigField(
-            "String",
-            "GITHUB_USER",
-            "\"mimoccc\""
-        )
-
-        buildConfigField(
-            "String",
-            "GITHUB_REPOSITORY",
-            "\"tvapp\""
-        )
+        buildConfigField("String", "IPTV_API_URL", "\"https://iptv-org.github.io/api/\"")
+        buildConfigField("String", "GITHUB_USER", "\"mimoccc\"")
+        buildConfigField("String", "GITHUB_REPOSITORY", "\"tvapp\"")
 
         manifestPlaceholders.apply {
             put("auth0Domain", "@string/com_auth0_domain")
@@ -113,8 +99,8 @@ android {
 
         release {
             applicationIdSuffix = ""
-            isDebuggable = true
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -196,6 +182,10 @@ android {
 }
 
 dependencies {
+    // todo remove
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20-Beta2")
+    // startups
+    implementation("androidx.startup:startup-runtime:1.1.1")
     // tv library by mjde milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
@@ -280,7 +270,7 @@ dependencies {
     implementation("androidx.media3:media3-common:1.1.1")
     // images
     implementation("io.coil-kt:coil-base:2.4.0")
-    implementation("com.github.skydoves:landscapist-coil:2.2.9")
+    implementation("com.github.skydoves:landscapist-coil:2.2.10")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {

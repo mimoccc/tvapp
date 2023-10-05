@@ -8,6 +8,11 @@
 
 package org.mjdev.tvlib.interfaces
 
-interface ItemWithSubtitle <T>{
+@Suppress("unused")
+interface ItemWithSubtitle<T> {
     val subtitle: T?
+
+    companion object {
+        val <T> ItemWithSubtitle<T>.hasSubtitle get() = subtitle?.toString()?.isNotEmpty() == true
+    }
 }

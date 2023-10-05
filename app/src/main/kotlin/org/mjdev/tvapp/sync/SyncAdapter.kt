@@ -15,6 +15,7 @@ import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
 import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.extensions.GlobalExt.safeGet
+import org.mjdev.tvlib.interfaces.ItemWithUri.Companion.hasUri
 import timber.log.Timber
 
 @Suppress("unused", "PrivatePropertyName")

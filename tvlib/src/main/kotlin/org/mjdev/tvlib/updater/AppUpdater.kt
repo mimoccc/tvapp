@@ -9,18 +9,25 @@
 package org.mjdev.tvlib.updater
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import androidx.annotation.MainThread
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import com.skydoves.sandwich.getOrNull
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.BuildConfig
@@ -28,14 +35,15 @@ import org.mjdev.tvlib.data.github.remote.Release
 import org.mjdev.tvlib.network.CacheInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import timber.log.Timber
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-// todo better logic
 class AppUpdater(
     private val context: Context,
     private val githubUser: String = "mimoccc",
     private val githubRepository: String = "tvapp",
+    private val repoName: String = AppUpdater::class.simpleName ?: "AppUpdater",
+    private val keyName: String = repoName
 ) {
 
     private val service by lazy {
@@ -43,116 +51,64 @@ class AppUpdater(
     }
 
     private val prefs by lazy {
-        context.applicationContext.getSharedPreferences(
-            AppUpdater::class.simpleName,
-            Context.MODE_PRIVATE
-        )
+        context.getSharedPreferences(repoName, MODE_PRIVATE)
     }
 
     private val releases: Flow<List<Release>> = flow {
         emit(service.releases().getOrNull() ?: emptyList())
+    }.flowOn(Dispatchers.IO)
+
+    private val lastRelease: Flow<Release?> =
+        releases.map {
+            it.filter { r ->
+                r.hasAPK
+            }.minByOrNull { r ->
+                r.publishedAt
+            }
+        }
+
+    private val serverTimestamp: Flow<Long> =
+        lastRelease.map { r ->
+            r?.publishedAt?.asTimestamp ?: 0L
+        }
+
+    private val installedTimestamp: Flow<Long> = serverTimestamp.map { st ->
+        prefs.getLong(keyName, st)
     }
 
-    private val lastRelease
-        get() = releases.map { list ->
-            list.filter { it.hasAPK }.maxOfOrNull { it.publishedAt }
-        }
-
-    private val serverTimestamp: Long
-        get() = runBlocking {
-            lastRelease.firstOrNull()?.asTimestamp ?: 0L
-        }
-
-    private val installedTimestamp
-        get() = prefs.getLong(AppUpdater::class.simpleName, serverTimestamp)
-
-//    private val externalFile: File
-//        get() = File(
-//            context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
-//            "$githubRepository-update.apk"
-//        )
-
-    val isUpdateAvailable: Boolean get() = serverTimestamp > installedTimestamp
+    val isUpdateAvailable: Flow<Boolean> = serverTimestamp.map { st ->
+        val lt = installedTimestamp.firstOrNull() ?: 0L
+        if (lt == 0L) {
+            prefs.edit().putLong(keyName, st).apply()
+            false
+        } else (st > lt)
+    }
 
     @MainThread
     fun updateApp() {
-        // todo
-//        CoroutineScope(Dispatchers.IO).launch {
-//            releases.collectLatest { rs ->
-//                rs.filter { r ->
-//                    r.hasAPK
-//                }.maxByOrNull { r ->
-//                    r.publishedAt.asTimestamp
-//                }?.let { release ->
-//                    release.apkAsset?.downloadUrl
-//                }?.also { url ->
-//                    downloadFile(url) {
-//                        prefs.edit()
-//                            .putLong(AppUpdater::class.simpleName, lastReleaseTimestamp)
-//                            .apply()
-////                        CoroutineScope(Dispatchers.Main).launch {
-////                            startUpdate()
-////                        }
-//                    }
-//                }
-//            }
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            releases.collectLatest { rs ->
+                rs.filter { r ->
+                    r.hasAPK
+                }.maxByOrNull { r ->
+                    r.publishedAt.asTimestamp
+                }?.let { release ->
+                    release.apkAsset?.downloadUrl
+                }?.also { url ->
+                    downloadFile(url)
+                }
+            }
+        }
     }
 
-//    @AnyThread
-//    private fun downloadFile(
-//        url: String,
-//        finalizeBlock: () -> Unit
-//    ) {
-//        // todo simply open download yet, until finished
-//        try {
-//            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-//                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            })
-//            finalizeBlock()
-//        } catch (e: ActivityNotFoundException) {
-//            Timber.e(e)
-//        }
-//        // todo
-////        httpClient.download(url) { result ->
-////            result.onSuccess { data ->
-////                FileOutputStream(externalFile).apply {
-////                    write(data)
-////                    flush()
-////                    close()
-////                    finalizeBlock()
-////                }
-////            }.onFailure { e ->
-////                Timber.e(e)
-////            }
-////        }
-//    }
-
-//    @AnyThread
-//    private suspend fun startUpdate() {
-//        val packageInstaller = PackageInstaller.getInstance(context)
-//        val apkUri = Uri.fromFile(externalFile)
-//        val fileName = externalFile.name
-//        try {
-//            when (val result = packageInstaller.createSession(apkUri) {
-//                confirmation = Confirmation.DEFERRED
-//                installerType = InstallerType.SESSION_BASED
-//                name = fileName
-//                requireUserAction = false
-//                notification {
-//                    title = NotificationString.resource(R.string.title_app_update)
-//                    contentText =
-//                        NotificationString.resource(R.string.text_update_message, fileName)
-//                    // todo icon =
-//                }
-//            }.await()) {
-//                is SessionResult.Success -> Timber.d("Success")
-//                is SessionResult.Error -> Timber.e(result.cause.message)
-//            }
-//        } catch (e: Exception) {
-//            Timber.e(e)
-//        }
-//    }
+    private fun downloadFile(url: String) {
+        Intent(Intent.ACTION_VIEW).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            data = url.toUri()
+        }.also { intent ->
+            context.startActivity(intent)
+        }
+    }
 
     companion object {
 
@@ -199,14 +155,13 @@ class AppUpdater(
             }
         }
 
-        @Suppress("DEPRECATION")
         private val String.asTimestamp: Long
-            get() = try {
-                Date.parse(this)
-            } catch (e: Exception) {
-                Timber.e(e)
-                0L
-            }
+            get() = runCatching {
+                SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                    Locale.US
+                ).parse(this)?.time ?: 0L
+            }.getOrDefault(0L)
     }
 
 }

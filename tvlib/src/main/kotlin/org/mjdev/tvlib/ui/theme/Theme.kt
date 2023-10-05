@@ -6,12 +6,11 @@
  * w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.ui.theme
+package org.mjdev.tvlib.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import org.mjdev.tvlib.ui.theme.ThemeHelper
 
 @Composable
 fun TVAppTheme(

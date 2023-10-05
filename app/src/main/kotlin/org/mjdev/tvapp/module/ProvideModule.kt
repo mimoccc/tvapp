@@ -19,6 +19,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
@@ -28,7 +31,6 @@ import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.network.CacheInterceptor
 import org.mjdev.tvlib.network.NetworkConnectivityService
-import org.mjdev.tvlib.network.NetworkConnectivityServiceImpl
 import org.mjdev.tvapp.database.DAO
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -74,7 +76,7 @@ class ProvideModule {
     fun providesNetworkConnectivityService(
         @ApplicationContext
         context: Context
-    ): NetworkConnectivityService = NetworkConnectivityServiceImpl(context)
+    ): NetworkConnectivityService = NetworkConnectivityService(context)
 
     @Singleton
     @Provides
@@ -119,5 +121,11 @@ class ProvideModule {
     fun providesApiService(
         retrofit: Retrofit
     ): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAppScope(): CoroutineScope {
+        return CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    }
 
 }

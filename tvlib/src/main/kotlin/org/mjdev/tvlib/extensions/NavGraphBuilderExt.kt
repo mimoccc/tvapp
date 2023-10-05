@@ -63,7 +63,13 @@ object NavGraphBuilderExt {
                     put(arg.name, be.arg(arg.name, null))
                 }
             }
-            route.Compose(navHostController, be, rArgs)
+            route.apply {
+                // todo improve ?
+                navHostController.menuState.value = !route.immersive
+                //
+                route.backStackEntry = be
+                route.args = rArgs
+            }.recompose()
         }
     }
 

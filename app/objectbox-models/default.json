@@ -322,9 +322,43 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "6:8612359832519392835",
+      "lastPropertyId": "5:3948204030396009919",
+      "name": "Country",
+      "properties": [
+        {
+          "id": "1:5421436411115442406",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5924521886771099371",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "3:3406479931615019718",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:2189339425724407936",
+          "name": "languages",
+          "type": 30
+        },
+        {
+          "id": "5:3948204030396009919",
+          "name": "flag",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "5:6626640907745307806",
+  "lastEntityId": "6:8612359832519392835",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -36,6 +36,7 @@ import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.permission.rememberPermissionManager
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.text.TextAny
@@ -50,13 +51,14 @@ class SplashScreen : Screen() {
     @OptIn(ExperimentalPermissionsApi::class)
     @Previews
     @Composable
-    override fun ComposeScreen() {
+    override fun Content() {
 
         val isEdit = isEditMode()
-        val scale = remember (isEdit) { Animatable(if (isEdit) 1f else 0f) }
+        val scale = remember(isEdit) { Animatable(if (isEdit) 1f else 0f) }
         val permissionManager = rememberPermissionManager()
         val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash))
         val progress = animateLottieCompositionAsState(composition.value)
+        val navController = rememberNavControllerEx()
 
         Box(
             modifier = Modifier
@@ -96,7 +98,7 @@ class SplashScreen : Screen() {
                     })
             )
             delay(1000L)
-            navController?.openAsTop<MainScreen>()
+            navController.openAsTop<MainScreen>()
         }
     }
 

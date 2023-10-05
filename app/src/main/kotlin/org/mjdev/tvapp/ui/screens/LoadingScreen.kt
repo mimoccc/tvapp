@@ -36,7 +36,7 @@ class LoadingScreen : Screen() {
 
     @Previews
     @Composable
-    override fun ComposeScreen() {
+    override fun Content() {
         Box(
             modifier = Modifier
                 .fillMaxSize()

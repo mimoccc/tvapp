@@ -8,14 +8,49 @@
 
 package org.mjdev.tvlib.network
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flowOn
 
-interface NetworkConnectivityService {
+class NetworkConnectivityService constructor(
+    val context: Context
+) {
 
-    val networkStatus: Flow<NetworkStatus?>
+    private val connectivityManager by lazy {
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+
+    val networkStatus = callbackFlow {
+        val request = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        val networkStatusCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onUnavailable() {
+                trySend(NetworkStatus.Disconnected()).isSuccess
+            }
+
+            override fun onAvailable(network: Network) {
+                trySend(NetworkStatus.Connected(network)).isSuccess
+            }
+
+            override fun onLost(network: Network) {
+                trySend(NetworkStatus.Disconnected(network)).isSuccess
+            }
+        }
+        connectivityManager.registerNetworkCallback(request, networkStatusCallback)
+        awaitClose {
+            connectivityManager.unregisterNetworkCallback(networkStatusCallback)
+        }
+    }.flowOn(Dispatchers.IO)
 
     companion object {
 
@@ -23,7 +58,7 @@ interface NetworkConnectivityService {
         fun rememberNetworkService(): NetworkConnectivityService {
             val context = LocalContext.current
             return remember(context) {
-                NetworkConnectivityServiceImpl(context)
+                NetworkConnectivityService(context)
             }
         }
 

@@ -29,10 +29,6 @@ class MainScreen : ScreenWithPages() {
     override val menuIcon: ImageVector = Icons.Default.Home
     override val immersive: Boolean = false
 
-    @Previews
-    @Composable
-    override fun Compose() = super.Compose()
-
     override val pages: (PagerScope.() -> Unit) = {
 
         page(SearchPage(), menuGravity = Top)
@@ -45,5 +41,9 @@ class MainScreen : ScreenWithPages() {
         page(AboutPage(), menuGravity = Bottom)
 
     }
+
+    @Previews
+    @Composable
+    override fun Content()  = super.Content()
 
 }

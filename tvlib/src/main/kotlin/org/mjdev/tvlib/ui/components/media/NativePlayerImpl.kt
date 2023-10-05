@@ -18,11 +18,9 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.DeviceInfo
@@ -49,21 +47,17 @@ class NativePlayerImpl(
 ) : IMediaPlayer {
 
     @Composable
-    override fun GetPlayerView(
-        modifier: Modifier
-    ) {
-        val width = LocalConfiguration.current.screenWidthDp
-        val height = LocalConfiguration.current.screenHeightDp
+    override fun GetPlayerView() {
         val isEdit = isEditMode()
         Box(
             modifier = Modifier
+                .fillMaxSize()
                 .recomposeHighlighter()
-                .size(width.dp, height.dp)
         ) {
             if (!isEdit) {
                 AndroidView(
                     modifier = Modifier
-                        .size(width.dp, height.dp)
+                        .fillMaxSize()
                         .recomposeHighlighter(),
                     factory = { context ->
                         SurfaceView(context).apply {

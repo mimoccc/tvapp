@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,8 +18,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.tv.foundation.lazy.list.TvLazyListState
+import androidx.tv.foundation.lazy.list.rememberTvLazyListState
+import kotlinx.coroutines.launch
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -55,15 +60,18 @@ fun BrowseView(
     onMessageBadgeClicked: () -> Unit = {},
     onUserPicClicked: () -> Unit = {},
     onItemFocused: (item: Any?) -> Unit = {},
-    onItemClicked: (item: Any?) -> Unit = {}
+    onItemClicked: (item: Any?) -> Unit = {},
+    state: TvLazyListState = rememberTvLazyListState(),
+    isEdit: Boolean = isEditMode()
 ) {
-    val isEdit = isEditMode()
+    val coroutineScope = rememberCoroutineScope()
     ScrollableTvLazyColumn(
         modifier = modifier
             .fillMaxSize()
             .recomposeHighlighter(),
         verticalArrangement = verticalArrangement,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        state = state
     ) {
         if (isEdit || showHeader) item {
             Header(
@@ -120,7 +128,19 @@ fun BrowseView(
                 modifier = Modifier.recomposeHighlighter(),
                 items = featuredItems,
                 onItemSelected = onItemFocused,
-                onItemClicked = onItemClicked
+                onItemClicked = onItemClicked,
+                onSwipeUp = { dragOffset ->
+                    coroutineScope.launch {
+                        // todo, better scroll
+                        state.scrollBy(-dragOffset.y)
+                    }
+                },
+                onSwipeDown = { dragOffset ->
+                    coroutineScope.launch {
+                        // todo, better scroll
+                        state.scrollBy(-dragOffset.y)
+                    }
+                }
             )
         }
         items(customRows) { row -> row.invoke() }

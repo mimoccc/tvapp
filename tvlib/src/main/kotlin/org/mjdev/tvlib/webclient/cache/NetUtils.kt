@@ -12,8 +12,7 @@ object NetUtils {
 
     @Suppress("Deprecation")
     fun isConnected(context: Context): Boolean {
-        val cm = context.applicationContext
-            .getSystemService(Activity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = context.getSystemService(Activity.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetworkInfo.let { info ->
             info != null && info.isConnected
         }
