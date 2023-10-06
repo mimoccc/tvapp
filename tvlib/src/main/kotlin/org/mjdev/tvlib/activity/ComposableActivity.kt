@@ -33,6 +33,7 @@ import coil.ImageLoader
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.application.TvApplication
 import org.mjdev.tvlib.extensions.ComposeExt.createImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.extensions.NavExt.navControllerEx
@@ -175,5 +176,8 @@ open class ComposableActivity : ComponentActivity() {
             }
         }
     }
+
+    open fun createImageLoader(): ImageLoader? =
+        (application as? TvApplication)?.createImageLoader()
 
 }

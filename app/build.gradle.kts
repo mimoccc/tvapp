@@ -270,6 +270,10 @@ dependencies {
     implementation("androidx.media3:media3-common:1.1.1")
     // images
     implementation("io.coil-kt:coil-base:2.4.0")
+    implementation("io.coil-kt:coil-gif:2.4.0")
+    implementation("io.coil-kt:coil-svg:2.4.0")
+    implementation("io.coil-kt:coil-video:2.4.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.skydoves:landscapist-coil:2.2.10")
     // libs mismatch
     constraints {

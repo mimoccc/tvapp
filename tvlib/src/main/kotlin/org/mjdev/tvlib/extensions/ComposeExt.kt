@@ -195,7 +195,7 @@ object ComposeExt {
         val activity = runCatching { context.activity<ComposableActivity>() }.getOrNull()
         val cachedImageLoader = activity?.imageLoader
         return cachedImageLoader ?: remember(context) {
-            createImageLoader(context)
+            activity?.createImageLoader() ?: createImageLoader(context)
         }
     }
 

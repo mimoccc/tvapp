@@ -30,4 +30,5 @@ class MainActivity : TvActivity() {
         screen(route = MainScreen(), isHomeScreen = true)
 
     }
+
 }
