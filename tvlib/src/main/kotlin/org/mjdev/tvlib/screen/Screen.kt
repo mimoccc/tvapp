@@ -80,7 +80,6 @@ open class Screen {
             modifier = Modifier
                 .fillMaxSize()
                 .onlyPortrait {
-                    // todo not working on lollipop
                     navigationBarsPadding().statusBarsPadding()
                 }
         ) {

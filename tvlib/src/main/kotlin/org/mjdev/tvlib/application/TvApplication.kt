@@ -12,11 +12,12 @@ package org.mjdev.tvlib.application
 
 import android.app.Application
 import coil.ImageLoader
+import com.google.android.material.color.DynamicColors
 
 open class TvApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-//        DynamicColors.applyToActivitiesIfAvailable(this)
+        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 
     open fun createImageLoader(): ImageLoader? = null

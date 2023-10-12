@@ -11,11 +11,13 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
@@ -39,6 +41,7 @@ fun MediaPlayerContainer(
                 onSwipeUp = { nextItem() },
                 onSwipeDown = { prevItem() },
             )
+            .background(Color.Black)
             .recomposeHighlighter()
     ) {
         state.player.GetPlayerView()

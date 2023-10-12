@@ -74,12 +74,14 @@ fun Tabs(
             Spacer(modifier = Modifier.width(itemsSpacing))
         },
         indicator = { tabPositions, isActivated ->
-            tabPositions.getOrNull(selectedTabIndex.value)?.let { tab ->
+            tabPositions.getOrNull(
+                selectedTabIndex.value
+            )?.let { tab ->
                 TabRowDefaults.PillIndicator(
                     currentTabPosition = tab,
                     isActivated = isActivated,
                     activeColor = activeContentColor,
-                    inactiveColor = activeContentColor.copy(alpha = 0.4f)
+                    inactiveColor = activeContentColor.copy(alpha = 0.4f),
                 )
             }
         },

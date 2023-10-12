@@ -112,16 +112,16 @@ dependencies {
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.09.01"))
     implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.2")
+    implementation("androidx.compose.material:material-icons-extended:1.5.3")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
     implementation("androidx.tv:tv-material:1.0.0-alpha09")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.3")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
     // okhttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
     implementation("com.squareup.okhttp3:okhttp")
@@ -155,7 +155,7 @@ dependencies {
     kapt("com.google.dagger:dagger-android-processor:2.48")
     // dagger - hilt
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
     kapt("com.google.dagger:hilt-compiler:2.48")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
@@ -196,7 +196,11 @@ dependencies {
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
     // dynamic theme
-//    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
+    // stripe payments
+    implementation ("com.stripe:stripe-android:20.32.1")
+    implementation ("com.stripe:stripecardscan:20.32.1")
+    implementation ("com.stripe:financial-connections:20.32.1")
     // yt
     // ...
     // constraints

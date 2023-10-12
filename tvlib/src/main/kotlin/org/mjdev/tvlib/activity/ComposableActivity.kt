@@ -10,6 +10,7 @@ package org.mjdev.tvlib.activity
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -82,11 +83,15 @@ open class ComposableActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("Activity ${this::class.simpleName} created.")
         super.onCreate(savedInstanceState)
-        setDecorFitsSystemWindows(window, false)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setDecorFitsSystemWindows(window, false)
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        } else {
+            setDecorFitsSystemWindows(window, true)
+        }
         if (BuildConfig.DEBUG) {
             anrWatchDog.start()
         }
