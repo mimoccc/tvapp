@@ -183,7 +183,7 @@ android {
 
 dependencies {
     // todo remove
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20-Beta2")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20-RC")
     // startups
     implementation("androidx.startup:startup-runtime:1.1.1")
     // tv library by mjde milan jurkulak
@@ -192,20 +192,20 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.09.01"))
+    implementation(platform("androidx.compose:compose-bom:2023.10.00"))
     implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.1")
+    implementation("androidx.compose.material:material-icons-extended:1.5.3")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
-    implementation("androidx.tv:tv-material:1.0.0-alpha09")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
+    implementation("androidx.tv:tv-material:1.0.0-alpha10")
     // dagger - hilt
-    implementation("com.google.dagger:dagger-android:2.48")
-    implementation("com.google.dagger:dagger-android-support:2.48")
-    implementation("com.google.dagger:dagger:2.48")
-    implementation("com.google.dagger:hilt-android:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    implementation("com.google.dagger:dagger-android:2.48.1")
+    implementation("com.google.dagger:dagger-android-support:2.48.1")
+    implementation("com.google.dagger:dagger:2.48.1")
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -217,14 +217,14 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("com.android.volley:volley:1.2.1")
     // kapt
-    kapt("com.google.dagger:dagger-compiler:2.48")
-    kapt("com.google.dagger:dagger-android-processor:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    kapt("com.google.dagger:dagger-compiler:2.48.1")
+    kapt("com.google.dagger:dagger-android-processor:2.48.1")
+    kapt("com.google.dagger:hilt-compiler:2.48.1")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.3")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")

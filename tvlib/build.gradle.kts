@@ -99,7 +99,7 @@ android {
 
 dependencies {
     // todo remove
-    implementation(kotlin("reflect"))
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20-RC")
     // startups
     implementation("androidx.startup:startup-runtime:1.1.1")
     // base libs
@@ -110,14 +110,14 @@ dependencies {
     // window manager
     implementation("androidx.window:window:1.1.0")
     // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.09.01"))
+    implementation(platform("androidx.compose:compose-bom:2023.10.00"))
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.8.0")
     // more icons
     implementation("androidx.compose.material:material-icons-extended:1.5.3")
     // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha09")
-    implementation("androidx.tv:tv-material:1.0.0-alpha09")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
+    implementation("androidx.tv:tv-material:1.0.0-alpha10")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
@@ -146,17 +146,17 @@ dependencies {
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
-    implementation("com.google.dagger:dagger:2.48")
+    implementation("com.google.dagger:dagger:2.48.1")
     implementation("androidx.compose.material3:material3:1.1.2")
-    kapt("com.google.dagger:dagger-compiler:2.48")
+    kapt("com.google.dagger:dagger-compiler:2.48.1")
     // dagger android
-    implementation("com.google.dagger:dagger-android:2.48")
-    implementation("com.google.dagger:dagger-android-support:2.48")
-    kapt("com.google.dagger:dagger-android-processor:2.48")
+    implementation("com.google.dagger:dagger-android:2.48.1")
+    implementation("com.google.dagger:dagger-android-support:2.48.1")
+    kapt("com.google.dagger:dagger-android-processor:2.48.1")
     // dagger - hilt
-    implementation("com.google.dagger:hilt-android:2.48")
+    implementation("com.google.dagger:hilt-android:2.48.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48.1")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
