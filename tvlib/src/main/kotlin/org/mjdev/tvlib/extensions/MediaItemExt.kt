@@ -56,6 +56,7 @@ object MediaItemExt {
             else -> MediaMetadata.MEDIA_TYPE_MIXED
         }
 
+    // todo : MediaItem
     val Any?.imageUrl: Any?
         get() {
             val photo = (this as? ItemPhoto)?.uri

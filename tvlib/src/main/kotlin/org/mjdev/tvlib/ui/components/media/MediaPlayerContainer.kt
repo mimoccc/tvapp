@@ -28,31 +28,34 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMe
 @Composable
 fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
+    visible: Boolean = true,
     state: MediaPlayerState = rememberMediaPlayerState(),
 ) {
     val nextItem: () -> Unit = { state.player.seekToNext() }
     val prevItem: () -> Unit = { state.player.seekToPrevious() }
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .swipeGestures(
-                onSwipeLeft = { nextItem() },
-                onSwipeRight = { prevItem() },
-                onSwipeUp = { nextItem() },
-                onSwipeDown = { prevItem() },
+    if (visible) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .swipeGestures(
+                    onSwipeLeft = { nextItem() },
+                    onSwipeRight = { prevItem() },
+                    onSwipeUp = { nextItem() },
+                    onSwipeDown = { prevItem() },
+                )
+                .background(Color.Black)
+                .recomposeHighlighter()
+        ) {
+            state.player.GetPlayerView()
+            PlayerControlView(
+                state = state
             )
-            .background(Color.Black)
-            .recomposeHighlighter()
-    ) {
-        state.player.GetPlayerView()
-        PlayerControlView(
-            state = state
-        )
-    }
-    DisposableEffect(Unit) {
-        state.startPlay()
-        onDispose {
-            state.dispose()
+        }
+        DisposableEffect(Unit) {
+            state.startPlay()
+            onDispose {
+                state.dispose()
+            }
         }
     }
 }

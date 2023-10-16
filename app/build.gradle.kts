@@ -240,7 +240,7 @@ dependencies {
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.1.0")
     // oauth
-    implementation("com.auth0.android:auth0:2.10.1")
+    implementation("com.auth0.android:auth0:2.10.2")
     implementation("com.auth0.android:jwtdecode:2.0.2")
     // widgets
     implementation("androidx.glance:glance-appwidget:1.0.0")

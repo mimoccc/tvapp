@@ -17,6 +17,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,10 +31,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
+import com.skydoves.landscapist.glide.GlideImage
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
@@ -56,13 +56,17 @@ fun ImageAny(
     val width = if (constraints.minWidth == 0) 1 else constraints.minWidth
     val height = if (constraints.minHeight == 0) 1 else constraints.minHeight
 
-    when (src) {
+    val imageSrc = if(src is State<*>) src.value else src
 
-        null, Unit -> {
+    when (imageSrc) {
+
+        null, Unit, "0", 0 -> {
             Image(
                 painterResource(R.drawable.broken_image),
                 contentDescription,
-                modifier.recomposeHighlighter().padding(16.dp),
+                modifier
+                    .padding(16.dp)
+                    .recomposeHighlighter(),
                 alignment,
                 contentScale,
                 alpha,
@@ -71,7 +75,7 @@ fun ImageAny(
         }
 
         Color -> Image(
-            ColorDrawable((src as Color).toArgb()).asImageBitmap(width, height),
+            ColorDrawable((imageSrc as Color).toArgb()).asImageBitmap(width, height),
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -81,7 +85,7 @@ fun ImageAny(
         )
 
         is Bitmap -> Image(
-            src.asImageBitmap(),
+            imageSrc.asImageBitmap(),
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -91,7 +95,7 @@ fun ImageAny(
         )
 
         is ImageBitmap -> Image(
-            src,
+            imageSrc,
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -101,7 +105,7 @@ fun ImageAny(
         )
 
         is ColorDrawable -> Image(
-            src.asImageBitmap(1, 1),
+            imageSrc.asImageBitmap(1, 1),
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -111,7 +115,7 @@ fun ImageAny(
         )
 
         is Drawable -> Image(
-            src.asImageBitmap(),
+            imageSrc.asImageBitmap(),
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -121,7 +125,7 @@ fun ImageAny(
         )
 
         is Int -> Image(
-            painterResource(src),
+            painterResource(imageSrc),
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -130,59 +134,41 @@ fun ImageAny(
             colorFilter
         )
 
-        is URL -> CoilImage(
-            imageLoader = {
-                rememberImageLoader()
-            },
-            modifier = modifier.recomposeHighlighter(),
-            imageModel = {
-                src
-            },
+        is URL -> GlideImage(
+            imageModel = { imageSrc },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,
                 contentDescription = contentDescription,
                 alpha = alpha,
                 colorFilter = colorFilter,
-            ),
+            )
         )
 
-        is Uri -> CoilImage(
-            imageLoader = {
-                rememberImageLoader()
-            },
-            modifier = modifier.recomposeHighlighter(),
-            imageModel = {
-                src
-            },
+        is Uri -> GlideImage(
+            imageModel = { imageSrc },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,
                 contentDescription = contentDescription,
                 alpha = alpha,
                 colorFilter = colorFilter,
-            ),
+            )
         )
 
-        is String -> CoilImage(
-            imageLoader = {
-                rememberImageLoader()
-            },
-            modifier = modifier.recomposeHighlighter(),
-            imageModel = {
-                src
-            },
+        is String -> GlideImage(
+            imageModel = { imageSrc },
             imageOptions = ImageOptions(
                 contentScale = contentScale,
                 alignment = alignment,
                 contentDescription = contentDescription,
                 alpha = alpha,
                 colorFilter = colorFilter,
-            ),
+            )
         )
 
         is ImageVector -> Image(
-            src,
+            imageSrc,
             contentDescription,
             modifier.recomposeHighlighter(),
             alignment,
@@ -191,7 +177,7 @@ fun ImageAny(
             colorFilter
         )
 
-        else -> throw (RuntimeException("Unknown image format $src."))
+        else -> throw (RuntimeException("Unknown image format $imageSrc."))
 
     }
 

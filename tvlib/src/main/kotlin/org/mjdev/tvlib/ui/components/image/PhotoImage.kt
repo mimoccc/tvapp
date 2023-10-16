@@ -29,14 +29,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
-import com.skydoves.landscapist.coil.CoilImageState
+import com.skydoves.landscapist.glide.GlideImage
+import com.skydoves.landscapist.glide.GlideImageState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ColorExt.contrastAndBrightness
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.ComposeExt.rememberImageLoader
 import org.mjdev.tvlib.extensions.ComposeExt.toDrawable
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
@@ -69,14 +68,10 @@ fun PhotoImage(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
-
-    onImageStateChanged: (state: CoilImageState) -> Unit = {}
+    onImageStateChanged: (state: GlideImageState) -> Unit = {}
 ) {
     val isEdit = isEditMode()
-    CoilImage(
-        imageLoader = {
-            rememberImageLoader()
-        },
+    GlideImage(
         imageModel = {
             src
         },

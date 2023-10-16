@@ -105,6 +105,7 @@ dependencies {
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     // reflect / debug purposes only
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
     // window manager
@@ -133,16 +134,26 @@ dependencies {
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // sandwich
     implementation("com.github.skydoves:sandwich:1.3.9")
     // image loading
-    implementation("io.coil-kt:coil-base:2.4.0")
-    implementation("io.coil-kt:coil-gif:2.4.0")
-    implementation("io.coil-kt:coil-svg:2.4.0")
-    implementation("io.coil-kt:coil-video:2.4.0")
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.github.skydoves:landscapist-coil:2.2.10")
+//    implementation("io.coil-kt:coil-base:2.4.0")
+//    implementation("io.coil-kt:coil-gif:2.4.0")
+//    implementation("io.coil-kt:coil-svg:2.4.0")
+//    implementation("io.coil-kt:coil-video:2.4.0")
+//    implementation("io.coil-kt:coil-compose:2.4.0")
+//    implementation("com.github.skydoves:landscapist-coil:2.2.10")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
+    implementation("com.github.skydoves:landscapist-glide:2.2.10")
+    implementation("com.github.skydoves:landscapist-transformation:2.2.10")
+    implementation("com.github.skydoves:landscapist-palette:2.2.10")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.10")
+    // zxing
+    implementation("com.google.zxing:core:3.5.2")
+    // svg
+    implementation("com.caverock:androidsvg-aar:1.4")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
@@ -198,9 +209,9 @@ dependencies {
     // dynamic theme
     implementation("com.google.android.material:material:1.10.0")
     // stripe payments
-    implementation ("com.stripe:stripe-android:20.32.1")
-    implementation ("com.stripe:stripecardscan:20.32.1")
-    implementation ("com.stripe:financial-connections:20.32.1")
+    implementation("com.stripe:stripe-android:20.32.1")
+    implementation("com.stripe:stripecardscan:20.32.1")
+    implementation("com.stripe:financial-connections:20.32.1")
     // yt
     // ...
     // constraints

@@ -14,6 +14,7 @@ import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import org.mjdev.tvapp.data.remote.Channel
 import org.mjdev.tvapp.data.remote.Stream
+import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -32,7 +33,8 @@ class TVChannel() :
     ItemWithSubtitle<String>,
     ItemWithImage<String>,
     ItemWithUri<String>,
-    ItemWithDescription<String> {
+    ItemWithDescription<String>,
+    ItemVideo {
 
     constructor(stream: Stream, channel: Channel?) : this() {
 

@@ -34,8 +34,9 @@ import org.mjdev.tvlib.extensions.ModifierExt.bringIntoViewIfChildrenAreFocused
 @Composable
 fun ImmersiveList(
     background: @Composable ImmersiveListBackgroundScope.(
-        index: Int, listHasFocus: Boolean
-    ) -> Unit = { idx, focus -> },
+        index: Int,
+        listHasFocus: Boolean
+    ) -> Unit = { _, _ -> },
      modifier: Modifier = Modifier,
     listAlignment: Alignment = Alignment.BottomEnd,
     currentItemIndex: MutableIntState = remember { mutableIntStateOf(0) },

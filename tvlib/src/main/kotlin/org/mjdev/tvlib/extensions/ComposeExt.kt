@@ -17,7 +17,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.os.Build
+import android.view.Gravity
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,35 +25,37 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
+import androidx.media3.common.MediaItem
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import coil.ImageLoader
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.decode.SvgDecoder
-import coil.decode.VideoFrameDecoder
-import coil.disk.DiskCache
-import coil.request.CachePolicy
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
-import okhttp3.Cache
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.mjdev.tvlib.activity.ComposableActivity
-import org.mjdev.tvlib.extensions.ContextExt.activity
-import org.mjdev.tvlib.helpers.coil.AlbumArtDecoder
-import org.mjdev.tvlib.network.CacheInterceptor
-import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.mjdev.tvlib.extensions.BitmapExt.majorColor
+import org.mjdev.tvlib.extensions.MediaItemExt.uri
+import org.mjdev.tvlib.helpers.media.ItemType
+import org.mjdev.tvlib.interfaces.ItemPhoto
+import org.mjdev.tvlib.interfaces.ItemWithBackground
+import org.mjdev.tvlib.interfaces.ItemWithImage
+import timber.log.Timber
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ComposeExt {
@@ -188,59 +190,113 @@ object ComposeExt {
         resources: Resources = LocalContext.current.resources
     ): BitmapDrawable = BitmapDrawable(resources, this)
 
-    @SuppressLint("RememberReturnType", "ComposableNaming")
+    fun Modifier.onKey(
+        keyCode: Int,
+        action: Int = android.view.KeyEvent.ACTION_DOWN,
+        block: () -> Unit
+    ): Modifier = this then onKeyEvent { ev ->
+        if (ev.nativeKeyEvent.action == action) {
+            if (ev.nativeKeyEvent.keyCode == keyCode) {
+                block()
+                true
+            } else false
+        } else false
+    }
+
+    fun createVerticalColorBrush(
+        color: Color,
+        gravity: Int
+    ): Brush = Brush.verticalGradient(
+        when (gravity) {
+            Gravity.TOP -> listOf(
+                color,
+                color,
+                color,
+                color.copy(alpha = 0.8f),
+                color.copy(alpha = 0.5f),
+                Color.Transparent
+            )
+
+            Gravity.BOTTOM -> listOf(
+                Color.Transparent,
+                color.copy(alpha = 0.5f),
+                color.copy(alpha = 0.8f),
+                color,
+                color,
+                color,
+            )
+
+            else -> listOf(color)
+        }
+    )
+
+    // todo mediaItem only
     @Composable
-    fun rememberImageLoader(): ImageLoader {
-        val context = LocalContext.current
-        val activity = runCatching { context.activity<ComposableActivity>() }.getOrNull()
-        val cachedImageLoader = activity?.imageLoader
-        return cachedImageLoader ?: remember(context) {
-            activity?.createImageLoader() ?: createImageLoader(context)
+    fun rememberImageFromItem(image: Any?): State<Any?> = remember(image) {
+        derivedStateOf {
+            if (image is MediaItem) {
+                image.uri
+            } else {
+                val photo = (image as? ItemPhoto)?.uri
+                val img = (image as? ItemWithImage<*>)?.image
+                val background = (image as? ItemWithBackground<*>)?.background
+                val color = image as? Color
+                val string = image.toString()
+                color ?: photo ?: img ?: background ?: string
+            }
         }
     }
 
-    fun createImageLoader(context: Context) = ImageLoader.Builder(context)
-        .allowHardware(false)
-        .allowRgb565(true)
-        .addLastModifiedToFileCacheKey(false)
-        .crossfade(false)
-        .diskCachePolicy(CachePolicy.ENABLED)
-        .memoryCachePolicy(CachePolicy.DISABLED)
-        .respectCacheHeaders(false)
-        .networkObserverEnabled(true)
-        .okHttpClient {
-            OkHttpClient.Builder()
-                .cache(
-                    Cache(
-                        directory = File(
-                            context.cacheDir,
-                            "http_cache"
-                        ),
-                        maxSize = 1024L * 1024L * 1024L
-                    )
-                )
-                .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                })
-                .addNetworkInterceptor(CacheInterceptor())
-                .build()
+    @Composable
+    fun <T> produceStateInCoroutine(
+        initialValue: T,
+        key: Any? = null,
+        block: suspend () -> T
+    ) = produceState(
+        initialValue = initialValue,
+        key1 = key
+    ) {
+        withContext(Dispatchers.IO) {
+            value = block()
         }
-        .diskCache {
-            DiskCache.Builder()
-                .directory(context.cacheDir.resolve("image_cache"))
-                .maxSizePercent(0.7)
-                .build()
-        }
-        .components {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                add(ImageDecoderDecoder.Factory())
-            } else {
-                add(GifDecoder.Factory())
-            }
-            add(AlbumArtDecoder.Factory())
-            add(VideoFrameDecoder.Factory())
-            add(SvgDecoder.Factory())
-        }
-        .build()
+    }
+
+    @Composable
+    fun <T> rememberDerivedState(
+        key: Any? = Unit,
+        initialValue: T,
+        block: suspend () -> T
+    ) = produceStateInCoroutine(initialValue, key, block)
+
+    @Composable
+    fun <T> rememberDerivedState(
+        initialValue: T,
+        block: suspend () -> T
+    ) = produceStateInCoroutine(initialValue, initialValue, block)
+
+    // todo mediaItem only
+    @Composable
+    fun rememberColorFromImage(
+        image: Any?,
+        initialColor: Color = Color.Black,
+        context: Context = LocalContext.current,
+        onError: (error: Throwable) -> Unit = { error -> Timber.e(error) }
+    ): State<Color> = rememberDerivedState(image, initialColor) {
+        runCatching {
+            Glide
+                .with(context)
+                .load(image)
+                .submit()
+                .get()
+                .toBitmap()
+                .majorColor(Color.Transparent)
+        }.onFailure { e ->
+            onError(e)
+        }.getOrNull() ?: initialColor
+    }
+
+    // todo more types
+    @Composable
+    fun remberItemType(item: Any?): ItemType = remember(item) { ItemType(item) }
 
 }

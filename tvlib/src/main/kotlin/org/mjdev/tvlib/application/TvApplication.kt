@@ -11,7 +11,6 @@
 package org.mjdev.tvlib.application
 
 import android.app.Application
-import coil.ImageLoader
 import com.google.android.material.color.DynamicColors
 
 open class TvApplication : Application() {
@@ -20,5 +19,5 @@ open class TvApplication : Application() {
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
 
-    open fun createImageLoader(): ImageLoader? = null
+//    open fun createImageLoader(): ImageLoader? = null
 }

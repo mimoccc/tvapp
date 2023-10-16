@@ -30,12 +30,9 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
-import coil.ImageLoader
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.application.TvApplication
-import org.mjdev.tvlib.extensions.ComposeExt.createImageLoader
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.extensions.NavExt.navControllerEx
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
@@ -76,9 +73,9 @@ open class ComposableActivity : ComponentActivity() {
             }
     }
 
-    val imageLoader: ImageLoader by lazy {
-        createImageLoader(this)
-    }
+//    val imageLoader: ImageLoader by lazy {
+//        createImageLoader(this)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("Activity ${this::class.simpleName} created.")
@@ -182,7 +179,7 @@ open class ComposableActivity : ComponentActivity() {
         }
     }
 
-    open fun createImageLoader(): ImageLoader? =
-        (application as? TvApplication)?.createImageLoader()
+//    open fun createImageLoader(): ImageLoader? =
+//        (application as? TvApplication)?.createImageLoader()
 
 }

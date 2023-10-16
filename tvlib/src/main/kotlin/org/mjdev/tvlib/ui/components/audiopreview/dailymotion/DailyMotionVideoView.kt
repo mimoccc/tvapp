@@ -27,7 +27,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import org.mjdev.tvlib.helpers.coil.UserAgentInterceptor
+import org.mjdev.tvlib.helpers.UserAgentInterceptor
 import org.mjdev.tvlib.network.CacheInterceptor
 import org.mjdev.tvlib.ui.components.audiopreview.IPreviewEngine
 import timber.log.Timber

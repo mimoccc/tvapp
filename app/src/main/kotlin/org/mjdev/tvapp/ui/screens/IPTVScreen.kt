@@ -8,15 +8,12 @@
 
 package org.mjdev.tvapp.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
@@ -63,21 +60,25 @@ class IPTVScreen : Screen() {
             viewModel.mediaItemsFor(data)
         }
 
-        val startIndex = dataList.indexOf { item ->
-            item.uri.contentEquals(data.uri)
+        val index = remember(data) {
+            dataList.indexOf<Any?> { item -> item.uri == data.uri }
         }
 
-        val state = rememberMediaPlayerState(
-            items = dataList,
-            itemToPlay = startIndex
-        )
-
-        MediaPlayerContainer(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black, RectangleShape),
-            state = state
-        )
+//        Gallery (
+//            modifier = Modifier.fillMaxSize(),
+//            list = dataList,
+//            index = index,
+//            customContentViewer = { _, type, _ ->
+                MediaPlayerContainer(
+                    modifier = Modifier.fillMaxSize(),
+//                    visible = (type == ItemType.Video || type == ItemType.Audio),
+                    state = rememberMediaPlayerState(
+                        items = dataList,
+                        itemToPlay = index
+                    )
+                )
+//            }
+//        )
 
     }
 

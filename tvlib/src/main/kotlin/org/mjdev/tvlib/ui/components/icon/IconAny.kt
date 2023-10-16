@@ -28,7 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.LocalContentColor
-import coil.compose.AsyncImage
+import com.skydoves.landscapist.ImageOptions
+import com.skydoves.landscapist.glide.GlideImage
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
@@ -94,25 +95,28 @@ fun IconAny(
             tint
         )
 
-        is URL -> AsyncImage(
-            model = src,
-            contentDescription = contentDescription,
+        is URL -> GlideImage(
+            imageModel = { src },
             modifier = modifier.recomposeHighlighter(),
-            colorFilter = ColorFilter.tint(tint)
+            imageOptions = ImageOptions(
+                colorFilter = ColorFilter.tint(tint)
+            )
         )
 
-        is Uri -> AsyncImage(
-            model = src,
-            contentDescription = contentDescription,
+        is Uri -> GlideImage(
+            imageModel = { src },
             modifier = modifier.recomposeHighlighter(),
-            colorFilter = ColorFilter.tint(tint)
+            imageOptions = ImageOptions(
+                colorFilter = ColorFilter.tint(tint)
+            )
         )
 
-        is String -> AsyncImage(
-            model = src,
-            contentDescription = contentDescription,
+        is String -> GlideImage(
+            imageModel = { src },
             modifier = modifier.recomposeHighlighter(),
-            colorFilter = ColorFilter.tint(tint)
+            imageOptions = ImageOptions(
+                colorFilter = ColorFilter.tint(tint)
+            )
         )
 
         is ImageVector -> Icon(
