@@ -20,6 +20,7 @@ import org.mjdev.tvapp.ui.screens.LoadingScreen
 import org.mjdev.tvlib.activity.TvActivity
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvlib.extensions.NavGraphBuilderExt.startScreen
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
@@ -33,15 +34,9 @@ class IPTVActivity : TvActivity() {
     override fun Compose() = super.Compose()
 
     override val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
-
-        screen(
-            route = LoadingScreen(),
-            isHomeScreen = true,
-            isStartScreen = true,
-        )
-        screen(route = IPTVScreen())
-        screen(route = GalleryScreen())
-
+        startScreen(LoadingScreen(), true)
+        screen(IPTVScreen())
+        screen(GalleryScreen())
     }
 
     @Suppress("DEPRECATION", "MoveVariableDeclarationIntoWhen")
@@ -58,9 +53,7 @@ class IPTVActivity : TvActivity() {
     }
 
     companion object {
-
         const val IPTV_DATA = "IPTV_DATA"
-
     }
 
 }

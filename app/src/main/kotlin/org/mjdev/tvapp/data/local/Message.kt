@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.data.local
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
@@ -16,6 +17,7 @@ import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.interfaces.ItemWithMessage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 
+@Keep
 @Entity
 @JsonClass(generateAdapter = true)
 class Message : ItemWithTitle<String>, ItemWithMessage<String>, ItemWithId {

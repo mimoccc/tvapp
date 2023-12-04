@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
+import androidx.annotation.Keep
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.database.DAO
@@ -17,6 +18,7 @@ import org.mjdev.tvapp.repository.ApiService
 import timber.log.Timber
 import javax.inject.Inject
 
+@Keep
 @AndroidEntryPoint
 class SyncService : Service() {
 
@@ -51,6 +53,7 @@ class SyncService : Service() {
         private var sSyncAdapter: SyncAdapter? = null
         private val sSyncAdapterLock = Any()
 
+        @Suppress("unused")
         fun Context.createSyncAccount(): Account? {
             return try {
                 val accountManager = getSystemService(Context.ACCOUNT_SERVICE) as AccountManager

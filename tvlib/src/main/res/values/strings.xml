@@ -42,5 +42,8 @@
     <string name="title_audio_local">Local audio files</string>
     <string name="title_video_local">Local video files</string>
     <string name="title_photo_local">Local photo files</string>
+    <string name="com_auth0_client_id" />
+    <string name="com_auth0_scheme" />
+    <string name="com_auth0_domain" />
 
 </resources>

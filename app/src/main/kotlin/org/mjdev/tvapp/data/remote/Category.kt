@@ -8,10 +8,11 @@
 
 package org.mjdev.tvapp.data.remote
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import org.mjdev.tvapp.data.local.User
 
+@Keep
 @Suppress("unused")
 @JsonClass(generateAdapter = true)
 class Category {

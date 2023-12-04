@@ -16,6 +16,8 @@ import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.SplashScreen
 import org.mjdev.tvlib.activity.TvActivity
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.NavGraphBuilderExt.homeScreen
+import org.mjdev.tvlib.extensions.NavGraphBuilderExt.startScreen
 
 @AndroidEntryPoint
 class MainActivity : TvActivity() {
@@ -25,10 +27,8 @@ class MainActivity : TvActivity() {
     override fun Compose() = super.Compose()
 
     override val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
-
-        screen(route = SplashScreen(), isStartScreen = true)
-        screen(route = MainScreen(), isHomeScreen = true)
-
+        startScreen(SplashScreen())
+        homeScreen(MainScreen())
     }
 
 }

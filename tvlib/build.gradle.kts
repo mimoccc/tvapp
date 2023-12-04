@@ -98,7 +98,7 @@ android {
 
 dependencies {
     // startups
-    implementation("androidx.startup:startup-runtime:1.1.1")
+//    implementation("androidx.startup:startup-runtime:1.1.1")
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -148,6 +148,9 @@ dependencies {
     implementation("com.google.zxing:core:3.5.2")
     // svg
     implementation("com.caverock:androidsvg-aar:1.4")
+    // oauth
+    implementation("com.auth0.android:auth0:2.10.2")
+    implementation("com.auth0.android:jwtdecode:2.0.2")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core

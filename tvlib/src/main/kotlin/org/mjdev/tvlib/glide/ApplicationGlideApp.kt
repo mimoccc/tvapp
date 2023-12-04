@@ -32,6 +32,7 @@ import org.mjdev.tvlib.R
 import org.mjdev.tvlib.glide.sources.albumart.AlbumArtLoaderFactory
 import org.mjdev.tvlib.glide.sources.layout.LayoutLoaderFactory
 import org.mjdev.tvlib.glide.sources.layout.LayoutResId
+import org.mjdev.tvlib.glide.sources.m3u.M3ULoaderFactory
 import org.mjdev.tvlib.glide.sources.svg.SvgDecoder
 import org.mjdev.tvlib.glide.sources.svg.SvgDrawableTranscoder
 import java.io.InputStream
@@ -106,7 +107,8 @@ class ApplicationGlideApp : AppGlideModule() {
             // LayoutRes support (create images from layout res Id)
             prepend(LayoutResId::class.java, Drawable::class.java, LayoutLoaderFactory(context))
             // Album Art audio files
-            append(String::class.java, InputStream::class.java, AlbumArtLoaderFactory(context))
+            prepend(String::class.java, InputStream::class.java, AlbumArtLoaderFactory(context))
+            prepend(String::class.java, InputStream::class.java, M3ULoaderFactory(context))
             // SVG support
             register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
             append(InputStream::class.java, SVG::class.java, SvgDecoder())

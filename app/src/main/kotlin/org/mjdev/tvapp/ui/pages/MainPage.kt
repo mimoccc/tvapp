@@ -24,8 +24,8 @@ import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
-import org.mjdev.tvapp.data.local.User
-import org.mjdev.tvapp.helpers.AuthManager.Companion.rememberAuthManager
+import org.mjdev.tvlib.data.local.User
+import org.mjdev.tvlib.auth.AuthManager.Companion.rememberAuthManager
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.ui.components.page.Page
@@ -96,7 +96,9 @@ class MainPage : Page() {
         }
 
         val user = remember { mutableStateOf<User?>(null) }
-        val authManager = rememberAuthManager { u -> user.value = u }
+        val authManager = rememberAuthManager(
+            allowedPackages = listOf(BuildConfig.APPLICATION_ID)
+        ) { u -> user.value = u }
         val apps = remember { viewModel.apps }.collectAsState(emptyList())
 
         Box(

@@ -80,6 +80,9 @@ android {
             applicationIdSuffix = ".debug"
             isDebuggable = true
             isMinifyEnabled = false
+            isShrinkResources = false
+//            isCrunchPngs = true
+//            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -99,7 +102,10 @@ android {
         release {
             applicationIdSuffix = ""
             isDebuggable = false
-            isMinifyEnabled = false // todo
+            isMinifyEnabled = true
+            isShrinkResources = true
+//            isCrunchPngs = true
+//            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -120,6 +126,9 @@ android {
             applicationIdSuffix = ".rcmps"
             isDebuggable = true
             isMinifyEnabled = false
+            isShrinkResources = false
+//            isCrunchPngs = true
+//            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -186,7 +195,7 @@ dependencies {
     // todo remove
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.21")
     // startups
-    implementation("androidx.startup:startup-runtime:1.1.1")
+//    implementation("androidx.startup:startup-runtime:1.1.1")
     // tv library by mjde milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
@@ -241,9 +250,6 @@ dependencies {
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.2.0")
-    // oauth
-    implementation("com.auth0.android:auth0:2.10.2")
-    implementation("com.auth0.android:jwtdecode:2.0.2")
     // widgets
     implementation("androidx.glance:glance-appwidget:1.0.0")
     implementation("androidx.glance:glance-material:1.0.0")

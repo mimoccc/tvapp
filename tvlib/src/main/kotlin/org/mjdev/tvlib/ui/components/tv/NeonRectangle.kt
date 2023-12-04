@@ -20,8 +20,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.CardGlow
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.Previews
 
@@ -92,11 +90,12 @@ fun NeonRectangle(
     }
 }
 
+@Suppress("unused")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun NeonRectangle(
     modifier: Modifier = Modifier,
-    glow: CardGlow = CardDefaults.glow()
+//    glow: CardGlow = CardDefaults.glow()
 ) {
     // todo
     val colorRect: Color = Color.Green

@@ -6,7 +6,9 @@ import android.content.ContentProviderClient
 import android.content.Context
 import android.content.SyncResult
 import android.os.Bundle
+import androidx.annotation.Keep
 import io.objectbox.Box
+import kotlinx.coroutines.delay
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
@@ -17,6 +19,7 @@ import org.mjdev.tvlib.extensions.GlobalExt.safeGet
 import org.mjdev.tvlib.interfaces.ItemWithUri.Companion.hasUri
 import timber.log.Timber
 
+@Keep
 @Suppress("unused")
 class SyncAdapter(
     context: Context,
@@ -40,6 +43,7 @@ class SyncAdapter(
         syncResult: SyncResult?
     ) {
         launch(IO) {
+            delay(4000L)
             try {
 
                 val streams = apiService.streams().safeGet()

@@ -18,6 +18,7 @@ import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.ui.screens.WebScreen
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
+import org.mjdev.tvlib.extensions.NavGraphBuilderExt.startScreen
 import org.mjdev.tvlib.extensions.StringExt.parseUri
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
@@ -29,13 +30,7 @@ class WebActivity : ComposableActivity() {
     override fun Compose() = super.Compose()
 
     override val navGraphBuilder: NavGraphBuilderEx.() -> Unit = {
-
-        screen(
-            route = WebScreen(),
-            isHomeScreen = true,
-            isStartScreen = true,
-        )
-
+        startScreen(WebScreen(), true)
     }
 
     override fun onIntent(navController: NavHostControllerEx, intent: Intent?) {

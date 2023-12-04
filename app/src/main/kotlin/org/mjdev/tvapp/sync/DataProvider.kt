@@ -5,12 +5,14 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import androidx.annotation.Keep
 import com.squareup.moshi.Moshi
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import javax.inject.Inject
 
+@Keep
 @Suppress("MemberVisibilityCanBePrivate")
 class DataProvider : ContentProvider() {
 

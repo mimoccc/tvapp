@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.helpers
+package org.mjdev.tvlib.auth
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,27 +21,22 @@ import com.auth0.android.provider.BrowserPicker
 import com.auth0.android.provider.CustomTabsOptions
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.R
-import org.mjdev.tvapp.data.local.User
+import org.mjdev.tvlib.R
+import org.mjdev.tvlib.data.local.User
 import timber.log.Timber
 
 @Suppress("unused")
 class AuthManager(
     val context: Context,
+    val scheme: String = context.getString(R.string.com_auth0_scheme),
+    val clientId: String = context.getString(R.string.com_auth0_client_id),
+    val domain: String = context.getString(R.string.com_auth0_domain),
+    val allowedPackages: List<String> = listOf(), // BuildConfig.APPLICATION_ID
     val onUserChange: AuthManager.(user: User?) -> Unit = {}
 ) {
 
     var idToken: String? = null
-
     val isUserLoggedIn: Boolean get() = ((idToken != null) && (user != null))
-
-    private val scheme get() = context.getString(R.string.com_auth0_scheme)
-
-    private val clientId get() = context.getString(R.string.com_auth0_client_id)
-
-    private val domain get() = context.getString(R.string.com_auth0_domain)
-
     private val account: Auth0 by lazy { Auth0(clientId, domain) }
 
     val user: User?
@@ -67,7 +62,8 @@ class AuthManager(
         }
 
     init {
-        idToken = context.getSharedPreferences(SAVE_KEY, Context.MODE_PRIVATE)
+        idToken = context
+            .getSharedPreferences(SAVE_KEY, Context.MODE_PRIVATE)
             .getString(SAVE_KEY, null)
         onUserChange(this, user)
     }
@@ -88,7 +84,7 @@ class AuthManager(
                     .showTitle(false)
                     .withBrowserPicker(
                         BrowserPicker.newBuilder()
-                            .withAllowedPackages(listOf(BuildConfig.APPLICATION_ID))
+                            .withAllowedPackages(allowedPackages)
                             .build()
                     )
                     .build()
@@ -123,7 +119,7 @@ class AuthManager(
                     .showTitle(false)
                     .withBrowserPicker(
                         BrowserPicker.newBuilder()
-                            .withAllowedPackages(listOf(BuildConfig.APPLICATION_ID))
+                            .withAllowedPackages(allowedPackages)
                             .build()
                     )
                     .build()
@@ -151,10 +147,21 @@ class AuthManager(
         @SuppressLint("RememberReturnType", "ComposableNaming")
         @Composable
         fun rememberAuthManager(
-            onUserChange: AuthManager.(user: User?) -> Unit
+            scheme: String? = null,
+            clientId: String? = null,
+            domain: String? = null,
+            allowedPackages: List<String> = listOf(),
+            onUserChange: AuthManager.(user: User?) -> Unit = {}
         ) = LocalContext.current.let { ctx ->
             remember(ctx) {
-                AuthManager(ctx, onUserChange)
+                AuthManager(
+                    context = ctx,
+                    scheme = scheme ?: ctx.getString(R.string.com_auth0_scheme),
+                    clientId = clientId ?: ctx.getString(R.string.com_auth0_client_id),
+                    domain = domain ?: ctx.getString(R.string.com_auth0_domain),
+                    allowedPackages = allowedPackages,
+                    onUserChange = onUserChange
+                )
             }
         }
 

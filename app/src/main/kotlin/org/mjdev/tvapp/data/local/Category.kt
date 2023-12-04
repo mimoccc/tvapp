@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.data.local
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
@@ -18,6 +19,7 @@ import org.mjdev.tvlib.interfaces.ItemWithSubtitle
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import java.io.Serializable
 
+@Keep
 @Suppress("unused")
 @Entity
 @JsonClass(generateAdapter = true)

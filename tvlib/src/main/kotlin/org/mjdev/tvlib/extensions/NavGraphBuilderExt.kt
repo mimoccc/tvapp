@@ -18,27 +18,57 @@ import org.mjdev.tvlib.extensions.NavBackStackEntryExt.arg
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.screen.Screen
 
+typealias AnimType<T> = (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> T?)
+
 object NavGraphBuilderExt {
+
+    fun <T : Screen> NavGraphBuilderEx.startScreen(
+        route: T,
+        isHomeScreen: Boolean = false,
+        deepLinks: List<NavDeepLink> = emptyList(),
+        enterTransition: AnimType<EnterTransition>? = { AnimExt.FadeIn },
+        exitTransition: AnimType<ExitTransition>? = { AnimExt.FadeOut },
+        popEnterTransition: AnimType<EnterTransition>? = enterTransition,
+        popExitTransition: AnimType<ExitTransition>? = exitTransition
+    ) = screen(
+        route = route,
+        isStartScreen = true,
+        isHomeScreen = isHomeScreen,
+        deepLinks = deepLinks,
+        enterTransition = enterTransition,
+        exitTransition = exitTransition,
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition
+    )
+
+    fun <T : Screen> NavGraphBuilderEx.homeScreen(
+        route: T,
+        isStartScreen: Boolean = false,
+        deepLinks: List<NavDeepLink> = emptyList(),
+        enterTransition: AnimType<EnterTransition>? = { AnimExt.FadeIn },
+        exitTransition: AnimType<ExitTransition>? = { AnimExt.FadeOut },
+        popEnterTransition: AnimType<EnterTransition>? = enterTransition,
+        popExitTransition: AnimType<ExitTransition>? = exitTransition
+    ) = screen(
+        route = route,
+        isStartScreen = isStartScreen,
+        isHomeScreen = true,
+        deepLinks = deepLinks,
+        enterTransition = enterTransition,
+        exitTransition = exitTransition,
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition
+    )
 
     fun <T : Screen> NavGraphBuilderEx.screen(
         route: T,
         isHomeScreen: Boolean = false,
         isStartScreen: Boolean = false,
         deepLinks: List<NavDeepLink> = emptyList(),
-        enterTransition: (@JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = {
-            AnimExt.FadeIn
-        },
-        exitTransition: (@JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = {
-            AnimExt.FadeOut
-        },
-        popEnterTransition: (@JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? =
-            enterTransition,
-        popExitTransition: (@JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? =
-            exitTransition,
+        enterTransition: AnimType<EnterTransition>? = { AnimExt.FadeIn },
+        exitTransition: AnimType<ExitTransition>? = { AnimExt.FadeOut },
+        popEnterTransition: AnimType<EnterTransition>? = enterTransition,
+        popExitTransition: AnimType<ExitTransition>? = exitTransition
     ) {
         if (isStartScreen) {
             splashDestinationRoute = route.route

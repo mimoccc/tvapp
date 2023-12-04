@@ -31,7 +31,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import timber.log.Timber
 
-
 private const val USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
 
@@ -50,7 +49,8 @@ fun WebView(
         factory = { context ->
             CustomWebView(
                 context = context,
-                inEditMode = isEdit
+                inEditMode = isEdit,
+                enableJavaScript = enableJavaScript
             )
         },
         update = { view -> view.loadUrl(url) }
@@ -62,7 +62,8 @@ class CustomWebView(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    val inEditMode: Boolean = false
+    val inEditMode: Boolean = false,
+    val enableJavaScript: Boolean = true
 ) : WebView(context, attrs, defStyleAttr) {
     private val cookieManager: CookieManager by lazy { CookieManager.getInstance() }
 
@@ -77,7 +78,7 @@ class CustomWebView(
             settings.domStorageEnabled = true
             settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING
             settings.useWideViewPort = true
-            settings.javaScriptEnabled = true
+            settings.javaScriptEnabled = enableJavaScript
             settings.javaScriptCanOpenWindowsAutomatically = true
             settings.allowContentAccess = true
             settings.allowFileAccess = true

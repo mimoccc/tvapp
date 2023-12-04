@@ -6,18 +6,16 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvapp.data.local
+package org.mjdev.tvlib.data.local
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import io.objectbox.annotation.Entity
-import io.objectbox.annotation.Id
 
-@Entity
+//@Entity
 @JsonClass(generateAdapter = true)
 class User {
 
-    @Id
+//    @Id
     @Json(name = "id")
     var id: Long = 0
 

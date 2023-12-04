@@ -6,7 +6,9 @@ import android.accounts.AccountAuthenticatorResponse
 import android.accounts.NetworkErrorException
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.Keep
 
+@Keep
 class Authenticator(
     context: Context
 ) : AbstractAccountAuthenticator(context) {
