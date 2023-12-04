@@ -51,47 +51,55 @@ class AppUpdater(
     }
 
     private val releases: Flow<List<Release>> = flow {
-        val service = updateService(isDebug, githubUser, githubRepository)
-        emit(service.releases().getOrNull() ?: emptyList())
+        updateService(isDebug, githubUser, githubRepository).also { service ->
+            emit(service.releases().getOrNull() ?: emptyList())
+        }
     }
 
-    private val lastRelease: Flow<Release?> = releases.map {
-        it.filter { r ->
+    private val lastRelease: Flow<Release?> = releases.map { releases ->
+        releases.filter { r ->
             r.hasAPK
         }.minByOrNull { r ->
             r.publishedAt
         }
     }
 
-    private val serverTimestamp: Flow<Long> =
-        lastRelease.map { r -> r?.publishedAt?.asTimestamp ?: 0L }
+    private val serverTimestamp: Flow<Long> = lastRelease.map { r ->
+        r?.publishedAt?.asTimestamp ?: 0L
+    }
 
-    private val installedTimestamp: Flow<Long> =
-        serverTimestamp.map { st -> prefs.getLong(keyName, st) }
+    private val installedTimestamp: Flow<Long> = flow {
+        prefs.getLong(keyName, 0L).also { timestamp ->
+            emit(timestamp)
+        }
+    }
 
     val isUpdateAvailable: Flow<Boolean> = serverTimestamp.map { st ->
         val lt = installedTimestamp.firstOrNull() ?: 0L
-        if (lt == 0L) {
-            prefs.edit().putLong(keyName, st).apply()
-            false
-        } else (st > lt)
+        st > lt
+    }
+
+    private fun storeTimestamp(timestamp: Long) {
+        prefs.edit().apply {
+            putLong(keyName, timestamp)
+            apply()
+            commit()
+        }
     }
 
     @MainThread
     fun updateApp() = coroutineScope.launch {
-        releases.collectLatest { rs ->
-            rs.filter { r ->
-                r.hasAPK
-            }.maxByOrNull { r ->
-                r.publishedAt.asTimestamp
-            }?.let { release ->
-                release.apkAsset?.downloadUrl
-            }?.also { url ->
-                downloadFile(url)
+        lastRelease.collectLatest { release ->
+            if (release != null) {
+                storeTimestamp(release.publishedAt.asTimestamp)
+                if (release.apkAsset != null) {
+                    downloadFile(release.apkAsset!!.downloadUrl)
+                }
             }
         }
     }
 
+    // todo better
     private fun downloadFile(url: String) {
         Intent(Intent.ACTION_VIEW).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
