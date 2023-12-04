@@ -59,7 +59,7 @@ class AppUpdater(
     private val lastRelease: Flow<Release?> = releases.map { releases ->
         releases.filter { r ->
             r.hasAPK
-        }.minByOrNull { r ->
+        }.maxByOrNull { r ->
             r.publishedAt
         }
     }
