@@ -103,6 +103,7 @@ class MainPage : Page() {
             modifier = Modifier.fillMaxSize(),
         ) {
             BrowseView(
+                isDebug = BuildConfig.DEBUG,
                 modifier = Modifier.fillMaxSize(),
                 appIcon = R.mipmap.ic_launcher_foreground,
                 userIcon = user.value?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,

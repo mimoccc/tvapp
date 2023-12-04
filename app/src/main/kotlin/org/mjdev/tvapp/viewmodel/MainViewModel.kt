@@ -70,15 +70,9 @@ class MainViewModel @Inject constructor(
     // todo : move to cursor
     val featuredMovieList = flow {
         mutableListOf<Any?>().apply {
-            addAll(localAudioCursor.takeIf(ITEMS_FROM_CATEGORY) {
-                hasImage
-            })
-            addAll(localVideoCursor.takeIf(ITEMS_FROM_CATEGORY) {
-                hasImage
-            })
-            addAll(localPhotoCursor.takeIf(ITEMS_FROM_CATEGORY) {
-                hasImage
-            })
+            addAll(localAudioCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
+            addAll(localVideoCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
+            addAll(localPhotoCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
             addAll(dao.movieDao.all.take(ITEMS_FROM_CATEGORY))
         }.also { result ->
             emit(result)
@@ -91,7 +85,7 @@ class MainViewModel @Inject constructor(
         dao.movieDao.all.sortedBy { m ->
             m.category
         }.asMap { m ->
-            Pair(m.category, m)
+            Pair(m.category ?: "-", m)
         }.also { map ->
             emit(map)
         }

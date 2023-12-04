@@ -11,7 +11,7 @@ import okhttp3.Dns
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.mjdev.tvlib.webclient.adblock.AdBlockInterceptor
+import org.mjdev.tvlib.adblock.AdBlockInterceptor
 import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
@@ -24,7 +24,7 @@ import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
 // todo trust manager
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class WebViewCacheInterceptor(builder: Builder) : WebViewRequestInterceptor {
     override val cachePath: File
     private val dynamicCacheFile: File?
@@ -242,7 +242,8 @@ class WebViewCacheInterceptor(builder: Builder) : WebViewRequestInterceptor {
                 )
             ) else Timber.d(String.format("from server: %s", url))
             val mimeType: String? = MimeTypeMapUtils.getMimeTypeFromUrl(url)
-            val webResourceResponse = WebResourceResponse(mimeType, "", response?.body?.byteStream())
+            val webResourceResponse =
+                WebResourceResponse(mimeType, "", response?.body?.byteStream())
             if (response?.code == 504 && !NetUtils.isConnected(context)) return null
             var message = response?.message
             if (message.isNullOrEmpty()) message = "OK"
@@ -276,11 +277,11 @@ class WebViewCacheInterceptor(builder: Builder) : WebViewRequestInterceptor {
         var sslSocketFactory: SSLSocketFactory? = null
         var x509TrustManager: X509TrustManager? = null
         var resourceInterceptor: ResourceInterceptor? = null
-        private set
+            private set
         var assetsDir: String = ""
         var isSuffixMod = false
         var dns: Dns? = null
-        private set
+            private set
 
         init {
             cacheFile = File(context.cacheDir.toString(), "CacheWebViewCache")

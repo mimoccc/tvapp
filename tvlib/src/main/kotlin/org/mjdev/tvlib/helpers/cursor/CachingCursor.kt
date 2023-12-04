@@ -28,13 +28,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
+import org.mjdev.tvlib.extensions.GlobalExt.IO
+import org.mjdev.tvlib.extensions.GlobalExt.launch
 import timber.log.Timber
-import kotlin.coroutines.CoroutineContext
 
 @Suppress("FunctionName")
 open class CachingCursor<T>(
@@ -253,17 +250,9 @@ open class CachingCursor<T>(
 
     @Deprecated("Deprecated in Java")
     override fun requery(): Boolean {
-        launch {
-            _requery()
-        }
+        launch { _requery() }
         return true
     }
-
-    private fun launch(
-        context: CoroutineContext = Dispatchers.IO,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
-    ) = CoroutineScope(context).launch(context, start, block)
 
     @Suppress("SpellCheckingInspection", "DEPRECATION")
     private fun _requery(): Boolean {

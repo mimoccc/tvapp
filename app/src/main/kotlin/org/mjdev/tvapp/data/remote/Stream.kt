@@ -27,4 +27,14 @@ class Stream {
     @Json(name = "user_agent")
     var userAgent: String? = null
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Stream) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = channelId?.hashCode() ?: 0
+        result = 31 * result + (url?.hashCode() ?: 0)
+        result = 31 * result + (httpReferrer?.hashCode() ?: 0)
+        result = 31 * result + (userAgent?.hashCode() ?: 0)
+        return result
+    }
 }

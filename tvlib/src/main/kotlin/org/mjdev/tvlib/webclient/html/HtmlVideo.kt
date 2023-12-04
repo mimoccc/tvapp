@@ -4,6 +4,7 @@ import android.webkit.MimeTypeMap
 import org.mjdev.tvlib.webclient.javascript.JSI
 import org.jsoup.nodes.Element
 
+@Suppress("unused", "SameParameterValue", "MemberVisibilityCanBePrivate")
 class HtmlVideo(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
     override val tag: String get() = "video"
 
@@ -14,19 +15,26 @@ class HtmlVideo(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
     val tabindex: String get() = attr("tabindex")
     val controls: String get() = attr("controls")
 
-    val sources: List<String> get() = childs.filterIsInstance<HtmlSource>().let { list ->
-        if (list.isEmpty()) {
-            listOf(attr("src"))
-        } else {
-            list.map { htmlSource ->
-                htmlSource.src
+    val sources: List<String>
+        get() = mutableListOf<String>().apply {
+            if (attr("src").isNotEmpty()) add(attr("src"))
+            childs.filterIsInstance<HtmlSource>().let { list ->
+                if (list.isEmpty()) {
+                    listOf(attr("src"))
+                } else {
+                    list.map { htmlSource ->
+                        htmlSource.src
+                    }
+                }
+            }.also { list ->
+                addAll(list)
             }
         }
-    }
 
-    val videoStreams: List<String> get() = sources.filter {
-        isVideoLink(it)
-    }
+    val videoStreams: List<String>
+        get() = sources.filter {
+            isVideoLink(it)
+        }
 
     val hasStreams: Boolean get() = videoStreams.isNotEmpty()
 
@@ -52,7 +60,7 @@ class HtmlVideo(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
             "css"
         )
 
-        fun String.nonVideoExluded(): Boolean {
+        fun String.nonVideoExcluded(): Boolean {
             val ext = MimeTypeMap.getFileExtensionFromUrl(this)
             return !VIDEO_EXCLUDE_EXTENSIONS.contains(ext)
         }
@@ -61,18 +69,17 @@ class HtmlVideo(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
             val pairs = map {
                 Pair(indexOf(VIDEO_EXTENSIONS, it), it)
             }
-            val filterred = pairs.filter {
-                (it.first >= 0) && it.second.nonVideoExluded()
+            val filtered = pairs.filter {
+                (it.first >= 0) && it.second.nonVideoExcluded()
             }
-            val sorted = filterred.sortedBy {
-                it.first
-            }
-            return sorted.map {
-                it.second
-            }
+            val sorted = filtered.sortedBy { p -> p.first }
+            return sorted.map { p -> p.second }
         }
 
-        private fun indexOf(where: List<String>, what: String): Int {
+        private fun indexOf(
+            where: List<String>,
+            what: String
+        ): Int {
             for (i in where.indices) {
                 if (what.contains(where[i])) {
                     return i
@@ -82,9 +89,9 @@ class HtmlVideo(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
         }
 
         fun isVideoLink(url: String?): Boolean {
-            val isExtOK: Boolean = url?.nonVideoExluded() ?: true
+            val isExtOK: Boolean = url?.nonVideoExcluded() ?: true
             return isExtOK && url?.let { u ->
-                VIDEO_EXTENSIONS.map { vext -> (u.contains(vext)) }.isNotEmpty()
+                VIDEO_EXTENSIONS.map { ext -> (u.contains(ext)) }.isNotEmpty()
             } ?: false
         }
     }

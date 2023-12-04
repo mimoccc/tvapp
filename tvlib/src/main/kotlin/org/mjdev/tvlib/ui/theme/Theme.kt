@@ -10,10 +10,11 @@ package org.mjdev.tvlib.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import org.mjdev.tvlib.extensions.ComposeExt.isTV
 
 @Composable
 fun TVAppTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    useDarkTheme: Boolean = isSystemInDarkTheme() || isTV(),
+    dynamicColors: Boolean = !isTV(),
     content: @Composable () -> Unit,
-) = ThemeHelper (useDarkTheme, dynamicColor, content)
+) = ThemeHelper (useDarkTheme, dynamicColors, content)

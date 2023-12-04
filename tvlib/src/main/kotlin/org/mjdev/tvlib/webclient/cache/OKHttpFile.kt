@@ -21,7 +21,7 @@ object OKHttpFile {
         if (entryFile.exists() && bodyFile.exists()) {
             try {
                 val fr = BufferedReader(FileReader(entryFile), 1024)
-                var line : String
+                var line: String
                 var isGzip = false
                 while (fr.readLine().also { line = it } != null) {
                     if (line.contains("Content-Encoding") &&
@@ -39,7 +39,7 @@ object OKHttpFile {
                     source.buffer().inputStream()
                 }
             } catch (e: Exception) {
-              Timber.e(e)
+                Timber.e(e)
             }
         }
         return null

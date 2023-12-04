@@ -67,6 +67,30 @@ data class Release(
     val zipUrl: String = ""
 
 ) {
+    override fun equals(other: Any?): Boolean =
+        if (other !is Release) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + url.hashCode()
+        result = 31 * result + assetsUrl.hashCode()
+        result = 31 * result + uploadUrl.hashCode()
+        result = 31 * result + htmlUrl.hashCode()
+        result = 31 * result + author.hashCode()
+        result = 31 * result + nodeId.hashCode()
+        result = 31 * result + tagName.hashCode()
+        result = 31 * result + targetCommitish.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + draft.hashCode()
+        result = 31 * result + preRelease.hashCode()
+        result = 31 * result + createdAt.hashCode()
+        result = 31 * result + publishedAt.hashCode()
+        result = 31 * result + assets.hashCode()
+        result = 31 * result + tarUrl.hashCode()
+        result = 31 * result + zipUrl.hashCode()
+        return result
+    }
+
     val hasAssets: Boolean get() = assets.isNotEmpty()
 
     val hasAPK: Boolean

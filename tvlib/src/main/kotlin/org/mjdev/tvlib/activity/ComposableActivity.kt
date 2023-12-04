@@ -73,10 +73,6 @@ open class ComposableActivity : ComponentActivity() {
             }
     }
 
-//    val imageLoader: ImageLoader by lazy {
-//        createImageLoader(this)
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("Activity ${this::class.simpleName} created.")
         super.onCreate(savedInstanceState)
@@ -178,8 +174,4 @@ open class ComposableActivity : ComponentActivity() {
             }
         }
     }
-
-//    open fun createImageLoader(): ImageLoader? =
-//        (application as? TvApplication)?.createImageLoader()
-
 }

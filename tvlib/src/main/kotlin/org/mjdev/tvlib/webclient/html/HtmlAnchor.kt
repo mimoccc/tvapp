@@ -10,14 +10,9 @@ class HtmlAnchor(element: Element, jsi: JSI) : HtmlElement(element, jsi) {
     val href get() = attr("href")
 
     fun fullHref(page: HtmlPage): String {
-        val href = this.href.let {
-            if(it.first() == '/') it.replaceFirst("/", "")
-            else it
+        val href = this.href.let { link ->
+            if (link.first() == '/') link.replaceFirst("/", "") else link
         }
-        return if(href.isUrl) {
-            href
-        } else {
-            "${page.url}$href"
-        }
+        return if (href.isUrl) href else "${page.url}$href"
     }
 }

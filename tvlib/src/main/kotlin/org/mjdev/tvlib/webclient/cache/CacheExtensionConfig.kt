@@ -1,7 +1,6 @@
 package org.mjdev.tvlib.webclient.cache
 
 import android.text.TextUtils
-import java.lang.reflect.Modifier.STATIC
 import java.util.Locale
 
 class CacheExtensionConfig {

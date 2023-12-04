@@ -49,7 +49,7 @@ abstract class HtmlElement(var element: Element, val jsi: JSI) {
         } ?: newInstance(jsi)
     }
 
-    fun attr(attrName: String): String =  element.attr(attrName)
+    fun attr(attrName: String): String = element.attr(attrName)
 
     fun attr(attrName: String, value: Any?) {
         element.attr(attrName, value.toString())

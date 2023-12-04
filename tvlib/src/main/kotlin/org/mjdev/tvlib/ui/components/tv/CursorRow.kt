@@ -109,7 +109,7 @@ fun CursorRow(
             ) {
                 items(
                     count = cursor.count,
-                    key = { idx -> idx }
+                    key = { item -> item.hashCode() }
                 ) { idx ->
                     PhotoCard(
                         item = cursor.getData(idx),

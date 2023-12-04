@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import kotlinx.coroutines.launch
+import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -62,7 +63,8 @@ fun BrowseView(
     onItemFocused: (item: Any?) -> Unit = {},
     onItemClicked: (item: Any?) -> Unit = {},
     state: TvLazyListState = rememberTvLazyListState(),
-    isEdit: Boolean = isEditMode()
+    isEdit: Boolean = isEditMode(),
+    isDebug: Boolean = BuildConfig.DEBUG
 ) {
     val coroutineScope = rememberCoroutineScope()
     ScrollableTvLazyColumn(
@@ -99,6 +101,7 @@ fun BrowseView(
                 }
                 if (isEdit || showAppUpdateState) {
                     AppUpdateAvailableMessage(
+                        isDebug = isDebug,
                         githubUser = githubUser,
                         githubRepository = githubRepository,
                         title = R.string.title_app_update,
@@ -143,10 +146,14 @@ fun BrowseView(
                 }
             )
         }
-        items(customRows) { row -> row.invoke() }
-        items(categoriesAndItemsMap.map { entry ->
-            Pair(entry.key, entry.value)
-        }) { entry ->
+        items(
+            items = customRows,
+            key = { item -> item.hashCode() }
+        ) { row -> row.invoke() }
+        items(
+            items = categoriesAndItemsMap.map { entry -> Pair(entry.key, entry.value) },
+            key = { item -> item.hashCode() }
+        ) { entry ->
             CategoryRow(
                 title = (entry.first as? ItemWithTitle<*>)?.title ?: entry.first.toString(),
                 items = entry.second,

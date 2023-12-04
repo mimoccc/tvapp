@@ -32,7 +32,6 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 import org.mjdev.tvlib.ui.components.card.Card
 
 class PluginsPage : Page() {
-
     override val title: Int = R.string.title_plugins
     override val icon: ImageVector = Icons.Default.SettingsInputComponent
 
@@ -53,7 +52,7 @@ class PluginsPage : Page() {
                 aspectRatio = null,
                 colors = CardDefaults.colors(
                     containerColor = Color(0xff242424)
-                ),
+                )
             ) {
                 Row(
                     modifier = Modifier
@@ -84,5 +83,4 @@ class PluginsPage : Page() {
             }
         }
     }
-
 }

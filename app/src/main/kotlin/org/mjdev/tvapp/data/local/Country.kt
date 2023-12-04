@@ -34,4 +34,15 @@ class Country {
     @Json(name = "flag")
     var flag: String? = null
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Country) false else (other.hashCode() == hashCode())
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (code?.hashCode() ?: 0)
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (languages?.hashCode() ?: 0)
+        result = 31 * result + (flag?.hashCode() ?: 0)
+        return result
+    }
 }

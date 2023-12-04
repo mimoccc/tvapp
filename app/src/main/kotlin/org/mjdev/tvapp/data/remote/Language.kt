@@ -21,4 +21,13 @@ class Language {
     @Json(name = "name")
     var name : String? = null
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Language) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = code?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        return result
+    }
+
 }

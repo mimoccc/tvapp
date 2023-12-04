@@ -47,4 +47,14 @@ class Category() :
 
     override fun toString(): String = "Category[$title]"
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Category) false else (other.hashCode() == hashCode())
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (subtitle?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
+        return result
+    }
 }

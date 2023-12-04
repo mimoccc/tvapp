@@ -2,6 +2,7 @@ package org.mjdev.tvlib.webclient.html
 
 import org.mjdev.tvlib.webclient.javascript.JSI
 
+@Suppress("MemberVisibilityCanBePrivate")
 class HtmlPage(val url: String?, val html: String?, val jsi: JSI) {
     val documentElement get() = HtmlDocument(html, jsi)
 

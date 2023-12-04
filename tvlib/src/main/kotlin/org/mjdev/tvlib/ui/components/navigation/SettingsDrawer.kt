@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.tv.material3.DrawerState
+import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberDrawerState
@@ -23,7 +24,9 @@ import org.mjdev.tvlib.extensions.ComposeExt.rememberDrawerState
 @Composable
 fun SettingsDrawer(
     modifier: Modifier = Modifier,
-    drawerState: DrawerState = rememberDrawerState(),
+    drawerState: DrawerState = rememberDrawerState(
+        initialValue = DrawerValue.Closed
+    ),
     onTouchOutside: () -> Unit = {},
     content: @Composable () -> Unit = {
         Box(modifier = Modifier.fillMaxSize())

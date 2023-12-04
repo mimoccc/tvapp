@@ -60,4 +60,24 @@ class User {
     @Json(name = "emailVerified", ignore = true)
     var emailVerified : Boolean = false
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is User) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (sub?.hashCode() ?: 0)
+        result = 31 * result + (givenName?.hashCode() ?: 0)
+        result = 31 * result + (familyName?.hashCode() ?: 0)
+        result = 31 * result + (nickname?.hashCode() ?: 0)
+        result = 31 * result + (fullName?.hashCode() ?: 0)
+        result = 31 * result + (pictureUrl?.hashCode() ?: 0)
+        result = 31 * result + (locale?.hashCode() ?: 0)
+        result = 31 * result + (lastUpdated?.hashCode() ?: 0)
+        result = 31 * result + pinCode.hashCode()
+        result = 31 * result + settingsJson.hashCode()
+        result = 31 * result + age
+        result = 31 * result + (email?.hashCode() ?: 0)
+        result = 31 * result + emailVerified.hashCode()
+        return result
+    }
 }

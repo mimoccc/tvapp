@@ -533,6 +533,11 @@ interface IMediaPlayer : Player {
             }
 
             override fun setDeviceMuted(muted: Boolean, flags: Int) {}
+            override fun setAudioAttributes(
+                audioAttributes: AudioAttributes,
+                handleAudioFocus: Boolean
+            ) {
+            }
 
         }
 

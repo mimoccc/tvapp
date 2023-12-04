@@ -8,22 +8,15 @@ import android.view.KeyEvent
 import android.webkit.*
 import org.mjdev.tvlib.webclient.html.HtmlPage
 import org.mjdev.tvlib.webclient.javascript.JSI
-import org.mjdev.tvlib.webclient.javascript.JSIListener
 import org.mjdev.tvlib.webclient.cache.WebViewCacheInterceptorInst
 import timber.log.Timber
 
 open class CustomWebViewClient(
     private val webView: WebClient,
-//    var adBlock: AdBlock? = null
-) : WebViewClient(), JSIListener {
-
-    val jsi by lazy {
-        JSI(webView, this)
-    }
-
-    val loadedResources by lazy {
-        ArrayList<String>()
-    }
+    private val onGotHtml: (htmlPage: HtmlPage, loadedResources: List<String>) -> Unit,
+) : WebViewClient() {
+    val loadedResources = mutableListOf<String>()
+    val jsi: JSI by lazy { JSI(webView, onGotHtml) }
 
     @Synchronized
     override fun shouldInterceptRequest(
@@ -31,10 +24,6 @@ open class CustomWebViewClient(
         request: WebResourceRequest?
     ): WebResourceResponse? {
         val uri = request?.url?.toString()
-//        if (adBlock?.isBlocked(uri) == true) {
-//            Timber.d("Blocked url: ${request?.url}")
-//            return null
-//        } else {
         uri?.let {
             if (!loadedResources.contains(it)) {
                 loadedResources.add(it)
@@ -42,7 +31,6 @@ open class CustomWebViewClient(
         }
         Timber.d("Loading url: $uri")
         return WebViewCacheInterceptorInst.instance?.interceptRequest(request)
-//        }
     }
 
     @Synchronized
@@ -143,9 +131,6 @@ open class CustomWebViewClient(
         if (!url.contentEquals("about:blank")) {
             jsi.getHtml()
         }
-    }
-
-    override fun onGotHtml(htmlPage: HtmlPage, loadedResources: List<String>) {
     }
 
 }

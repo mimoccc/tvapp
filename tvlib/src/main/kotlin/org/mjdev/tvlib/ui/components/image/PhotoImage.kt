@@ -71,56 +71,58 @@ fun PhotoImage(
     onImageStateChanged: (state: GlideImageState) -> Unit = {}
 ) {
     val isEdit = isEditMode()
-    GlideImage(
-        imageModel = {
-            src
-        },
-        modifier = modifier
-            .defaultMinSize(80.dp)
-            .recomposeHighlighter()
-            .conditional(isEdit) {
-                aspectRatio(16f / 9f)
-            }
-            .border(
-                BorderStroke(borderSize, borderColor),
-                shape
+    if (src == null) {
+        placeholder()
+    } else {
+        GlideImage(
+            imageModel = {                src            },
+            modifier = modifier
+                .defaultMinSize(80.dp)
+                .recomposeHighlighter()
+                .conditional(isEdit) {
+                    aspectRatio(16f / 9f)
+                }
+                .border(
+                    BorderStroke(borderSize, borderColor),
+                    shape
+                ),
+            imageOptions = ImageOptions(
+                contentScale = contentScale,
+                alignment = alignment,
+                contentDescription = contentDescription,
+                alpha = alpha,
+                colorFilter = colorFilter,
             ),
-        imageOptions = ImageOptions(
-            contentScale = contentScale,
-            alignment = alignment,
-            contentDescription = contentDescription,
-            alpha = alpha,
-            colorFilter = colorFilter,
-        ),
-        failure = { failure ->
-            Timber.e(failure.reason)
-            placeholder()
-        },
-        onImageStateChanged = { state ->
-            onImageStateChanged.invoke(state)
-        },
-        success = { state, _ ->
-            val bitmap = state.imageBitmap?.asAndroidBitmap()
-            Box(
-                modifier = modifier
-                    .recomposeHighlighter()
-                    .background(bitmap.majorColor(backgroundColor), shape),
-            ) {
-                ImageAny(
-                    src = bitmap
-                        ?.toDrawable()
-                        ?.asPhoto(),
-                    modifier = modifier.recomposeHighlighter(),
-                    alignment = alignment,
-                    contentScale = contentScale,
-                    alpha = alpha,
-                    colorFilter = contrastAndBrightness(
-                        contrast,
-                        brightness
-                    ),
-                    contentDescription = contentDescription,
-                )
-            }
-        }
-    )
+            onImageStateChanged = { state ->
+                onImageStateChanged.invoke(state)
+            },
+            success = { state, _ ->
+                val bitmap = state.imageBitmap?.asAndroidBitmap()
+                Box(
+                    modifier = modifier
+                        .recomposeHighlighter()
+                        .background(bitmap.majorColor(backgroundColor), shape),
+                ) {
+                    ImageAny(
+                        src = bitmap
+                            ?.toDrawable()
+                            ?.asPhoto(),
+                        modifier = modifier.recomposeHighlighter(),
+                        alignment = alignment,
+                        contentScale = contentScale,
+                        alpha = alpha,
+                        colorFilter = contrastAndBrightness(
+                            contrast,
+                            brightness
+                        ),
+                        contentDescription = contentDescription,
+                    )
+                }
+            },
+            failure = { failure ->
+                Timber.e(failure.reason)
+                placeholder()
+            },
+        )
+    }
 }

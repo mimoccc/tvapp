@@ -7,7 +7,6 @@
  */
 
 @file:Suppress("unused")
-
 package org.mjdev.tvlib.extensions
 
 import android.annotation.SuppressLint
@@ -50,6 +49,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
+import org.mjdev.tvlib.extensions.ContextExt.isTV
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.helpers.media.ItemType
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -72,6 +72,9 @@ object ComposeExt {
     fun isPortraitMode(): Boolean = with(LocalConfiguration.current) {
         (orientation == Configuration.ORIENTATION_PORTRAIT) || (screenHeightDp > screenWidthDp)
     }
+
+    @Composable
+    fun isTV(): Boolean = LocalContext.current.isTV
 
     // todo more types
     @Composable

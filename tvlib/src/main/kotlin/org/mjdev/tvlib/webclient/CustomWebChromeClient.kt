@@ -10,12 +10,11 @@ import timber.log.Timber
 
 @SuppressLint("SetJavaScriptEnabled")
 @Suppress("Deprecation")
-class CustomWebChromeClient(private val webView: WebClient) : WebChromeClient() {
+class CustomWebChromeClient(
+    private val webView: WebClient
+) : WebChromeClient() {
+
     private val settings: WebSettings get() = webView.settings
-    var icon: Bitmap? = null
-        internal set
-    var title: String? = null
-        internal set
 
     init {
         settings.apply {
@@ -126,11 +125,9 @@ class CustomWebChromeClient(private val webView: WebClient) : WebChromeClient() 
     }
 
     override fun onReceivedIcon(view: WebView?, icon: Bitmap?) {
-        this.icon = icon
     }
 
     override fun onReceivedTitle(view: WebView?, title: String?) {
-        this.title = title
     }
 
     override fun onReceivedTouchIconUrl(
@@ -151,8 +148,13 @@ class CustomWebChromeClient(private val webView: WebClient) : WebChromeClient() 
         return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
     }
 
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "Timber.e(\"\$sourceID \$lineNumber : \$message\")",
+        "timber.log.Timber"
+    )
+    )
     override fun onConsoleMessage(message: String?, lineNumber: Int, sourceID: String?) {
+        Timber.e("$sourceID $lineNumber : $message")
     }
 
     @Deprecated("Deprecated in Java")
@@ -165,20 +167,6 @@ class CustomWebChromeClient(private val webView: WebClient) : WebChromeClient() 
         quotaUpdater: WebStorage.QuotaUpdater?
     ) {
     }
-
-    @Deprecated("Deprecated in Java",
-        ReplaceWith("super.onJsTimeout()", "android.webkit.WebChromeClient")
-    )
-    override fun onJsTimeout(): Boolean {
-        return super.onJsTimeout()
-    }
-
-//    override fun onReachedMaxAppCacheSize(
-//        requiredStorage: Long,
-//        quota: Long,
-//        quotaUpdater: WebStorage.QuotaUpdater?
-//    ) {
-//    }
 
     @Deprecated("Deprecated in Java")
     override fun onShowCustomView(

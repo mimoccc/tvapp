@@ -1,6 +1,14 @@
+/*
+ *  Copyright (c) Milan Jurkulák 2023.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
+ */
+
 @file:Suppress("unused")
 
-package org.mjdev.tvlib.webclient.adblock
+package org.mjdev.tvlib.adblock
 
 import android.net.Uri
 import org.mjdev.tvlib.webclient.cache.MimeTypeMapUtils
@@ -71,7 +79,6 @@ class AdBlock(inputStream: InputStream) {
         fun adBlock(
             fileWithData: File = File("file:///android_asset/adblock.txt")
         ) = AdBlock(fileWithData.inputStream())
-
 
         val instance by lazy { adBlock() }
 

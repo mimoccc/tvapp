@@ -98,31 +98,29 @@ android {
 }
 
 dependencies {
-    // todo remove
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20-RC")
     // startups
     implementation("androidx.startup:startup-runtime:1.1.1")
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    // reflect / debug purposes only
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
+    // reflect / todo : remove
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.21")
     // window manager
-    implementation("androidx.window:window:1.1.0")
+    implementation("androidx.window:window:1.2.0")
     // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.10.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.activity:activity-compose:1.8.1")
     // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
     implementation("androidx.tv:tv-material:1.0.0-alpha10")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
     // okhttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
     implementation("com.squareup.okhttp3:okhttp")
@@ -139,17 +137,12 @@ dependencies {
     // sandwich
     implementation("com.github.skydoves:sandwich:1.3.9")
     // image loading
-//    implementation("io.coil-kt:coil-base:2.4.0")
-//    implementation("io.coil-kt:coil-gif:2.4.0")
-//    implementation("io.coil-kt:coil-svg:2.4.0")
-//    implementation("io.coil-kt:coil-video:2.4.0")
-//    implementation("io.coil-kt:coil-compose:2.4.0")
-//    implementation("com.github.skydoves:landscapist-coil:2.2.10")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
-    implementation("com.github.skydoves:landscapist-glide:2.2.10")
-    implementation("com.github.skydoves:landscapist-transformation:2.2.10")
-    implementation("com.github.skydoves:landscapist-palette:2.2.10")
-    implementation("com.github.skydoves:landscapist-placeholder:2.2.10")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("com.github.skydoves:landscapist-glide:2.2.12")
+    implementation("com.github.skydoves:landscapist-transformation:2.2.12")
+    implementation("com.github.skydoves:landscapist-palette:2.2.12")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.12")
     // zxing
     implementation("com.google.zxing:core:3.5.2")
     // svg
@@ -157,39 +150,39 @@ dependencies {
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
-    implementation("com.google.dagger:dagger:2.48.1")
+    implementation("com.google.dagger:dagger:2.49")
     implementation("androidx.compose.material3:material3:1.1.2")
-    kapt("com.google.dagger:dagger-compiler:2.48.1")
+    kapt("com.google.dagger:dagger-compiler:2.49")
     // dagger android
-    implementation("com.google.dagger:dagger-android:2.48.1")
-    implementation("com.google.dagger:dagger-android-support:2.48.1")
-    kapt("com.google.dagger:dagger-android-processor:2.48.1")
+    implementation("com.google.dagger:dagger-android:2.49")
+    implementation("com.google.dagger:dagger-android-support:2.49")
+    kapt("com.google.dagger:dagger-android-processor:2.49")
     // dagger - hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
-    kapt("com.google.dagger:hilt-compiler:2.48.1")
+    implementation("com.google.dagger:hilt-android:2.49")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    kapt("com.google.dagger:hilt-compiler:2.49")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-rtsp:1.1.1")
+    implementation("androidx.media3:media3-exoplayer:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.2.0")
 //    implementation("androidx.media3:media3-exoplayer-ima:1.1.0")
-    implementation("androidx.media3:media3-datasource-cronet:1.1.1")
-    implementation("androidx.media3:media3-datasource-okhttp:1.1.1")
-    implementation("androidx.media3:media3-datasource-rtmp:1.1.1")
-    implementation("androidx.media3:media3-ui:1.1.1")
+    implementation("androidx.media3:media3-datasource-cronet:1.2.0")
+    implementation("androidx.media3:media3-datasource-okhttp:1.2.0")
+    implementation("androidx.media3:media3-datasource-rtmp:1.2.0")
+    implementation("androidx.media3:media3-ui:1.2.0")
 //    implementation("androidx.media3:media3-ui-leanback:1.1.0")
-    implementation("androidx.media3:media3-session:1.1.1")
-    implementation("androidx.media3:media3-extractor:1.1.1")
-    implementation("androidx.media3:media3-cast:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-workmanager:1.1.1")
-    implementation("androidx.media3:media3-transformer:1.1.1")
-    implementation("androidx.media3:media3-database:1.1.1")
-    implementation("androidx.media3:media3-decoder:1.1.1")
-    implementation("androidx.media3:media3-datasource:1.1.1")
-    implementation("androidx.media3:media3-common:1.1.1")
+    implementation("androidx.media3:media3-session:1.2.0")
+    implementation("androidx.media3:media3-extractor:1.2.0")
+    implementation("androidx.media3:media3-cast:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-workmanager:1.2.0")
+    implementation("androidx.media3:media3-transformer:1.2.0")
+    implementation("androidx.media3:media3-database:1.2.0")
+    implementation("androidx.media3:media3-decoder:1.2.0")
+    implementation("androidx.media3:media3-datasource:1.2.0")
+    implementation("androidx.media3:media3-common:1.2.0")
     // permission
     implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     // for previews
@@ -197,21 +190,26 @@ dependencies {
     // pallette
     implementation("androidx.palette:palette-ktx:1.0.0")
     // lottie
-    implementation("com.airbnb.android:lottie-compose:6.1.0")
+    implementation("com.airbnb.android:lottie-compose:6.2.0")
     // exif info
     implementation("androidx.exifinterface:exifinterface:1.3.6")
     // anr
     implementation("com.github.anrwatchdog:anrwatchdog:1.4.0")
     // jsoup
-    implementation("org.jsoup:jsoup:1.16.1")
+    implementation("org.jsoup:jsoup:1.17.1")
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
     // dynamic theme
     implementation("com.google.android.material:material:1.10.0")
     // stripe payments
-    implementation("com.stripe:stripe-android:20.32.1")
-    implementation("com.stripe:stripecardscan:20.32.1")
-    implementation("com.stripe:financial-connections:20.32.1")
+//    implementation("com.stripe:stripe-android:20.33.0")
+//    implementation("com.stripe:stripecardscan:20.33.0")
+//    implementation("com.stripe:financial-connections:20.33.0")
+    // scrape
+    implementation("it.skrape:skrapeit:1.2.2")
+    implementation("it.skrape:skrapeit-browser-fetcher:1.2.2")
+//    implementation("org.jsoup:jsoup:1.16.1")
+//    implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0")
     // yt
     // ...
     // constraints

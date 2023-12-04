@@ -1,54 +1,40 @@
 package org.mjdev.tvlib.webclient
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.ViewGroup
 import android.webkit.*
 import org.mjdev.tvlib.webclient.html.HtmlPage
 import org.mjdev.tvlib.webclient.javascript.JSI
 
-@Suppress("unused")
+@SuppressLint("ViewConstructor")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class WebClient constructor(
     context: Context,
+    val block: (page: HtmlPage?, resources: List<String>) -> Unit
 ) : WebView(context) {
-
-    val js: JSI get() = webViewClient.jsi
-
-    val webViewClient: CustomWebViewClient by lazy {
-        object : CustomWebViewClient(this) {
-            override fun onGotHtml(htmlPage: HtmlPage, loadedResources: List<String>) {
-                this@WebClient.htmlPage = htmlPage
-                if (htmlPage.url != "about:blank") {
-                    listener?.invoke(
-                        this@WebClient,
-                        htmlPage,
-                        loadedResources
-                    )
-                }
-            }
-        }
-    }
-
-    private val webChromeClient: CustomWebChromeClient by lazy {
+    val webChromeClient: CustomWebChromeClient by lazy {
         CustomWebChromeClient(this)
     }
-
-    val pageIcon: Bitmap? get() = webChromeClient.icon
-
-    val pageTitle: String? get() = webChromeClient.title
-
-    var htmlPage: HtmlPage? = null
-        internal set
-
-    var listener: (WebClient.(page: HtmlPage?, resources: List<String>) -> Unit)? = null
+    val webViewClient: CustomWebViewClient by lazy {
+        CustomWebViewClient(this) { page, res ->
+            onGotHtml(page, res)
+        }
+    }
+    val js: JSI get() = webViewClient.jsi
 
     init {
         setWebChromeClient(webChromeClient)
         setWebViewClient(webViewClient)
     }
 
-    fun getPage(url: String, block: WebClient.(page: HtmlPage?, resources: List<String>) -> Unit) {
-        this.listener = block
+    fun onGotHtml(htmlPage: HtmlPage, loadedResources: List<String>) {
+        if (htmlPage.url != "about:blank") {
+            block(htmlPage, loadedResources)
+        }
+    }
+
+    fun getPage(url: String) {
         loadUrl(url)
     }
 
@@ -56,10 +42,17 @@ class WebClient constructor(
         loadUrl("about:blank")
     }
 
-    fun attachTo(viewGroup: ViewGroup?, layoutParams: ViewGroup.LayoutParams): WebClient {
-        (parent as ViewGroup?)?.removeView(this)
+    fun attachViewTo(
+        viewGroup: ViewGroup?,
+        layoutParams: ViewGroup.LayoutParams
+    ): WebClient {
+        detachView()
         viewGroup?.addView(this, layoutParams)
         return this
+    }
+
+    fun detachView() {
+        (parent as ViewGroup?)?.removeView(this)
     }
 
     companion object {

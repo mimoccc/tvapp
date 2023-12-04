@@ -12,6 +12,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import org.mjdev.tvlib.extensions.CursorExt.asMap
+import org.mjdev.tvlib.helpers.apps.App
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemWithDate
 import org.mjdev.tvlib.interfaces.ItemWithDescription
@@ -58,17 +59,19 @@ class AudioItem() :
 //        }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (other == null || other !is AudioItem) return false
-        return uri == other.uri
-    }
+    override fun equals(other: Any?): Boolean =
+        if (other !is AudioItem) false else other.hashCode() == hashCode()
 
     override fun hashCode(): Int {
-        return uri?.hashCode() ?: 0
+        var result = title?.hashCode() ?: 0
+        result = 31 * result + (uri?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
+        result = 31 * result + (date?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        return result
     }
 
     companion object {
-
         const val SORT_ORDER_DATE_DESC: String = MediaStore.Audio.Media.DATE_ADDED + " DESC"
         const val SORT_ORDER_DATE_ASC: String = MediaStore.Audio.Media.DATE_ADDED + " ASC"
 
@@ -79,7 +82,5 @@ class AudioItem() :
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.DATA,
         )
-
     }
-
 }

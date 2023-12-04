@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -43,38 +42,32 @@ class AppUpdater(
     private val githubUser: String = "mimoccc",
     private val githubRepository: String = "tvapp",
     private val repoName: String = AppUpdater::class.simpleName ?: "AppUpdater",
-    private val keyName: String = repoName
+    private val keyName: String = repoName,
+    private val isDebug: Boolean = BuildConfig.DEBUG,
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO),
 ) {
-
-    private val service by lazy {
-        updateService(githubUser, githubRepository)
-    }
-
     private val prefs by lazy {
         context.getSharedPreferences(repoName, MODE_PRIVATE)
     }
 
     private val releases: Flow<List<Release>> = flow {
+        val service = updateService(isDebug, githubUser, githubRepository)
         emit(service.releases().getOrNull() ?: emptyList())
-    }.flowOn(Dispatchers.IO)
+    }
 
-    private val lastRelease: Flow<Release?> =
-        releases.map {
-            it.filter { r ->
-                r.hasAPK
-            }.minByOrNull { r ->
-                r.publishedAt
-            }
+    private val lastRelease: Flow<Release?> = releases.map {
+        it.filter { r ->
+            r.hasAPK
+        }.minByOrNull { r ->
+            r.publishedAt
         }
+    }
 
     private val serverTimestamp: Flow<Long> =
-        lastRelease.map { r ->
-            r?.publishedAt?.asTimestamp ?: 0L
-        }
+        lastRelease.map { r -> r?.publishedAt?.asTimestamp ?: 0L }
 
-    private val installedTimestamp: Flow<Long> = serverTimestamp.map { st ->
-        prefs.getLong(keyName, st)
-    }
+    private val installedTimestamp: Flow<Long> =
+        serverTimestamp.map { st -> prefs.getLong(keyName, st) }
 
     val isUpdateAvailable: Flow<Boolean> = serverTimestamp.map { st ->
         val lt = installedTimestamp.firstOrNull() ?: 0L
@@ -85,18 +78,16 @@ class AppUpdater(
     }
 
     @MainThread
-    fun updateApp() {
-        CoroutineScope(Dispatchers.IO).launch {
-            releases.collectLatest { rs ->
-                rs.filter { r ->
-                    r.hasAPK
-                }.maxByOrNull { r ->
-                    r.publishedAt.asTimestamp
-                }?.let { release ->
-                    release.apkAsset?.downloadUrl
-                }?.also { url ->
-                    downloadFile(url)
-                }
+    fun updateApp() = coroutineScope.launch {
+        releases.collectLatest { rs ->
+            rs.filter { r ->
+                r.hasAPK
+            }.maxByOrNull { r ->
+                r.publishedAt.asTimestamp
+            }?.let { release ->
+                release.apkAsset?.downloadUrl
+            }?.also { url ->
+                downloadFile(url)
             }
         }
     }
@@ -117,11 +108,12 @@ class AppUpdater(
         }
 
         private fun okHttpClient(
+            isDebug: Boolean = false,
             cacheInterceptor: CacheInterceptor = CacheInterceptor(),
             httpLoggingInterceptor: HttpLoggingInterceptor = httpLoggingInterceptor(),
         ): OkHttpClient = OkHttpClient.Builder().apply {
             addNetworkInterceptor(cacheInterceptor)
-            if (BuildConfig.DEBUG) {
+            if (isDebug) {
                 addInterceptor(httpLoggingInterceptor)
             }
         }.build()
@@ -138,29 +130,33 @@ class AppUpdater(
             .build()
 
         fun updateService(
+            isDebug: Boolean = false,
             githubUser: String = "mimoccc",
             githubRepository: String = "tvapp",
             baseUrl: String = "https://api.github.com/repos/$githubUser/$githubRepository/",
-            retrofit: Retrofit = retrofit(okHttpClient(), baseUrl)
+            retrofit: Retrofit = retrofit(okHttpClient(isDebug = isDebug), baseUrl)
         ): AppUpdateService = retrofit.create(AppUpdateService::class.java)
 
         @Composable
         fun rememberAppUpdater(
             githubUser: String = "mimoccc",
             githubRepository: String = "tvapp",
-        ): AppUpdater {
-            val context = LocalContext.current
-            return remember(context) {
-                AppUpdater(context, githubUser, githubRepository)
+            isDebug: Boolean = BuildConfig.DEBUG
+        ): AppUpdater = LocalContext.current.let { context ->
+            remember(context) {
+                AppUpdater(
+                    context = context,
+                    githubUser = githubUser,
+                    githubRepository = githubRepository,
+                    isDebug = isDebug
+                )
             }
         }
 
         private val String.asTimestamp: Long
             get() = runCatching {
-                SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss'Z'",
-                    Locale.US
-                ).parse(this)?.time ?: 0L
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+                    .parse(this)?.time ?: 0L
             }.getOrDefault(0L)
     }
 

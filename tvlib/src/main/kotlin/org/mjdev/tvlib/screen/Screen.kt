@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddToQueue
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,8 +40,10 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.onlyPortrait
 import org.mjdev.tvlib.navigation.MenuItem
 
-@Suppress("unused", "LeakingThis")
+@Suppress("unused", "LeakingThis", "PrivatePropertyName")
 open class Screen {
+
+    private val TAG = this::class.simpleName.toString()
 
     open val route: String get() = (this::class.simpleName ?: "none")
 
@@ -49,7 +53,8 @@ open class Screen {
 
     open val menuTitle: Any? = null
 
-    open val menuIcon: ImageVector? = null
+    open val menuIcon: ImageVector? = Icons.Filled.AddToQueue
+
 
     open val backgroundColor: Color = Color.DarkGray
 
@@ -98,7 +103,7 @@ open class Screen {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Empty Screen",
+                text = (title ?: TAG).toString(),
                 fontSize = 64.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White

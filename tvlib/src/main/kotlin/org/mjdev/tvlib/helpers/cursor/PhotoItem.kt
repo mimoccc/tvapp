@@ -61,17 +61,20 @@ class PhotoItem() :
 //        }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (other == null || other !is PhotoItem) return false
-        return uri == other.uri
-    }
+    override fun equals(other: Any?): Boolean =
+        if (other !is PhotoItem) false else other.hashCode() == hashCode()
 
     override fun hashCode(): Int {
-        return uri?.hashCode() ?: 0
+        var result = title?.hashCode() ?: 0
+        result = 31 * result + (uri?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
+        result = 31 * result + (background?.hashCode() ?: 0)
+        result = 31 * result + (date?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        return result
     }
 
     companion object {
-
         const val SORT_ORDER_DATE_DESC: String = MediaStore.Images.Media.DATE_ADDED + " DESC"
         const val SORT_ORDER_DATE_ASC: String = MediaStore.Images.Media.DATE_ADDED + " ASC"
 
@@ -82,7 +85,5 @@ class PhotoItem() :
             MediaStore.Images.Media.TITLE,
             MediaStore.Images.Media.DATA,
         )
-
     }
-
 }

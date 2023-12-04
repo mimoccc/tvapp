@@ -615,4 +615,8 @@ class NativePlayerImpl(
         TODO("Not yet implemented")
     }
 
+    override fun setAudioAttributes(audioAttributes: AudioAttributes, handleAudioFocus: Boolean) {
+        TODO("Not yet implemented")
+    }
+
 }

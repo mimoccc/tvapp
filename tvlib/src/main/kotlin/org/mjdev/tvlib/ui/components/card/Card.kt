@@ -6,6 +6,8 @@
  *  w: https://mjdev.org
  */
 
+@file:Suppress("PreviewShouldNotBeCalledRecursively")
+
 package org.mjdev.tvlib.ui.components.card
 
 import android.annotation.SuppressLint
@@ -61,26 +63,28 @@ fun Card(
     aspectRatio: Float? = 16f / 9f,
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(),
     content: @Composable ColumnScope.() -> Unit = {}
-) = androidx.tv.material3.Card(
-    onClick = onClick,
-    modifier = modifier
-        .recomposeHighlighter()
-        .widthIn(max = 320.dp)
-        .conditional(aspectRatio != null) {
-            tvAspectRatio(aspectRatio)
-        }
-        .clickable {
-            onClick()
-        },
-    onLongClick = onLongClick,
-    shape = shape,
-    colors = colors,
-    scale = scale,
-    border = border,
-    glow = glow,
-    interactionSource = interactionSource,
-    content = content
-)
+) {
+    androidx.tv.material3.Card(
+        onClick = onClick,
+        modifier = modifier
+            .recomposeHighlighter()
+            .widthIn(max = 320.dp)
+            .conditional(aspectRatio != null) {
+                tvAspectRatio(aspectRatio)
+            }
+            .clickable {
+                onClick()
+            },
+        onLongClick = onLongClick,
+        shape = shape,
+        colors = colors,
+        scale = scale,
+        border = border,
+        glow = glow,
+        interactionSource = interactionSource,
+        content = content
+    )
+}
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 val CardDefaults.NO_BORDER: CardBorder

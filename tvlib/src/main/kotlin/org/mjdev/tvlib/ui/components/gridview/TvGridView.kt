@@ -70,7 +70,10 @@ fun TvGridView(
             contentPadding = PaddingValues(16.dp),
             state = state,
         ) {
-            items(items) { item ->
+            items(
+                items = items,
+                key = { item -> item.hashCode() }
+            ) { item ->
                 contentOfItem(item)
             }
         }
@@ -84,7 +87,10 @@ fun TvGridView(
             contentPadding = PaddingValues(16.dp),
             state = state,
         ) {
-            items(items) { item ->
+            items(
+                items = items,
+                key = { item -> item.hashCode() }
+            ) { item ->
                 contentOfItem(item)
             }
         }

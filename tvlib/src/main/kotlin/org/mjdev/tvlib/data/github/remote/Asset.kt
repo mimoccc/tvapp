@@ -55,8 +55,28 @@ data class Asset(
 
     @Json(name = "browser_download_url")
     val downloadUrl: String = ""
-
 ) {
+
+    override fun equals(other: Any?): Boolean =
+        if (other !is Asset) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + nodeId.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + url.hashCode()
+        result = 31 * result + label.hashCode()
+        result = 31 * result + uploader.hashCode()
+        result = 31 * result + author.hashCode()
+        result = 31 * result + contentType.hashCode()
+        result = 31 * result + state.hashCode()
+        result = 31 * result + size.hashCode()
+        result = 31 * result + downloadCount.hashCode()
+        result = 31 * result + createdAt.hashCode()
+        result = 31 * result + updatedAt.hashCode()
+        result = 31 * result + downloadUrl.hashCode()
+        return result
+    }
 
     val isAPK : Boolean get() = contentType
         .contentEquals("application/vnd.android.package-archive")

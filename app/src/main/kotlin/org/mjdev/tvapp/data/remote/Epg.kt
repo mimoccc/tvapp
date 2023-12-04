@@ -33,4 +33,16 @@ class Epg {
     @Json(name = "url")
     val url: String? = null
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Epg) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (channel?.hashCode() ?: 0)
+        result = 31 * result + (site?.hashCode() ?: 0)
+        result = 31 * result + (lang?.hashCode() ?: 0)
+        result = 31 * result + (days ?: 0)
+        result = 31 * result + (url?.hashCode() ?: 0)
+        return result
+    }
 }

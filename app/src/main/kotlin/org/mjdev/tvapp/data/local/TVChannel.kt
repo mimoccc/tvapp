@@ -36,12 +36,13 @@ class TVChannel() :
     ItemWithDescription<String>,
     ItemVideo {
 
-    constructor(stream: Stream, channel: Channel?) : this() {
-
+    constructor(
+        stream: Stream,
+        channel: Channel?
+    ) : this() {
         this.streamUrl = stream.url
         this.httpReferrer = stream.httpReferrer ?: ""
         this.userAgent = stream.userAgent ?: ""
-
         this.channelId = channel?.id ?: ""
         this.name = channel?.name ?: ""
         this.altNames = channel?.altNames ?: emptyList()
@@ -59,7 +60,6 @@ class TVChannel() :
         this.replacedBy = channel?.replacedBy ?: ""
         this.subdivision = channel?.subdivision ?: ""
         this.website = channel?.website ?: ""
-
     }
 
     @Id
@@ -137,6 +137,39 @@ class TVChannel() :
     override val uri: String? get() = streamUrl
 
     override fun toString(): String = "Channel[$title : $uri]"
+
+    override fun equals(other: Any?): Boolean =
+        if (other !is TVChannel) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (channelId?.hashCode() ?: 0)
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (altNames?.hashCode() ?: 0)
+        result = 31 * result + (network?.hashCode() ?: 0)
+        result = 31 * result + (owners?.hashCode() ?: 0)
+        result = 31 * result + (country?.hashCode() ?: 0)
+        result = 31 * result + (subdivision?.hashCode() ?: 0)
+        result = 31 * result + (city?.hashCode() ?: 0)
+        result = 31 * result + (broadcastArea?.hashCode() ?: 0)
+        result = 31 * result + (languages?.hashCode() ?: 0)
+        result = 31 * result + (categories?.hashCode() ?: 0)
+        result = 31 * result + (isNsfw?.hashCode() ?: 0)
+        result = 31 * result + (launched?.hashCode() ?: 0)
+        result = 31 * result + (closed?.hashCode() ?: 0)
+        result = 31 * result + (replacedBy?.hashCode() ?: 0)
+        result = 31 * result + (website?.hashCode() ?: 0)
+        result = 31 * result + (logo?.hashCode() ?: 0)
+        result = 31 * result + (streamUrl?.hashCode() ?: 0)
+        result = 31 * result + (httpReferrer?.hashCode() ?: 0)
+        result = 31 * result + (userAgent?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
+        result = 31 * result + (subtitle?.hashCode() ?: 0)
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (uri?.hashCode() ?: 0)
+        return result
+    }
 
     companion object {
 

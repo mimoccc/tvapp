@@ -73,6 +73,7 @@ fun CarouselCard(
         focusState = focusState,
         contentScale = contentScale,
         scale = scale,
+        showTitle = false,
         imageRenderer = imageRenderer,
         titlePadding = titlePadding,
         onFocus = onFocus,

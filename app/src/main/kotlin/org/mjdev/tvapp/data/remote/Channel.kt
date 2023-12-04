@@ -66,4 +66,27 @@ class Channel {
     @Json(name = "logo")
     var logo: String? = null
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Channel) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (altNames?.hashCode() ?: 0)
+        result = 31 * result + (network?.hashCode() ?: 0)
+        result = 31 * result + (owners?.hashCode() ?: 0)
+        result = 31 * result + (country?.hashCode() ?: 0)
+        result = 31 * result + (subdivision?.hashCode() ?: 0)
+        result = 31 * result + (city?.hashCode() ?: 0)
+        result = 31 * result + (broadcastArea?.hashCode() ?: 0)
+        result = 31 * result + (languages?.hashCode() ?: 0)
+        result = 31 * result + (categories?.hashCode() ?: 0)
+        result = 31 * result + (isNsfw?.hashCode() ?: 0)
+        result = 31 * result + (launched?.hashCode() ?: 0)
+        result = 31 * result + (closed?.hashCode() ?: 0)
+        result = 31 * result + (replacedBy?.hashCode() ?: 0)
+        result = 31 * result + (website?.hashCode() ?: 0)
+        result = 31 * result + (logo?.hashCode() ?: 0)
+        return result
+    }
 }

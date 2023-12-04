@@ -19,9 +19,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
@@ -122,10 +119,10 @@ class ProvideModule {
         retrofit: Retrofit
     ): ApiService = retrofit.create(ApiService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideAppScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideAppScope(): CoroutineScope {
+//        return CoroutineScope(SupervisorJob() + Dispatchers.Main)
+//    }
 
 }

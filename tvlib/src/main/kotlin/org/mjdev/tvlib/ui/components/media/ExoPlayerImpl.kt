@@ -846,4 +846,8 @@ class ExoPlayerImpl(
         exoPlayer.setDeviceMuted(muted, flags)
     }
 
+    override fun setAudioAttributes(audioAttributes: AudioAttributes, handleAudioFocus: Boolean) {
+        exoPlayer.setAudioAttributes(audioAttributes, handleAudioFocus)
+    }
+
 }

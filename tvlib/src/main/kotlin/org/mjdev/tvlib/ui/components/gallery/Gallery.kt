@@ -103,6 +103,7 @@ fun Gallery(
     val imageSrc = rememberImageFromItem(itemState.value)
 
     BoxWithControls(
+        modifier = modifier,
         src = itemState.value,
         controlsState = controlsState,
         controls = { src, bckColor, state ->

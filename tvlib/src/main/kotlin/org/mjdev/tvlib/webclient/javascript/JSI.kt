@@ -3,15 +3,12 @@ package org.mjdev.tvlib.webclient.javascript
 import android.webkit.JavascriptInterface
 import org.mjdev.tvlib.webclient.WebClient
 import org.mjdev.tvlib.webclient.html.HtmlPage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@Suppress("SameParameterValue")
+@Suppress("SameParameterValue", "MemberVisibilityCanBePrivate")
 class JSI(
-    private val webView: WebClient,
-    val listener: JSIListener
+    val webView: WebClient,
+    val onGotHtml : (htmlPage: HtmlPage, loadedResources: List<String>) -> Unit
 ) {
     val name: String get() = JSI::class.simpleName!!.lowercase()
 
@@ -19,10 +16,14 @@ class JSI(
         webView.addJavascriptInterface(this, name)
     }
 
+    // ---------------------------------------------------------------------------------------------
+
     private fun callJavascript(s: String) {
         Timber.e("Calling javascript command: $s")
         webView.loadUrl("javascript:$s")
     }
+
+    // ---------------------------------------------------------------------------------------------
 
     private fun callJSI(fnc: String, vararg params: String?) = callJavascript(
         StringBuilder().apply {
@@ -33,6 +34,8 @@ class JSI(
             append(");")
         }.toString()
     )
+
+    // ---------------------------------------------------------------------------------------------
 
     fun getHtml() {
         callJSI(
@@ -45,15 +48,14 @@ class JSI(
 
     @JavascriptInterface
     fun onHtml(html: String?) {
-        CoroutineScope(Dispatchers.Main).launch {
-            listener.onGotHtml(
-                HtmlPage(
-                    webView.url,
-                    html,
-                    webView.webViewClient.jsi
-                ), webView.webViewClient.loadedResources
-            )
-        }
+        onGotHtml(
+            HtmlPage(
+                webView.url,
+                html,
+                webView.webViewClient.jsi
+            ),
+            webView.webViewClient.loadedResources
+        )
     }
 
 //    @JavascriptInterface

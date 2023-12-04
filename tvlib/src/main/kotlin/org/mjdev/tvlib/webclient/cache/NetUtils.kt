@@ -26,7 +26,7 @@ object NetUtils {
             val port = url.port
             ou = url.protocol + "://" + url.host + if (port == -1) "" else ":$port"
         } catch (e: Exception) {
-          Timber.e(e)
+            Timber.e(e)
         }
         return ou
     }

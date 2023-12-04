@@ -9,13 +9,21 @@
 package org.mjdev.tvlib.extensions
 
 import android.app.Activity
+import android.app.UiModeManager
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.res.Configuration
 import android.text.format.DateFormat
 import timber.log.Timber
 import java.util.Date
 
 object ContextExt {
+
+    val Context.isTV: Boolean
+        get() {
+            val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+            return uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
+        }
 
     val Context.timeAsString: String
         get() = DateFormat.getTimeFormat(this).format(Date())

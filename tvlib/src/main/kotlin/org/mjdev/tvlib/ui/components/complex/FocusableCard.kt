@@ -74,6 +74,7 @@ fun FocusableCard(
     colors: CardColors = CardDefaults.colors(),
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
+    showTitle: Boolean = true,
     imageRenderer: @Composable () -> Unit = {
         ImageAny(
             modifier = Modifier.fillMaxSize(),
@@ -97,76 +98,80 @@ fun FocusableCard(
     titlePadding: PaddingValues = PaddingValues(8.dp),
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
+    isEdit: Boolean = isEditMode(),
     onClick: (item: Any?) -> Unit = {},
+) = Box(
+    modifier = modifier
+        .recomposeHighlighter()
+        .size(
+            width = cardWidth,
+            height = cardWidth / aspectRatio
+        )
+        .focusState(focusState)
+        .onFocusChanged { state ->
+            onFocusChange(state)
+        }
+        .requestFocusOnTouch(focusRequester) {
+            if (focusState.isFocused) {
+                onClick(item)
+            }
+        }
+        .conditional(isEdit) {
+            defaultMinSize(80.dp)
+        }
 ) {
-    val isEdit = isEditMode()
     CompactCard(
         scale = scale,
         shape = shape,
         colors = colors,
         border = border,
         glow = glow,
-        modifier = modifier
-            .recomposeHighlighter()
-            .size(
-                width = cardWidth,
-                height = cardWidth / aspectRatio
-            )
-            .focusState(focusState)
-            .onFocusChanged { state ->
-                onFocusChange(state)
-            }
-            .requestFocusOnTouch(focusRequester) {
-                if (focusState.isFocused) {
-                    onClick(item)
-                }
-            }
-            .conditional(isEdit) {
-                defaultMinSize(80.dp)
-            },
-        image = {
-            imageRenderer()
-        },
+        modifier = Modifier.fillMaxSize(),
+        image = { imageRenderer() },
         title = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        if (focusState.isFocused)
-                            textBackgroundSelected
-                        else
-                            textBackgroundUnselected,
-                        RectangleShape
+            if (showTitle) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            if (focusState.isFocused)
+                                textBackgroundSelected
+                            else
+                                textBackgroundUnselected,
+                            RectangleShape
+                        )
+                ) {
+                    TextAny(
+                        modifier = Modifier.padding(titlePadding),
+                        maxLines = 1,
+                        color = textColor,
+                        style = MaterialTheme.typography.bodyMedium,
+                        text = if (isEdit) "title" else (item as? ItemWithTitle<*>)?.title
                     )
-            ) {
-                TextAny(
-                    modifier = Modifier.padding(titlePadding),
-                    maxLines = 1,
-                    color = textColor,
-                    style = MaterialTheme.typography.bodyMedium,
-                    text = if (isEdit) "title" else (item as? ItemWithTitle<*>)?.title
-                )
+                }
             }
         },
         subtitle = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        if (focusState.isFocused)
-                            textBackgroundSelected
-                        else
-                            textBackgroundUnselected,
-                        RectangleShape
+            if (showTitle) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            if (focusState.isFocused)
+                                textBackgroundSelected
+                            else
+                                textBackgroundUnselected,
+                            RectangleShape
+                        )
+                ) {
+                    AutoHideEmptyText(
+                        modifier = Modifier.padding(titlePadding),
+                        maxLines = 1,
+                        color = textColor,
+                        style = MaterialTheme.typography.bodySmall,
+                        text = if (isEdit) "subtitle" else (item as? ItemWithSubtitle<*>)?.subtitle
                     )
-            ) {
-                AutoHideEmptyText(
-                    modifier = Modifier.padding(titlePadding),
-                    maxLines = 1,
-                    color = textColor,
-                    style = MaterialTheme.typography.bodySmall,
-                    text = if (isEdit) "subtitle" else (item as? ItemWithSubtitle<*>)?.subtitle
-                )
+                }
             }
         },
         description = {
@@ -176,13 +181,4 @@ fun FocusableCard(
             onClick(item)
         },
     )
-//    LaunchedEffect(focused) {
-//        try {
-//            if (focused) {
-//                focusRequester.requestFocus()
-//            }
-//        } catch (e: Exception) {
-//            Timber.e(e)
-//        }
-//    }
 }

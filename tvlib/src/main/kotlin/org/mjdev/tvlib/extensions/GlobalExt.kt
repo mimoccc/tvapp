@@ -17,13 +17,33 @@ import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.toFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.URL
+import kotlin.coroutines.CoroutineContext
 
 @Suppress("unused")
 object GlobalExt {
+
+    val UI = Dispatchers.Main
+    val IO = Dispatchers.IO
+
+    fun launch(
+        context: CoroutineContext = IO,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> Unit
+    ) {
+        CoroutineScope(context).launch(
+            context = context,
+            start = start,
+            block = block
+        )
+    }
 
     fun <T> T.postDelayed(
         delay: Long,
@@ -77,5 +97,4 @@ object GlobalExt {
         } catch (e: MalformedURLException) {
             false
         }
-
 }

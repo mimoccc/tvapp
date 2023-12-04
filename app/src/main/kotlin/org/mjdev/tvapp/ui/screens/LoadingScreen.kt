@@ -43,12 +43,6 @@ class LoadingScreen : Screen() {
                 .background(Color.Black, RectangleShape),
             contentAlignment = Alignment.Center,
         ) {
-            TextAny(
-                text = stringResource(id = title),
-                color = Color.White,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
-            )
         }
     }
 

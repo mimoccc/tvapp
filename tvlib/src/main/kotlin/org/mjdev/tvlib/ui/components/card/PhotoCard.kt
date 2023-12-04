@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -33,6 +34,7 @@ import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
+import org.mjdev.tvlib.ui.components.image.ImageAny
 import org.mjdev.tvlib.ui.components.image.PhotoImage
 
 @SuppressLint("ModifierParameter")
@@ -54,6 +56,12 @@ fun PhotoCard(
     contrast: Float = 5f,
     @FloatRange(from = -255.0, to = 255.0)
     brightness: Float = -255f,
+    placeholder: @Composable () -> Unit = {
+        ImageAny(
+            modifier = modifier,
+            src = R.drawable.broken_image
+        )
+    },
     imageRenderer: @Composable () -> Unit = {
         PhotoImage(
             modifier = Modifier.fillMaxSize(),
@@ -61,14 +69,14 @@ fun PhotoCard(
             contentScale = contentScale,
             contrast = contrast,
             brightness = brightness,
+            placeholder = placeholder,
             borderColor = if (focusState.isFocused) Color.Green else Color.Black,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
         )
     },
+    showTitle: Boolean = true,
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
-    // todo not yet implemented
-    placeholder: @Composable () -> Unit = {},
     scale: CardScale = CardDefaults.scale(),
     titlePadding: PaddingValues = PaddingValues(8.dp),
     onFocus: (item: Any?) -> Unit = {},
@@ -89,5 +97,6 @@ fun PhotoCard(
         titlePadding = titlePadding,
         onFocus = onFocus,
         onClick = onClick,
+        showTitle = showTitle
     )
 }

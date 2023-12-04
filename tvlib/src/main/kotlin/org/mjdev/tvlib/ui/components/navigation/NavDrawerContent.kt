@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.derivedStateOf
@@ -22,8 +21,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
@@ -42,13 +39,13 @@ import org.mjdev.tvlib.navigation.NavHostControllerEx
 @Previews
 @Composable
 fun NavDrawerContent(
-    backgroundColor: Color = Color.DarkGray,
-    shape: Shape = RoundedCornerShape(
-        topStart = 0.dp,
-        topEnd = 16.dp,
-        bottomEnd = 16.dp,
-        bottomStart = 0.dp
-    ),
+//    backgroundColor: Color = Color.DarkGray,
+//    shape: Shape = RoundedCornerShape(
+//        topStart = 0.dp,
+//        topEnd = 16.dp,
+//        bottomEnd = 16.dp,
+//        bottomStart = 0.dp
+//    ),
     navController: NavHostControllerEx = rememberNavControllerEx(),
     onDrawerItemClick: (id: Int) -> Unit = { id ->
         navController.menuItem(id).let { menuItem ->

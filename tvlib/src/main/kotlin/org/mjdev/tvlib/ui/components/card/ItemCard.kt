@@ -69,6 +69,7 @@ fun ItemCard(
     ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
     titlePadding: PaddingValues = PaddingValues(8.dp),
+    showTitle:Boolean = true,
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
@@ -90,4 +91,5 @@ fun ItemCard(
     titlePadding = titlePadding,
     onFocus = onFocus,
     onClick = onClick,
+    showTitle = showTitle,
 )

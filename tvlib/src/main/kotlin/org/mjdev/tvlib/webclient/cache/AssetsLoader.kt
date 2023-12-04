@@ -11,7 +11,7 @@ import java.net.URL
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
-internal class AssetsLoader {
+class AssetsLoader {
 
     private var context: Context? = null
     private var assetResSet: CopyOnWriteArraySet<String>? = null
@@ -82,7 +82,9 @@ internal class AssetsLoader {
         if (!isSuffixMod)
             return this
         if ((assetResSet?.size ?: 0) == 0)
-            Thread { initResourceNoneRecursion(dir) }.start()
+            Thread {
+                initResourceNoneRecursion(dir)
+            }.start()
         return this
     }
 
@@ -106,7 +108,7 @@ internal class AssetsLoader {
     private fun initResourceNoneRecursion(dir: String): AssetsLoader {
         try {
             val list = LinkedList<String>()
-            val resData =context?.assets?.list(dir) ?: emptyArray()
+            val resData = context?.assets?.list(dir) ?: emptyArray()
             for (res in resData) {
                 val sub = dir + File.separator + res
                 val tmp = context?.assets?.list(sub) ?: emptyArray()

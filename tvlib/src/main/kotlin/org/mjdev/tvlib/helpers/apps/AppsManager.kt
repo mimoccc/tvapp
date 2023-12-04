@@ -88,4 +88,14 @@ data class App(
     override var title: String?,
     override var image: Drawable?,
     override var intent: Intent?,
-) : ItemWithTitle<String>, ItemWithImage<Drawable>, ItemWithIntent
+) : ItemWithTitle<String>, ItemWithImage<Drawable>, ItemWithIntent {
+    override fun equals(other: Any?): Boolean =
+        if (other !is App) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = title?.hashCode() ?: 0
+        result = 31 * result + (image?.hashCode() ?: 0)
+        result = 31 * result + (intent?.hashCode() ?: 0)
+        return result
+    }
+}

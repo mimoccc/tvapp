@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.tvlib.webclient.adblock
+package org.mjdev.tvlib.adblock
 
 import android.text.TextUtils
 import okhttp3.Interceptor

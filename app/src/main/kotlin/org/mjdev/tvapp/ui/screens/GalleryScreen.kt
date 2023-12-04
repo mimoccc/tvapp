@@ -28,7 +28,7 @@ import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.gallery.Gallery
 
-class DetailScreen : Screen() {
+class GalleryScreen : Screen() {
 
     private val data = "data"
 

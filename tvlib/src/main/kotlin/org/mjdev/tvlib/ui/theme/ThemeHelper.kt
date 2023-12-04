@@ -44,12 +44,13 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.darkColorScheme
 import androidx.tv.material3.lightColorScheme
+import org.mjdev.tvlib.extensions.ComposeExt.isTV
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun ThemeHelper(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColors: Boolean = true,
+    useDarkTheme: Boolean = isSystemInDarkTheme() || isTV(),
+    dynamicColors: Boolean = !isTV(),
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current

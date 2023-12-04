@@ -36,4 +36,15 @@ class Message : ItemWithTitle<String>, ItemWithMessage<String>, ItemWithId {
     @Json(name = "deleted")
     val deleted: Boolean = false
 
+    override fun equals(other: Any?): Boolean =
+        if (other !is Message) false else (other.hashCode() == hashCode())
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (message?.hashCode() ?: 0)
+        result = 31 * result + read.hashCode()
+        result = 31 * result + deleted.hashCode()
+        return result
+    }
 }

@@ -26,8 +26,8 @@ buildscript {
         classpath("com.android.tools:r8:8.1.56")
         classpath("io.objectbox:objectbox-gradle-plugin:3.6.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
-        classpath("com.android.tools.build:gradle:8.1.2")
-        classpath("com.android.tools.build:gradle-api:8.1.2")
+        classpath("com.android.tools.build:gradle:8.2.0")
+        classpath("com.android.tools.build:gradle-api:8.1.3")
 //        classpath("com.newrelic.agent.android:agent-gradle-plugin:5.9.0")
         classpath ("app.cash.paparazzi:paparazzi-gradle-plugin:1.3.1")
     }

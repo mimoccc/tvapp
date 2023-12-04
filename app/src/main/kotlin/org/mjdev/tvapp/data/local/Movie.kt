@@ -74,14 +74,11 @@ class Movie :
     override var image: String? = null
         get() = field ?: uri
 
-    override fun equals(other: Any?): Boolean {
-        if (other == null || other !is Movie) return false
-        return uri == other.uri
-    }
+    override fun equals(other: Any?): Boolean =
+        if (other !is Movie) false else other.hashCode() == hashCode()
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + (category?.hashCode() ?: 0)
         result = 31 * result + (studio?.hashCode() ?: 0)
         result = 31 * result + (country?.hashCode() ?: 0)
         result = 31 * result + isNsfw.hashCode()
@@ -89,7 +86,9 @@ class Movie :
         result = 31 * result + (description?.hashCode() ?: 0)
         result = 31 * result + (uri?.hashCode() ?: 0)
         result = 31 * result + (subtitle?.hashCode() ?: 0)
+        result = 31 * result + (category?.hashCode() ?: 0)
+        result = 31 * result + (background?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
         return result
     }
-
 }

@@ -5,44 +5,50 @@ import org.mjdev.tvlib.webclient.html.HtmlAnchor
 import org.mjdev.tvlib.webclient.html.HtmlPage
 import org.mjdev.tvlib.webclient.html.HtmlVideo
 import java.util.*
+import kotlin.collections.ArrayDeque
 
 @Suppress("unused")
 class WebScrapper(
-    val context: Context,
-    urls: List<String> = listOf("https://prehraj.to/hledej/filmy"),
-    private val block: (page: HtmlPage?, data: Any?) -> Unit
+    context: Context,
+    urls: List<String> = listOf(),
+    private val block: (page: HtmlPage?, videoURL: String?) -> Unit
 ) {
 
-    private val webClient: WebClient by lazy {
-        WebClient(context)
-    }
-
-    private val parsePages: Deque<String> = LinkedList()
-
-    init {
-        parsePages.addAll(urls)
-        parseNextPage()
-    }
-
-    private fun parseNextPage() {
-        if (parsePages.size > 0) {
-            parsePageFromUrl(parsePages.pop())
-        }
-    }
-
-    @Synchronized
-    fun parsePageFromUrl(pageUrl: String?) {
-        if (pageUrl != null) {
-            webClient.getPage(pageUrl) { page, _ ->
-                if (page != null) {
-                    parsePage(page, page.videos, page.anchors)
-                }
+    @Suppress("UNUSED_ANONYMOUS_PARAMETER")
+    private val webClient by lazy {
+        WebClient(context) { page: HtmlPage?, resources: List<String>? ->
+            if (page != null) {
+                parsePage(page, page.videos, page.anchors)
             }
         }
     }
 
-    @Synchronized
-    fun parsePage(page: HtmlPage, videos: List<HtmlVideo>, anchors: List<HtmlAnchor>) {
+    private val parsePages: ArrayDeque<String> = ArrayDeque<String>().apply {
+        addAll(urls)
+    }
+
+    @Throws(IllegalStateException::class)
+    fun start() {
+        if (parsePages.size > 0) {
+            parseNextPage()
+        } else {
+            throw (IllegalStateException("No url to parse"))
+        }
+    }
+
+    private fun parseNextPage() {
+        if (parsePages.size > 0) {
+            parsePageFromUrl(parsePages.removeFirst())
+        }
+    }
+
+    private fun parsePageFromUrl(pageUrl: String?) {
+        if (pageUrl != null) {
+            webClient.getPage(pageUrl)
+        }
+    }
+
+    private fun parsePage(page: HtmlPage, videos: List<HtmlVideo>, anchors: List<HtmlAnchor>) {
         anchors.map { anchor ->
             anchor.fullHref(page)
         }.forEach { href ->

@@ -47,9 +47,9 @@ fun MediaPlayerContainer(
                 .recomposeHighlighter()
         ) {
             state.player.GetPlayerView()
-            PlayerControlView(
-                state = state
-            )
+//            PlayerControlView(
+//                state = state
+//            )
         }
         DisposableEffect(Unit) {
             state.startPlay()

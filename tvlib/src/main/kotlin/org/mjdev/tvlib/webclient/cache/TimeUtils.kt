@@ -56,6 +56,7 @@ object TimeUtils {
         return null
     }
 
-    val currentTime: String @SuppressLint("SimpleDateFormat")
-    get() = SimpleDateFormat(DATE_FORMAT).format(Date())
+    val currentTime: String
+        @SuppressLint("SimpleDateFormat")
+        get() = SimpleDateFormat(DATE_FORMAT).format(Date())
 }

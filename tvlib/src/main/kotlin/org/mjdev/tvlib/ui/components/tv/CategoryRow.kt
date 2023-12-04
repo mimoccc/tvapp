@@ -92,7 +92,10 @@ fun CategoryRow(
             state = rowState,
             contentPadding = padding.value.dp,
         ) {
-            items(items) { item ->
+            items(
+                items = items,
+                key = { item -> item.hashCode() }
+            ) { item ->
                 contentOfItem(item)
             }
         }

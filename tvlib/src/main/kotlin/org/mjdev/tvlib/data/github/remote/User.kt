@@ -68,4 +68,29 @@ data class User(
     @Json(name = "site_admin")
     val siteAdmin: Boolean = false
 
-)
+) {
+    override fun equals(other: Any?): Boolean =
+        if (other !is User) false else other.hashCode() == hashCode()
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + nodeId.hashCode()
+        result = 31 * result + login.hashCode()
+        result = 31 * result + avatarUrl.hashCode()
+        result = 31 * result + gravatarId.hashCode()
+        result = 31 * result + url.hashCode()
+        result = 31 * result + htmlUrl.hashCode()
+        result = 31 * result + followersUrl.hashCode()
+        result = 31 * result + followingUrl.hashCode()
+        result = 31 * result + gistsUrl.hashCode()
+        result = 31 * result + starredUrl.hashCode()
+        result = 31 * result + subscriptionsUrl.hashCode()
+        result = 31 * result + organizationsUrl.hashCode()
+        result = 31 * result + reposUrl.hashCode()
+        result = 31 * result + eventsUrl.hashCode()
+        result = 31 * result + receivedEventsUrl.hashCode()
+        result = 31 * result + type.hashCode()
+        result = 31 * result + siteAdmin.hashCode()
+        return result
+    }
+}

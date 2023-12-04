@@ -12,7 +12,7 @@ import android.content.Intent
 import androidx.compose.runtime.Composable
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.data.local.Movie
-import org.mjdev.tvapp.ui.screens.DetailScreen
+import org.mjdev.tvapp.ui.screens.GalleryScreen
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.ui.screens.IPTVScreen
@@ -40,7 +40,7 @@ class IPTVActivity : TvActivity() {
             isStartScreen = true,
         )
         screen(route = IPTVScreen())
-        screen(route = DetailScreen())
+        screen(route = GalleryScreen())
 
     }
 
@@ -52,8 +52,8 @@ class IPTVActivity : TvActivity() {
             is Movie -> navController.openAsTop<IPTVScreen>(data)
             is ItemAudio -> navController.openAsTop<IPTVScreen>(data)
             is ItemVideo -> navController.openAsTop<IPTVScreen>(data)
-            is ItemPhoto -> navController.openAsTop<DetailScreen>(data)
-            else -> navController.openAsTop<DetailScreen>(data)
+            is ItemPhoto -> navController.openAsTop<GalleryScreen>(data)
+            else -> navController.openAsTop<GalleryScreen>(data)
         }
     }
 

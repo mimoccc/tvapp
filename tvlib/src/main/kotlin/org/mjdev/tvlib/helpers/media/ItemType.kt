@@ -22,11 +22,9 @@ enum class ItemType {
     Photo;
 
     companion object {
-
         // todo more types
         operator fun invoke(item: Any?): ItemType {
-            return if (item == null) Undefined
-            else when (item) {
+            return if (item == null) Undefined else when (item) {
                 is ItemAudio -> Audio
                 is ItemVideo -> Video
                 is ItemPhoto -> Photo
@@ -36,10 +34,9 @@ enum class ItemType {
                     MediaMetadata.MEDIA_TYPE_ALBUM -> Photo
                     else -> Undefined
                 }
+
                 else -> Undefined
             }
         }
-
     }
-
 }

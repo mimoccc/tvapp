@@ -7,31 +7,30 @@ import android.content.Context
 import android.content.SyncResult
 import android.os.Bundle
 import io.objectbox.Box
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
 import org.mjdev.tvapp.repository.ApiService
+import org.mjdev.tvlib.extensions.GlobalExt.IO
+import org.mjdev.tvlib.extensions.GlobalExt.launch
 import org.mjdev.tvlib.extensions.GlobalExt.safeGet
 import org.mjdev.tvlib.interfaces.ItemWithUri.Companion.hasUri
 import timber.log.Timber
 
-@Suppress("unused", "PrivatePropertyName")
+@Suppress("unused")
 class SyncAdapter(
     context: Context,
     val apiService: ApiService,
     val dao: DAO
 ) : AbstractThreadedSyncAdapter(context, true, false) {
 
-    private val READ_COUNT = 8
-
-    private val coroutineScope by lazy {
-        CoroutineScope(Dispatchers.IO)
-    }
-
     private val movieDao: Box<Movie> get() = dao.movieDao
+
+    private val urls = listOf(
+        "https://prehraj.to/hledej/filmy",
+//        "https://meatyhunks.com",
+    )
+
 
     override fun onPerformSync(
         account: Account?,
@@ -39,36 +38,34 @@ class SyncAdapter(
         authority: String?,
         provider: ContentProviderClient?,
         syncResult: SyncResult?
-    ) {
+    ) = launch(IO) {
         try {
-            coroutineScope.launch {
 
-                val streams = apiService.streams().safeGet()
-                val channels = apiService.channels().safeGet()
+            val streams = apiService.streams().safeGet()
+            val channels = apiService.channels().safeGet()
 
-                val oldMovies = movieDao.all
-                val newMovies = mutableListOf<Movie>()
+            val oldMovies = movieDao.all
+            val newMovies = mutableListOf<Movie>()
 
-                streams.forEach { stream ->
-                    channels.firstOrNull { channel ->
-                        channel.id == stream.channelId
-                    }.also { channel ->
-                        (channel?.categories ?: listOf(null)).forEach { ctg ->
-                            newMovies.add(Movie().apply {
-                                title = channel?.name ?: stream.channelId
-                                uri = stream.url
-                                category = ctg
-                                image = channel?.logo
-                                country = channel?.country
-                                isNsfw = channel?.isNsfw ?: false
-                            })
-                        }
+            streams.forEach { stream ->
+                channels.firstOrNull { channel ->
+                    channel.id == stream.channelId
+                }.also { channel ->
+                    (channel?.categories ?: listOf(null)).forEach { ctg ->
+                        newMovies.add(Movie().apply {
+                            title = channel?.name ?: stream.channelId
+                            uri = stream.url
+                            category = ctg
+                            image = channel?.logo
+                            country = channel?.country
+                            isNsfw = channel?.isNsfw ?: false
+                        })
                     }
                 }
+            }
 
-                val syncItems = SyncItems(oldMovies, newMovies)
-
-                syncItems.toAdd.forEach { movie ->
+            with(SyncItems(oldMovies, newMovies) ) {
+                toAdd.forEach { movie ->
                     try {
                         dao.movieDao.tx {
                             put(movie)
@@ -78,8 +75,7 @@ class SyncAdapter(
                         Timber.e(e)
                     }
                 }
-
-                syncItems.toUpdate.forEach { movie ->
+                toUpdate.forEach { movie ->
                     try {
                         dao.movieDao.tx {
                             put(movie)
@@ -89,8 +85,7 @@ class SyncAdapter(
                         Timber.e(e)
                     }
                 }
-
-                syncItems.toRemove.forEach { movie ->
+                toRemove.forEach { movie ->
                     try {
                         dao.movieDao.tx {
                             remove(movie)
@@ -100,8 +95,42 @@ class SyncAdapter(
                         Timber.e(e)
                     }
                 }
-
             }
+
+            // todo non ui thread
+//            launch(UI) {
+//                WebScrapper(context, urls) { page, videoURL ->
+//                    try {
+//                        val auth = page?.url?.toUri()?.authority ?: ""
+//                        val movie = Movie().apply {
+//                            this.category = auth
+//                            this.title = page?.title?.replace(auth, "")
+//                            this.image = videoURL
+//                            this.uri = videoURL
+//                        }
+//                        dao.movieDao.put(movie)
+//                        Timber.d("Movie: $movie stored.")
+//                    } catch (e: Exception) {
+//                        Timber.e(e)
+//                    }
+//                }.start()
+//            }
+
+//            WebVideoScrapper(
+//                baseUrls = urls,
+//                onVideoFound = { video ->
+//                    dao.movieDao.put(Movie().apply {
+//                        category = video.category
+//                        title = video.title
+//                        image = video.thumb
+//                        uri = video.url
+//                    })
+//                },
+//                onFinish = { videos ->
+//
+//                }
+//            ).start()
+
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -135,7 +164,7 @@ class SyncAdapter(
             }
 
             oldMovies.filter { oldMovie ->
-                 (newMovies.count { newMovie ->
+                (newMovies.count { newMovie ->
                     newMovie.uri.contentEquals(oldMovie.uri)
                 } == 0)
             }.also { addMovies ->
