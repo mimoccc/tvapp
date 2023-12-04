@@ -13,6 +13,33 @@ import androidx.core.os.bundleOf
 @Suppress("unused")
 object ListExt {
 
+    fun <T> Iterable<T>.takeIf(
+        n: Int,
+        condition: T.() -> Boolean
+    ): List<T> {
+        require(n >= 0) { "Requested element count $n is less than zero." }
+        if (n == 0) return emptyList()
+        if (this is Collection<T>) {
+            if (n >= size) return toList()
+            if (n == 1) return listOf(first())
+        }
+        val list = ArrayList<T>(n)
+        for (item in this) {
+            if(item.condition()) {
+                list.add(item)
+            }
+            if (list.size == n)
+                break
+        }
+        return list.optimizeReadOnlyList()
+    }
+
+    private fun <T> List<T>.optimizeReadOnlyList() = when (size) {
+        0 -> emptyList()
+        1 -> listOf(this[0])
+        else -> this
+    }
+
     fun <T> MutableList<T>.addUnique(element: T, replace: Boolean = true) {
         val duplicate = firstOrNull { p ->
             p.toString().contentEquals(element.toString()) || p?.equals(element) == true

@@ -12,7 +12,7 @@ package org.mjdev.tvapp.module
 
 import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
+import com.skydoves.sandwich.retrofit.adapters.ApiResponseCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

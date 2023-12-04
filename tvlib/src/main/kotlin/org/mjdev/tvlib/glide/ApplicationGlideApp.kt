@@ -28,6 +28,8 @@ import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.caverock.androidsvg.SVG
 import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.R
+import org.mjdev.tvlib.glide.sources.albumart.AlbumArtLoaderFactory
 import org.mjdev.tvlib.glide.sources.layout.LayoutLoaderFactory
 import org.mjdev.tvlib.glide.sources.layout.LayoutResId
 import org.mjdev.tvlib.glide.sources.svg.SvgDecoder
@@ -44,6 +46,9 @@ class ApplicationGlideApp : AppGlideModule() {
      */
     private val cacheSize256MegaBytes: Long = 256L * 1024L * 1024L
 
+    private fun calculator(context:Context): MemorySizeCalculator =
+        MemorySizeCalculator.Builder(context).build()
+
     /**
      * Apply custom image loader options
      * @param context Context
@@ -51,7 +56,7 @@ class ApplicationGlideApp : AppGlideModule() {
      */
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         builder.apply {
-            val calculator = MemorySizeCalculator.Builder(context).build()
+            val calculator = calculator(context)
 
             val customMemoryCacheSize = calculator.memoryCacheSize
             val customBitmapPoolSize = calculator.bitmapPoolSize
@@ -75,9 +80,9 @@ class ApplicationGlideApp : AppGlideModule() {
                     .downsample(DownsampleStrategy.DEFAULT)
                     .encodeFormat(Bitmap.CompressFormat.PNG)
                     .encodeQuality(100)
-//                    .placeholder(EMPTY_DRAWABLE)
-//                    .error(EMPTY_DRAWABLE)
-//                    .fallback(EMPTY_DRAWABLE)
+                    .placeholder(R.drawable.broken_image)
+                    .error(R.drawable.broken_image)
+                    .fallback(R.drawable.broken_image)
             )
         }
     }
@@ -100,6 +105,8 @@ class ApplicationGlideApp : AppGlideModule() {
             )
             // LayoutRes support (create images from layout res Id)
             prepend(LayoutResId::class.java, Drawable::class.java, LayoutLoaderFactory(context))
+            // Album Art audio files
+            append(String::class.java, InputStream::class.java, AlbumArtLoaderFactory(context))
             // SVG support
             register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
             append(InputStream::class.java, SVG::class.java, SvgDecoder())

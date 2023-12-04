@@ -13,6 +13,6 @@ interface ItemWithImage<T> {
     val image: T?
 
     companion object {
-        val <T> ItemWithImage<T>.hasImage get() = image?.toString()?.isNotEmpty() == true
+        val <T> ItemWithImage<T>.hasImage get() = !(image?.toString()).isNullOrEmpty()
     }
 }

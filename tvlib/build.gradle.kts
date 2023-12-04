@@ -94,7 +94,6 @@ android {
 //    tasks.dokkaGfm {
 //        outputDirectory.set(File(projectDir, "../wiki/documentation"))
 //    }
-
 }
 
 dependencies {
@@ -135,7 +134,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // sandwich
-    implementation("com.github.skydoves:sandwich:1.3.9")
+    implementation("com.github.skydoves:sandwich:2.0.4")
+    implementation("com.github.skydoves:sandwich-retrofit:2.0.4")
     // image loading
     implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
@@ -143,6 +143,7 @@ dependencies {
     implementation("com.github.skydoves:landscapist-transformation:2.2.12")
     implementation("com.github.skydoves:landscapist-palette:2.2.12")
     implementation("com.github.skydoves:landscapist-placeholder:2.2.12")
+    ksp("com.github.bumptech.glide:ksp:4.15.1")
     // zxing
     implementation("com.google.zxing:core:3.5.2")
     // svg

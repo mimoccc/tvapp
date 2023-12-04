@@ -72,7 +72,6 @@ android {
             put("auth0Domain", "@string/com_auth0_domain")
             put("auth0Scheme", "demo")
         }
-
     }
 
     buildTypes {
@@ -88,12 +87,12 @@ android {
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
             )
             resValue(
                 "string",
                 "sync_auth",
-                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
+                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
         }
 
@@ -108,12 +107,12 @@ android {
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
             )
             resValue(
                 "string",
                 "sync_auth",
-                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
+                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
         }
 
@@ -128,17 +127,16 @@ android {
             buildConfigField(
                 "String",
                 "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}${applicationIdSuffix}.sync\""
+                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
             )
             resValue(
                 "string",
                 "sync_auth",
-                "${defaultConfig.applicationId}${applicationIdSuffix}.sync"
+                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
             multiDexEnabled = true
             matchingFallbacks += listOf("debug")
         }
-
     }
 
     buildFeatures {
@@ -182,7 +180,6 @@ android {
 //    tasks.dokkaGfm {
 //        outputDirectory.set(File(projectDir, "../wiki/documentation"))
 //    }
-
 }
 
 dependencies {
@@ -234,7 +231,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // sandwich
-    implementation("com.github.skydoves:sandwich:1.3.9")
+    implementation("com.github.skydoves:sandwich:2.0.4")
+    implementation("com.github.skydoves:sandwich-retrofit:2.0.4")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
@@ -252,6 +250,14 @@ dependencies {
     implementation("androidx.glance:glance-material3:1.0.0")
     // fix duplicates
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+    // image loading
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("com.github.skydoves:landscapist-glide:2.2.12")
+    implementation("com.github.skydoves:landscapist-transformation:2.2.12")
+    implementation("com.github.skydoves:landscapist-palette:2.2.12")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.12")
+    ksp("com.github.bumptech.glide:ksp:4.15.1")
     // exoplayer
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
@@ -270,7 +276,6 @@ dependencies {
     implementation("androidx.media3:media3-decoder:1.2.0")
     implementation("androidx.media3:media3-datasource:1.2.0")
     implementation("androidx.media3:media3-common:1.2.0")
-//    implementation("net.engawapg.lib:zoomable:1.5.2")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {
@@ -281,6 +286,7 @@ dependencies {
         }
     }
     // fix duplicates
+    @Suppress("UnstableApiUsage")
     configurations {
         all {
             resolutionStrategy {

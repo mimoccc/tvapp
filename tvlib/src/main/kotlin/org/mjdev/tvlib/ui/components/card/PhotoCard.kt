@@ -12,6 +12,7 @@ import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -58,7 +59,7 @@ fun PhotoCard(
     brightness: Float = -255f,
     placeholder: @Composable () -> Unit = {
         ImageAny(
-            modifier = modifier,
+            modifier = Modifier.fillMaxSize().padding(64.dp),
             src = R.drawable.broken_image
         )
     },

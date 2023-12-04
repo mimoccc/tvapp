@@ -20,6 +20,7 @@ import com.skydoves.sandwich.toFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -37,13 +38,11 @@ object GlobalExt {
         context: CoroutineContext = IO,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         block: suspend CoroutineScope.() -> Unit
-    ) {
-        CoroutineScope(context).launch(
-            context = context,
-            start = start,
-            block = block
-        )
-    }
+    ): Job = CoroutineScope(context).launch(
+        context = context,
+        start = start,
+        block = block
+    )
 
     fun <T> T.postDelayed(
         delay: Long,
@@ -52,11 +51,10 @@ object GlobalExt {
         block.invoke(this)
     }, delay)
 
-    @Suppress("MemberVisibilityCanBePrivate")
     class CodeException(
-        val code: Int = -1,
-        message: String = String.format("$code : Unhandled Exception.")
-    ) : Exception(message)
+        message: String = "Unhandled Exception.",
+        code: Int = -1,
+    ) : Exception(String.format("$code : $message."))
 
     fun MutableState<Boolean>.toggle() {
         value = !value
@@ -65,11 +63,14 @@ object GlobalExt {
     fun <T> ApiResponse<T>.safeFlow(
         error: (exception: Exception) -> Unit = { exception ->
             Timber.e(exception)
+        },
+        onError: (error: ApiResponse.Failure.Error) -> Unit = { e ->
+            error(CodeException(e.message()))
         }
     ): Flow<T> = onException {
-        error(exception)
+        error(this)
     }.onError {
-        error(CodeException(statusCode.code, message()))
+        onError(this)
     }.toFlow()
 
     inline fun <reified T> ApiResponse<List<T>>.safeGet(
@@ -77,9 +78,9 @@ object GlobalExt {
             Timber.e(exception)
         }
     ): List<T> = onException {
-        error(exception)
+        error(this)
     }.onError {
-        error(CodeException(statusCode.code, message()))
+        error(CodeException(message()))
     }.getOrNull() ?: emptyList()
 
     suspend fun <E> runSafe(block: suspend () -> E): Result<E> = try {

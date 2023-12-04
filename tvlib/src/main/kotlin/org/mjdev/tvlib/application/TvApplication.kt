@@ -18,6 +18,4 @@ open class TvApplication : Application() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
-
-//    open fun createImageLoader(): ImageLoader? = null
 }

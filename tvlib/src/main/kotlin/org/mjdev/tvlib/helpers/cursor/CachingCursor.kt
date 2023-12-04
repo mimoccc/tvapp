@@ -29,7 +29,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
-import org.mjdev.tvlib.extensions.GlobalExt.IO
 import org.mjdev.tvlib.extensions.GlobalExt.launch
 import timber.log.Timber
 

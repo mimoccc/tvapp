@@ -28,6 +28,7 @@ import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.findById
 import org.mjdev.tvlib.extensions.ListExt.asMap
+import org.mjdev.tvlib.extensions.ListExt.takeIf
 import org.mjdev.tvlib.helpers.apps.appsManager
 import org.mjdev.tvlib.interfaces.ItemWithImage.Companion.hasImage
 import javax.inject.Inject
@@ -73,7 +74,7 @@ class MainViewModel @Inject constructor(
             addAll(localAudioCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
             addAll(localVideoCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
             addAll(localPhotoCursor.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
-            addAll(dao.movieDao.all.take(ITEMS_FROM_CATEGORY))
+            addAll(dao.movieDao.all.takeIf(ITEMS_FROM_CATEGORY) { hasImage })
         }.also { result ->
             emit(result)
         }

@@ -5,7 +5,7 @@
  *  e: mj@mjdev.org
  *  w: https://mjdev.org
  */
-package org.mjdev.tvlib.helpers
+package org.mjdev.tvlib.helpers.http
 
 import okhttp3.Interceptor
 import okhttp3.Request

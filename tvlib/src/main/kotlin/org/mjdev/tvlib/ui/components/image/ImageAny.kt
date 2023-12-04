@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
@@ -29,7 +28,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import org.mjdev.tvlib.R
@@ -38,6 +36,7 @@ import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
+@Suppress("MoveVariableDeclarationIntoWhen")
 @SuppressLint("ModifierParameter")
 @Previews
 @Composable
@@ -49,6 +48,17 @@ fun ImageAny(
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
+    placeholder : @Composable () -> Unit = {
+        Image(
+            painterResource(R.drawable.broken_image),
+            contentDescription,
+            modifier.recomposeHighlighter(),
+            alignment,
+            contentScale,
+            alpha,
+            colorFilter
+        )
+    }
 ) = BoxWithConstraints(
     modifier = modifier,
     contentAlignment = Alignment.Center
@@ -61,17 +71,7 @@ fun ImageAny(
     when (imageSrc) {
 
         null, Unit, "0", 0 -> {
-            Image(
-                painterResource(R.drawable.broken_image),
-                contentDescription,
-                modifier
-                    .padding(16.dp)
-                    .recomposeHighlighter(),
-                alignment,
-                contentScale,
-                alpha,
-                colorFilter
-            )
+            placeholder()
         }
 
         Color -> Image(

@@ -38,66 +38,67 @@ class SyncAdapter(
         authority: String?,
         provider: ContentProviderClient?,
         syncResult: SyncResult?
-    ) = launch(IO) {
-        try {
+    ) {
+        launch(IO) {
+            try {
 
-            val streams = apiService.streams().safeGet()
-            val channels = apiService.channels().safeGet()
+                val streams = apiService.streams().safeGet()
+                val channels = apiService.channels().safeGet()
 
-            val oldMovies = movieDao.all
-            val newMovies = mutableListOf<Movie>()
+                val oldMovies = movieDao.all
+                val newMovies = mutableListOf<Movie>()
 
-            streams.forEach { stream ->
-                channels.firstOrNull { channel ->
-                    channel.id == stream.channelId
-                }.also { channel ->
-                    (channel?.categories ?: listOf(null)).forEach { ctg ->
-                        newMovies.add(Movie().apply {
-                            title = channel?.name ?: stream.channelId
-                            uri = stream.url
-                            category = ctg
-                            image = channel?.logo
-                            country = channel?.country
-                            isNsfw = channel?.isNsfw ?: false
-                        })
-                    }
-                }
-            }
-
-            with(SyncItems(oldMovies, newMovies) ) {
-                toAdd.forEach { movie ->
-                    try {
-                        dao.movieDao.tx {
-                            put(movie)
+                streams.forEach { stream ->
+                    channels.firstOrNull { channel ->
+                        channel.id == stream.channelId
+                    }.also { channel ->
+                        (channel?.categories ?: listOf(null)).forEach { ctg ->
+                            newMovies.add(Movie().apply {
+                                title = channel?.name ?: stream.channelId
+                                uri = stream.url
+                                category = ctg
+                                image = channel?.logo
+                                country = channel?.country
+                                isNsfw = channel?.isNsfw ?: false
+                            })
                         }
-                        Timber.d("Movie: $movie stored.")
-                    } catch (e: Exception) {
-                        Timber.e(e)
                     }
                 }
-                toUpdate.forEach { movie ->
-                    try {
-                        dao.movieDao.tx {
-                            put(movie)
-                        }
-                        Timber.d("Movie: $movie updated.")
-                    } catch (e: Exception) {
-                        Timber.e(e)
-                    }
-                }
-                toRemove.forEach { movie ->
-                    try {
-                        dao.movieDao.tx {
-                            remove(movie)
-                        }
-                        Timber.d("Movie: $movie removed.")
-                    } catch (e: Exception) {
-                        Timber.e(e)
-                    }
-                }
-            }
 
-            // todo non ui thread
+                with(SyncItems(oldMovies, newMovies)) {
+                    toAdd.forEach { movie ->
+                        try {
+                            dao.movieDao.tx {
+                                put(movie)
+                            }
+                            Timber.d("Movie: $movie stored.")
+                        } catch (e: Exception) {
+                            Timber.e(e)
+                        }
+                    }
+                    toUpdate.forEach { movie ->
+                        try {
+                            dao.movieDao.tx {
+                                put(movie)
+                            }
+                            Timber.d("Movie: $movie updated.")
+                        } catch (e: Exception) {
+                            Timber.e(e)
+                        }
+                    }
+                    toRemove.forEach { movie ->
+                        try {
+                            dao.movieDao.tx {
+                                remove(movie)
+                            }
+                            Timber.d("Movie: $movie removed.")
+                        } catch (e: Exception) {
+                            Timber.e(e)
+                        }
+                    }
+                }
+
+                // todo non ui thread
 //            launch(UI) {
 //                WebScrapper(context, urls) { page, videoURL ->
 //                    try {
@@ -131,8 +132,9 @@ class SyncAdapter(
 //                }
 //            ).start()
 
-        } catch (e: Exception) {
-            Timber.e(e)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 

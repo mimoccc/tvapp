@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.complex
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardBorder
@@ -37,6 +39,7 @@ import androidx.tv.material3.CardShape
 import androidx.tv.material3.CompactCard
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -75,12 +78,19 @@ fun FocusableCard(
     border: CardBorder = CardDefaults.colorFocusBorder(Color.Green),
     glow: CardGlow = CardDefaults.colorFocusGlow(Color.Green),
     showTitle: Boolean = true,
+    placeholder: @Composable () -> Unit = {
+        Image(
+            painter = painterResource(R.drawable.broken_image),
+            contentDescription = ""
+        )
+    },
     imageRenderer: @Composable () -> Unit = {
         ImageAny(
             modifier = Modifier.fillMaxSize(),
             src = (item as? ItemWithImage<*>)?.image,
             contentDescription = (item as? ItemWithDescription<*>)?.description?.toString(),
             contentScale = contentScale,
+            placeholder = placeholder
         )
     },
     focused: Boolean = isEditMode(),
@@ -100,7 +110,12 @@ fun FocusableCard(
     aspectRatio: Float = 16f / 9f,
     isEdit: Boolean = isEditMode(),
     onClick: (item: Any?) -> Unit = {},
-) = Box(
+) = CompactCard(
+    scale = scale,
+    shape = shape,
+    colors = colors,
+    border = border,
+    glow = glow,
     modifier = modifier
         .recomposeHighlighter()
         .size(
@@ -118,67 +133,58 @@ fun FocusableCard(
         }
         .conditional(isEdit) {
             defaultMinSize(80.dp)
+        },
+    image = { imageRenderer() },
+    title = {
+        if (showTitle) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        if (focusState.isFocused)
+                            textBackgroundSelected
+                        else
+                            textBackgroundUnselected,
+                        RectangleShape
+                    )
+            ) {
+                TextAny(
+                    modifier = Modifier.padding(titlePadding),
+                    maxLines = 1,
+                    color = textColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = if (isEdit) "title" else (item as? ItemWithTitle<*>)?.title
+                )
+            }
         }
-) {
-    CompactCard(
-        scale = scale,
-        shape = shape,
-        colors = colors,
-        border = border,
-        glow = glow,
-        modifier = Modifier.fillMaxSize(),
-        image = { imageRenderer() },
-        title = {
-            if (showTitle) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            if (focusState.isFocused)
-                                textBackgroundSelected
-                            else
-                                textBackgroundUnselected,
-                            RectangleShape
-                        )
-                ) {
-                    TextAny(
-                        modifier = Modifier.padding(titlePadding),
-                        maxLines = 1,
-                        color = textColor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        text = if (isEdit) "title" else (item as? ItemWithTitle<*>)?.title
+    },
+    subtitle = {
+        if (showTitle) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        if (focusState.isFocused)
+                            textBackgroundSelected
+                        else
+                            textBackgroundUnselected,
+                        RectangleShape
                     )
-                }
+            ) {
+                AutoHideEmptyText(
+                    modifier = Modifier.padding(titlePadding),
+                    maxLines = 1,
+                    color = textColor,
+                    style = MaterialTheme.typography.bodySmall,
+                    text = if (isEdit) "subtitle" else (item as? ItemWithSubtitle<*>)?.subtitle
+                )
             }
-        },
-        subtitle = {
-            if (showTitle) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            if (focusState.isFocused)
-                                textBackgroundSelected
-                            else
-                                textBackgroundUnselected,
-                            RectangleShape
-                        )
-                ) {
-                    AutoHideEmptyText(
-                        modifier = Modifier.padding(titlePadding),
-                        maxLines = 1,
-                        color = textColor,
-                        style = MaterialTheme.typography.bodySmall,
-                        text = if (isEdit) "subtitle" else (item as? ItemWithSubtitle<*>)?.subtitle
-                    )
-                }
-            }
-        },
-        description = {
-            // todo
-        },
-        onClick = {
-            onClick(item)
-        },
-    )
-}
+        }
+    },
+    description = {
+        // todo
+    },
+    onClick = {
+        onClick(item)
+    },
+)
