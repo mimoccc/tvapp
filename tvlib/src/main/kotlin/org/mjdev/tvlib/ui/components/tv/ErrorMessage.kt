@@ -8,6 +8,9 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -36,6 +39,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.button.Button
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -58,56 +62,62 @@ fun ErrorMessage(
     borderColor: Color = Color.DarkGray,
     backgroundShape: Shape = RoundedCornerShape(roundSize),
     dismissible: Boolean = true,
-    dismissState: MutableState<Boolean> = mutableStateOf(false),
-    dismissOnClick: () -> Unit = {}
+    visible: Boolean = isEditMode(),
+    dismissState: MutableState<Boolean> = mutableStateOf(!visible),
+    enter: EnterTransition = EnterTransition.None,
+    exit: ExitTransition = ExitTransition.None,
+    dismissOnClick: () -> Unit = {},
+) = AnimatedVisibility(
+    visible = !dismissState.value,
+    enter = enter,
+    exit = exit
 ) {
-    if (!dismissState.value) {
-        BoxWithConstraints {
-            Row(
+    BoxWithConstraints {
+        Row(
+            modifier = Modifier
+                .width(constraints.maxWidth.dp)
+                .padding(paddingContent)
+                .border(borderSize, borderColor, backgroundShape)
+                .background(backgroundColor, backgroundShape)
+                .recomposeHighlighter(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            TextAny(
                 modifier = Modifier
-                    .width(constraints.maxWidth.dp)
-                    .padding(paddingContent)
-                    .border(borderSize, borderColor, backgroundShape)
-                    .background(backgroundColor, backgroundShape)
+                    .padding(paddingTitle)
                     .recomposeHighlighter(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                TextAny(
+                text = title ?: stringResource(id = R.string.title_error),
+                fontWeight = fontWeight,
+                fontSize = fontSizeTitle,
+                color = color
+            )
+            TextAny(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .recomposeHighlighter(),
+                color = color,
+                fontSize = fontSizeMessage,
+                fontWeight = fontWeight,
+                textAlign = TextAlign.Left,
+                maxLines = 4,
+                softWrap = true,
+                text = error?.message ?: (stringResource(id = R.string.error_unknown))
+            )
+            if (dismissible && (dismissText != null)) {
+                Button(
                     modifier = Modifier
-                        .padding(paddingTitle)
+                        .padding(4.dp)
                         .recomposeHighlighter(),
-                    text = title ?: stringResource(id = R.string.title_error),
-                    fontWeight = fontWeight,
-                    fontSize = fontSizeTitle,
-                    color = color
+                    text = dismissText,
+                    fontSize = fontSizeButton,
+                    contentPadding = PaddingValues(8.dp, 0.dp),
+                    containerColor = Color.Black.copy(alpha = 0.2f),
+                    onClick = {
+                        dismissState.value = true
+                        dismissOnClick.invoke()
+                    }
                 )
-                TextAny(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f, false)
-                        .recomposeHighlighter(),
-                    color = color,
-                    fontSize = fontSizeMessage,
-                    fontWeight = fontWeight,
-                    textAlign = TextAlign.Left,
-                    softWrap = true,
-                    text = error?.message ?: (stringResource(id = R.string.error_unknown))
-                )
-                if (dismissible && (dismissText != null)) {
-                    Button(
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .recomposeHighlighter(),
-                        text = dismissText,
-                        fontSize = fontSizeButton,
-                        contentPadding = PaddingValues(8.dp, 0.dp),
-                        containerColor = Color.Black.copy(alpha = 0.2f),
-                        onClick = {
-                            dismissState.value = true
-                            dismissOnClick.invoke()
-                        }
-                    )
-                }
             }
         }
     }

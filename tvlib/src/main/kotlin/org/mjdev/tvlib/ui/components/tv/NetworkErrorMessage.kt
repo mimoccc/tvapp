@@ -8,6 +8,8 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -28,15 +30,13 @@ fun NetworkErrorMessage(
     dismissible: Boolean = false,
     backgroundColor: Color = Color.Black,
     networkService: NetworkConnectivityService = rememberNetworkService(),
-    networkState: State<NetworkStatus?> = networkService.networkStatus
-        .collectAsState(NetworkStatus.Connected(null)),
-) {
-    val isEdit = isEditMode()
-    if (isEdit || networkState.isNotConnected) {
-        ErrorMessage(
-            error = message.asException(),
-            backgroundColor = backgroundColor,
-            dismissible = dismissible
-        )
-    }
-}
+    networkState: State<NetworkStatus?> = networkService.networkStatus.collectAsState(null),
+    isEdit: Boolean = isEditMode(),
+    enter: EnterTransition = EnterTransition.None,
+    exit: ExitTransition = ExitTransition.None
+) = ErrorMessage(
+    visible = isEdit || networkState.isNotConnected,
+    error = message.asException(),
+    backgroundColor = backgroundColor,
+    dismissible = dismissible
+)
