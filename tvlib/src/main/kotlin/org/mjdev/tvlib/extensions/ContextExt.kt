@@ -20,10 +20,10 @@ import java.util.Date
 object ContextExt {
 
     val Context.isTV: Boolean
-        get() {
+        get() = runCatching {
             val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
             return uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
-        }
+        }.getOrNull() ?: false
 
     val Context.timeAsString: String
         get() = DateFormat.getTimeFormat(this).format(Date())
