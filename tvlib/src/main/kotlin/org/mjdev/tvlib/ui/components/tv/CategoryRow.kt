@@ -10,7 +10,7 @@ package org.mjdev.tvlib.ui.components.tv
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -84,8 +84,8 @@ fun CategoryRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .pointerInput(Unit) {
-                    detectDragGestures { _, dragAmount ->
-                        scrollDelta.value = dragAmount.x
+                    detectHorizontalDragGestures { _, dragAmount ->
+                        scrollDelta.value = dragAmount
                     }
                 }
                 .recomposeHighlighter(),

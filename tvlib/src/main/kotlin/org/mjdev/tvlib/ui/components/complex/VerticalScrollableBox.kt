@@ -9,7 +9,7 @@
 package org.mjdev.tvlib.ui.components.complex
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
@@ -38,8 +38,8 @@ fun VerticalScrollableBox(
     Box(
         modifier = modifier
             .pointerInput(Unit) {
-                detectDragGestures { _, dragAmount ->
-                    scrollDelta.value = dragAmount.y
+                detectVerticalDragGestures { _, dragAmount ->
+                    scrollDelta.value = dragAmount
                 }
             }
             .recomposeHighlighter(),
