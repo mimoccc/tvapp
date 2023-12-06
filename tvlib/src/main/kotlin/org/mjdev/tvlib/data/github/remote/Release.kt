@@ -8,9 +8,11 @@
 
 package org.mjdev.tvlib.data.github.remote
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@Keep
 @Suppress("MemberVisibilityCanBePrivate")
 @JsonClass(generateAdapter = true)
 data class Release(

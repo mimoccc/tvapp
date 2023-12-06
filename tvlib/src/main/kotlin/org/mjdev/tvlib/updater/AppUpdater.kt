@@ -23,7 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -75,16 +75,14 @@ class AppUpdater(
     }
 
     val isUpdateAvailable: Flow<Boolean> = serverTimestamp.map { st ->
-        val lt = installedTimestamp.firstOrNull() ?: 0L
-        st > lt
+        val lt = installedTimestamp.first()
+        if (st > 0) (st > lt) else false
     }
 
     private fun storeTimestamp(timestamp: Long) {
         prefs.edit().apply {
             putLong(keyName, timestamp)
-            apply()
-            commit()
-        }
+        }.apply()
     }
 
     @MainThread

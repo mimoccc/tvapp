@@ -13,11 +13,16 @@ import android.app.UiModeManager
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
+import android.os.Build
 import android.text.format.DateFormat
 import timber.log.Timber
 import java.util.Date
 
 object ContextExt {
+
+    val Context.isEink: Boolean
+        get() =
+            Build.DEVICE == "Mudita Kompakt"
 
     val Context.isTV: Boolean
         get() = runCatching {

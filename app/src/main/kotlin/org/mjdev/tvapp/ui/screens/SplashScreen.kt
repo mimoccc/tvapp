@@ -55,6 +55,7 @@ class SplashScreen : Screen() {
 
         val isEdit = isEditMode()
         val scale = remember(isEdit) { Animatable(if (isEdit) 1f else 0f) }
+//        val alpha = remember(isEdit) { Animatable(0.5f) }
         val permissionManager = rememberPermissionManager()
         val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash))
         val progress = animateLottieCompositionAsState(composition.value)
@@ -67,6 +68,11 @@ class SplashScreen : Screen() {
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
+//            AnalogTvNoise(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .alpha(alpha.value)
+//            )
             LottieAnimation(
                 modifier = Modifier.padding(120.dp),
                 composition = composition.value,
@@ -97,6 +103,14 @@ class SplashScreen : Screen() {
                         OvershootInterpolator(4f).getInterpolation(it)
                     })
             )
+//            alpha.animateTo(
+//                targetValue = 0f,
+//                animationSpec = tween(
+//                    durationMillis = 18000,
+//                    easing = {
+//                        OvershootInterpolator(4f).getInterpolation(it)
+//                    })
+//            )
             delay(1000L)
             navController.openAsTop<MainScreen>()
         }

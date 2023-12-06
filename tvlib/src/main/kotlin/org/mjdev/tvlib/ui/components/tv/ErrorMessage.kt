@@ -63,12 +63,12 @@ fun ErrorMessage(
     backgroundShape: Shape = RoundedCornerShape(roundSize),
     dismissible: Boolean = true,
     visible: Boolean = isEditMode(),
-    dismissState: MutableState<Boolean> = mutableStateOf(!visible),
+    visibleState: MutableState<Boolean> = mutableStateOf(visible),
     enter: EnterTransition = EnterTransition.None,
     exit: ExitTransition = ExitTransition.None,
     dismissOnClick: () -> Unit = {},
 ) = AnimatedVisibility(
-    visible = !dismissState.value,
+    visible = visibleState.value,
     enter = enter,
     exit = exit
 ) {
@@ -114,7 +114,7 @@ fun ErrorMessage(
                     contentPadding = PaddingValues(8.dp, 0.dp),
                     containerColor = Color.Black.copy(alpha = 0.2f),
                     onClick = {
-                        dismissState.value = true
+                        visibleState.value = false
                         dismissOnClick.invoke()
                     }
                 )

@@ -48,6 +48,5 @@ fun AppUpdateAvailableMessage(
     error = message.asException(),
     backgroundColor = backgroundColor,
     dismissible = true,
-    dismissState = dismissState,
     dismissOnClick = onButtonClick
 )
