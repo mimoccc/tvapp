@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * Copyright (c) Milan Jurkulák 2023.
  * Contact:
@@ -7,10 +7,7 @@
  * w: https://mjdev.org
  */
 -->
-
 <resources>
-
-    <string name="app_name">Tv App</string>
 
     <string name="bt_dismiss">Dismiss</string>
     <string name="bt_update">Update</string>

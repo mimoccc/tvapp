@@ -68,6 +68,8 @@ android {
         buildConfigField("String", "GITHUB_USER", "\"mimoccc\"")
         buildConfigField("String", "GITHUB_REPOSITORY", "\"tvapp\"")
 
+        multiDexEnabled = true
+
         manifestPlaceholders.apply {
             put("auth0Domain", "@string/com_auth0_domain")
             put("auth0Scheme", "demo")
@@ -81,8 +83,8 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
-//            isCrunchPngs = true
-//            isEmbedMicroApp = true
+            isCrunchPngs = false
+            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -96,6 +98,11 @@ android {
                 "string",
                 "sync_auth",
                 "${defaultConfig.applicationId}$applicationIdSuffix.sync"
+            )
+            resValue(
+                "string",
+                "app_name",
+                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
             )
         }
 
@@ -104,8 +111,8 @@ android {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
-//            isCrunchPngs = true
-//            isEmbedMicroApp = true
+            isCrunchPngs = true
+            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -119,6 +126,11 @@ android {
                 "string",
                 "sync_auth",
                 "${defaultConfig.applicationId}$applicationIdSuffix.sync"
+            )
+            resValue(
+                "string",
+                "app_name",
+                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
             )
         }
 
@@ -127,8 +139,8 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
-//            isCrunchPngs = true
-//            isEmbedMicroApp = true
+            isCrunchPngs = false
+            isEmbedMicroApp = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -143,7 +155,11 @@ android {
                 "sync_auth",
                 "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
-            multiDexEnabled = true
+            resValue(
+                "string",
+                "app_name",
+                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
+            )
             matchingFallbacks += listOf("debug")
         }
     }
