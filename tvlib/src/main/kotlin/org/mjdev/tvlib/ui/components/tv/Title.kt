@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
@@ -53,7 +52,7 @@ fun Title(
     val focusState = rememberFocusState(title)
     val shadowColor = if (isEdit || focusState.isFocused) focusShadowColor else unfocusedShadowColor
     FocusableBox(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier,
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         focusedColor = Color.Transparent,
@@ -62,14 +61,11 @@ fun Title(
         }
     ) {
         Row(
-            modifier = modifier
-                .padding(16.dp, 8.dp, 8.dp, 8.dp)
-                .recomposeHighlighter(),
+            modifier = modifier.padding(16.dp, 8.dp, 8.dp, 8.dp),
             verticalAlignment = CenterVertically,
         ) {
             CircleImage(
                 modifier = Modifier
-                    .recomposeHighlighter()
                     .height((fontSize.value).dp)
                     .aspectRatio(1f)
                     .scale(1.3f)
@@ -86,7 +82,7 @@ fun Title(
                 src = icon
             )
             TextWithShadow(
-                modifier = modifier.recomposeHighlighter(),
+                modifier = modifier,
                 shadowColor = shadowColor,
                 shadowSize = shadowSize,
                 text = title ?: R.string.app_name,

@@ -11,6 +11,7 @@ package org.mjdev.tvlib.ui.components.image
 import androidx.annotation.FloatRange
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,11 +35,10 @@ import org.mjdev.tvlib.annotations.Previews
 fun FadingPhotoImage(
     modifier: Modifier = Modifier,
     initialImage: Any? = null,
-    fadingImageState: MutableState<Any?> = remember { mutableStateOf(initialImage) },
     animationDuration: Int = 1800,
     delay: Long = 600,
     alpha: Float = 0.6f,
-    blurRadius: Dp = 4.dp,
+    blurRadius: Dp = 24.dp,
     @FloatRange(from = 0.0, to = 10.0)
     contrast: Float = 4f,
     @FloatRange(from = -255.0, to = 255.0)
@@ -52,15 +52,17 @@ fun FadingPhotoImage(
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
     alignment: Alignment = Alignment.Center,
-) {
-    val fadingImage = remember { mutableStateOf(initialImage) }
-    Crossfade(
-        fadingImage.value,
-        animationSpec = tween(animationDuration),
-        label = "FadingImage"
-    ) { targetState ->
+    fadingImageState: MutableState<Any?> = remember { mutableStateOf(initialImage) }
+) = Crossfade(
+    modifier = modifier,
+    targetState = fadingImageState.value,
+    animationSpec = tween(animationDuration),
+    label = "FadingImage"
+) { targetState ->
+    Box(
+        modifier = Modifier.blur(radius = blurRadius)
+    ) {
         PhotoImage(
-            modifier = modifier.blur(radius = blurRadius),
             src = targetState,
             contrast = contrast,
             brightness = brightness,
@@ -76,9 +78,9 @@ fun FadingPhotoImage(
         )
     }
     LaunchedEffect(fadingImageState.value) {
-        if (fadingImage.value != fadingImageState.value) {
+        if (fadingImageState.value != fadingImageState.value) {
             delay(delay)
-            fadingImage.value = fadingImageState.value
+            fadingImageState.value = fadingImageState.value
         }
     }
 }

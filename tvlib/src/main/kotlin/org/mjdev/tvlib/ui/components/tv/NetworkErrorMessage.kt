@@ -38,5 +38,7 @@ fun NetworkErrorMessage(
     visible = isEdit || networkState.isNotConnected,
     error = message.asException(),
     backgroundColor = backgroundColor,
-    dismissible = dismissible
+    dismissible = dismissible,
+    enter = enter,
+    exit = exit
 )

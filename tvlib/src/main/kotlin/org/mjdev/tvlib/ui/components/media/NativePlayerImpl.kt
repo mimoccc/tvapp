@@ -36,7 +36,6 @@ import androidx.media3.common.VideoSize
 import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.Size
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 // todo
 @Suppress("unused", "DeprecatedCallableAddReplaceWith")
@@ -50,15 +49,11 @@ class NativePlayerImpl(
     override fun GetPlayerView() {
         val isEdit = isEditMode()
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .recomposeHighlighter()
+            modifier = Modifier.fillMaxSize()
         ) {
             if (!isEdit) {
                 AndroidView(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .recomposeHighlighter(),
+                    modifier = Modifier.fillMaxSize(),
                     factory = { context ->
                         SurfaceView(context).apply {
                             mediaPlayer.setDisplay(holder)

@@ -32,7 +32,6 @@ import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -56,48 +55,48 @@ fun IconAny(
         null -> Icon(
             ColorDrawable(0).asImageBitmap(width, height),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is Bitmap -> Icon(
             src.asImageBitmap(),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is ImageBitmap -> Icon(
             src,
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is Drawable -> Icon(
             src.asImageBitmap(width, height),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is Int -> Icon(
             painterResource(src),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is Color -> Icon(
             ColorDrawable(0).asImageBitmap(width, height),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 
         is URL -> GlideImage(
             imageModel = { src },
-            modifier = modifier.recomposeHighlighter(),
+            modifier = modifier,
             imageOptions = ImageOptions(
                 colorFilter = ColorFilter.tint(tint)
             )
@@ -105,7 +104,7 @@ fun IconAny(
 
         is Uri -> GlideImage(
             imageModel = { src },
-            modifier = modifier.recomposeHighlighter(),
+            modifier = modifier,
             imageOptions = ImageOptions(
                 colorFilter = ColorFilter.tint(tint)
             )
@@ -113,7 +112,7 @@ fun IconAny(
 
         is String -> GlideImage(
             imageModel = { src },
-            modifier = modifier.recomposeHighlighter(),
+            modifier = modifier,
             imageOptions = ImageOptions(
                 colorFilter = ColorFilter.tint(tint)
             )
@@ -122,7 +121,7 @@ fun IconAny(
         is ImageVector -> Icon(
             src,
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             tint
         )
 

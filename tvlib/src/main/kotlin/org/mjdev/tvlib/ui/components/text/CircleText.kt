@@ -31,7 +31,6 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
@@ -50,7 +49,7 @@ fun CircleText(
 ) {
     val isPortrait = isPortraitMode()
     Box(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
             .size(textSize.value.dp * 2)
             .padding(contentPadding)
             .tvAspectRatio(1f, !isPortrait)

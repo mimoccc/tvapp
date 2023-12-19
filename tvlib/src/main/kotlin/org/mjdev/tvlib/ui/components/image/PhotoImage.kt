@@ -39,7 +39,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.toDrawable
 import org.mjdev.tvlib.extensions.DrawableExt.asPhoto
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import timber.log.Timber
 
 @SuppressLint("ModifierParameter")
@@ -48,14 +47,15 @@ import timber.log.Timber
 fun PhotoImage(
     src: Any? = null,
     modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Crop,
     placeholder: @Composable () -> Unit = {
         ImageAny(
             modifier = modifier,
-            src = R.drawable.broken_image
+            src = R.drawable.broken_image,
+            contentScale = contentScale
         )
     },
-    alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Crop,
     alpha: Float = DefaultAlpha,
     @FloatRange(from = 0.0, to = 10.0)
     contrast: Float = 5f,
@@ -78,7 +78,6 @@ fun PhotoImage(
             imageModel = {                src            },
             modifier = modifier
                 .defaultMinSize(80.dp)
-                .recomposeHighlighter()
                 .conditional(isEdit) {
                     aspectRatio(16f / 9f)
                 }
@@ -99,15 +98,13 @@ fun PhotoImage(
             success = { state, _ ->
                 val bitmap = state.imageBitmap?.asAndroidBitmap()
                 Box(
-                    modifier = modifier
-                        .recomposeHighlighter()
-                        .background(bitmap.majorColor(backgroundColor), shape),
+                    modifier = modifier.background(bitmap.majorColor(backgroundColor), shape),
                 ) {
                     ImageAny(
                         src = bitmap
                             ?.toDrawable()
                             ?.asPhoto(),
-                        modifier = modifier.recomposeHighlighter(),
+                        modifier = modifier,
                         alignment = alignment,
                         contentScale = contentScale,
                         alpha = alpha,

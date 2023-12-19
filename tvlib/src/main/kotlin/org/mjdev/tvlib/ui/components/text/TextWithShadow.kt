@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
@@ -44,7 +43,7 @@ fun TextWithShadow(
             shadowSize,
             shadowSize,
             shadowSize
-        ).recomposeHighlighter(),
+        ),
         style = MaterialTheme.typography.bodyMedium.copy(
             shadow = Shadow(
                 color = shadowColor,

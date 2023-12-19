@@ -23,7 +23,6 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
 
 @Previews
@@ -45,16 +44,13 @@ fun ScrollableTvLazyColumn(
         modifier = modifier
             .conditional(isEdit) {
                 fillMaxSize()
-            }
-            .recomposeHighlighter(),
+            },
         state = state
     ) {
         TvLazyColumn(
-            modifier = modifier
-                .conditional(isEdit) {
-                    fillMaxSize()
-                }
-                .recomposeHighlighter(),
+            modifier = modifier.conditional(isEdit) {
+                fillMaxSize()
+            },
             state = state,
             contentPadding = contentPadding,
             reverseLayout = reverseLayout,

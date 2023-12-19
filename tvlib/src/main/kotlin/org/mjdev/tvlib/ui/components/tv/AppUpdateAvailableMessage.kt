@@ -31,7 +31,6 @@ fun AppUpdateAvailableMessage(
     githubRepository: String = "tvapp",
     backgroundColor: Color = Color(0, 132, 0, 255),
     buttonText: Any? = R.string.bt_update,
-    dismissState: MutableState<Boolean> = mutableStateOf(false),
     isDebug: Boolean = BuildConfig.DEBUG,
     appUpdater: AppUpdater = rememberAppUpdater(
         githubUser = githubUser,
@@ -40,13 +39,14 @@ fun AppUpdateAvailableMessage(
     ),
     isEdit: Boolean = isEditMode(),
     updateAvailable: State<Boolean> = appUpdater.isUpdateAvailable.collectAsState(false),
+    visibleState: MutableState<Boolean> = mutableStateOf(isEdit || updateAvailable.value),
     onButtonClick: () -> Unit = { appUpdater.updateApp() },
 ) = ErrorMessage(
-    visible = isEdit || updateAvailable.value,
     title = title,
     dismissText = buttonText,
     error = message.asException(),
     backgroundColor = backgroundColor,
     dismissible = true,
-    dismissOnClick = onButtonClick
+    dismissOnClick = onButtonClick,
+    visibleState=visibleState
 )

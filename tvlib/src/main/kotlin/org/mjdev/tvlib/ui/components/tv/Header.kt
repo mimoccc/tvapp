@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
@@ -61,24 +60,19 @@ fun Header(
     val isPortrait = isPortraitMode()
     Box(
         modifier = Modifier
-            .recomposeHighlighter()
             .fillMaxWidth()
             .background(backgroundColor, RoundedCornerShape(roundSize))
             .padding(padding),
         contentAlignment = Alignment.Center
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .recomposeHighlighter(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (!isPortrait) {
                 Clock(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .recomposeHighlighter(),
+                    modifier = Modifier.wrapContentSize(),
                     backgroundColor = Color.Black.copy(alpha = 0.2f),
                     contentPadding = contentPadding,
                     timeTextColor = color,
@@ -89,7 +83,6 @@ fun Header(
             if (isEdit || (messagesCount > 0)) {
                 Badge(
                     modifier = Modifier
-                        .recomposeHighlighter()
                         .wrapContentSize()
                         .clip(CircleShape),
                     contentPadding = contentPadding,
@@ -103,7 +96,6 @@ fun Header(
             }
             UserPic(
                 modifier = Modifier
-                    .recomposeHighlighter()
                     .size(56.dp)
                     .clip(CircleShape),
                 src = userIcon,
@@ -114,15 +106,12 @@ fun Header(
             )
         }
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .recomposeHighlighter(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             FocusableBox(
                 modifier = Modifier
-                    .recomposeHighlighter()
                     .wrapContentHeight()
                     .width(0.01.dp),
                 onFocusChange = { state ->
@@ -132,9 +121,7 @@ fun Header(
                 }
             )
             Title(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .recomposeHighlighter(),
+                modifier = Modifier.wrapContentSize(),
                 title = title ?: R.string.app_name,
                 icon = appIcon,
                 fontWeight = fontWeight,

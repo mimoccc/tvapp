@@ -22,7 +22,6 @@ import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @Previews
 @Composable
@@ -39,7 +38,7 @@ fun TVRow(
     content: TvLazyListScope.() -> Unit = {}
 ) {
     TvLazyRow(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier,
         state = state,
         contentPadding = PaddingValues(contentPadding * 2, contentPadding),
         reverseLayout = reverseLayout,

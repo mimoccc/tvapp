@@ -19,9 +19,7 @@ open class ScreenWithPages : Screen() {
 
     open val startPageIndex: Int = 0
 
-    open val pages: PagerScope.() -> Unit = {
-        page(EMPTY_PAGE)
-    }
+    open val pages: PagerScope.() -> Unit = { page(EMPTY_PAGE) }
 
     @Previews
     @Composable
@@ -29,7 +27,7 @@ open class ScreenWithPages : Screen() {
     override fun Content() {
         TvPager(
             startIndex = startPageIndex,
-            pages = pages,
+            pages = pages
         )
     }
 

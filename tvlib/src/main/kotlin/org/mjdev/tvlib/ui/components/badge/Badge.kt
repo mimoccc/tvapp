@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.text.CircleText
 
@@ -38,9 +37,7 @@ fun Badge(
     onClick: () -> Unit = {}
 ) {
     FocusableBox(
-        modifier = modifier
-            .clip(CircleShape)
-            .recomposeHighlighter(),
+        modifier = modifier.clip(CircleShape),
         shape = shape,
         onClick = onClick
     ) {

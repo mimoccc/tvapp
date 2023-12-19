@@ -102,7 +102,7 @@ android {
             resValue(
                 "string",
                 "app_name",
-                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
+                "TV App  ${applicationIdSuffix.toString().replace(".", "").capitalize()}"
             )
         }
 
@@ -130,37 +130,8 @@ android {
             resValue(
                 "string",
                 "app_name",
-                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
+                "TV App  ${applicationIdSuffix.toString().replace(".", "").capitalize()}"
             )
-        }
-
-        create("recomposing") {
-            applicationIdSuffix = ".rcmps"
-            isDebuggable = true
-            isMinifyEnabled = false
-            isShrinkResources = false
-            isCrunchPngs = false
-            isEmbedMicroApp = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            buildConfigField(
-                "String",
-                "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
-            )
-            resValue(
-                "string",
-                "sync_auth",
-                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
-            )
-            resValue(
-                "string",
-                "app_name",
-                "TV ${applicationIdSuffix.toString().replace(".","").capitalize()}"
-            )
-            matchingFallbacks += listOf("debug")
         }
     }
 

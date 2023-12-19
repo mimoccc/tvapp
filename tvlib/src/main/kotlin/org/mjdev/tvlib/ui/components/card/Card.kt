@@ -39,7 +39,6 @@ import androidx.tv.material3.Glow
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
@@ -67,7 +66,6 @@ fun Card(
     androidx.tv.material3.Card(
         onClick = onClick,
         modifier = modifier
-            .recomposeHighlighter()
             .widthIn(max = 320.dp)
             .conditional(aspectRatio != null) {
                 tvAspectRatio(aspectRatio)

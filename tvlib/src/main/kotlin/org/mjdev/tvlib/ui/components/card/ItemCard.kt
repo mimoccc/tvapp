@@ -35,7 +35,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.ui.components.complex.FocusableCard
@@ -60,7 +59,7 @@ fun ItemCard(
         Image(
             painter = painterResource(R.drawable.broken_image),
             "",
-            modifier.recomposeHighlighter()
+            modifier
         )
     },
     imageRenderer: @Composable () -> Unit = {
@@ -84,7 +83,7 @@ fun ItemCard(
     onFocus: (item: Any?) -> Unit = {},
     onClick: (item: Any?) -> Unit = {},
 ) = FocusableCard(
-    modifier = modifier.recomposeHighlighter(),
+    modifier = modifier,
     item = item,
     focusState = focusState,
     focusRequester = focusRequester,

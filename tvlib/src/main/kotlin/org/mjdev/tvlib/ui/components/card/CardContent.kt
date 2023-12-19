@@ -17,7 +17,6 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ProvideTextStyle
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.text.AutoHideEmptyText
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -46,7 +45,7 @@ fun CardContent(
     },
 ) {
     Column(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
     ) {
         ProvideTextStyle(MaterialTheme.typography.titleMedium) {
             title.invoke()

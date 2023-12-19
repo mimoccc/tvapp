@@ -34,9 +34,7 @@ class PagerScope(
         pages.invoke(this)
     }
 
-    fun menuItem(vararg item: MenuItem) {
-        navController.addMenuItem(*item)
-    }
+    fun menuItem(vararg item: MenuItem) = navController.addMenuItem(*item)
 
     fun page(
         page: Page,
@@ -46,6 +44,7 @@ class PagerScope(
         addUnique(page)
         if (isStartPage) {
             currentPage.value = size - 1
+            navController.selectedMenuItem.value = currentPage.value
         }
         page.let { p ->
             MenuItem(
@@ -62,9 +61,7 @@ class PagerScope(
     fun indexOfPage(page: Page?): Int {
         return if (page == null) return -1
         else {
-            indexOfFirst { p ->
-                p.toString() == page.toString()
-            }
+            indexOfFirst { p -> p.toString() == page.toString() }
         }
     }
 

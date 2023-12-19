@@ -40,7 +40,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.CursorExt.getData
 import org.mjdev.tvlib.extensions.CursorExt.isNotEmpty
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 import org.mjdev.tvlib.ui.components.card.PhotoCard
 import org.mjdev.tvlib.ui.components.text.TextAny
@@ -81,13 +80,11 @@ fun CursorRow(
     if (cursor?.isNotEmpty == true) {
         Column(
             modifier = Modifier
-                .recomposeHighlighter()
                 .fillMaxWidth()
                 .background(backgroundColor, backgroundShape)
         ) {
             TextAny(
                 modifier = Modifier
-                    .recomposeHighlighter()
                     .fillMaxWidth()
                     .padding(padding / 2, padding / 2),
                 text = title,
@@ -102,8 +99,7 @@ fun CursorRow(
                         detectHorizontalDragGestures { _, dragAmount ->
                             scrollDelta.value = dragAmount
                         }
-                    }
-                    .recomposeHighlighter(),
+                    },
                 state = rowState,
                 contentPadding = (padding.value * 1.3).dp, // todo due border & glow
             ) {

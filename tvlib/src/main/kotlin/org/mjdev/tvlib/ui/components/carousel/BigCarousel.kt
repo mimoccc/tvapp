@@ -26,7 +26,6 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.ui.components.card.FocusHelper
 
@@ -74,8 +73,7 @@ fun BigCarousel(
                 },
                 onSwipeDown = onSwipeDown,
                 onSwipeUp = onSwipeUp
-            )
-            .recomposeHighlighter(),
+            ),
     ) { indexOfCarouselItem ->
         val selectedItem = items[indexOfCarouselItem]
         onItemSelected?.invoke(selectedItem)

@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.createGraph
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.screen
@@ -64,10 +63,10 @@ fun NavHostEx(
         contentScale = ContentScale.Crop
     )
     ScreenView(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier,
     ) {
         NavHost(
-            modifier = modifier.recomposeHighlighter(),
+            modifier = modifier,
             navController = navController,
             graph = remember(route, builder) {
                 navController.createGraph(

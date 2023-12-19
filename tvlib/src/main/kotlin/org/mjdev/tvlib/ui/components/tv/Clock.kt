@@ -36,7 +36,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ContextExt.dateAsString
 import org.mjdev.tvlib.extensions.ContextExt.timeAsString
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.text.TextAny
 
@@ -92,7 +91,7 @@ fun Clock(
     }.collectAsState(initial = "1.1.1970") else null
 
     FocusableBox(
-        modifier = modifier.recomposeHighlighter()
+        modifier = modifier
             .padding(contentPadding)
             .conditional(isEdit) {
                 background(Color.DarkGray, RectangleShape)
@@ -102,19 +101,19 @@ fun Clock(
     ) {
 
         Box(
-            Modifier.recomposeHighlighter()
+            Modifier
                 .background(backgroundColor, RoundedCornerShape(roundSize))
                 .wrapContentSize()
                 .clip(RoundedCornerShape(roundSize))
         ) {
 
             Column(
-                modifier = Modifier.padding(8.dp, 2.dp, 8.dp, 2.dp).recomposeHighlighter(),
+                modifier = Modifier.padding(8.dp, 2.dp, 8.dp, 2.dp),
                 horizontalAlignment = horizontalAlignment,
             ) {
 
                 if (showTime) TextAny(
-                    modifier = modifier.wrapContentSize().recomposeHighlighter(),
+                    modifier = modifier.wrapContentSize(),
                     text = timeFlow?.value,
                     fontWeight = timeTextWeight,
                     fontSize = timeTextSize,
@@ -122,7 +121,7 @@ fun Clock(
                 )
 
                 if (showDate) TextAny(
-                    modifier = modifier.wrapContentSize().recomposeHighlighter(),
+                    modifier = modifier.wrapContentSize(),
                     text = dateFlow?.value,
                     textAlign = TextAlign.End,
                     fontWeight = dateTextWeight,

@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("ModifierParameter")
 @Previews
@@ -43,13 +42,11 @@ fun CircleImage(
     Box(
         modifier = modifier
             .padding(contentPadding)
-            .recomposeHighlighter()
             .aspectRatio(1f),
         contentAlignment = Alignment.Center,
     ) {
         ImageAny(
             modifier = modifier
-                .recomposeHighlighter()
                 .clip(CircleShape)
                 .background(backGroundColor, CircleShape)
                 .border(

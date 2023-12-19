@@ -13,13 +13,17 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +39,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.button.Button
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
@@ -51,9 +54,9 @@ fun ErrorMessage(
     dismissText: Any? = R.string.bt_dismiss,
     color: Color = Color.White,
     backgroundColor: Color = Color.Red,
-    fontSizeTitle: TextUnit = 18.sp,
-    fontSizeMessage: TextUnit = 12.sp,
-    fontSizeButton: TextUnit = 12.sp,
+    fontSizeTitle: TextUnit = 14.sp,
+    fontSizeMessage: TextUnit = 11.sp,
+    fontSizeButton: TextUnit = 11.sp,
     fontWeight: FontWeight = FontWeight.Bold,
     paddingTitle: Dp = 8.dp,
     paddingContent: Dp = 4.dp,
@@ -72,30 +75,36 @@ fun ErrorMessage(
     enter = enter,
     exit = exit
 ) {
-    BoxWithConstraints {
+    Box{
         Row(
             modifier = Modifier
-                .width(constraints.maxWidth.dp)
+                .fillMaxWidth()
                 .padding(paddingContent)
                 .border(borderSize, borderColor, backgroundShape)
-                .background(backgroundColor, backgroundShape)
-                .recomposeHighlighter(),
+                .background(backgroundColor, backgroundShape),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextAny(
-                modifier = Modifier
-                    .padding(paddingTitle)
-                    .recomposeHighlighter(),
+                modifier = Modifier.padding(paddingTitle),
                 text = title ?: stringResource(id = R.string.title_error),
                 fontWeight = fontWeight,
                 fontSize = fontSizeTitle,
+                textAlign = TextAlign.Left,
+                maxLines = 1,
+                softWrap = false,
                 color = color
+            )
+            Divider(
+                modifier = Modifier
+                    .width(1.dp)
+                    .height(24.dp),
+                color = Color.White
             )
             TextAny(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .recomposeHighlighter(),
+                    .padding(start = 8.dp),
                 color = color,
                 fontSize = fontSizeMessage,
                 fontWeight = fontWeight,
@@ -106,13 +115,11 @@ fun ErrorMessage(
             )
             if (dismissible && (dismissText != null)) {
                 Button(
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .recomposeHighlighter(),
+                    modifier = Modifier.padding(8.dp, 8.dp),
                     text = dismissText,
                     fontSize = fontSizeButton,
-                    contentPadding = PaddingValues(8.dp, 0.dp),
-                    containerColor = Color.Black.copy(alpha = 0.2f),
+                    contentPadding = PaddingValues(8.dp, 2.dp),
+                    containerColor = Color.White.copy(alpha = 0.2f),
                     onClick = {
                         visibleState.value = false
                         dismissOnClick.invoke()

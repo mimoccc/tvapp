@@ -35,7 +35,6 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 
@@ -71,8 +70,7 @@ fun Button(
 ) = Button(
     modifier = modifier
         .border(BorderStroke(borderSize, borderColor), shape)
-        .clickable { onClick() }
-        .recomposeHighlighter(),
+        .clickable { onClick() },
     glow = glow,
     scale = scale,
     onClick = onClick,

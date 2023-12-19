@@ -27,7 +27,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
@@ -76,8 +75,7 @@ fun CarouselCard(
         modifier = modifier
             .conditional(isEdit) {
                 defaultMinSize(260.dp)
-            }
-            .recomposeHighlighter(),
+            },
         aspectRatio = 1f,
         focused = focused,
         focusState = focusState,

@@ -9,6 +9,8 @@
 -->
 <resources>
 
+<!--    <string name="app_name" translatable="false">TVApp</string>-->
+
     <string name="bt_dismiss">Dismiss</string>
     <string name="bt_update">Update</string>
 

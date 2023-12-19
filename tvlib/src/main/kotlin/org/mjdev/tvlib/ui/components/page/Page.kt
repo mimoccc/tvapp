@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.requestFocusOnTouch
 import org.mjdev.tvlib.ui.components.complex.VerticalScrollableBox
 import org.mjdev.tvlib.ui.components.text.TextAny
@@ -44,24 +43,20 @@ open class Page {
     @CallSuper
     fun content() {
         Column(
-            Modifier
-                .fillMaxSize()
-                .recomposeHighlighter()
+            Modifier.fillMaxSize()
         ) {
             VerticalScrollableBox(
                 modifier = Modifier
                     .fillMaxSize()
                     .requestFocusOnTouch(
                         focusRequester = focusRequester
-                    )
-                    .recomposeHighlighter(),
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .focusRequester(focusRequester)
-                        .recomposeHighlighter(),
+                        .focusRequester(focusRequester),
                     contentAlignment = Alignment.Center
                 ) {
                     Content()
@@ -73,14 +68,12 @@ open class Page {
     @Composable
     open fun Content() {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .recomposeHighlighter(),
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextAny(
-                modifier = Modifier.recomposeHighlighter(),
+                modifier = Modifier,
                 text = title ?: "Empty Page",
                 textAlign = TextAlign.Center,
                 fontSize = 32.sp,

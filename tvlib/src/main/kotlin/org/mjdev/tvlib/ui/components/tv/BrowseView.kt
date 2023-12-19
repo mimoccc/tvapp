@@ -26,7 +26,6 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import kotlinx.coroutines.launch
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
@@ -68,9 +67,7 @@ fun BrowseView(
 ) {
     val coroutineScope = rememberCoroutineScope()
     ScrollableTvLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .recomposeHighlighter(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = verticalArrangement,
         contentPadding = contentPadding,
         state = state
@@ -128,7 +125,7 @@ fun BrowseView(
         }
         if (isEdit || featuredItems.isNotEmpty()) item {
             BigCarousel(
-                modifier = Modifier.recomposeHighlighter(),
+                modifier = Modifier,
                 items = featuredItems,
                 onItemSelected = onItemFocused,
                 onItemClicked = onItemClicked,

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -27,7 +28,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ComposeExt.isOpen
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.extensions.ModifierExt.onlyPortrait
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
@@ -45,7 +45,7 @@ fun Navigation(
         MenuItem.MENU_ITEM_SEARCH
     ) else listOf(),
     modal: Boolean = isPortraitMode(),
-    backgroundColor: Color = Color.DarkGray,
+    backgroundColor: Color = Color.Black.copy(alpha = 0.7f),
     navController: NavHostControllerEx = rememberNavControllerEx(menuItems),
     minPortraitMenuWidth: Dp = 4.dp,
     content: @Composable () -> Unit = { Page() },
@@ -53,9 +53,7 @@ fun Navigation(
     if (isEditMode()) navController.openMenu()
     val mainContent: @Composable () -> Unit = {
         Box(
-            modifier
-                .fillMaxSize()
-                .recomposeHighlighter()
+            modifier.fillMaxSize()
         ) {
             content()
         }
@@ -64,12 +62,9 @@ fun Navigation(
         Box(
             modifier = Modifier
                 .background(
-                    if (isLandscapeMode() || navController.menuDrawerState.isOpen)
-                        backgroundColor
-                    else
-                        Color.Transparent
+                    if (isLandscapeMode() || navController.menuDrawerState.isOpen)  backgroundColor
+                    else Color.Transparent
                 )
-                .recomposeHighlighter()
         ) {
             NavDrawerContent(
                 minPortraitMenuWidth = minPortraitMenuWidth,
@@ -85,7 +80,6 @@ fun Navigation(
                 // todo not working on lollipop
                 navigationBarsPadding().statusBarsPadding()
             }
-            .recomposeHighlighter()
     ) {
         SettingsDrawer(
             modifier = Modifier.fillMaxSize(),

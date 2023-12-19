@@ -33,7 +33,6 @@ import com.skydoves.landscapist.glide.GlideImage
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import java.net.URL
 
 @Suppress("MoveVariableDeclarationIntoWhen")
@@ -52,7 +51,7 @@ fun ImageAny(
         Image(
             painterResource(R.drawable.broken_image),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -77,7 +76,7 @@ fun ImageAny(
         Color -> Image(
             ColorDrawable((imageSrc as Color).toArgb()).asImageBitmap(width, height),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -87,7 +86,7 @@ fun ImageAny(
         is Bitmap -> Image(
             imageSrc.asImageBitmap(),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -97,7 +96,7 @@ fun ImageAny(
         is ImageBitmap -> Image(
             imageSrc,
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -107,7 +106,7 @@ fun ImageAny(
         is ColorDrawable -> Image(
             imageSrc.asImageBitmap(1, 1),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -117,7 +116,7 @@ fun ImageAny(
         is Drawable -> Image(
             imageSrc.asImageBitmap(),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -127,7 +126,7 @@ fun ImageAny(
         is Int -> Image(
             painterResource(imageSrc),
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,
@@ -170,7 +169,7 @@ fun ImageAny(
         is ImageVector -> Image(
             imageSrc,
             contentDescription,
-            modifier.recomposeHighlighter(),
+            modifier,
             alignment,
             contentScale,
             alpha,

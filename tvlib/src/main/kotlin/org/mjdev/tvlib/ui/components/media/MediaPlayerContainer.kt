@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 
@@ -47,7 +46,6 @@ fun MediaPlayerContainer(
                     )
                 }
                 .background(Color.Black, RectangleShape)
-                .recomposeHighlighter()
         ) {
             state.player.GetPlayerView()
 //            PlayerControlView(

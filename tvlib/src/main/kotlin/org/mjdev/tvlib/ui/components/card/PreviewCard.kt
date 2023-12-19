@@ -50,7 +50,6 @@
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.withContext
 //import org.mjdev.tvlib.annotations.Previews
-//import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 //import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 //
 //// todo
@@ -70,7 +69,7 @@
 //    thumbnailUrl: String? = null
 //) {
 //    Card(
-//        modifier = modifier.tvAspectRatio(aspectRatio).recomposeHighlighter()
+//        modifier = modifier.tvAspectRatio(aspectRatio)
 //    ) {
 //        val context = LocalContext.current
 //        var currentlyPlaying by remember(videoUrl) { mutableStateOf(false) }

@@ -49,14 +49,6 @@ android {
             )
             buildConfigField("Boolean", "RECOMPOSE_ENABLED", "false")
         }
-        create("recomposing") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            buildConfigField("Boolean", "RECOMPOSE_ENABLED", "true")
-        }
     }
 
     compileOptions {

@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +35,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.text.TextAny
@@ -53,7 +54,7 @@ fun Tabs(
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(items),
     onItemClick: (item: Any?) -> Unit = {}
 ) {
-    val selectedTabIndex = remember { mutableIntStateOf(0) }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
     val colors = TabDefaults.pillIndicatorTabColors(
         contentColor = activeContentColor,
         inactiveContentColor = activeContentColor.copy(alpha = 0.4f),
@@ -65,18 +66,14 @@ fun Tabs(
         disabledSelectedContentColor = selectedContentColor,
     )
     TabRow(
-        modifier = modifier
-            .fillMaxWidth()
-            .recomposeHighlighter(),
-        selectedTabIndex = selectedTabIndex.value,
+        modifier = modifier.fillMaxWidth(),
+        selectedTabIndex = selectedTabIndex,
         contentColor = activeContentColor,
         separator = {
             Spacer(modifier = Modifier.width(itemsSpacing))
         },
         indicator = { tabPositions, doesTabRowHaveFocus ->
-            tabPositions.getOrNull(
-                selectedTabIndex.value
-            )?.let { tab ->
+            tabPositions.getOrNull(selectedTabIndex)?.let { tab ->
                 TabRowDefaults.PillIndicator(
                     currentTabPosition = tab,
                     doesTabRowHaveFocus = doesTabRowHaveFocus,
@@ -88,14 +85,14 @@ fun Tabs(
     ) {
         items.forEachIndexed { index, tab ->
             Tab(
-                modifier = Modifier.recomposeHighlighter(),
+                modifier = Modifier,
                 colors = colors,
-                selected = index == selectedTabIndex.value,
+                selected = index == selectedTabIndex,
                 onFocus = {
-                    selectedTabIndex.value = index
+                    selectedTabIndex = index
                 },
                 onClick = {
-                    onItemClick(selectedTabIndex.value)
+                    onItemClick(selectedTabIndex)
                 },
                 interactionSource = interactionSource
             ) {
@@ -105,15 +102,13 @@ fun Tabs(
                     focusState = focusState,
                     onFocusChange = {
                         if (focusState.isFocused) {
-                            selectedTabIndex.value = index
+                            selectedTabIndex = index
                         }
                     },
-                    onClick = { onItemClick(items[selectedTabIndex.value]) }
+                    onClick = { onItemClick(items[selectedTabIndex]) }
                 ) {
                     TextAny(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .recomposeHighlighter(),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         text = if (tab is ItemWithTitle<*>) tab.title else tab.toString(),
                         fontSize = fontSize,
                         color = Color.White,

@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 // todo not yet implemented
 @SuppressLint("AutoboxingStateValueProperty")
@@ -31,7 +30,6 @@ fun SettingsDrawerContent(
 ) {
     Column(
         modifier = modifier
-            .recomposeHighlighter()
             .fillMaxHeight()
             .conditional(isEditMode()) {
                 width(200.dp)

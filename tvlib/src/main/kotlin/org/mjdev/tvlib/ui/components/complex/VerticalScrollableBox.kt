@@ -20,9 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.tv.foundation.lazy.list.TvLazyListState
+import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 
 @SuppressLint("AutoboxingStateValueProperty")
 @Previews
@@ -31,7 +31,7 @@ fun VerticalScrollableBox(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.TopStart,
     propagateMinConstraints: Boolean = isLandscapeMode(),
-    state: TvLazyListState? = null,
+    state: TvLazyListState? = rememberTvLazyListState(),
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     val scrollDelta = remember { mutableFloatStateOf(0f) }
@@ -41,8 +41,7 @@ fun VerticalScrollableBox(
                 detectVerticalDragGestures { _, dragAmount ->
                     scrollDelta.value = dragAmount
                 }
-            }
-            .recomposeHighlighter(),
+            },
         contentAlignment = contentAlignment,
         propagateMinConstraints = propagateMinConstraints,
     ) {

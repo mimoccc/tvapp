@@ -32,7 +32,6 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.ui.components.image.ImageAny
@@ -60,7 +59,8 @@ fun PhotoCard(
     placeholder: @Composable () -> Unit = {
         ImageAny(
             modifier = Modifier.fillMaxSize().padding(64.dp),
-            src = R.drawable.broken_image
+            src = R.drawable.broken_image,
+            contentScale = contentScale
         )
     },
     imageRenderer: @Composable () -> Unit = {
@@ -85,7 +85,7 @@ fun PhotoCard(
 ) {
     ItemCard(
         item = item,
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier,
         contentScale = contentScale,
         textColor = textColor,
         focusState = focusState,

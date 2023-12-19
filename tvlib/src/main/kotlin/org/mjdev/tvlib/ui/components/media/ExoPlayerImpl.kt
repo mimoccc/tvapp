@@ -57,7 +57,6 @@ import androidx.media3.ui.PlayerNotificationManager
 import androidx.media3.ui.PlayerView
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.LifecycleExt.rememberPlayPauseLifeCycleObserver
-import org.mjdev.tvlib.extensions.ModifierExt.recomposeHighlighter
 import org.mjdev.tvlib.extensions.ViewExt.controller
 import org.mjdev.tvlib.extensions.ViewExt.findView
 import org.mjdev.tvlib.ui.components.audiopreview.AudioPreview
@@ -71,7 +70,7 @@ class ExoPlayerImpl(
     override val context: Context,
 ) : IMediaPlayer, PlayerNotificationManager.MediaDescriptionAdapter, MediaSession.Callback {
 
-    private val requestCode :Int = 999
+    private val requestCode: Int = 999
 
     // todo : check activity
     private val pendingIntent: PendingIntent by lazy {
@@ -268,7 +267,6 @@ class ExoPlayerImpl(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .recomposeHighlighter()
                 .onPreviewKeyEvent { ev ->
                     val controller = playerView.controller
                     if (controller?.isShown == true) {
@@ -282,9 +280,7 @@ class ExoPlayerImpl(
         ) {
             if (!isEdit) {
                 AndroidView(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .recomposeHighlighter(),
+                    modifier = Modifier.fillMaxSize(),
                     factory = {
                         playerView
                     }
