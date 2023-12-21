@@ -85,12 +85,18 @@ class ProvideModule {
     @Provides
     fun providesCacheInterceptor() = CacheInterceptor()
 
+//    @Singleton
+//    @Provides
+//    fun provideAdBlockInterceptor() = AdBlockInterceptor()
+
     @Singleton
     @Provides
     fun providesOkHttpClient(
         cacheInterceptor: CacheInterceptor,
+//        adBlockInterceptor: AdBlockInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient = OkHttpClient.Builder().apply {
+//        addNetworkInterceptor(adBlockInterceptor)
         addNetworkInterceptor(cacheInterceptor)
         if (BuildConfig.DEBUG) {
             addInterceptor(httpLoggingInterceptor)

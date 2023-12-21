@@ -1,4 +1,10 @@
-@file:Suppress("unused")
+/*
+ *  Copyright (c) Milan Jurkulák 2023.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
+ */
 
 package org.mjdev.tvapp.database
 
@@ -15,6 +21,7 @@ import org.mjdev.tvapp.data.local.Message
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.data.local.MyObjectBox
 import org.mjdev.tvapp.data.local.TVChannel
+import kotlin.reflect.KClass
 
 class DAO(
     @ApplicationContext
@@ -41,6 +48,11 @@ class DAO(
             it.name == name
         }?.call(this)
 
+        inline fun <T> with(receiver: T, block: T.() -> Unit): T {
+            block.invoke(receiver)
+            return receiver
+        }
+
     }
 
     private val store: BoxStore by lazy {
@@ -50,14 +62,18 @@ class DAO(
             .build()
     }
 
+    val cache = mutableMapOf<KClass<*>, List<*>>()
+
     val movieDao: Box<Movie> by lazy {
         store.boxFor()
     }
 
+    @Suppress("unused")
     val categoryDao: Box<Category> by lazy {
         store.boxFor()
     }
 
+    @Suppress("unused")
     val channelsDao: Box<TVChannel> by lazy {
         store.boxFor()
     }
@@ -68,6 +84,19 @@ class DAO(
 
     val countriesDao: Box<Country> by lazy {
         store.boxFor()
+    }
+
+    val allMediaItems: List<Any> by lazy {
+        movieDao.all
+    }
+
+    inline fun <reified T> getCachedList(creator: () -> List<*>): List<*> {
+        if (!cache.containsKey(T::class)) {
+            creator().let { list ->
+                cache[T::class] = list
+            }
+        }
+        return cache[T::class] ?: emptyList<Any>()
     }
 
 }

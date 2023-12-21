@@ -13,9 +13,9 @@ import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.loadKeyStoreProperties
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectMinSdk
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.suffixToString
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionCode
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionName
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.suffixToString
 
 @Suppress("PropertyName")
 val CONFIG_KEYSTORE_PROPERTIES_FILE = "config/keystore.properties"
@@ -270,6 +270,8 @@ dependencies {
     implementation("androidx.media3:media3-decoder:1.2.0")
     implementation("androidx.media3:media3-datasource:1.2.0")
     implementation("androidx.media3:media3-common:1.2.0")
+    // generative a.i.
+//    implementation("com.google.ai.client.generativeai:generativeai:0.1.1")
     // libs mismatch
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {

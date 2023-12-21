@@ -202,10 +202,9 @@ dependencies {
 //    implementation("com.stripe:stripecardscan:20.33.0")
 //    implementation("com.stripe:financial-connections:20.33.0")
     // scrape
-    implementation("it.skrape:skrapeit:1.2.2")
-    implementation("it.skrape:skrapeit-browser-fetcher:1.2.2")
 //    implementation("org.jsoup:jsoup:1.16.1")
 //    implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0")
+    implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0")
     // yt
     // ...
     // constraints

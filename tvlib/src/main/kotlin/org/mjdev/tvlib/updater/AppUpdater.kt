@@ -116,9 +116,11 @@ class AppUpdater(
         private fun okHttpClient(
             isDebug: Boolean = false,
             cacheInterceptor: CacheInterceptor = CacheInterceptor(),
+//            adBlockInterceptor: AdBlockInterceptor = AdBlockInterceptor(),
             httpLoggingInterceptor: HttpLoggingInterceptor = httpLoggingInterceptor(),
         ): OkHttpClient = OkHttpClient.Builder().apply {
             addNetworkInterceptor(cacheInterceptor)
+//            addNetworkInterceptor(adBlockInterceptor)
             if (isDebug) {
                 addInterceptor(httpLoggingInterceptor)
             }

@@ -182,8 +182,7 @@
 
         <service
             android:name=".sync.SyncService"
-            android:exported="true"
-            android:process=":sync"
+            android:exported="false"
             tools:ignore="ExportedService">
 
             <intent-filter>
@@ -215,7 +214,6 @@
             android:authorities="@string/sync_auth"
             android:enabled="true"
             android:exported="true"
-            android:process=":provider"
             android:syncable="true"
             tools:ignore="ExportedContentProvider" />
 

@@ -44,6 +44,14 @@ object GlobalExt {
         block = block
     )
 
+    fun launchUI (
+        block: suspend CoroutineScope.() -> Unit
+    ) = launch(UI) { block() }
+
+    fun launchIO (
+        block: suspend CoroutineScope.() -> Unit
+    ) = launch(IO) { block() }
+
     fun <T> T.postDelayed(
         delay: Long,
         block: T.() -> Unit

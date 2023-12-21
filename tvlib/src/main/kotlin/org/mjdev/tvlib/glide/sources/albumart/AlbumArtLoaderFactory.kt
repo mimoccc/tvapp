@@ -28,7 +28,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.extensions.GlobalExt.launch
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
 import org.mjdev.tvlib.network.CacheInterceptor
-import org.mjdev.tvlib.webclient.cache.MimeTypeMapUtils
+import org.mjdev.tvlib.helpers.http.MimeTypeMapUtils
 import org.xmlpull.v1.XmlPullParser
 import java.io.ByteArrayInputStream
 import java.io.File
