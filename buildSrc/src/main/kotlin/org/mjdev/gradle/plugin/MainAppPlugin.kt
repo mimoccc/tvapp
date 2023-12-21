@@ -20,10 +20,11 @@ import org.gradle.kotlin.dsl.extra
 import org.mjdev.gradle.helper.CustomEventLogger
 import java.io.File
 import java.io.FileInputStream
+import java.util.Locale
 import java.util.Properties
 
 // todo
-@Suppress("UsePropertyAccessSyntax")
+@Suppress("UsePropertyAccessSyntax", "MemberVisibilityCanBePrivate")
 abstract class MainAppPlugin : Plugin<Project> {
 
     companion object {
@@ -59,6 +60,12 @@ abstract class MainAppPlugin : Plugin<Project> {
                 val patch = rootProject.extra.get(VERSION_TAG_PATCH)?.toString()?.toInt() ?: 0
                 return "${major}.${minor}.${patch}"
             }
+
+        fun String.capitalize() = replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+
+        fun String?.suffixToString() = (this ?: "").replace(".", "").capitalize()
 
         val javaVersion: JavaVersion = JavaVersion.VERSION_17
 

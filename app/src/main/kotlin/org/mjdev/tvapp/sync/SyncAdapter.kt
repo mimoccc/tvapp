@@ -8,7 +8,6 @@ import android.content.SyncResult
 import android.os.Bundle
 import androidx.annotation.Keep
 import io.objectbox.Box
-import kotlinx.coroutines.delay
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.database.DAO.Companion.tx
@@ -43,12 +42,9 @@ class SyncAdapter(
         syncResult: SyncResult?
     ) {
         launch(IO) {
-            delay(4000L)
             try {
-
                 val streams = apiService.streams().safeGet()
                 val channels = apiService.channels().safeGet()
-
                 val oldMovies = movieDao.all
                 val newMovies = mutableListOf<Movie>()
 

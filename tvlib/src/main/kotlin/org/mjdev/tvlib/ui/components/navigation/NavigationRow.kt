@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,11 +48,9 @@ import org.mjdev.tvlib.extensions.NavControllerExt.open
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavHostControllerEx
-import org.mjdev.tvlib.ui.components.card.FocusHelper
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.icon.IconAny
 import org.mjdev.tvlib.ui.components.text.TextAny
-import timber.log.Timber
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
@@ -88,8 +85,8 @@ fun NavigationRow(
         onDrawerItemFocus()
     }
     val drawerState = navController.menuDrawerState
-    val focused = (navController.selectedMenuItem.intValue == id)
-    val focusState = rememberFocusState(FocusHelper(focused))
+    val selected = (navController.selectedMenuItem.intValue == id)
+    val focusState = rememberFocusState()
     val isEdit = isEditMode()
     val isShown = isLandscapeMode() || drawerState.isOpen
     val isPortrait = isPortraitMode()
@@ -117,7 +114,7 @@ fun NavigationRow(
                 .border(
                     BorderStroke(
                         strokeWidth,
-                        if (isEdit || focused) focusedColor else unFocusedColor
+                        if (isEdit || selected) focusedColor else unFocusedColor
                     ),
                     shape
                 )
@@ -168,15 +165,6 @@ fun NavigationRow(
                         textAlign = TextAlign.Left
                     )
                 }
-            }
-        }
-        LaunchedEffect(focused) {
-            try {
-                if (focused) {
-                    focusRequester.requestFocus()
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
             }
         }
     }

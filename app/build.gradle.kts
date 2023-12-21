@@ -15,6 +15,7 @@ import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectMinSdk
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionCode
 import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionName
+import org.mjdev.gradle.plugin.MainAppPlugin.Companion.suffixToString
 
 @Suppress("PropertyName")
 val CONFIG_KEYSTORE_PROPERTIES_FILE = "config/keystore.properties"
@@ -102,7 +103,7 @@ android {
             resValue(
                 "string",
                 "app_name",
-                "TV App  ${applicationIdSuffix.toString().replace(".", "").capitalize()}"
+                "TV App  ${applicationIdSuffix.suffixToString()}"
             )
         }
 
@@ -130,7 +131,7 @@ android {
             resValue(
                 "string",
                 "app_name",
-                "TV App  ${applicationIdSuffix.toString().replace(".", "").capitalize()}"
+                "TV App  ${applicationIdSuffix.suffixToString()}"
             )
         }
     }
@@ -183,7 +184,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.21")
     // startups
 //    implementation("androidx.startup:startup-runtime:1.1.1")
-    // tv library by mjde milan jurkulak
+    // tv library by mjdev milan jurkulak
     implementation(project(mapOf("path" to ":tvlib")))
     // base libs
     implementation("androidx.core:core-ktx:1.12.0")
@@ -191,44 +192,44 @@ dependencies {
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
     // more icons
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     // tv compose
     implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
     implementation("androidx.tv:tv-material:1.0.0-alpha10")
     // dagger - hilt
-    implementation("com.google.dagger:dagger-android:2.49")
-    implementation("com.google.dagger:dagger-android-support:2.49")
-    implementation("com.google.dagger:dagger:2.49")
-    implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.dagger:dagger-android:2.50")
+    implementation("com.google.dagger:dagger-android-support:2.50")
+    implementation("com.google.dagger:dagger:2.50")
+    implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     // moshi json
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     // okhttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.12"))
     implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("com.android.volley:volley:1.2.1")
     // kapt
-    kapt("com.google.dagger:dagger-compiler:2.49")
-    kapt("com.google.dagger:dagger-android-processor:2.49")
-    kapt("com.google.dagger:hilt-compiler:2.49")
+    kapt("com.google.dagger:dagger-compiler:2.50")
+    kapt("com.google.dagger:dagger-android-processor:2.50")
+    kapt("com.google.dagger:hilt-compiler:2.50")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // sandwich
-    implementation("com.github.skydoves:sandwich:2.0.4")
-    implementation("com.github.skydoves:sandwich-retrofit:2.0.4")
+    implementation("com.github.skydoves:sandwich:2.0.5")
+    implementation("com.github.skydoves:sandwich-retrofit:2.0.5")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // permission
@@ -246,11 +247,11 @@ dependencies {
     // image loading
     implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-    implementation("com.github.skydoves:landscapist-glide:2.2.12")
-    implementation("com.github.skydoves:landscapist-transformation:2.2.12")
-    implementation("com.github.skydoves:landscapist-palette:2.2.12")
-    implementation("com.github.skydoves:landscapist-placeholder:2.2.12")
-    ksp("com.github.bumptech.glide:ksp:4.15.1")
+    implementation("com.github.skydoves:landscapist-glide:2.2.13")
+    implementation("com.github.skydoves:landscapist-transformation:2.2.13")
+    implementation("com.github.skydoves:landscapist-palette:2.2.13")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.13")
+    ksp("com.github.bumptech.glide:ksp:4.16.0")
     // exoplayer
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-exoplayer-dash:1.2.0")

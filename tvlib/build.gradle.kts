@@ -102,7 +102,7 @@ dependencies {
     // compose base libs
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
     // more icons
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     // tv compose
@@ -111,11 +111,11 @@ dependencies {
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
     // okhttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.12"))
     implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -126,16 +126,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
     // sandwich
-    implementation("com.github.skydoves:sandwich:2.0.4")
-    implementation("com.github.skydoves:sandwich-retrofit:2.0.4")
+    implementation("com.github.skydoves:sandwich:2.0.5")
+    implementation("com.github.skydoves:sandwich-retrofit:2.0.5")
     // image loading
     implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-    implementation("com.github.skydoves:landscapist-glide:2.2.12")
-    implementation("com.github.skydoves:landscapist-transformation:2.2.12")
-    implementation("com.github.skydoves:landscapist-palette:2.2.12")
-    implementation("com.github.skydoves:landscapist-placeholder:2.2.12")
-    ksp("com.github.bumptech.glide:ksp:4.15.1")
+    implementation("com.github.skydoves:landscapist-glide:2.2.13")
+    implementation("com.github.skydoves:landscapist-transformation:2.2.13")
+    implementation("com.github.skydoves:landscapist-palette:2.2.13")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.13")
+    ksp("com.github.bumptech.glide:ksp:4.16.0")
     // zxing
     implementation("com.google.zxing:core:3.5.2")
     // svg
@@ -146,17 +146,17 @@ dependencies {
     // debug
     implementation("com.jakewharton.timber:timber:5.0.1")
     // dagger core
-    implementation("com.google.dagger:dagger:2.49")
+    implementation("com.google.dagger:dagger:2.50")
     implementation("androidx.compose.material3:material3:1.1.2")
-    kapt("com.google.dagger:dagger-compiler:2.49")
+    kapt("com.google.dagger:dagger-compiler:2.50")
     // dagger android
-    implementation("com.google.dagger:dagger-android:2.49")
-    implementation("com.google.dagger:dagger-android-support:2.49")
-    kapt("com.google.dagger:dagger-android-processor:2.49")
+    implementation("com.google.dagger:dagger-android:2.50")
+    implementation("com.google.dagger:dagger-android-support:2.50")
+    kapt("com.google.dagger:dagger-android-processor:2.50")
     // dagger - hilt
-    implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    kapt("com.google.dagger:hilt-compiler:2.49")
+    kapt("com.google.dagger:hilt-compiler:2.50")
     // encrypt data
     implementation("com.scottyab:aescrypt:0.0.1")
     // exoplayer
@@ -188,7 +188,7 @@ dependencies {
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.2.0")
     // exif info
-    implementation("androidx.exifinterface:exifinterface:1.3.6")
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
     // anr
     implementation("com.github.anrwatchdog:anrwatchdog:1.4.0")
     // jsoup
@@ -196,7 +196,7 @@ dependencies {
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12")
     // dynamic theme
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     // stripe payments
 //    implementation("com.stripe:stripe-android:20.33.0")
 //    implementation("com.stripe:stripecardscan:20.33.0")
