@@ -141,7 +141,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigString(
-                "SYNC_AUTH" to "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
+                "SYNC_AUTH" to "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
             stringRes(
                 "sync_auth" to "${defaultConfig.applicationId}$applicationIdSuffix.sync",
