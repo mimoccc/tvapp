@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 /*
 * Copyright (c) Milan Jurkulák 2023.
 * Contact:
@@ -26,6 +24,7 @@ plugins {
     id("com.gradle.enterprise") version ("3.13.3")
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {

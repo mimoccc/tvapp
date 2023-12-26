@@ -153,7 +153,7 @@ class AuthManager(
             allowedPackages: List<String> = listOf(),
             onUserChange: AuthManager.(user: User?) -> Unit = {}
         ) = LocalContext.current.let { ctx ->
-            remember(ctx) {
+            remember {
                 AuthManager(
                     context = ctx,
                     scheme = scheme ?: ctx.getString(R.string.com_auth0_scheme),

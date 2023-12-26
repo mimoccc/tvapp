@@ -6,16 +6,34 @@
  * w: https://mjdev.org
  */
 
-import org.mjdev.gradle.extensions.implementation
-import org.mjdev.gradle.extensions.kapt
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.javaVersion
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.kotlinCompilerExtVersion
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.loadKeyStoreProperties
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectCompileSdk
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.projectMinSdk
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.suffixToString
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionCode
-import org.mjdev.gradle.plugin.MainAppPlugin.Companion.versionName
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import org.mjdev.gradle.dependency.anotherDependencies
+import org.mjdev.gradle.dependency.baseDependencies
+import org.mjdev.gradle.dependency.composeDependencies
+import org.mjdev.gradle.dependency.daggerDependencies
+import org.mjdev.gradle.dependency.encryptDependencies
+import org.mjdev.gradle.dependency.exoPlayerDependencies
+import org.mjdev.gradle.dependency.glideDependencies
+import org.mjdev.gradle.dependency.mjdevTvLib
+import org.mjdev.gradle.dependency.moshiDependencies
+import org.mjdev.gradle.dependency.okHttpDependencies
+import org.mjdev.gradle.dependency.permissionsDependencies
+import org.mjdev.gradle.dependency.retrofitDependencies
+import org.mjdev.gradle.dependency.sandwichDependencies
+import org.mjdev.gradle.dependency.testDependencies
+import org.mjdev.gradle.dependency.timberDependencies
+import org.mjdev.gradle.dependency.widgetDependencies
+import org.mjdev.gradle.extensions.buildConfigString
+import org.mjdev.gradle.extensions.loadKeyStoreProperties
+import org.mjdev.gradle.extensions.manifestPlaceholders
+import org.mjdev.gradle.extensions.stringRes
+import org.mjdev.gradle.extensions.suffixToString
+import org.mjdev.gradle.extensions.versionCode
+import org.mjdev.gradle.extensions.versionName
+import org.mjdev.gradle.plugin.javaVersion
+import org.mjdev.gradle.plugin.kotlinCompilerExtVersion
+import org.mjdev.gradle.plugin.projectCompileSdk
+import org.mjdev.gradle.plugin.projectMinSdk
 
 @Suppress("PropertyName")
 val CONFIG_KEYSTORE_PROPERTIES_FILE = "config/keystore.properties"
@@ -24,17 +42,27 @@ val CONFIG_KEYSTORE_PROPERTIES_FILE = "config/keystore.properties"
 val SIGNING_CONFIG_NAME = "Any"
 
 plugins {
-    id("com.android.application")
+//    kotlinAndroid()
+//    kotlinKapt()
+//    kotlinParcelize()
+//    androidApplication()
+//    hilt()
+//    ksp()
+//    mainAppPlugin()
+//    objectBox()
     kotlin("android")
+    kotlin("kapt")
+    id("com.android.application")
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
-    id("io.objectbox")
-    id("MainAppPlugin")
-    kotlin("kapt")
     id("com.google.devtools.ksp")
-//    id("org.jetbrains.dokka") version "1.8.10"
+//    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 //    id ("app.cash.paparazzi") version "1.3.1"
+//    id("DependencyUpdatePlugin")
+//    id("AndroidCoreLibraryPlugin")
+    id("MainAppPlugin")
+    id("io.objectbox")
 }
 
 android {
@@ -65,16 +93,18 @@ android {
 
         signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
 
-        buildConfigField("String", "IPTV_API_URL", "\"https://iptv-org.github.io/api/\"")
-        buildConfigField("String", "GITHUB_USER", "\"mimoccc\"")
-        buildConfigField("String", "GITHUB_REPOSITORY", "\"tvapp\"")
+        buildConfigString(
+            "IPTV_API_URL" to "https://iptv-org.github.io/api/",
+            "GITHUB_USER" to "mimoccc",
+            "GITHUB_REPOSITORY" to "tvapp"
+        )
 
         multiDexEnabled = true
 
-        manifestPlaceholders.apply {
-            put("auth0Domain", "@string/com_auth0_domain")
-            put("auth0Scheme", "demo")
-        }
+        manifestPlaceholders(
+            "auth0Domain" to "@string/com_auth0_domain",
+            "auth0Scheme" to "demo"
+        )
     }
 
     buildTypes {
@@ -90,20 +120,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
+            buildConfigString(
+                "SYNC_AUTH" to "${defaultConfig.applicationId}$applicationIdSuffix.sync"
             )
-            resValue(
-                "string",
-                "sync_auth",
-                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
-            )
-            resValue(
-                "string",
-                "app_name",
-                "TV App  ${applicationIdSuffix.suffixToString()}"
+            stringRes(
+                "sync_auth" to "${defaultConfig.applicationId}$applicationIdSuffix.sync",
+                "app_name" to "TV App ${applicationIdSuffix.suffixToString()}"
             )
         }
 
@@ -118,20 +140,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "SYNC_AUTH",
-                "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
+            buildConfigString(
+                "SYNC_AUTH" to "\"${defaultConfig.applicationId}$applicationIdSuffix.sync\""
             )
-            resValue(
-                "string",
-                "sync_auth",
-                "${defaultConfig.applicationId}$applicationIdSuffix.sync"
-            )
-            resValue(
-                "string",
-                "app_name",
-                "TV App  ${applicationIdSuffix.suffixToString()}"
+            stringRes(
+                "sync_auth" to "${defaultConfig.applicationId}$applicationIdSuffix.sync",
+                "app_name" to "TV App ${applicationIdSuffix.suffixToString()}"
             )
         }
     }
@@ -166,128 +180,49 @@ android {
         checkReleaseBuilds = false
     }
 
+    kapt {
+        correctErrorTypes = true
+    }
+
     hilt {
         enableAggregatingTask = true
     }
 
-//    subprojects {
-//        apply(plugin = "org.jetbrains.dokka")
-//    }
+    applicationVariants.all {
+        outputs.map {
+            it as BaseVariantOutputImpl
+        }.forEach { output ->
+            val outputFileName = "$applicationId-$versionName.apk"
+            output.outputFileName = outputFileName
+        }
+    }
 
-//    tasks.dokkaGfm {
-//        outputDirectory.set(File(projectDir, "../wiki/documentation"))
-//    }
+    tasks {
+        dokkaGfm {
+            outputDirectory.set(File(projectDir, "../wiki/documentation/"))
+        }
+    }
+
+    mainAppConfig {
+        createDocumentation = true
+    }
 }
 
 dependencies {
-    // todo remove
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.21")
-    // startups
-//    implementation("androidx.startup:startup-runtime:1.1.1")
-    // tv library by mjdev milan jurkulak
-    implementation(project(mapOf("path" to ":tvlib")))
-    // base libs
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    // compose base libs
-    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
-    implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    // more icons
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    // tv compose
-    implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
-    implementation("androidx.tv:tv-material:1.0.0-alpha10")
-    // dagger - hilt
-    implementation("com.google.dagger:dagger-android:2.50")
-    implementation("com.google.dagger:dagger-android-support:2.50")
-    implementation("com.google.dagger:dagger:2.50")
-    implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    // moshi json
-    implementation("com.squareup.moshi:moshi:1.15.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    // okhttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.12"))
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
-    // debug
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("com.android.volley:volley:1.2.1")
-    // kapt
-    kapt("com.google.dagger:dagger-compiler:2.50")
-    kapt("com.google.dagger:dagger-android-processor:2.50")
-    kapt("com.google.dagger:hilt-compiler:2.50")
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
-    // view model
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.6")
-    // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
-    // sandwich
-    implementation("com.github.skydoves:sandwich:2.0.5")
-    implementation("com.github.skydoves:sandwich-retrofit:2.0.5")
-    // encrypt data
-    implementation("com.scottyab:aescrypt:0.0.1")
-    // permission
-    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
-    // previews
-    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
-    // lottie
-    implementation("com.airbnb.android:lottie-compose:6.2.0")
-    // widgets
-    implementation("androidx.glance:glance-appwidget:1.0.0")
-    implementation("androidx.glance:glance-material:1.0.0")
-    implementation("androidx.glance:glance-material3:1.0.0")
-    // fix duplicates
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
-    // image loading
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
-    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-    implementation("com.github.skydoves:landscapist-glide:2.2.13")
-    implementation("com.github.skydoves:landscapist-transformation:2.2.13")
-    implementation("com.github.skydoves:landscapist-palette:2.2.13")
-    implementation("com.github.skydoves:landscapist-placeholder:2.2.13")
-    ksp("com.github.bumptech.glide:ksp:4.16.0")
-    // exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.2.0")
-    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
-    implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
-    implementation("androidx.media3:media3-exoplayer-rtsp:1.2.0")
-    implementation("androidx.media3:media3-datasource-cronet:1.2.0")
-    implementation("androidx.media3:media3-datasource-okhttp:1.2.0")
-    implementation("androidx.media3:media3-datasource-rtmp:1.2.0")
-    implementation("androidx.media3:media3-ui:1.2.0")
-    implementation("androidx.media3:media3-session:1.2.0")
-    implementation("androidx.media3:media3-extractor:1.2.0")
-    implementation("androidx.media3:media3-cast:1.2.0")
-    implementation("androidx.media3:media3-exoplayer-workmanager:1.2.0")
-    implementation("androidx.media3:media3-transformer:1.2.0")
-    implementation("androidx.media3:media3-database:1.2.0")
-    implementation("androidx.media3:media3-decoder:1.2.0")
-    implementation("androidx.media3:media3-datasource:1.2.0")
-    implementation("androidx.media3:media3-common:1.2.0")
-    // generative a.i.
-//    implementation("com.google.ai.client.generativeai:generativeai:0.1.1")
-    // libs mismatch
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0").apply {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0").apply {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
-    // fix duplicates
-    @Suppress("UnstableApiUsage")
-    configurations {
-        all {
-            resolutionStrategy {
-                force("androidx.work:work-runtime-ktx:2.8.1")
-            }
-        }
-    }
+    mjdevTvLib()
+    baseDependencies()
+    composeDependencies()
+    daggerDependencies()
+    moshiDependencies()
+    okHttpDependencies()
+    timberDependencies()
+    retrofitDependencies()
+    sandwichDependencies()
+    glideDependencies()
+    exoPlayerDependencies()
+    testDependencies()
+    encryptDependencies()
+    permissionsDependencies()
+    anotherDependencies()
+    widgetDependencies()
 }

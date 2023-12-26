@@ -6,9 +6,7 @@
  * w: https://mjdev.org
  */
 
-@file:Suppress("DEPRECATION")
-
-@Suppress("JcenterRepositoryObsolete")
+@Suppress("DEPRECATION", "JcenterRepositoryObsolete")
 repositories {
     jcenter()
     google()
@@ -21,24 +19,25 @@ repositories {
 
 plugins {
     `kotlin-dsl`
-    `kotlin-dsl-precompiled-script-plugins`
-//    `java-gradle-plugin`
-//    `groovy-gradle-plugin`
-//    id("org.jetbrains.dokka") version "1.8.10"
-//    id("com.google.devtools.ksp")
+    `java-gradle-plugin`
+//    id("org.jetbrains.dokka") version "1.8.10" apply false
+//    id("io.gitlab.arturbosch.detekt")
+//    id("com.github.ben-manes.versions")
+//    id("com.bmuschko.docker-remote-api")
 }
 
 dependencies {
-    implementation(localGroovy())
     implementation(gradleApi())
+    implementation(gradleKotlinDsl())
+    implementation("com.android.tools.build:gradle-api:8.2.0")
+    implementation("com.android.tools.build:gradle:8.2.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
+    implementation("com.squareup:javapoet:1.13.0")
 
-//    implementation("com.android.tools.build:gradle:3.4.2")
-//    implementation("com.android.tools.build:gradle-api:3.4.3")
-//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0")
-//    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
-
+//    implementation("com.bmuschko:gradle-docker-plugin:9.4.0")
+//    implementation("org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18")
 //    implementation(kotlin("reflect", "1.8.21"))
-//    implementation("com.google.code.gson:gson:2.10.1")
+
 //    implementation("com.twelvemonkeys.imageio:imageio-core:3.9.4")
 //    implementation("com.twelvemonkeys.imageio:imageio-webp:3.9.4")
 //    implementation("com.twelvemonkeys.imageio:imageio-png:3.9.4")
@@ -71,16 +70,28 @@ dependencies {
 //    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 //    implementation("org.ini4j:ini4j:0.5.4")
 //    implementation("org.jsoup:jsoup:1.15.4")
+//    implementation("com.google.code.gson:gson:2.10.1")
 //    implementation("net.lingala.zip4j:zip4j:1.2.4")
 //    implementation("org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r")
-//    implementation("org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18")
 }
 
 gradlePlugin {
     plugins {
-        create("MainAppPlugin") {
+        register("MainAppPlugin") {
             id = "MainAppPlugin"
+            displayName = "MainAppPlugin"
+            description = "Common app plugin to handle all stuffs needed."
             implementationClass = "org.mjdev.gradle.plugin.MainAppPlugin"
         }
+//        register("DependencyUpdatePlugin") {
+//            id = "DependencyUpdatePlugin"
+//            displayName = "DependencyUpdatePlugin"
+//            description = "Dependency update plugin"
+//            implementationClass = "org.mjdev.gradle.plugin.DependencyUpdatePlugin"
+//        }
+//        register("AndroidCoreLibraryPlugin") {
+//            id = "AndroidCoreLibraryPlugin"
+//            implementationClass = "commons.AndroidCoreLibraryPlugin"
+//        }
     }
 }
