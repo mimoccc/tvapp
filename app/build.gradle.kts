@@ -6,7 +6,6 @@
  * w: https://mjdev.org
  */
 
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import org.mjdev.gradle.dependency.anotherDependencies
 import org.mjdev.gradle.dependency.baseDependencies
 import org.mjdev.gradle.dependency.composeDependencies
@@ -188,14 +187,14 @@ android {
         enableAggregatingTask = true
     }
 
-    applicationVariants.all {
-        outputs.map {
-            it as BaseVariantOutputImpl
-        }.forEach { output ->
-            val outputFileName = "$applicationId-$versionName.apk"
-            output.outputFileName = outputFileName
-        }
-    }
+//    applicationVariants.all {
+//        outputs.map {
+//            it as BaseVariantOutputImpl
+//        }.forEach { output ->
+//            val outputFileName = "$applicationId-$versionName.apk"
+//            output.outputFileName = outputFileName
+//        }
+//    }
 
     tasks {
         dokkaGfm {
