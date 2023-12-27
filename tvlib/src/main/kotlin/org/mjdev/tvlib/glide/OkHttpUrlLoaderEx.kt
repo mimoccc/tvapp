@@ -24,67 +24,34 @@ import org.mjdev.tvlib.BuildConfig
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
-/**
- * Custom URL loader
- * This loader implements image load debugging availability
- * @property factory Factory
- * @property nonDebugClient OkHttpClient
- * @property debugClient OkHttpClient?
- * @property client OkHttpClient
- * @property context Context
- * @constructor
- */
 @Keep
 class OkHttpUrlLoaderEx(
     private val factory: Factory
 ) : ModelLoader<GlideUrl, InputStream>, SharedPreferences.OnSharedPreferenceChangeListener {
-    private val nonDebugClient: OkHttpClient = OkHttpClient.Builder().apply {
+
+    private val client: OkHttpClient = OkHttpClient.Builder().apply {
         readTimeout(30, TimeUnit.SECONDS)
         writeTimeout(30, TimeUnit.SECONDS)
         connectTimeout(30, TimeUnit.SECONDS)
         followRedirects(true)
         followSslRedirects(true)
+        addInterceptor(
+            HttpLoggingInterceptor().setLevel(
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                else HttpLoggingInterceptor.Level.NONE
+            )
+        )
     }.build()
 
-    /**
-     * Client that make requests debug info
-     */
-    private var debugClient: OkHttpClient? = null
-
-    /**
-     * Standard client, not making any info
-     */
-    private val client: OkHttpClient?
-        get() = if (BuildConfig.DEBUG) debugClient else nonDebugClient
 
     /**
      * Context to be used
      */
     val context: Context get() = factory.context
 
-    init {
+//    init {
 //        context.sharedPrefs.preferences.registerOnSharedPreferenceChangeListener(this)
-        initialize()
-    }
-
-    /**
-     * Initialize loader
-     */
-    private fun initialize() {
-        debugClient = OkHttpClient.Builder().apply {
-            readTimeout(30, TimeUnit.SECONDS)
-            writeTimeout(30, TimeUnit.SECONDS)
-            connectTimeout(30, TimeUnit.SECONDS)
-            followRedirects(true)
-            followSslRedirects(true)
-            addInterceptor(
-                HttpLoggingInterceptor().setLevel(
-                    HttpLoggingInterceptor.Level.HEADERS
-                )
-            )
-//            addInterceptor(factory.chuckInterceptor)
-        }.build()
-    }
+//    }
 
     /**
      * De-initialize loader

@@ -63,6 +63,7 @@ object ViewExt {
     }
 
     val PlayerView.controller: PlayerControlView?
+        @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
         get() = allViews.firstOrNull { v -> v is PlayerControlView } as? PlayerControlView
 
     val PlayerView.buttons: List<ImageButton>

@@ -1,4 +1,12 @@
-package org.mjdev.tvapp.sync
+/*
+ *  Copyright (c) Milan Jurkulák 2023.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
+ */
+
+package org.mjdev.tvapp.sync.auth
 
 import android.app.Service
 import android.content.Intent

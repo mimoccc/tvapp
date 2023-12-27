@@ -25,6 +25,7 @@ import org.mjdev.tvlib.navigation.MenuItem
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
+@Suppress("unused")
 object NavExt {
 
     inline fun NavHostControllerEx.createGraph(

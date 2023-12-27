@@ -12,7 +12,11 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class UserAgentInterceptor(private val userAgent: String) : Interceptor {
+@Suppress("unused")
+class UserAgentInterceptor(
+    private val userAgent: String =
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest: Request = chain.request()

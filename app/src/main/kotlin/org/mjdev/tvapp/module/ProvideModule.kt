@@ -26,9 +26,11 @@ import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
-import org.mjdev.tvlib.network.CacheInterceptor
 import org.mjdev.tvlib.network.NetworkConnectivityService
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
+import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
+import org.mjdev.tvlib.webscrapper.adblock.AdBlockInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -77,27 +79,46 @@ class ProvideModule {
 
     @Singleton
     @Provides
-    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    @Singleton
-    @Provides
-    fun providesCacheInterceptor() = CacheInterceptor()
+    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().setLevel(
+        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+        else HttpLoggingInterceptor.Level.NONE
+    )
 
 //    @Singleton
 //    @Provides
-//    fun provideAdBlockInterceptor() = AdBlockInterceptor()
+//    fun providesCacheInterceptor() = CacheInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideAdBlockInterceptor(
+        @ApplicationContext
+        context: Context
+    ) = AdBlockInterceptor(context)
+
+    @Singleton
+    @Provides
+    fun provideUserAgentInterceptor() = UserAgentInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideNetworkConnectionInterceptor(
+        @ApplicationContext
+        context: Context
+    ) = NetworkConnectionInterceptor(context)
 
     @Singleton
     @Provides
     fun providesOkHttpClient(
-        cacheInterceptor: CacheInterceptor,
+        networkConnectionInterceptor: NetworkConnectionInterceptor,
+        userAgentInterceptor: UserAgentInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+//        cacheInterceptor: CacheInterceptor,
 //        adBlockInterceptor: AdBlockInterceptor,
-        httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient = OkHttpClient.Builder().apply {
+        addNetworkInterceptor(networkConnectionInterceptor)
+        addNetworkInterceptor(userAgentInterceptor)
 //        addNetworkInterceptor(adBlockInterceptor)
-        addNetworkInterceptor(cacheInterceptor)
+//        addNetworkInterceptor(cacheInterceptor)
         if (BuildConfig.DEBUG) {
             addInterceptor(httpLoggingInterceptor)
         }

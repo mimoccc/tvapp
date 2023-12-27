@@ -34,6 +34,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.companionObject
 import kotlin.reflect.full.functions
 
+@Suppress("unused")
 object HiltExt {
 
     @Suppress("LocalVariableName")

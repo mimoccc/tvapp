@@ -25,23 +25,22 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.extensions.GlobalExt.launch
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
-import org.mjdev.tvlib.network.CacheInterceptor
 import org.mjdev.tvlib.helpers.http.MimeTypeMapUtils
+import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
 import org.xmlpull.v1.XmlPullParser
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.InputStream
 
 // todo better performance && precache && dagger
-@Suppress("UNCHECKED_CAST", "PrivatePropertyName")
+@Suppress("UNCHECKED_CAST")
 class AlbumArtLoaderFactory(
     private val context: Context
 ) : ModelLoader<String?, InputStream?>, ModelLoaderFactory<String?, InputStream?> {
 
-    private val USER_AGENT =
-        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
     private val httpCache by lazy {
         Cache(
             directory = File(
@@ -51,18 +50,24 @@ class AlbumArtLoaderFactory(
             maxSize = 1024L * 1024L * 1024L
         )
     }
-    private val userAgentInterceptor by lazy { UserAgentInterceptor(USER_AGENT) }
-    private val cacheInterceptor by lazy { CacheInterceptor() }
+    private val userAgentInterceptor by lazy { UserAgentInterceptor() }
+    private val networkConnectionInterceptor by lazy { NetworkConnectionInterceptor(context) }
+
+    //    private val adBlockInterceptor by lazy { AdBlockInterceptor(context) }
+//    private val cacheInterceptor by lazy { CacheInterceptor() }
     private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+        HttpLoggingInterceptor().setLevel(
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
+        )
     }
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
+            addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
-            addNetworkInterceptor(cacheInterceptor)
             addNetworkInterceptor(httpLoggingInterceptor)
+//            addNetworkInterceptor(cacheInterceptor)
+//            addNetworkInterceptor(adBlockInterceptor)
             cache(httpCache)
         }.build()
     }
@@ -86,7 +91,7 @@ class AlbumArtLoaderFactory(
             try {
                 releaseGroupID = parse(musicSearchIs)
             } catch (e: Exception) {
-               // no op
+                // no op
             }
         }
         if (releaseGroupID != null) {
@@ -220,7 +225,7 @@ class AlbumArtLoaderFactory(
                     } else {
                         callback.onLoadFailed(Exception("No cover"))
                     }
-                } catch (e:Exception) {
+                } catch (e: Exception) {
                     callback.onLoadFailed(e)
                 }
             }

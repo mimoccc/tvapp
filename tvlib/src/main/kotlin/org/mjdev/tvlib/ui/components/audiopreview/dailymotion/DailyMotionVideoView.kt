@@ -27,8 +27,9 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
-import org.mjdev.tvlib.network.CacheInterceptor
 import org.mjdev.tvlib.ui.components.audiopreview.IPreviewEngine
 import timber.log.Timber
 import java.io.File
@@ -62,9 +63,6 @@ class DailyMotionVideoView @JvmOverloads constructor(
     private val DM_URL =
         "https://api.dailymotion.com/videos?fields=id,thumbnail_url,title&search=%s&page=1&limit=1"
 
-    private val USER_AGENT =
-        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
-
     private val httpCache by lazy {
         Cache(
             directory = File(
@@ -75,24 +73,25 @@ class DailyMotionVideoView @JvmOverloads constructor(
         )
     }
 
-    private val userAgentInterceptor by lazy {
-        UserAgentInterceptor(USER_AGENT)
-    }
+    private val networkConnectionInterceptor by lazy { NetworkConnectionInterceptor(context) }
+    private val userAgentInterceptor by lazy { UserAgentInterceptor() }
 
-    private val cacheInterceptor by lazy {
-        CacheInterceptor()
-    }
+//    private val cacheInterceptor by lazy {
+//        CacheInterceptor()
+//    }
 
     private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+        HttpLoggingInterceptor().setLevel(
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
+        )
     }
 
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
+            addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
-            addNetworkInterceptor(cacheInterceptor)
+//            addNetworkInterceptor(cacheInterceptor)
             addNetworkInterceptor(httpLoggingInterceptor)
             cache(httpCache)
         }.build()

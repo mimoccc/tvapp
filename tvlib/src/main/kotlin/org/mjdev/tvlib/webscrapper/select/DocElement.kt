@@ -32,6 +32,10 @@ class DocElement internal constructor(
 
     val attributeValues: List<String> by lazy { attributes.map { it.value } }
 
+    val baseUri: String by lazy { element.baseUri() }
+
+    fun absUrl(attributeKey: String): String = element.absUrl(attributeKey)
+
     infix fun attribute(attributeKey: String): String = attributes[attributeKey].orEmpty()
 
     fun hasAttribute(attributeKey: String): Boolean = attribute(attributeKey).isNotBlank()

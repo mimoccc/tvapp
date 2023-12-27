@@ -219,10 +219,11 @@ dependencies {
     retrofitDependencies()
     sandwichDependencies()
     glideDependencies()
+//    imageIODependencies()
     exoPlayerDependencies()
-    testDependencies()
     encryptDependencies()
     permissionsDependencies()
     anotherDependencies()
     widgetDependencies()
+    testDependencies()
 }

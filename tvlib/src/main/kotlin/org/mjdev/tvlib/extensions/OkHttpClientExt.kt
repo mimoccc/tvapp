@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
+@Suppress("unused")
 object OkHttpClientExt {
 
     fun OkHttpClient.download(
@@ -37,23 +38,23 @@ object OkHttpClientExt {
         }
     }
 
-//    fun OkHttpClient.download(
-//        url: String,
-//        onResult: (Result<String>) -> Unit
-//    ) {
-//        Request.Builder().url(url).build().also { request ->
-//            newCall(request).enqueue(
-//                object : Callback {
-//                    override fun onFailure(call: Call, e: okio.IOException) {
-//                        onResult.invoke(Result.failure(e))
-//                    }
-//
-//                    override fun onResponse(call: Call, response: Response) {
-//                        onResult.invoke(Result.success(response.body.string()))
-//                    }
-//                }
-//            )
-//        }
-//    }
+    fun OkHttpClient.downloadString(
+        url: String,
+        onResult: (Result<String>) -> Unit
+    ) {
+        Request.Builder().url(url).build().also { request ->
+            newCall(request).enqueue(
+                object : Callback {
+                    override fun onFailure(call: Call, e: okio.IOException) {
+                        onResult.invoke(Result.failure(e))
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        onResult.invoke(Result.success(response.body.string()))
+                    }
+                }
+            )
+        }
+    }
 
 }

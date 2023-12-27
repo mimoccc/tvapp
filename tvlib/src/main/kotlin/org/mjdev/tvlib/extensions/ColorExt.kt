@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import kotlin.math.roundToInt
 
+@Suppress("unused")
 object ColorExt {
 
     fun Color.invert(): Color {

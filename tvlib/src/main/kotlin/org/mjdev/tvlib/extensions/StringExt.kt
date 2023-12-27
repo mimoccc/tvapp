@@ -9,6 +9,8 @@
 package org.mjdev.tvlib.extensions
 
 import android.net.Uri
+import java.net.MalformedURLException
+import java.net.URL
 
 @Suppress("unused")
 object StringExt {
@@ -26,5 +28,13 @@ object StringExt {
         filter { line -> (!startTagChars.contains(line[0])) }
 
     fun List<String>.trimLines() = map { line -> line.trim() }
+
+    @Suppress("SENSELESS_COMPARISON")
+    val String.isUrl: Boolean
+        get() = try {
+            URL(this) != null
+        } catch (e: MalformedURLException) {
+            false
+        }
 
 }

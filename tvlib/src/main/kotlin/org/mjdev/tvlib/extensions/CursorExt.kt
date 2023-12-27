@@ -16,6 +16,7 @@ import androidx.core.database.getStringOrNull
 import org.mjdev.tvlib.helpers.cursor.CachingCursor
 import timber.log.Timber
 
+@Suppress("unused")
 object CursorExt {
 
     val Cursor.isNotEmpty get() = count > 0

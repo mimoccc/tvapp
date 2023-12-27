@@ -22,7 +22,7 @@ import java.net.URL
 @Suppress("unused")
 class AdBlock(
     inputStream: InputStream,
-    private val blockMimeTypes : Boolean = false
+    private val blockMimeTypes: Boolean = false
 ) : IAdBlocker {
 
     constructor(file: File) : this(file.inputStream())
@@ -74,9 +74,13 @@ class AdBlock(
             null
         }
         Timber.d("host: $host")
-        val mimeType = MimeTypeMapUtils.getMimeTypeFromUrl(reqUrl)
-        Timber.d("mimetype: $mimeType")
-        if (blockMimeTypes && mimeType?.let { allowedMimeTypes.contains(mimeType) } == false) return true
+        if (blockMimeTypes) {
+            val mimeType = MimeTypeMapUtils.getMimeTypeFromUrl(reqUrl)
+            Timber.d("mimetype: $mimeType")
+            if (mimeType?.let { allowedMimeTypes.contains(it) } == false) {
+                return true
+            }
+        }
         if (host?.let { h -> hosts.contains(h) } == true) return true
         return reqUrl?.let { url ->
             urls.any { blockedURL -> url.startsWith(blockedURL) }

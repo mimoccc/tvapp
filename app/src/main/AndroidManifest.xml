@@ -196,7 +196,7 @@
         </service>
 
         <service
-            android:name=".sync.AuthenticatorService"
+            android:name=".sync.auth.AuthenticatorService"
             android:exported="false">
 
             <intent-filter>
@@ -210,7 +210,7 @@
         </service>
 
         <provider
-            android:name=".sync.DataProvider"
+            android:name=".sync.provider.DataProvider"
             android:authorities="@string/sync_auth"
             android:enabled="true"
             android:exported="true"

@@ -57,7 +57,7 @@ abstract class DomTreeElement : CssSelectable() {
         get(): Map<String, String> = allElements.filter {
             it.hasAttribute("href")
         }.associate {
-            it.text to it.attribute("href")
+            it.text to it.absUrl("href")
         }
 
     @Suppress("unused")
@@ -65,15 +65,15 @@ abstract class DomTreeElement : CssSelectable() {
         get(): Map<String, String> =
             allElements.filter { it.tagName == "img" }
                 .filter { it.hasAttribute("src") }
-                .associate { it.attribute("alt") to it.attribute("src") }
+                .associate { it.attribute("alt") to it.absUrl("src") }
 
     val eachVideo: List<String>
         get() {
             val elements = allElements
-            val videos = elements.filter { e -> (e.tagName == "video") || (e.tagName == "source") }
+            val videos = elements.filter { e -> e.tagName == "source" }
+            // todo mimetype
             val videosWithSource = videos.filter { e -> e.hasAttribute("src") }
-            // todo type
-            return videosWithSource.map { e -> e.attribute("src") }
+            return videosWithSource.map { e -> e.absUrl("src") }
         }
 
     open fun makeDefaultElement(cssSelector: String): DocElement {

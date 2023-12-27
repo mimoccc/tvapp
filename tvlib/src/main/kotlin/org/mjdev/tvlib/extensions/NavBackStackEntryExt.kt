@@ -10,6 +10,7 @@ package org.mjdev.tvlib.extensions
 
 import androidx.navigation.NavBackStackEntry
 
+@Suppress("unused")
 object NavBackStackEntryExt {
 
     @Suppress("UNCHECKED_CAST", "DEPRECATION")

@@ -25,7 +25,7 @@
 
 -keep,allowobfuscation,allowshrinking interface retrofit2.Call
 -keep,allowobfuscation,allowshrinking class retrofit2.Response
--keep,allowobfuscation,allowshrinking class kotlin.coroutines.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.*
 
 -dontwarn java.awt.font.FontRenderContext
 -dontwarn java.awt.font.LineBreakMeasurer

@@ -21,7 +21,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.ScreenWithPages
 import org.mjdev.tvlib.ui.components.page.PagerScope
 import org.mjdev.tvlib.ui.components.page.SearchPage
-import org.mjdev.tvlib.ui.components.page.SettingsPage
 
 class MainScreen : ScreenWithPages() {
 
@@ -37,7 +36,6 @@ class MainScreen : ScreenWithPages() {
         page(SubscriptionPage())
         page(PluginsPage())
 
-        page(SettingsPage(), menuGravity = Bottom)
         page(AboutPage(), menuGravity = Bottom)
 
     }

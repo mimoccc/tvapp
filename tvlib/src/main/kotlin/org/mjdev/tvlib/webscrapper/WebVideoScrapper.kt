@@ -11,8 +11,6 @@ package org.mjdev.tvlib.webscrapper
 import android.content.Context
 import androidx.core.net.toUri
 import com.gargoylesoftware.htmlunit.BrowserVersion
-import org.mjdev.tvlib.webscrapper.fetcher.BlockingFetcher
-import org.mjdev.tvlib.webscrapper.base.Request
 import org.mjdev.tvlib.webscrapper.base.response
 import org.mjdev.tvlib.webscrapper.base.skrape
 import org.jsoup.nodes.Document
@@ -29,12 +27,9 @@ class WebVideoScrapper(
     private val onVideoFound: (video: Video) -> Unit = {},
     private val onFinish: (videos: List<Video>) -> Unit = {}
 ) {
-    private val fetcher: BlockingFetcher<Request> by lazy {
-        BrowserFetcher(context, addBlock)
-    }
-    private val links: ArrayDeque<String> = ArrayDeque<String>().apply {
-        addAll(baseUrls)
-    }
+    private val fetcher by lazy { BrowserFetcher(context, addBlock) }
+    private val links = ArrayDeque<String>().apply { addAll(baseUrls) }
+    private val scannedLinks = mutableListOf<String>()
     private val videos = mutableListOf<Video>()
 
     fun start() {
@@ -49,6 +44,7 @@ class WebVideoScrapper(
     }
 
     private fun parse(uri: String) {
+        scannedLinks.add(uri)
         try {
             skrape(fetcher) {
                 request {
@@ -61,25 +57,21 @@ class WebVideoScrapper(
                 response {
                     htmlDocument {
                         eachVideo.forEach { src ->
-                            val url = normalizedUrl(baseUri, src)
-                            val title = parseTitle(document, url)
-                            val category = parseCategory(document, url)
-                            val thumb = parseThumb(document, url)
                             val video = Video(
-                                title = title,
-                                category = category,
-                                url = url,
-                                thumb = thumb
+                                title = parseTitle(document, src),
+                                category = parseCategory(document, src),
+                                url = src,
+                                thumb = parseThumb(document, src)
                             )
                             videos.add(video)
                             onVideoFound(video)
                         }
                         eachLink.values.forEach { href ->
-                            if ((!href.startsWith("#")) && (href != "/") && (!href.contentEquals(
-                                    baseUri
-                                ))
-                            ) {
-                                links.add(normalizedUrl(baseUri, href))
+                            when {
+                                href.startsWith("javascript:") -> {}
+                                href.contentEquals(baseUri) -> {}
+                                scannedLinks.contains(href) -> {}
+                                else -> links.add(href)
                             }
                         }
                     }
@@ -106,13 +98,7 @@ class WebVideoScrapper(
     @Suppress("UNUSED_PARAMETER")
     private fun parseTitle(document: Document, url: String): String {
         val auth = document.location().toUri().authority.toString()
-        return document.title().replace(auth, "", ignoreCase = true)
-    }
-
-    private fun normalizedUrl(base: String, href: String): String = href.let {
-        if (it.startsWith("/")) it.replaceFirstChar { "" } else it
-    }.let {
-        if (base.contentEquals(it)) base else "$base/$it"
+        return document.title().replace(auth, "", ignoreCase = true).trim()
     }
 
     data class Video(
@@ -121,4 +107,5 @@ class WebVideoScrapper(
         val category: String,
         val thumb: String
     )
+
 }

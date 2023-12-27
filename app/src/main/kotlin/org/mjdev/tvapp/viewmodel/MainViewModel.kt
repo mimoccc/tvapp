@@ -26,7 +26,7 @@ import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.data.local.Movie
 import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.database.DAO.Companion.findById
+import org.mjdev.tvlib.database.extensions.ObjectBoxExt.findById
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.extensions.ListExt.takeIf
 import org.mjdev.tvlib.helpers.apps.appsManager

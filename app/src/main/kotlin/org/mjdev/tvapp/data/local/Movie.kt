@@ -13,6 +13,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Index
+import io.objectbox.annotation.Unique
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithDescription
 import org.mjdev.tvlib.interfaces.ItemWithId
@@ -42,27 +44,35 @@ class Movie :
     override var id: Long = 0
 
     @Json(name = "studio")
+    @Index
     var studio: String? = null
 
     @Json(name = "country")
+    @Index
     var country: String? = null
 
     @Json(name = "isNsfw")
     var isNsfw: Boolean = false
 
     @Json(name = "title")
+    @Index
     override var title: String? = null
 
     @Json(name = "description")
+    @Index
     override var description: String? = null
 
     @Json(name = "videoUri")
+    @Unique
+    @Index
     override var uri: String? = null
 
+    @Index
     override var subtitle: String? = null
         get() = field ?: studio
 
     @Json(name = "category")
+    @Index
     var category: String? = ""
         get() = (field ?: country)?.replaceFirstChar { ch ->
             ch.titlecase(Locale.ROOT)

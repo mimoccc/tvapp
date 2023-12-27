@@ -31,7 +31,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.data.github.remote.Release
-import org.mjdev.tvlib.network.CacheInterceptor
+import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
+import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.text.SimpleDateFormat
@@ -51,7 +52,12 @@ class AppUpdater(
     }
 
     private val releases: Flow<List<Release>> = flow {
-        updateService(isDebug, githubUser, githubRepository).also { service ->
+        updateService(
+            context,
+            githubUser,
+            githubRepository,
+            isDebug,
+        ).also { service ->
             emit(service.releases().getOrNull() ?: emptyList())
         }
     }
@@ -109,26 +115,36 @@ class AppUpdater(
 
     companion object {
 
-        private fun httpLoggingInterceptor() = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
         private fun okHttpClient(
             isDebug: Boolean = false,
-            cacheInterceptor: CacheInterceptor = CacheInterceptor(),
+            networkConnectionInterceptor: NetworkConnectionInterceptor,
+            userAgentInterceptor: UserAgentInterceptor,
+//            cacheInterceptor: CacheInterceptor = CacheInterceptor(),
 //            adBlockInterceptor: AdBlockInterceptor = AdBlockInterceptor(),
-            httpLoggingInterceptor: HttpLoggingInterceptor = httpLoggingInterceptor(),
+            httpLoggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                else HttpLoggingInterceptor.Level.NONE
+            ),
         ): OkHttpClient = OkHttpClient.Builder().apply {
-            addNetworkInterceptor(cacheInterceptor)
+            addNetworkInterceptor(networkConnectionInterceptor)
+            addNetworkInterceptor(userAgentInterceptor)
+//            addNetworkInterceptor(cacheInterceptor)
 //            addNetworkInterceptor(adBlockInterceptor)
+
             if (isDebug) {
                 addInterceptor(httpLoggingInterceptor)
             }
         }.build()
 
         private fun retrofit(
-            okHttpClient: OkHttpClient,
+            context: Context,
             baseUrl: String = "",
+            isDebug: Boolean = false,
+            okHttpClient: OkHttpClient = okHttpClient(
+                isDebug = isDebug,
+                userAgentInterceptor = UserAgentInterceptor(),
+                networkConnectionInterceptor = NetworkConnectionInterceptor(context)
+            ),
         ): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
@@ -138,11 +154,12 @@ class AppUpdater(
             .build()
 
         fun updateService(
-            isDebug: Boolean = false,
+            context: Context,
             githubUser: String = "mimoccc",
             githubRepository: String = "tvapp",
+            isDebug: Boolean = false,
             baseUrl: String = "https://api.github.com/repos/$githubUser/$githubRepository/",
-            retrofit: Retrofit = retrofit(okHttpClient(isDebug = isDebug), baseUrl)
+            retrofit: Retrofit = retrofit(context, baseUrl, isDebug)
         ): AppUpdateService = retrofit.create(AppUpdateService::class.java)
 
         @Composable

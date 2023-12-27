@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.graphics.drawable.toBitmap
 import org.mjdev.tvlib.ui.drawable.PhotoDrawable
 
+@Suppress("unused")
 object DrawableExt {
 
     // todo check width and height

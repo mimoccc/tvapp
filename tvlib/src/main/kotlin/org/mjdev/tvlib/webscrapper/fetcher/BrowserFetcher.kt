@@ -16,51 +16,56 @@ import com.gargoylesoftware.htmlunit.util.Cookie
 import com.gargoylesoftware.htmlunit.util.NameValuePair
 import org.mjdev.tvlib.webscrapper.base.toCookie
 import org.mjdev.tvlib.webscrapper.base.urlOrigin
-import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
 import org.mjdev.tvlib.webscrapper.adblock.IAdBlocker
 import org.mjdev.tvlib.webscrapper.adblock.NoAdBlock
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
-import org.mjdev.tvlib.network.CacheInterceptor
+import org.mjdev.tvlib.webscrapper.adblock.AdBlockInterceptor
 import org.mjdev.tvlib.webscrapper.base.Method
 import org.mjdev.tvlib.webscrapper.base.Request
 import org.mjdev.tvlib.webscrapper.base.Result
-import java.io.File
 import java.net.Proxy
 import java.net.URL
 
 @Suppress("unused")
 class BrowserFetcher(
     private val context: Context,
-    private val adBlock: IAdBlocker = NoAdBlock(),
-    private val userAgent: String = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+    private val adBlock: IAdBlocker = NoAdBlock()
 ) : BlockingFetcher<Request> {
-    private val httpCache by lazy {
-        Cache(
-            directory = File(
-                context.cacheDir,
-                "http_cache"
-            ),
-            maxSize = 1024L * 1024L * 1024L
+    //    private val httpCache by lazy {
+//        Cache(
+//            directory = File(
+//                context.cacheDir,
+//                "http_cache"
+//            ),
+//            maxSize = 1024L * 1024L * 1024L
+//        )
+//    }
+    private val userAgentInterceptor by lazy { UserAgentInterceptor() }
+    private val networkConnectionInterceptor by lazy { NetworkConnectionInterceptor(context) }
+
+    //    private val cacheInterceptor by lazy { CacheInterceptor() }
+    private val adBlockInterceptor by lazy { AdBlockInterceptor(context, adBlock) }
+    private val httpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor().setLevel(
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
         )
     }
-    private val userAgentInterceptor by lazy { UserAgentInterceptor(userAgent) }
-    private val cacheInterceptor by lazy { CacheInterceptor() }
-    private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
 
-    //    private val adBlockInterceptor by lazy { AdBlockInterceptor(context, adBlock) }
     private val httpClient by lazy {
         OkHttpClient.Builder().apply {
-//            addNetworkInterceptor(adBlockInterceptor)
+            addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
-            addNetworkInterceptor(cacheInterceptor)
-            addNetworkInterceptor(httpLoggingInterceptor)
-            cache(httpCache)
+            if (BuildConfig.DEBUG) {
+                addNetworkInterceptor(httpLoggingInterceptor)
+            }
+            addInterceptor(adBlockInterceptor)
+//            addNetworkInterceptor(cacheInterceptor)
+//            cache(httpCache)
         }.build()
     }
 
@@ -129,6 +134,7 @@ class BrowserFetcher(
             historyPageCacheLimit = 0
             isJavaScriptEnabled = true
             withProxySettings(request)
+            waitForBackgroundJavaScript(1000)
         }
     }
 

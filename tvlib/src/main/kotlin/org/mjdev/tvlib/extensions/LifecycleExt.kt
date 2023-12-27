@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
+@Suppress("unused")
 object LifecycleExt {
 
     @SuppressLint("ComposableNaming")

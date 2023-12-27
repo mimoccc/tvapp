@@ -33,6 +33,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
+    id("io.objectbox")
 //    kotlinAndroid()
 //    kotlinKapt()
 //    androidLibrary()
@@ -123,6 +124,8 @@ android {
 
 dependencies {
     baseDependencies()
+    timberDependencies()
+    daggerDependencies()
     composeDependencies()
     okHttpDependencies()
     retrofitDependencies()
@@ -130,11 +133,10 @@ dependencies {
     sandwichDependencies()
     glideDependencies()
     oauthDependencies()
-    timberDependencies()
-    daggerDependencies()
     exoPlayerDependencies()
-    testDependencies()
     encryptDependencies()
     permissionsDependencies()
+//    imageIODependencies()
     anotherDependencies()
+    testDependencies()
 }

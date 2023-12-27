@@ -10,6 +10,7 @@
 *a.realsrv.com
 *stats.hprofits.com
 *tsyndicate.com
+*pagead2.googlesyndication.com
 *fonts.gstatic.com
 *fonts.googleapis.com
 *stats.g.doubleclick.net

@@ -20,6 +20,7 @@ import org.mjdev.tvlib.screen.Screen
 
 typealias AnimType<T> = (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> T?)
 
+@Suppress("unused")
 object NavGraphBuilderExt {
 
     fun <T : Screen> NavGraphBuilderEx.startScreen(

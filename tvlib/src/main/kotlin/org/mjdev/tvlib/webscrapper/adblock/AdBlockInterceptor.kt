@@ -28,11 +28,11 @@ class AdBlockInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
         val reqUrl = request.url
-        val originResponse: Response = chain.proceed(request)
         return if (adBlock.isBlocked(reqUrl.toUrl()))
             emptyResponse(request)
         else {
             val cache = request.header(CacheType.KEY_CACHE)
+            val originResponse: Response = chain.proceed(request)
             if (!TextUtils.isEmpty(cache) && (cache == CacheType.NORMAL.ordinal.toString() + ""))
                 originResponse
             else originResponse.newBuilder()

@@ -18,6 +18,7 @@ import android.text.format.DateFormat
 import timber.log.Timber
 import java.util.Date
 
+@Suppress("unused", "UnusedReceiverParameter")
 object ContextExt {
 
     val Context.isEink: Boolean

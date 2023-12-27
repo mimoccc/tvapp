@@ -11,24 +11,14 @@ package org.mjdev.tvlib.extensions
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.runtime.MutableState
-import com.skydoves.sandwich.ApiResponse
-import com.skydoves.sandwich.getOrNull
-import com.skydoves.sandwich.message
-import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onException
-import com.skydoves.sandwich.toFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.net.MalformedURLException
-import java.net.URL
 import kotlin.coroutines.CoroutineContext
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object GlobalExt {
 
     val UI = Dispatchers.Main
@@ -44,11 +34,11 @@ object GlobalExt {
         block = block
     )
 
-    fun launchUI (
+    fun launchUI(
         block: suspend CoroutineScope.() -> Unit
     ) = launch(UI) { block() }
 
-    fun launchIO (
+    fun launchIO(
         block: suspend CoroutineScope.() -> Unit
     ) = launch(IO) { block() }
 
@@ -59,51 +49,13 @@ object GlobalExt {
         block.invoke(this)
     }, delay)
 
-    class CodeException(
-        message: String = "Unhandled Exception.",
-        code: Int = -1,
-    ) : Exception(String.format("$code : $message."))
-
     fun MutableState<Boolean>.toggle() {
         value = !value
     }
 
-    fun <T> ApiResponse<T>.safeFlow(
-        error: (exception: Exception) -> Unit = { exception ->
-            Timber.e(exception)
-        },
-        onError: (error: ApiResponse.Failure.Error) -> Unit = { e ->
-            error(CodeException(e.message()))
-        }
-    ): Flow<T> = onException {
-        error(this)
-    }.onError {
-        onError(this)
-    }.toFlow()
-
-    inline fun <reified T> ApiResponse<List<T>>.safeGet(
-        crossinline error: (exception: Exception) -> Unit = { exception ->
-            Timber.e(exception)
-        }
-    ): List<T> = onException {
-        error(this)
-    }.onError {
-        error(CodeException(message()))
-    }.getOrNull() ?: emptyList()
-
-    suspend fun <E> runSafe(block: suspend () -> E): Result<E> = try {
-        block.invoke().let { result ->
-            Result.success(result)
-        }
-    } catch (e: Exception) {
-        Result.failure(e)
+    inline fun <T> with(receiver: T, block: T.() -> Unit): T {
+        block.invoke(receiver)
+        return receiver
     }
 
-    @Suppress("SENSELESS_COMPARISON")
-    val String.isUrl: Boolean
-        get() = try {
-            URL(this) != null
-        } catch (e: MalformedURLException) {
-            false
-        }
 }

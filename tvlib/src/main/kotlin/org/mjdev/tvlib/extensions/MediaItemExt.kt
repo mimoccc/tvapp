@@ -24,6 +24,7 @@ import org.mjdev.tvlib.interfaces.ItemWithImage
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.interfaces.ItemWithUri
 
+@Suppress("unused")
 object MediaItemExt {
 
     val Context.metadataRetriever

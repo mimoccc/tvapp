@@ -198,6 +198,13 @@ fun DependencyHandler.widgetDependencies() = arrayOf(
     implementation("androidx.glance:glance-material3:1.0.0"),
 )
 
+fun DependencyHandler.stripeDependencies() = arrayOf(
+    // stripe payments
+    implementation("com.stripe:stripe-android:20.33.0"),
+    implementation("com.stripe:stripecardscan:20.33.0"),
+    implementation("com.stripe:financial-connections:20.33.0"),
+)
+
 fun DependencyHandler.anotherDependencies() = arrayOf(
     // zxing
     implementation("com.google.zxing:core:3.5.2"),
@@ -215,12 +222,10 @@ fun DependencyHandler.anotherDependencies() = arrayOf(
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12"),
     // dynamic theme
     implementation("com.google.android.material:material:1.11.0"),
-    // stripe payments
-    implementation("com.stripe:stripe-android:20.33.0"),
-    implementation("com.stripe:stripecardscan:20.33.0"),
-    implementation("com.stripe:financial-connections:20.33.0"),
     // scrape
     implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0"),
+//    implementation("org.htmlunit:htmlunit3-android:3.7.0"),
+//    implementation("org.htmlunit:htmlunit:3.9.0"),
     // flip card
     implementation("com.wajahatkarim:flippable:1.5.4"),
     // ui controller
@@ -240,3 +245,28 @@ fun DependencyHandler.anotherDependencies() = arrayOf(
 fun DependencyHandler.mjdevTvLib() = arrayOf(
     implementation(project(mapOf("path" to ":tvlib")))
 )
+
+//fun DependencyHandler.imageIODependencies() = arrayOf(
+//    implementation("com.twelvemonkeys.imageio:imageio-core:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-webp:3.9.4"),
+////    implementation("com.twelvemonkeys.imageio:imageio-png:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-bmp:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-jpeg:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-tiff:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-batik:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-metadata:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-psd:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-icns:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-pnm:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-sgi:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-pict:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-tga:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-pcx:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-iff:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-pdf:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-pnm:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-hdr:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-clippath:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-thumbsdb:3.9.4"),
+//    implementation("com.twelvemonkeys.imageio:imageio-xwd:3.9.4"),
+//)

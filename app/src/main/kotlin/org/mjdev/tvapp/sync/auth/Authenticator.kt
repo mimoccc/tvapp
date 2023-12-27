@@ -1,4 +1,4 @@
-package org.mjdev.tvapp.sync
+package org.mjdev.tvapp.sync.auth
 
 import android.accounts.AbstractAccountAuthenticator
 import android.accounts.Account
