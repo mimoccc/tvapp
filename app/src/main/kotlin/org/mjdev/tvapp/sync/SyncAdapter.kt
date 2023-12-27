@@ -42,6 +42,8 @@ class SyncAdapter(
             ifNotDebug(GithubMoviesSyncer(this)),
             ifDebug(WebMovieSyncer(this, "https://tekeye.uk/html/html5-video-test-page")),
             ifDebug(WebMovieSyncer(this, "https://prehraj.to/hledej/filmy")),
+            ifDebug(WebMovieSyncer(this, "https://movie4kto.net/")),
+            ifDebug(WebMovieSyncer(this, "https://movie4kto.net/")),
         )
     }
 
