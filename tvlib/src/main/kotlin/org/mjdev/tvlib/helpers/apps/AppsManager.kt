@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -20,19 +20,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
-import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.interfaces.ItemWithIntent
-import org.mjdev.tvlib.interfaces.ItemWithTitle
+import org.mjdev.tvlib.data.local.App
 import java.util.Collections
 
 @Composable
 fun rememberAppsManager(
+    context: Context = LocalContext.current,
     vararg excluded: ComponentName
-): Flow<List<App>> {
-    val context: Context = LocalContext.current
-    return remember(context) {
-        appsManager(context, *excluded)
-    }
+): Flow<List<App>> = remember(context) {
+    appsManager(context, *excluded)
 }
 
 fun appsManager(
@@ -83,19 +79,3 @@ fun appsManager(
         send(list)
     }
 }.flowOn(Dispatchers.IO)
-
-data class App(
-    override var title: String?,
-    override var image: Drawable?,
-    override var intent: Intent?,
-) : ItemWithTitle<String>, ItemWithImage<Drawable>, ItemWithIntent {
-    override fun equals(other: Any?): Boolean =
-        if (other !is App) false else other.hashCode() == hashCode()
-
-    override fun hashCode(): Int {
-        var result = title?.hashCode() ?: 0
-        result = 31 * result + (image?.hashCode() ?: 0)
-        result = 31 * result + (intent?.hashCode() ?: 0)
-        return result
-    }
-}

@@ -42,6 +42,7 @@ import java.io.InputStream
  * */
 @GlideModule
 class ApplicationGlideApp : AppGlideModule() {
+
     /**
      * Cache size, maximal images cache on device
      */
@@ -114,4 +115,5 @@ class ApplicationGlideApp : AppGlideModule() {
             append(InputStream::class.java, SVG::class.java, SvgDecoder())
         }
     }
+
 }

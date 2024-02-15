@@ -75,6 +75,11 @@
 *a.bestcontentcost.top
 *b.bestcontentcost.top
 *bongacams.com
+*fonts.gstatic.com
+*sharethis.com
+*platform-api.sharethis.com
+*blg-1216lb.com
+*blg-12161b.com
 ####################################################################################################
 # URLS #############################################################################################
 ####################################################################################################
@@ -115,3 +120,13 @@ https://zbporn.com/search_videos_json.php
 https://www.sexvid.xxx/search_videos_json.php
 https://www.rat.xxx/search_videos_json.php
 https://www.pornid.xxx/search_videos_json.php
+https://www.gstatic.com/recaptcha/
+https://www.google.com/recaptcha/
+https://prehraj.to/front/video-js/plugins/videojs-ima/
+https://prehraj.to/front/video-js/plugins/videojs-contrib-ads/
+https://prehraj.to/front/js/alt-ads.js
+https://prehraj.to/front/img/favicon/favicon.png
+https://prehraj.to/front/img/favicon/favicon.gif
+https://prehraj.to/front/img/favicon/favicon.jpg
+https://securepubads.g.doubleclick.net/
+

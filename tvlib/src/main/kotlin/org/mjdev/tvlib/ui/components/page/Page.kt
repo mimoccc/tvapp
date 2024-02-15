@@ -33,9 +33,7 @@ open class Page {
     open val title: Any? = null
     open val icon: Any? = null
 
-    private val focusRequester by lazy {
-        FocusRequester()
-    }
+    private val focusRequester by lazy { FocusRequester() }
 
     @SuppressLint("ComposableNaming")
     @Previews

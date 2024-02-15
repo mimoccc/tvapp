@@ -9,20 +9,28 @@
 package org.mjdev.tvapp.sync
 
 import android.accounts.Account
+import android.annotation.SuppressLint
 import android.content.AbstractThreadedSyncAdapter
 import android.content.ContentProviderClient
 import android.content.Context
 import android.content.SyncResult
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.annotation.Keep
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import io.objectbox.Box
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.events.PauseEvent
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvapp.sync.base.Syncer
 import org.mjdev.tvapp.sync.syncers.GithubMoviesSyncer
-import org.mjdev.tvapp.sync.syncers.WebMovieSyncer
+import org.mjdev.tvlib.events.post.postEvent
 import org.mjdev.tvlib.extensions.GlobalExt.launchIO
 
 @Keep
@@ -31,20 +39,30 @@ class SyncAdapter(
     context: Context,
     val apiService: ApiService,
     val dao: DAO,
-    val movieDao: Box<Movie> = dao.movieDao,
+    val movieDao: Box<Media> = dao.movieDao,
 ) : AbstractThreadedSyncAdapter(context, true, false) {
+
+    private val connManager by lazy {
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+
+    private val mWifi by lazy {
+        @Suppress("DEPRECATION")
+        connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+    }
 
     private fun ifDebug(syncer: Syncer) = if (BuildConfig.DEBUG) syncer else null
     private fun ifNotDebug(syncer: Syncer) = if (!BuildConfig.DEBUG) syncer else null
 
     private val customSyncers: List<Syncer> by lazy {
-        listOfNotNull(
-            ifNotDebug(GithubMoviesSyncer(this)),
-            ifDebug(WebMovieSyncer(this, "https://tekeye.uk/html/html5-video-test-page")),
-            ifDebug(WebMovieSyncer(this, "https://prehraj.to/hledej/filmy")),
-            ifDebug(WebMovieSyncer(this, "https://movie4kto.net/")),
-            ifDebug(WebMovieSyncer(this, "https://movie4kto.net/")),
-        )
+        @Suppress("DEPRECATION")
+        if (mWifi?.isConnected == true) {
+            listOfNotNull(
+                GithubMoviesSyncer(this),
+            )
+        } else {
+            emptyList()
+        }
     }
 
     override fun onPerformSync(
@@ -55,8 +73,36 @@ class SyncAdapter(
         syncResult: SyncResult?
     ) {
         launchIO {
-            customSyncers.forEach { syncer -> syncer.sync() }
+            customSyncers.forEach { syncer ->
+                syncer.sync(this)
+            }
         }
     }
-}
 
+    companion object {
+
+        fun pauseSync() =
+            postEvent(PauseEvent())
+
+        @SuppressLint("ComposableNaming")
+        @Composable
+        fun pauseSyncUntilGone() {
+            val coroutineScope = rememberCoroutineScope()
+            var disposed = false
+            DisposableEffect(Unit) {
+                coroutineScope.launch {
+                    do {
+                        PauseEvent().let { event ->
+                            postEvent(event)
+                            delay(event.timeout / 2)
+                        }
+                    } while (!disposed)
+                }
+                onDispose {
+                    disposed = true
+                }
+            }
+        }
+    }
+
+}

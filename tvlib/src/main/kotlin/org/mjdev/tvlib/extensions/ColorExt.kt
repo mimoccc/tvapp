@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,10 +10,13 @@
 
 package org.mjdev.tvlib.extensions
 
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.annotation.FloatRange
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.toArgb
 import kotlin.math.roundToInt
 
 @Suppress("unused")
@@ -59,5 +62,7 @@ object ColorExt {
             )
         )
     )
+
+    fun Color.toColorDrawable(): Drawable = ColorDrawable(toArgb())
 
 }

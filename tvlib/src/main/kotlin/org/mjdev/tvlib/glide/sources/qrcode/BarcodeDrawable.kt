@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -22,6 +22,7 @@ class BarcodeDrawable(
     private val foregroundColor: Int = BLACK,
     val backgroundColor: Int = WHITE
 ) : Drawable() {
+
     private var paint: Paint = Paint()
 
     init {

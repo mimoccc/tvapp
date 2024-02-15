@@ -22,6 +22,7 @@ import com.caverock.androidsvg.SVG
  */
 @Keep
 class SvgDrawableTranscoder : ResourceTranscoder<SVG?, PictureDrawable?> {
+
     /**
      * Transcode data
      * @param toTranscode Resource<SVG?>
@@ -37,4 +38,5 @@ class SvgDrawableTranscoder : ResourceTranscoder<SVG?, PictureDrawable?> {
         val drawable = PictureDrawable(picture)
         return SimpleResource(drawable)
     }
+
 }

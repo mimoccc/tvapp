@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -40,16 +40,16 @@ object LifecycleExt {
     @Composable
     fun rememberPlayPauseLifeCycleObserver(
         key1: Any? = Unit,
-        onPause: () -> Unit = {},
-        onResume: () -> Unit = {}
+        onPause: (() -> Unit)? = null,
+        onResume:( () -> Unit)? = null
     ) = rememberLifeCycleEventObserver(key1) { _, event ->
         when (event) {
             Lifecycle.Event.ON_PAUSE -> {
-                onPause()
+                onPause?.invoke()
             }
 
             Lifecycle.Event.ON_RESUME -> {
-                onResume()
+                onResume?.invoke()
             }
 
             else -> {

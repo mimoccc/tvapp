@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -19,7 +19,7 @@ object BitmapExt {
     fun Bitmap.bimapCopy(): Bitmap = copy(Bitmap.Config.ARGB_8888, false)
 
     fun Bitmap?.majorColor(
-        defaultColor: Color
+        defaultColor: Color = Color.Transparent
     ): Color = this?.let { bmp ->
         Palette.from(bmp)
             .generate()

@@ -47,7 +47,7 @@ fun ModalNavigationDrawer(
     contentAlignment: Alignment = Alignment.TopStart,
     closedDrawerWidth: MutableState<Dp?> = remember { mutableStateOf(null) },
     localDensity: Density = LocalDensity.current,
-    onTouchOutside: () -> Unit = {},
+    onTouchOutside: (() -> Unit)? = null,
     drawerContent: @Composable (DrawerValue) -> Unit = {
         Box(
             modifier = Modifier.background(Color.LightGray, RectangleShape)
@@ -116,7 +116,7 @@ fun ModalNavigationDrawer(
                         .pointerInput(Unit) {
                             detectTapGestures(
                                 onTap = {
-                                    onTouchOutside()
+                                    onTouchOutside?.invoke()
                                 }
                             )
                         }

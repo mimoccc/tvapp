@@ -13,9 +13,6 @@ import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -33,21 +30,15 @@ fun VerticalScrollableBox(
     propagateMinConstraints: Boolean = isLandscapeMode(),
     state: TvLazyListState? = rememberTvLazyListState(),
     content: @Composable BoxScope.() -> Unit = {}
+) = Box(
+    modifier = modifier
+        .pointerInput(Unit) {
+            detectVerticalDragGestures { _, dragAmount ->
+                state?.dispatchRawDelta(-dragAmount)
+            }
+        },
+    contentAlignment = contentAlignment,
+    propagateMinConstraints = propagateMinConstraints,
 ) {
-    val scrollDelta = remember { mutableFloatStateOf(0f) }
-    Box(
-        modifier = modifier
-            .pointerInput(Unit) {
-                detectVerticalDragGestures { _, dragAmount ->
-                    scrollDelta.value = dragAmount
-                }
-            },
-        contentAlignment = contentAlignment,
-        propagateMinConstraints = propagateMinConstraints,
-    ) {
-        content.invoke(this)
-    }
-    LaunchedEffect(scrollDelta.value) {
-        state?.dispatchRawDelta(-scrollDelta.value)
-    }
+    content.invoke(this)
 }

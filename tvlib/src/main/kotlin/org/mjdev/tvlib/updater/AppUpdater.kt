@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -28,8 +28,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.data.github.remote.Release
 import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
@@ -44,9 +42,9 @@ class AppUpdater(
     private val githubRepository: String = "tvapp",
     private val repoName: String = AppUpdater::class.simpleName ?: "AppUpdater",
     private val keyName: String = repoName,
-    private val isDebug: Boolean = BuildConfig.DEBUG,
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO),
 ) {
+
     private val prefs by lazy {
         context.getSharedPreferences(repoName, MODE_PRIVATE)
     }
@@ -56,7 +54,6 @@ class AppUpdater(
             context,
             githubUser,
             githubRepository,
-            isDebug,
         ).also { service ->
             emit(service.releases().getOrNull() ?: emptyList())
         }
@@ -116,32 +113,31 @@ class AppUpdater(
     companion object {
 
         private fun okHttpClient(
-            isDebug: Boolean = false,
+//            isDebug: Boolean = false,
             networkConnectionInterceptor: NetworkConnectionInterceptor,
             userAgentInterceptor: UserAgentInterceptor,
 //            cacheInterceptor: CacheInterceptor = CacheInterceptor(),
 //            adBlockInterceptor: AdBlockInterceptor = AdBlockInterceptor(),
-            httpLoggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                else HttpLoggingInterceptor.Level.NONE
-            ),
+//            httpLoggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(
+//                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+//                else HttpLoggingInterceptor.Level.NONE
+//            ),
         ): OkHttpClient = OkHttpClient.Builder().apply {
             addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
 //            addNetworkInterceptor(cacheInterceptor)
 //            addNetworkInterceptor(adBlockInterceptor)
-
-            if (isDebug) {
-                addInterceptor(httpLoggingInterceptor)
-            }
+//            if (isDebug) {
+//                addInterceptor(httpLoggingInterceptor)
+//            }
         }.build()
 
         private fun retrofit(
             context: Context,
             baseUrl: String = "",
-            isDebug: Boolean = false,
+//            isDebug: Boolean = false,
             okHttpClient: OkHttpClient = okHttpClient(
-                isDebug = isDebug,
+//                isDebug = isDebug,
                 userAgentInterceptor = UserAgentInterceptor(),
                 networkConnectionInterceptor = NetworkConnectionInterceptor(context)
             ),
@@ -157,23 +153,20 @@ class AppUpdater(
             context: Context,
             githubUser: String = "mimoccc",
             githubRepository: String = "tvapp",
-            isDebug: Boolean = false,
             baseUrl: String = "https://api.github.com/repos/$githubUser/$githubRepository/",
-            retrofit: Retrofit = retrofit(context, baseUrl, isDebug)
+            retrofit: Retrofit = retrofit(context, baseUrl)
         ): AppUpdateService = retrofit.create(AppUpdateService::class.java)
 
         @Composable
         fun rememberAppUpdater(
             githubUser: String = "mimoccc",
-            githubRepository: String = "tvapp",
-            isDebug: Boolean = BuildConfig.DEBUG
+            githubRepository: String = "tvapp"
         ): AppUpdater = LocalContext.current.let { context ->
             remember(context) {
                 AppUpdater(
                     context = context,
                     githubUser = githubUser,
                     githubRepository = githubRepository,
-                    isDebug = isDebug
                 )
             }
         }

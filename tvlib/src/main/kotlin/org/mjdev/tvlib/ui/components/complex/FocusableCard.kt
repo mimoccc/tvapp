@@ -95,21 +95,22 @@ fun FocusableCard(
     },
     focused: Boolean = isEditMode(),
     focusRequester: FocusRequester = rememberFocusRequester(item),
-    focusState: MutableState<FocusState?> = rememberFocusState(
+    focusState: MutableState<FocusState> = rememberFocusState(
         item,
         FocusHelper(focused)
     ),
-    onFocus: (item: Any?) -> Unit = {},
+    onFocus: ((item: Any?, fromUser: Boolean) -> Unit)? = null,
     onFocusChange: (state: FocusState) -> Unit = { state ->
         if (state.isFocused || state.hasFocus) {
-            onFocus(item)
+            // todo focused from user ?
+            onFocus?.invoke(item, false)
         }
     },
     titlePadding: PaddingValues = PaddingValues(8.dp),
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     isEdit: Boolean = isEditMode(),
-    onClick: (item: Any?) -> Unit = {},
+    onClick: ((item: Any?) -> Unit)? = null,
 ) = CompactCard(
     scale = scale,
     shape = shape,
@@ -126,14 +127,14 @@ fun FocusableCard(
             onFocusChange(state)
         }
         .requestFocusOnTouch(focusRequester) {
-            if (focusState.isFocused) {
-                onClick(item)
-            }
+            if (focusState.isFocused) onClick?.invoke(item)
         }
         .conditional(isEdit) {
             defaultMinSize(80.dp)
         },
-    image = { imageRenderer() },
+    image = {
+        imageRenderer()
+    },
     title = {
         if (showTitle) {
             Box(
@@ -184,6 +185,6 @@ fun FocusableCard(
         // todo
     },
     onClick = {
-        onClick(item)
+        onClick?.invoke(item)
     },
 )

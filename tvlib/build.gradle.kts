@@ -1,3 +1,11 @@
+/*
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
+ */
+
 import org.mjdev.gradle.dependency.anotherDependencies
 import org.mjdev.gradle.dependency.baseDependencies
 import org.mjdev.gradle.dependency.composeDependencies
@@ -13,45 +21,56 @@ import org.mjdev.gradle.dependency.retrofitDependencies
 import org.mjdev.gradle.dependency.sandwichDependencies
 import org.mjdev.gradle.dependency.testDependencies
 import org.mjdev.gradle.dependency.timberDependencies
-import org.mjdev.gradle.plugin.javaVersion
-import org.mjdev.gradle.plugin.kotlinCompilerExtVersion
-import org.mjdev.gradle.plugin.projectCompileSdk
-import org.mjdev.gradle.plugin.projectMinSdk
-
-/*
- * Copyright (c) Milan Jurkulák 2023.
- *  Contact:
- *  e: mimoccc@gmail.com
- *  e: mj@mjdev.org
- *  w: https://mjdev.org
- */
 
 plugins {
-    kotlin("android")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
     id("com.android.library")
     id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("io.objectbox")
-//    kotlinAndroid()
-//    kotlinKapt()
-//    androidLibrary()
-//    hilt()
-//    ksp()
-//    mainAppPlugin()
+    id("org.jetbrains.dokka")
+    id("LibPlugin")
+}
+
+libConfig {
+//    namespace = "org.mjdev.tvlib"
+//    compileSdk = 34
+//    minSdk = 21
 }
 
 android {
     namespace = "org.mjdev.tvlib"
-    compileSdk = projectCompileSdk
-
-    defaultConfig {
-        minSdk = projectMinSdk
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+    compileSdk = 34
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
+    defaultConfig {
+        minSdk = 21
+    }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.8"
+    }
+    packaging {
+        resources {
+            excludes.apply {
+                add("META-INF/")
+                add("/META-INF/{AL2.0,LGPL2.1}")
+                add("/META-INF/DEPENDENCIES")
+                add("/mozilla/public-suffix-list.txt")
+                add("okhttp3/")
+                add("kotlin/")
+                add("org/")
+                add(".properties")
+                add(".bin")
+            }
+        }
+    }
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -68,61 +87,10 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-
-    kotlinOptions {
-        jvmTarget = javaVersion.toString()
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = kotlinCompilerExtVersion
-    }
-
-    packaging {
-        with(resources.excludes) {
-            add("/META-INF/{AL2.0,LGPL2.1}")
-            add("META-INF/")
-            add("okhttp3/")
-            add("kotlin/")
-            add("org/")
-            add(".properties")
-            add(".bin")
-        }
-    }
-
-    lint {
-        checkReleaseBuilds = false
-    }
-
-    hilt {
-        enableAggregatingTask = true
-    }
-
-    kapt {
-        correctErrorTypes = true
-    }
-
-    tasks {
-        dokkaGfm {
-            outputDirectory.set(File(projectDir, "../wiki/documentation/"))
-        }
-    }
 }
 
 dependencies {
+//    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
     baseDependencies()
     timberDependencies()
     daggerDependencies()
@@ -136,7 +104,8 @@ dependencies {
     exoPlayerDependencies()
     encryptDependencies()
     permissionsDependencies()
-//    imageIODependencies()
     anotherDependencies()
     testDependencies()
+//    implementation ("com.github.jeziellago:compose-markdown:0.2.6")
+//    implementation("org.jetbrains:markdown:0.5.0")
 }

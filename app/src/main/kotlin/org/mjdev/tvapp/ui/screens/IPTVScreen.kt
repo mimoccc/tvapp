@@ -6,6 +6,8 @@
  * w: https://mjdev.org
  */
 
+@file:Suppress("UnusedReceiverParameter")
+
 package org.mjdev.tvapp.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
@@ -27,6 +30,7 @@ import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.extensions.ListExt.indexOf
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
+import timber.log.Timber
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class IPTVScreen : Screen() {
@@ -64,22 +68,32 @@ class IPTVScreen : Screen() {
             dataList.indexOf<Any?> { item -> item.uri == data.uri }
         }
 
+        pauseSyncUntilGone()
+
 //        Gallery (
 //            modifier = Modifier.fillMaxSize(),
 //            list = dataList,
 //            index = index,
 //            customContentViewer = { _, type, _ ->
-                MediaPlayerContainer(
-                    modifier = Modifier.fillMaxSize(),
+        MediaPlayerContainer(
+            modifier = Modifier.fillMaxSize(),
 //                    visible = (type == ItemType.Video || type == ItemType.Audio),
-                    state = rememberMediaPlayerState(
-                        items = dataList,
-                        itemToPlay = index
-                    )
-                )
+            state = rememberMediaPlayerState(
+                items = dataList,
+                itemToPlay = index,
+                autoPlay = true,
+                playNextOnError = false,
+                onError = { error ->
+                    Timber.e(error)
+                    true
+                }
+            )
+        )
 //            }
 //        )
 
     }
 
 }
+
+

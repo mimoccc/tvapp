@@ -23,7 +23,7 @@ fun AutoScrollSideEffect(
     itemCount: Int,
     carouselState: CarouselState,
     doAutoScroll: Boolean,
-    onAutoScrollChange: (isAutoScrollActive: Boolean) -> Unit = {},
+    onAutoScrollChange: ((isAutoScrollActive: Boolean) -> Unit)? = null,
 ) {
     if (autoScrollDurationMillis == Long.MAX_VALUE || autoScrollDurationMillis < 0) {
         return
@@ -45,5 +45,5 @@ fun AutoScrollSideEffect(
             }
         }
     }
-    onAutoScrollChange(doAutoScroll)
+    onAutoScrollChange?.invoke(doAutoScroll)
 }

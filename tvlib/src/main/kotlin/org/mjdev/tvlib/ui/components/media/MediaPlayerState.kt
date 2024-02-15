@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.media
 
 import android.content.Context
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,28 +19,39 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.text.CueGroup
+import androidx.media3.datasource.HttpDataSource
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collectLatest
 import org.json.JSONObject
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
+import org.mjdev.tvlib.extensions.GlobalExt.launchInMain
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
-import timber.log.Timber
+import org.mjdev.tvlib.webscrapper.WebVideoScrapper
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 @JsonClass(generateAdapter = true)
 class MediaPlayerState(
+    @Json(name = "context", ignore = true)
+    val context: Context? = null,
+    @Json(name = "initialItems")
     initItems: List<MediaItem> = emptyList(),
+    @Json(name = "initialIndex")
     initItemIndex: Int = 0,
+    @Json(name = "autoPlay")
     autoPlay: Boolean = true,
+    @Json(name = "seekAtStart")
     startSeek: Long? = null,
-    @Json(name = "play_next_on_error", ignore = true)
+    @Json(name = "playNextOnError")
     val playNextOnError: Boolean = true,
-    @Json(name = "on_error", ignore = true)
-    val onError: (e: Exception) -> Boolean = { false },
+    @Json(name = "onError", ignore = true)
+    val onError: MediaPlayerState.(e: Throwable) -> Boolean = { false },
 ) : Player.Listener {
 
     @Json(name = "media_items")
@@ -77,9 +89,44 @@ class MediaPlayerState(
             field.addListener(this)
         }
 
+    fun playFromWebPage(url: String) = launchInMain {
+        channelFlow {
+            var videoUrl: String? = null
+            WebVideoScrapper(
+                context = context!!,
+                parseUrls = listOf(url),
+                onVideoFound = { video ->
+                    if (videoUrl == null) {
+                        videoUrl = video.videoUrl
+                        send(Result.success(videoUrl!!))
+                        stop()
+                    }
+                },
+                onNoVideoFound = { link ->
+                    if (link.uri.contentEquals(url)) {
+                        send(Result.failure(Exception("No video found")))
+                    }
+                }
+            ).start()
+            awaitCancellation()
+        }.collectLatest { result ->
+            result.onSuccess { videoUrl ->
+                play(videoUrl)
+            }.onFailure { error ->
+                onError(error)
+            }
+        }
+    }
+
     fun play() {
         isPlaying = true
         player.play()
+    }
+
+    fun play(url: String) {
+        player.setMediaUri(Uri.parse(url))
+        player.prepare()
+        player.playWhenReady = true
     }
 
     fun stop() {
@@ -119,14 +166,21 @@ class MediaPlayerState(
     }
 
     override fun onPlayerErrorChanged(error: PlaybackException?) {
-        isPlaying = false
         this.error = error
-        Timber.e(error)
-        val handled: Boolean = error?.let { e -> onError(e) } ?: true
-        if ((!handled) && playNextOnError) {
-            player.playWhenReady = true
-            player.seekToNext()
-            player.prepare()
+        val webUrl = currentItem.localConfiguration?.tag as? String?
+        if ((error?.cause is HttpDataSource.InvalidResponseCodeException) && (webUrl != null)) {
+            playFromWebPage(webUrl)
+        } else {
+            val handled: Boolean = error?.let { e ->
+                onError(Exception(currentItem.localConfiguration?.uri.toString(), e))
+            } ?: false
+            if ((!handled) && playNextOnError) {
+                player.playWhenReady = true
+                player.seekToNext()
+                player.prepare()
+            } else {
+                isPlaying = false
+            }
         }
     }
 
@@ -180,7 +234,7 @@ class MediaPlayerState(
             playNextOnError: Boolean = true,
             startSeek: Long? = null,
             context: Context = LocalContext.current,
-            onError: (e: Exception) -> Boolean = { false },
+            onError: MediaPlayerState.(error: Throwable) -> Boolean = { false },
             isEdit: Boolean = isEditMode()
         ) = rememberSaveable(
             key = MediaPlayerState::class.simpleName,
@@ -188,6 +242,7 @@ class MediaPlayerState(
             saver = mediaPlayerStateSaver(context),
         ) {
             MediaPlayerState(
+                context,
                 items,
                 itemToPlay,
                 autoPlay,

@@ -68,7 +68,7 @@ fun PhotoImage(
     shape: Shape = RoundedCornerShape(roundCornerSize),
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
-    onImageStateChanged: (state: GlideImageState) -> Unit = {}
+    onImageStateChanged: ((state: GlideImageState) -> Unit)? = null
 ) {
     val isEdit = isEditMode()
     if (src == null) {
@@ -93,7 +93,7 @@ fun PhotoImage(
                 colorFilter = colorFilter,
             ),
             onImageStateChanged = { state ->
-                onImageStateChanged.invoke(state)
+                onImageStateChanged?.invoke(state)
             },
             success = { state, _ ->
                 val bitmap = state.imageBitmap?.asAndroidBitmap()

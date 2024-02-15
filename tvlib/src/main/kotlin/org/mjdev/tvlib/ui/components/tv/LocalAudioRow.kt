@@ -22,7 +22,7 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
-import org.mjdev.tvlib.helpers.cursor.AudioItem
+import org.mjdev.tvlib.data.local.AudioItem
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 
 @Suppress("DEPRECATION")
@@ -49,8 +49,8 @@ fun LocalAudioRow(
         sortOrder = sortOrder,
         transform = transform
     ),
-    onItemFocus: (item: Any?) -> Unit = {},
-    openItem: Context.(item: Any?) -> Unit = {},
+    onItemFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    openItem: (Context.(item: Any?) -> Unit)? = null,
 ) = CursorRow(
     title = title,
     rowState = rowState,

@@ -12,22 +12,29 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
+import org.mjdev.tvapp.data.events.SyncEvent
+import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSync
 import org.mjdev.tvlib.data.local.User
 import org.mjdev.tvlib.auth.AuthManager.Companion.rememberAuthManager
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
-import org.mjdev.tvlib.interfaces.ItemWithId
 import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.tv.AppsRow
 import org.mjdev.tvlib.ui.components.tv.BrowseView
@@ -36,10 +43,12 @@ import org.mjdev.tvlib.ui.components.tv.LocalPhotosRow
 import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.viewmodel.MainViewModel
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.ComposeExt.observedEvents
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
+import org.mjdev.tvlib.ui.dialog.BlurDialog
 import java.io.Serializable
 import java.net.URL
 
@@ -49,6 +58,7 @@ class MainPage : Page() {
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
+    @SuppressLint("OpaqueUnitKey")
     @Previews
     @Composable
     override fun Content() {
@@ -58,26 +68,40 @@ class MainPage : Page() {
             MainViewModel.mock(context)
         }
 
-        val streamingData = viewModel.movieList.collectAsState()
-        val countryList = viewModel.countryList.collectAsState()
-        val featuredMovieList = viewModel.featuredMovieList.collectAsState()
-        val messages = viewModel.messages.collectAsState()
-
-        val errorState = remember(viewModel.error) { mutableStateOf(viewModel.error.value) }
-        val titleState = remember { mutableStateOf<Any?>(R.string.app_name) }
-
-        val onItemClick: (item: Any?) -> Unit = { item ->
-            val dataId = (item as? ItemWithId)?.id
-            if (dataId != null) {
-                viewModel.findMovie(dataId) { movie ->
-                    navController.startActivity<IPTVActivity>(IPTV_DATA to movie)
-                }
-            } else if (item is Serializable) {
-                navController.startActivity<IPTVActivity>(IPTV_DATA to item)
+        val syncEvents by observedEvents<SyncEvent>()
+        // refresh every 32 items, todo improve
+        val needRefresh by remember {
+            derivedStateOf {
+                syncEvents.size > 32
+                syncEvents.clear()
             }
         }
 
-        val onItemSelect: (item: Any?) -> Unit = { item ->
+        val titleState by remember { mutableIntStateOf(R.string.app_name) }
+        // todo improve
+        val streamingData by remember(needRefresh) { viewModel.movieList }.collectAsState()
+        val countryList by remember { viewModel.countryList }.collectAsState()
+        val featuredMovieList by remember { viewModel.featuredMovieList }.collectAsState()
+        val messages by remember { viewModel.messages }.collectAsState()
+        var user by remember { mutableStateOf<User?>(null) }
+        val errorState = remember(viewModel.error) {
+            mutableStateOf(viewModel.error.value)
+        }
+        val authManager = rememberAuthManager(
+            allowedPackages = listOf(BuildConfig.APPLICATION_ID)
+        ) { u -> user = u }
+
+        val onItemClick: (
+            item: Any?
+        ) -> Unit = { item ->
+            pauseSync()
+            navController.startActivity<IPTVActivity>(IPTV_DATA to (item as Serializable))
+        }
+        val onItemSelect: (
+            item: Any?,
+            fromUser: Boolean
+        ) -> Unit = { item, fromUser ->
+            if (fromUser) pauseSync()
             when (item) {
                 is String -> item
                 is URL -> item
@@ -95,27 +119,20 @@ class MainPage : Page() {
             errorState.value = error
         }
 
-        val user = remember { mutableStateOf<User?>(null) }
-        val authManager = rememberAuthManager(
-            allowedPackages = listOf(BuildConfig.APPLICATION_ID)
-        ) { u -> user.value = u }
-        val apps = remember { viewModel.apps }.collectAsState(emptyList())
-
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
             BrowseView(
-                isDebug = BuildConfig.DEBUG,
                 modifier = Modifier.fillMaxSize(),
                 appIcon = R.mipmap.ic_launcher_foreground,
-                userIcon = user.value?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,
+                userIcon = user?.pictureUrl ?: org.mjdev.tvlib.R.drawable.person,
                 githubUser = BuildConfig.GITHUB_USER,
                 githubRepository = BuildConfig.GITHUB_REPOSITORY,
-                title = titleState.value,
-                messages = messages.value,
-                categories = countryList.value,
-                featuredItems = featuredMovieList.value,
-                categoriesAndItemsMap = streamingData.value,
+                title = titleState,
+                messages = messages,
+                categories = countryList,
+                featuredItems = featuredMovieList,
+                categoriesAndItemsMap = streamingData,
                 errorState = errorState,
                 onTitleClicked = {
                     navController.openMenu()
@@ -131,9 +148,7 @@ class MainPage : Page() {
                 },
                 customRows = mutableListOf<@Composable () -> Unit>().apply {
                     add {
-                        AppsRow(
-                            apps = apps
-                        )
+                        AppsRow()
                     }
                     if (viewModel.localAudioCursor.count > 0) add {
                         LocalAudioRow(
@@ -158,6 +173,16 @@ class MainPage : Page() {
                     }
                 }
             )
+//            BlurDialog(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(16.dp),
+//                title = "Welcome",
+//                noiseAlpha = 1f,
+//                backgroundAlpha = 0.5f
+//            ) {
+//                // todo
+//            }
         }
     }
 

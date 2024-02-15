@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -17,8 +17,9 @@ import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.data.local.Category
 import org.mjdev.tvapp.data.local.Country
 import org.mjdev.tvapp.data.local.Message
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.data.local.MyObjectBox
+import org.mjdev.tvapp.data.local.ParsedLink
 import org.mjdev.tvapp.data.local.TVChannel
 import kotlin.reflect.KClass
 
@@ -40,7 +41,7 @@ class DAO(
 
     val cache = mutableMapOf<KClass<*>, List<*>>()
 
-    val movieDao: Box<Movie> by lazy {
+    val movieDao: Box<Media> by lazy {
         store.boxFor()
     }
 
@@ -62,8 +63,16 @@ class DAO(
         store.boxFor()
     }
 
+    val parsedLinksDao: Box<ParsedLink> by lazy {
+        store.boxFor()
+    }
+
     val allMediaItems: List<Any> by lazy {
         movieDao.all
+    }
+
+    val parsedLinks: List<ParsedLink> by lazy {
+        parsedLinksDao.all
     }
 
     inline fun <reified T> getCachedList(creator: () -> List<*>): List<*> {

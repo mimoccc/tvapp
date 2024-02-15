@@ -73,15 +73,15 @@ fun ItemCard(
     },
     cardWidth: Dp = computeCardWidth(),
     focused: Boolean = isEditMode(),
-    focusState: MutableState<FocusState?> = rememberFocusState(
+    focusState: MutableState<FocusState> = rememberFocusState(
         item,
         FocusHelper(focused)
     ),
     focusRequester: FocusRequester = rememberFocusRequester(item),
     titlePadding: PaddingValues = PaddingValues(8.dp),
     showTitle:Boolean = true,
-    onFocus: (item: Any?) -> Unit = {},
-    onClick: (item: Any?) -> Unit = {},
+    onFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    onClick: ((item: Any?) -> Unit)? = null,
 ) = FocusableCard(
     modifier = modifier,
     item = item,

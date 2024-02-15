@@ -16,19 +16,13 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
@@ -42,17 +36,11 @@ import org.mjdev.tvlib.ui.components.page.Page.Companion.EMPTY_PAGE
 @Composable
 fun TvPager(
     startIndex: Int = 0,
-    roundCornerSize: Dp = 0.dp,
-    backGroundColor: Color = Color.Transparent,
-    backGroundShape: Shape = RoundedCornerShape(roundCornerSize),
     @Suppress("UNUSED_ANONYMOUS_PARAMETER")
     onPageChange: (index: Int, page: Page?) -> Unit = { index, page -> },
     navController: NavHostControllerEx = rememberNavControllerEx(),
-    pages: PagerScope.() -> Unit = {
-        page(EMPTY_PAGE)
-    }
+    pages: PagerScope.() -> Unit = { page(EMPTY_PAGE) }
 ) {
-
     val currentPage = remember { mutableStateOf<Page?>(null) }
     val coroutineScope = rememberCoroutineScope()
     val pagerScope = rememberPagerScope(navController, startIndex, pages, onPageChange)
@@ -106,9 +94,7 @@ fun TvPager(
     ) { pageIndex ->
         val page = if (pagerScope.size > pageIndex) pagerScope[pageIndex] else null
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(backGroundColor, backGroundShape),
+            modifier = Modifier.fillMaxSize()
         ) {
             page?.content()
         }

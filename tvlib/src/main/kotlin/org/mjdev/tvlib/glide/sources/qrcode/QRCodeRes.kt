@@ -9,5 +9,7 @@
 package org.mjdev.tvlib.glide.sources.qrcode
 
 open class QRCodeRes(val data: String) {
+
     override fun toString(): String = data
+
 }

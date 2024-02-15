@@ -6,12 +6,14 @@
  *  w: https://mjdev.org
  */
 
+@file:Suppress("unused")
+
 package org.mjdev.tvlib.webscrapper.select
 
 import org.jsoup.nodes.Element
 import java.util.*
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress( "MemberVisibilityCanBePrivate")
 class DocElement internal constructor(
     override val element: Element,
     override val relaxed: Boolean,
@@ -32,7 +34,8 @@ class DocElement internal constructor(
 
     val attributeValues: List<String> by lazy { attributes.map { it.value } }
 
-    val baseUri: String by lazy { element.baseUri() }
+    val baseUri: String
+        get() = element.baseUri()
 
     fun absUrl(attributeKey: String): String = element.absUrl(attributeKey)
 
@@ -46,13 +49,17 @@ class DocElement internal constructor(
 
     val classNames: Set<String> by lazy { className.split(" ").filter { it.isNotBlank() }.toSet() }
 
-    fun hasClass(className: String): Boolean =
-        classNames.map { it.lowercase(Locale.getDefault()) }
-            .contains(className.lowercase(Locale.getDefault()))
+    fun hasClass(className: String): Boolean = classNames.map {
+        it.lowercase(Locale.getDefault())
+    }.contains(className.lowercase(Locale.getDefault()))
 
     val id: String by lazy { attribute("id").trim() }
 
-    val parents: List<DocElement> by lazy { element.parents().map { DocElement(it, this.relaxed) } }
+    val parents: List<DocElement> by lazy {
+        element.parents().map {
+            DocElement(it, this.relaxed)
+        }
+    }
 
     fun <T> parents(init: List<DocElement>.() -> T): T = parents.init()
 
@@ -118,67 +125,55 @@ val List<DocElement>.html: String
 val List<DocElement>.isPresent: Boolean
     get(): Boolean = isNotEmpty()
 
-@Suppress("unused")
 val List<DocElement>.isNotPresent: Boolean
     get(): Boolean = !isPresent
 
-@Suppress("unused")
 val List<DocElement>.eachText: List<String>
     get(): List<String> = map { it.text }
 
-@Suppress("unused")
 val List<DocElement>.eachTagName: List<String>
     get(): List<String> = map { it.tagName }
 
-@Suppress("unused")
 val List<DocElement>.eachAttribute: Map<String, String>
     get() = map { it.attributes }.flatMap { it.toList() }.toMap()
 
-@Suppress("unused")
 val List<DocElement>.eachDataAttribute: Map<String, String>
     get() = map { it.dataAttributes }.flatMap { it.toList() }.toMap()
 
-@Suppress("unused")
-infix fun List<DocElement>.attribute(attributeKey: String): String =
-    filter { it.hasAttribute(attributeKey) }
-        .joinToString { it.attribute(attributeKey) }
+infix fun List<DocElement>.attribute(
+    attributeKey: String
+): String = filter {
+    it.hasAttribute(attributeKey)
+}.joinToString { it.attribute(attributeKey) }
 
-@Suppress("unused")
 infix fun List<DocElement>.eachAttribute(attributeKey: String): List<String> =
     map { it attribute attributeKey }
         .filter { it.isNotEmpty() }
 
-@Suppress("unused")
 val List<DocElement>.eachClassName: List<String>
     get(): List<String> = flatMap { it.classNames }.distinct()
 
-@Suppress("unused")
 val List<DocElement>.eachHref: List<String>
     get(): List<String> = eachAttribute("href")
 
-@Suppress("unused")
 val List<DocElement>.eachSrc: List<String>
     get(): List<String> = eachAttribute("src")
 
-@Suppress("unused")
 val List<DocElement>.eachLink: Map<String, String>
     get(): Map<String, String> =
         filter { it.hasAttribute("href") }
             .associate { it.text to it.attribute("href") }
 
-@Suppress("unused")
 val List<DocElement>.eachImage: Map<String, String>
     get(): Map<String, String> =
         filter { it.tagName == "img" }
             .filter { it.hasAttribute("src") }
-            .associate { it.attribute("alt") to it.attribute("src") }
+            .associate { it.attribute("alt") to it.absUrl("src") }
 
-@Suppress("unused")
 fun <T> List<DocElement>.forEachLink(init: (text: String, url: String) -> T) {
     eachLink.forEach { init(it.key, it.value) }
 }
 
-@Suppress("unused")
 fun <T> List<DocElement>.forEachImage(init: (altText: String, url: String) -> T) {
     eachImage.forEach { init(it.key, it.value) }
 }

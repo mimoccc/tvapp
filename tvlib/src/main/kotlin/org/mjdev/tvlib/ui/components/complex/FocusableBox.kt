@@ -32,6 +32,7 @@ import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ModifierExt.focusState
 import org.mjdev.tvlib.extensions.ModifierExt.requestFocusOnTouch
 
+// todo focus state from user
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
@@ -48,23 +49,26 @@ fun FocusableBox(
     borderColor: Color = Color.Transparent,
     borderSize: Dp = 0.dp,
     focusRequester: FocusRequester = rememberFocusRequester(),
-    focusState: MutableState<FocusState?> = rememberFocusState(),
-    onFocusChange: (state: FocusState) -> Unit = {},
-    onClick: () -> Unit = {},
+    focusState: MutableState<FocusState> = rememberFocusState(),
+    onFocusChange: ((state: FocusState, fromUser: Boolean) -> Unit)? = null,
+    onClick: (() -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     Surface(
-        onClick = onClick,
+        onClick = { onClick?.invoke() },
         modifier = modifier
             .focusState(focusState)
-            .onFocusChanged { state -> onFocusChange(state) }
+            .onFocusChanged { state ->
+                onFocusChange?.invoke(state, false)
+            }
             .requestFocusOnTouch(
-                focusRequester
-            ) {
-                if (focusState.isFocused) {
-                    onClick()
+                focusRequester = focusRequester,
+                onTouch = {
+                    if (focusState.isFocused) {
+                        onClick?.invoke()
+                    }
                 }
-            },
+            ),
         onLongClick = null,
         enabled = enabled,
         tonalElevation = tonalElevation,

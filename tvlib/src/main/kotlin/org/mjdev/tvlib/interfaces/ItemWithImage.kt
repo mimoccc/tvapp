@@ -10,9 +10,13 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemWithImage<T> {
+
     val image: T?
 
     companion object {
+
         val <T> ItemWithImage<T>.hasImage get() = !(image?.toString()).isNullOrEmpty()
+
     }
+
 }

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 package org.mjdev.tvapp.ui.screens
@@ -11,7 +11,6 @@ package org.mjdev.tvapp.ui.screens
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,7 +43,6 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 class SplashScreen : Screen() {
 
     override val showOnce: Boolean = true
-    override val backgroundColor: Color = Color.Transparent
     override val immersive: Boolean = true
 
     @OptIn(ExperimentalPermissionsApi::class)
@@ -61,11 +58,13 @@ class SplashScreen : Screen() {
         val progress = animateLottieCompositionAsState(composition.value)
         val navController = rememberNavControllerEx()
 
+        // todo
+//        navController.setBackground( Color.Black)
+
         Box(
             modifier = Modifier
-                .scale(scale.value)
-                .background(backgroundColor, RectangleShape)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .scale(scale.value),
             contentAlignment = Alignment.Center
         ) {
 //            AnalogTvNoise(
@@ -94,7 +93,7 @@ class SplashScreen : Screen() {
                 color = Color.White.copy(alpha = 0.5f)
             )
         }
-        LaunchedEffect(key1 = true) {
+        LaunchedEffect(Unit) {
             scale.animateTo(
                 targetValue = 1f,
                 animationSpec = tween(

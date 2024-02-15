@@ -27,7 +27,7 @@ fun SettingsDrawer(
     drawerState: DrawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed
     ),
-    onTouchOutside: () -> Unit = {},
+    onTouchOutside: (() -> Unit)? = null,
     content: @Composable () -> Unit = {
         Box(modifier = Modifier.fillMaxSize())
     },

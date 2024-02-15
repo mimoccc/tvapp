@@ -18,6 +18,7 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.homeScreen
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.startScreen
 
+@Suppress("PreviewShouldNotBeCalledRecursively")
 @AndroidEntryPoint
 class MainActivity : TvActivity() {
 

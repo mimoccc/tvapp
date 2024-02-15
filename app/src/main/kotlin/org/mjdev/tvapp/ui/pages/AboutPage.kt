@@ -49,8 +49,8 @@ class AboutPage : Page() {
         ) {
             Card(
                 modifier = Modifier.fillMaxSize(),
-                onClick = {},
-                onLongClick = {},
+                onClick = null,
+                onLongClick = null,
                 shape = CardDefaults.shape(),
                 aspectRatio = null,
                 colors = CardDefaults.colors(

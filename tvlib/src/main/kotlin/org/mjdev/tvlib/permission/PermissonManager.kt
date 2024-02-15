@@ -13,6 +13,7 @@ package org.mjdev.tvlib.permission
 import android.annotation.SuppressLint
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,7 +30,7 @@ import timber.log.Timber
 @Composable
 fun manifestPermissions(): List<String> {
     val context = LocalContext.current
-    return rememberSaveable (context) {
+    return rememberSaveable(context) {
         try {
             val packageManager = context.packageManager
             arrayListOf<String>().apply {
@@ -52,23 +53,23 @@ fun manifestPermissions(): List<String> {
 @Composable
 fun rememberPermissionManager(
     permissions: List<String> = manifestPermissions(),
-    onNeedToGrant: MultiplePermissionsState.(permissions: List<String>) -> Unit = {}
+    onNeedToGrant: (MultiplePermissionsState.(permissions: List<String>) -> Unit)? = null
 ) {
     val isEdit = isEditMode()
-    var _ps: MultiplePermissionsState? = null
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val onPermissionsResult: (Map<String, Boolean>) -> Unit = { map ->
-        map.filter { p ->
-            !p.value
-        }.filter { p ->
-            permissions.contains(p.key)
-        }.also { ps ->
-            _ps?.also { mps ->
-                onNeedToGrant(mps, ps.map { p -> p.key })
+    if ((!isEdit) && (Build.VERSION.SDK_INT > Build.VERSION_CODES.M)) {
+        var _ps: MultiplePermissionsState? = null
+        val lifecycleOwner = LocalLifecycleOwner.current
+        val onPermissionsResult: (Map<String, Boolean>) -> Unit = { map ->
+            map.filter { p ->
+                !p.value
+            }.filter { p ->
+                permissions.contains(p.key)
+            }.also { ps ->
+                _ps?.also { mps ->
+                    onNeedToGrant?.invoke(mps, ps.map { p -> p.key })
+                }
             }
         }
-    }
-    if (!isEdit) {
         val permissionsState = rememberMultiplePermissionsState(
             permissions = permissions,
             onPermissionsResult = onPermissionsResult

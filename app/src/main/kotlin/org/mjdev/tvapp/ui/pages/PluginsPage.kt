@@ -45,8 +45,8 @@ class PluginsPage : Page() {
                 .padding(16.dp)
         ) {
             Card(
-                onClick = {},
-                onLongClick = {},
+                onClick = null,
+                onLongClick = null,
                 modifier = Modifier.fillMaxSize(),
                 shape = CardDefaults.shape(),
                 aspectRatio = null,

@@ -7,7 +7,8 @@
   ~  w: https://mjdev.org
   -->
 <resources>
-    <style name="Theme.TvApp" parent="android:Theme.Material.NoActionBar.TranslucentDecor">
+<!--    <style name="Theme.TvApp" parent="android:Theme.Material.NoActionBar.TranslucentDecor">-->
+    <style name="Theme.TvApp" parent="android:Theme.Material.Wallpaper">
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>

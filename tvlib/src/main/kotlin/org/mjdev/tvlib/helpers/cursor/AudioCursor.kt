@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.helpers.cursor
 
 import android.content.Context
+import org.mjdev.tvlib.data.local.AudioItem
 
 class AudioCursor(
     context: Context

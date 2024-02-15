@@ -47,8 +47,8 @@ fun DependencyHandler.kapt(dependencyNotation: String): Dependency? =
 fun DependencyHandler.ksp(dependencyNotation: String): Dependency? =
     add("ksp", dependencyNotation)
 
-fun DependencyHandler.dokkaPlugin(dependencyNotation: String): Dependency? =
-    add("dokkaPlugin", dependencyNotation)
+//fun DependencyHandler.dokkaPlugin(dependencyNotation: String): Dependency? =
+//    add("dokkaPlugin", dependencyNotation)
 
 fun DependencyHandler.mockDependencies() = arrayOf(
     implementation("io.mockk:mockk:1.9")
@@ -73,6 +73,7 @@ fun DependencyHandler.moshiDependencies() = arrayOf(
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0"),
 )
 
+// r2.19.1
 fun DependencyHandler.exoPlayerDependencies() = arrayOf(
     implementation("androidx.media3:media3-exoplayer:1.2.0"),
     implementation("androidx.media3:media3-exoplayer-dash:1.2.0"),
@@ -120,7 +121,7 @@ fun DependencyHandler.baseDependencies() = arrayOf(
     // startups
 //    implementation("androidx.startup:startup-runtime:1.1.1"),
     // dokka
-    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10"),
+//    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10"),
     // core
     implementation("androidx.core:core-ktx:1.12.0"),
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"),
@@ -149,6 +150,8 @@ fun DependencyHandler.glideDependencies() = arrayOf(
     implementation("com.github.skydoves:landscapist-placeholder:2.2.13"),
     // glide annotations
     ksp("com.github.bumptech.glide:ksp:4.16.0"),
+    // exif
+    implementation("androidx.exifinterface:exifinterface:1.3.7"),
 )
 
 fun DependencyHandler.daggerDependencies() = arrayOf(
@@ -214,20 +217,18 @@ fun DependencyHandler.anotherDependencies() = arrayOf(
     implementation("androidx.palette:palette-ktx:1.0.0"),
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.2.0"),
-    // exif info
-    implementation("androidx.exifinterface:exifinterface:1.3.7"),
     // jsoup
-    implementation("org.jsoup:jsoup:1.17.1"),
+    implementation("org.jsoup:jsoup:1.17.2"),
     // dm
     implementation("com.dailymotion.dailymotion-sdk-android:sdk:0.2.12"),
     // dynamic theme
     implementation("com.google.android.material:material:1.11.0"),
     // scrape
-    implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0"),
+//    implementation("net.sourceforge.htmlunit:htmlunit-android:2.67.0"),
 //    implementation("org.htmlunit:htmlunit3-android:3.7.0"),
 //    implementation("org.htmlunit:htmlunit:3.9.0"),
     // flip card
-    implementation("com.wajahatkarim:flippable:1.5.4"),
+//    implementation("com.wajahatkarim:flippable:1.5.4"),
     // ui controller
 //    implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1"),
     // insets
@@ -240,6 +241,12 @@ fun DependencyHandler.anotherDependencies() = arrayOf(
     // ...
     // a.i.
 //    implementation("com.google.ai.client.generativeai:generativeai:0.1.1"),
+    // kotlin soup
+//    implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.0"),
+//    implementation("com.mohamedrejeb.ksoup:ksoup-entities:0.3.0"),
+//    implementation("io.ktor:ktor-server-core:2.3.7"),
+//    implementation("io.ktor:ktor-server-cio:2.3.7"),
+//    implementation("com.github.bjoernpetersen:m3u-parser:1.4.0")
 )
 
 fun DependencyHandler.mjdevTvLib() = arrayOf(

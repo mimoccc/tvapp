@@ -38,7 +38,7 @@ import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.remberItemType
+import org.mjdev.tvlib.extensions.ComposeExt.rememberItemType
 import org.mjdev.tvlib.extensions.ComposeExt.rememberDerivedState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ComposeExt.rememberImageFromItem
@@ -99,7 +99,7 @@ fun Gallery(
     val itemState = rememberDerivedState(currentItemIndex.intValue) {
         list[currentItemIndex.intValue]
     }
-    val itemType = remberItemType(itemState.value)
+    val itemType = rememberItemType(itemState.value)
     val imageSrc = rememberImageFromItem(itemState.value)
 
     BoxWithControls(

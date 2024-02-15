@@ -50,8 +50,8 @@ fun CategoryRow(
     backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
     roundCornerSize: Dp = 8.dp,
     backgroundShape: Shape = RoundedCornerShape(roundCornerSize),
-    onItemFocus: (item: Any?) -> Unit = {},
-    onItemClick: (item: Any?) -> Unit = {},
+    onItemFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    onItemClick: ((item: Any?) -> Unit)? = null,
     contentOfItem: @Composable (item: Any?) -> Unit = { item ->
         PhotoCard(
             item = item,

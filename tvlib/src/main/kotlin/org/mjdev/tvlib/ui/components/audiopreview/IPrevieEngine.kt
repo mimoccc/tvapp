@@ -5,8 +5,8 @@ interface IPreviewEngine {
     fun searchAndPlayIfFound(
         filePath: String?,
         muted: Boolean = true,
-        success: () -> Unit = {},
-        error: (error: Exception) -> Unit = {}
+        success: (() -> Unit)? = null,
+        error: ((error: Exception) -> Unit)? = null
     )
 
     fun pause()

@@ -36,4 +36,5 @@ class SquashedOval : Shape {
         }
         return Outline.Generic(path = path)
     }
+
 }

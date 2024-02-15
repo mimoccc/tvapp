@@ -48,7 +48,7 @@ import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 fun Card(
     modifier: Modifier = Modifier,
     scale: CardScale = CardScale.None,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
     shape: CardShape = CardDefaults.shape(),
     colors: CardColors = CardDefaults.colors(),
@@ -64,14 +64,14 @@ fun Card(
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
     androidx.tv.material3.Card(
-        onClick = onClick,
+        onClick = { onClick?.invoke() },
         modifier = modifier
             .widthIn(max = 320.dp)
             .conditional(aspectRatio != null) {
                 tvAspectRatio(aspectRatio)
             }
             .clickable {
-                onClick()
+                onClick?.invoke()
             },
         onLongClick = onLongClick,
         shape = shape,

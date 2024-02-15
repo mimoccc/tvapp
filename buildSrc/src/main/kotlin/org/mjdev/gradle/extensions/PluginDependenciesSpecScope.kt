@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -43,4 +43,10 @@ fun PluginDependenciesSpecScope.androidApplication(): PluginDependencySpec =
     id("com.android.application")
 
 fun PluginDependenciesSpecScope.mainAppPlugin(): PluginDependencySpec =
-    id("MainAppPlugin")
+    id("AppPlugin")
+
+fun PluginDependenciesSpec.ktlint(includeVersion: Boolean = true): PluginDependencySpec =
+    id("org.jlleitschuh.gradle.ktlint").also { if (includeVersion) it.version("11.3.2") }
+
+fun PluginDependenciesSpec.detekt(includeVersion: Boolean = true): PluginDependencySpec =
+    id("io.gitlab.arturbosch.detekt").also { if (includeVersion) it.version("1.23.4") }

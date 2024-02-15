@@ -45,8 +45,8 @@ fun TvGridView(
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     contentScale: ContentScale = ContentScale.Crop,
-    onItemFocus: (item: Any?) -> Unit = {},
-    onItemClick: (item: Any?) -> Unit = {},
+    onItemFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    onItemClick: ((item: Any?) -> Unit)? = null,
     verticalArrangement: Arrangement.HorizontalOrVertical = Arrangement.spacedBy(16.dp),
     horizontalArrangement: Arrangement.HorizontalOrVertical = Arrangement.spacedBy(16.dp),
     contentOfItem: @Composable (item: Any?) -> Unit = { item ->

@@ -71,4 +71,5 @@ class MainAppWidget : GlanceAppWidget() {
             }
         }
     }
+
 }

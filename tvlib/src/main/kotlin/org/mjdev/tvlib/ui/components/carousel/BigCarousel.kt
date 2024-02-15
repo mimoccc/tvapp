@@ -10,6 +10,7 @@ package org.mjdev.tvlib.ui.components.carousel
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -38,10 +39,10 @@ fun BigCarousel(
     items: List<Any?> = listOf(Unit, Unit, Unit),
     autoScrollDurationMillis: Long = 8000,
     carouselState: CarouselState = remember(items) { CarouselState() },
-    onItemSelected: ((movie: Any?) -> Unit)? = null,
+    onItemSelected: ((movie: Any?, fromUser: Boolean) -> Unit)? = null,
     onItemClicked: ((movie: Any?) -> Unit)? = null,
-    onSwipeUp: (dragAmount: Offset) -> Unit = {},
-    onSwipeDown: (dragAmount: Offset) -> Unit = {},
+    onSwipeUp: ((dragAmount: Offset) -> Unit)? = null,
+    onSwipeDown: ((dragAmount: Offset) -> Unit)? = null,
 ) {
     val height = LocalConfiguration.current.let { config ->
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) config.screenWidthDp * 0.4f
@@ -76,17 +77,15 @@ fun BigCarousel(
             ),
     ) { indexOfCarouselItem ->
         val selectedItem = items[indexOfCarouselItem]
-        onItemSelected?.invoke(selectedItem)
+        onItemSelected?.invoke(selectedItem, false)
         CarouselCard(
             item = selectedItem,
-            modifier = modifier
-                .fillMaxWidth()
-                .height(height.dp),
+            modifier = modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             scale = CardScale.None,
             focusState = cardFocusState,
-            onFocus = {
-                onItemSelected?.invoke(it)
+            onFocus = { item, fromUser ->
+                onItemSelected?.invoke(item, fromUser)
             },
             onClick = {
                 onItemClicked?.invoke(selectedItem)

@@ -26,7 +26,6 @@ import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.helpers.http.NetworkConnectionInterceptor
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
@@ -63,15 +62,15 @@ class DailyMotionVideoView @JvmOverloads constructor(
     private val DM_URL =
         "https://api.dailymotion.com/videos?fields=id,thumbnail_url,title&search=%s&page=1&limit=1"
 
-    private val httpCache by lazy {
-        Cache(
-            directory = File(
-                context.cacheDir,
-                "http_cache"
-            ),
-            maxSize = 1024L * 1024L * 1024L
-        )
-    }
+//    private val httpCache by lazy {
+//        Cache(
+//            directory = File(
+//                context.cacheDir,
+//                "http_cache"
+//            ),
+//            maxSize = 1024L * 1024L * 1024L
+//        )
+//    }
 
     private val networkConnectionInterceptor by lazy { NetworkConnectionInterceptor(context) }
     private val userAgentInterceptor by lazy { UserAgentInterceptor() }
@@ -80,20 +79,20 @@ class DailyMotionVideoView @JvmOverloads constructor(
 //        CacheInterceptor()
 //    }
 
-    private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor().setLevel(
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-            else HttpLoggingInterceptor.Level.NONE
-        )
-    }
+//    private val httpLoggingInterceptor by lazy {
+//        HttpLoggingInterceptor().setLevel(
+//            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+//            else HttpLoggingInterceptor.Level.NONE
+//        )
+//    }
 
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
             addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
 //            addNetworkInterceptor(cacheInterceptor)
-            addNetworkInterceptor(httpLoggingInterceptor)
-            cache(httpCache)
+//            addNetworkInterceptor(httpLoggingInterceptor)
+//            cache(httpCache)
         }.build()
     }
 
@@ -110,8 +109,8 @@ class DailyMotionVideoView @JvmOverloads constructor(
     override fun searchAndPlayIfFound(
         filePath: String?,
         muted: Boolean,
-        success: () -> Unit,
-        error: (error: Exception) -> Unit
+        success: (() -> Unit)?,
+        error: ((error: Exception) -> Unit)?
     ) {
         visibility = View.INVISIBLE
         var q: String?
@@ -163,13 +162,13 @@ class DailyMotionVideoView @JvmOverloads constructor(
                     if (videoId != null) {
                         post {
                             playerView.load(mapOf("video" to videoId))
-                            success()
+                            success?.invoke()
                         }
                     }
                 } catch (e: Exception) {
                     Timber.e(e)
                     post {
-                        error(e)
+                        error?.invoke(e)
                     }
                 }
             }

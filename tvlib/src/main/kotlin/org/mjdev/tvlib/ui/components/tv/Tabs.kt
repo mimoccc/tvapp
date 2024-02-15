@@ -32,13 +32,13 @@ import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.TabRowDefaults
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
 import org.mjdev.tvlib.ui.components.text.TextAny
 
+// todo from user
 @SuppressLint("AutoboxingStateValueProperty")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
@@ -52,7 +52,7 @@ fun Tabs(
     selectedContentColor: Color = Color.White,
     focusedContentColor: Color = Color.White,
     interactionSource: MutableInteractionSource = rememberMutableInteractionSource(items),
-    onItemClick: (item: Any?) -> Unit = {}
+    onItemClick: ((item: Any?) -> Unit)? = null
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val colors = TabDefaults.pillIndicatorTabColors(
@@ -92,7 +92,7 @@ fun Tabs(
                     selectedTabIndex = index
                 },
                 onClick = {
-                    onItemClick(selectedTabIndex)
+                    onItemClick?.invoke(selectedTabIndex)
                 },
                 interactionSource = interactionSource
             ) {
@@ -100,12 +100,12 @@ fun Tabs(
                 FocusableBox(
                     focusedColor = Color.Transparent,
                     focusState = focusState,
-                    onFocusChange = {
-                        if (focusState.isFocused) {
+                    onFocusChange = { state, _ ->
+                        if (state.isFocused) {
                             selectedTabIndex = index
                         }
                     },
-                    onClick = { onItemClick(items[selectedTabIndex]) }
+                    onClick = { onItemClick?.invoke(items[selectedTabIndex]) }
                 ) {
                     TextAny(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

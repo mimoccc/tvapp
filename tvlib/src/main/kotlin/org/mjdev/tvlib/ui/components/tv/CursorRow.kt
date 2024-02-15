@@ -72,8 +72,8 @@ fun CursorRow(
         sortOrder = sortOrder,
         transform = transform
     ),
-    onItemFocus: (item: Any?) -> Unit = {},
-    openItem: Context.(item: Any?) -> Unit = {},
+    onItemFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    openItem: (Context.(item: Any?) -> Unit)? = null,
 ) {
     val context: Context = LocalContext.current
     val scrollDelta = remember { mutableFloatStateOf(0f) }
@@ -112,8 +112,8 @@ fun CursorRow(
                         contentScale = contentScale,
                         cardWidth = cardWidth,
                         onFocus = onItemFocus,
-                        onClick = { i ->
-                            openItem(context, i)
+                        onClick = { item ->
+                            openItem?.invoke(context, item)
                         }
                     )
                 }

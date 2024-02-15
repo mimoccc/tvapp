@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -13,6 +13,7 @@ import android.net.ConnectivityManager
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import org.mjdev.tvlib.exception.NoConnectivityException
 import java.io.IOException
 
 @Suppress("unused")
@@ -37,7 +38,5 @@ class NetworkConnectionInterceptor(
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork != null && activeNetwork.isConnected
     }
-
-    class NoConnectivityException : Exception("No internet connection.")
 
 }

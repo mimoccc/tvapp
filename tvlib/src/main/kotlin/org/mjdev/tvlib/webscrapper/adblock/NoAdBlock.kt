@@ -13,9 +13,11 @@ import java.net.URL
 
 @Suppress("unused")
 class NoAdBlock : IAdBlocker {
+
     override fun isBlocked(reqUrl: String?): Boolean = false
 
     override fun isBlocked(reqUrl: URL?): Boolean = false
 
     override fun isBlocked(reqUrl: Uri?): Boolean = false
+
 }

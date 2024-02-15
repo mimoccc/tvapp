@@ -13,7 +13,7 @@ package org.mjdev.tvapp.viewmodel
 import android.content.Context
 import androidx.media3.common.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
@@ -56,9 +56,9 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
         is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
         is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
         is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
-        is Movie -> getCachedList<Movie> {
+        is Media -> getCachedList<Media> {
             mediaItems.filter { listItem ->
-                (listItem as? Movie?)?.category == data.category
+                (listItem as? Media?)?.category == data.category
             }
         }
         else -> listOf(data.mediaItem)

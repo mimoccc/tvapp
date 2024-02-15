@@ -68,7 +68,7 @@ class AudioPreview constructor(
             previewEngine.searchAndPlayIfFound(
                 filePath = uri.toString(),
                 muted = true,
-                success = {},
+                success = null,
                 error = { error ->
                     Timber.e(error)
                 }

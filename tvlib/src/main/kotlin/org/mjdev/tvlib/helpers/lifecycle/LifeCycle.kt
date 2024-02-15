@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -49,12 +49,12 @@ fun rememberLifeCycleHandler(
 @Composable
 fun DisposableEffectWithLifecycle(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    onCreate: () -> Unit = {},
-    onStart: () -> Unit = {},
-    onStop: () -> Unit = {},
-    onResume: () -> Unit = {},
-    onPause: () -> Unit = {},
-    onDestroy: () -> Unit = {},
+    onCreate: (() -> Unit)? = null,
+    onStart: (() -> Unit)? = null,
+    onStop: (() -> Unit)? = null,
+    onResume: (() -> Unit)? = null,
+    onPause: (() -> Unit)? = null,
+    onDestroy: (() -> Unit)? = null,
 ) {
     val currentOnCreate by rememberUpdatedState(onCreate)
     val currentOnStart by rememberUpdatedState(onStart)
@@ -65,12 +65,12 @@ fun DisposableEffectWithLifecycle(
     DisposableEffect(lifecycleOwner) {
         val lifecycleEventObserver = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_CREATE -> currentOnCreate()
-                Lifecycle.Event.ON_START -> currentOnStart()
-                Lifecycle.Event.ON_PAUSE -> currentOnPause()
-                Lifecycle.Event.ON_RESUME -> currentOnResume()
-                Lifecycle.Event.ON_STOP -> currentOnStop()
-                Lifecycle.Event.ON_DESTROY -> currentOnDestroy()
+                Lifecycle.Event.ON_CREATE -> currentOnCreate?.invoke()
+                Lifecycle.Event.ON_START -> currentOnStart?.invoke()
+                Lifecycle.Event.ON_PAUSE -> currentOnPause?.invoke()
+                Lifecycle.Event.ON_RESUME -> currentOnResume?.invoke()
+                Lifecycle.Event.ON_STOP -> currentOnStop?.invoke()
+                Lifecycle.Event.ON_DESTROY -> currentOnDestroy?.invoke()
                 else -> {}
             }
         }
@@ -79,4 +79,5 @@ fun DisposableEffectWithLifecycle(
             lifecycleOwner.lifecycle.removeObserver(lifecycleEventObserver)
         }
     }
+
 }

@@ -175,7 +175,7 @@ class TVChannel() :
 
     companion object {
 
-        fun TVChannel.asMovie(category: String): Movie = Movie().also { m ->
+        fun TVChannel.asMovie(category: String): Media = Media().also { m ->
             m.category = category
             m.country = country
             m.isNsfw = isNsfw ?: false

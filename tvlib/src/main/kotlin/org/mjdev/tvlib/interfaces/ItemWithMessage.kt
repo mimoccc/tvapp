@@ -10,9 +10,13 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemWithMessage<T> {
+
     val message: T?
 
     companion object {
+
         val <T> ItemWithMessage<T>.hasMessage get() = message?.toString()?.isNotEmpty() == true
+
     }
+
 }

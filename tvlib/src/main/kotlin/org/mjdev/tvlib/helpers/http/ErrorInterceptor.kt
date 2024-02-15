@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,12 +10,16 @@ package org.mjdev.tvlib.helpers.http
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import org.mjdev.tvlib.exception.AuthenticationError
+import org.mjdev.tvlib.exception.GenericMessageException
+import org.mjdev.tvlib.exception.ServerException
 import timber.log.Timber
 
 @Suppress("unused")
 class ErrorInterceptor(
     val fromJson: (body: String, cls: Class<BaseResponse>) -> BaseResponse?
 ) : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         if (!response.isSuccessful) {

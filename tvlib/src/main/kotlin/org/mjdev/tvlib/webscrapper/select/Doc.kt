@@ -11,7 +11,7 @@ package org.mjdev.tvlib.webscrapper.select
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class Doc(
+open class Doc(
     val document: Document,
     override var relaxed: Boolean = false
 ) : DomTreeElement() {

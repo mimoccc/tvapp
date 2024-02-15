@@ -27,6 +27,8 @@ class LoaderTarget(
         if (width > 0) width else if (height > 0) height else SIZE_ORIGINAL,
         if (height > 0) height else if (width > 0) width else SIZE_ORIGINAL
 ) {
+
+    @Suppress("unused")
     constructor(
             onLoadStarted: ((drawable: Drawable?) -> Unit)? = null,
             onLoadFinished: ((drawable: Drawable?) -> Unit)? = null
@@ -69,4 +71,5 @@ class LoaderTarget(
     override fun onLoadFailed(errorDrawable: Drawable?) {
         onLoadFinished?.invoke(errorDrawable)
     }
+
 }

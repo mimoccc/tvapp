@@ -10,7 +10,7 @@ package org.mjdev.tvlib.webscrapper.select
 
 import org.jsoup.nodes.Element
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 abstract class DomTreeElement : CssSelectable() {
     abstract val element: Element
 
@@ -39,8 +39,7 @@ abstract class DomTreeElement : CssSelectable() {
     fun <T> children(init: List<DocElement>.() -> T): T = children.init()
 
     fun eachAttribute(attributeKey: String): List<String> =
-        allElements.map { it attribute attributeKey }
-            .filter { it.isNotEmpty() }
+        allElements.map { it attribute attributeKey }.filter { it.isNotEmpty() }
 
     @Suppress("unused")
     val eachHref: List<String> by lazy {
@@ -52,29 +51,29 @@ abstract class DomTreeElement : CssSelectable() {
         eachAttribute("src").filter { it.isNotEmpty() }
     }
 
-    @Suppress("unused")
-    val eachLink: Map<String, String>
-        get(): Map<String, String> = allElements.filter {
-            it.hasAttribute("href")
-        }.associate {
-            it.text to it.absUrl("href")
+    fun String.normalizeUrl() = this.replace("\\\"", "")
+        .replace("https://", "https:__")
+        .replace("http://", "http:__")
+        .replace("\\\\", "\\")
+        .replace("//", "/")
+        .replace("https:__", "https://")
+        .replace("http:__", "http://")
+
+    val eachAnchor
+        get() = allElements.filter {
+            it.tagName == "a" && it.hasAttribute("href")
         }
 
-    @Suppress("unused")
-    val eachImage: Map<String, String>
-        get(): Map<String, String> =
-            allElements.filter { it.tagName == "img" }
-                .filter { it.hasAttribute("src") }
-                .associate { it.attribute("alt") to it.absUrl("src") }
+    val eachImage
+        get() = allElements.filter { it.tagName == "img" }
 
-    val eachVideo: List<String>
-        get() {
-            val elements = allElements
-            val videos = elements.filter { e -> e.tagName == "source" }
-            // todo mimetype
-            val videosWithSource = videos.filter { e -> e.hasAttribute("src") }
-            return videosWithSource.map { e -> e.absUrl("src") }
-        }
+    val eachPicture
+        get() = allElements.filter { it.tagName == "picture" }
+    val eachVideo: List<DocElement>
+        get() = allElements.filter { e -> e.tagName == "video" }
+
+    val eachAudio: List<DocElement>
+        get() = allElements.filter { e -> e.tagName == "audio" }
 
     open fun makeDefaultElement(cssSelector: String): DocElement {
         return super.makeDefault(cssSelector, this.relaxed)
