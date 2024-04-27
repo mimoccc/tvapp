@@ -47,7 +47,7 @@ class LibPlugin : BasePlugin() {
     private val configFieldName = "libConfig"
 
     override fun Project.work() {
-//        loadVersionCatalog(projectLibVersionsFile)
+        loadVersionCatalog(projectLibVersionsFile)
         extension<LibConfig>(configFieldName)
         apply(plugin ="version-catalog")
         apply(plugin = "kotlin-android")
