@@ -16,7 +16,7 @@ import android.net.Uri
 import androidx.annotation.Keep
 import com.squareup.moshi.Moshi
 import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.database.DAO
 import javax.inject.Inject
 
@@ -76,7 +76,7 @@ class DataProvider : ContentProvider() {
 
         MOVIE -> {
             if (values?.containsKey(DATA) == true) {
-                moshi.adapter(Movie::class.java)
+                moshi.adapter(Media::class.java)
                     .fromJson(values.getAsString(DATA))
                     .also { m ->
                         if (m != null) dao.movieDao.put(m)

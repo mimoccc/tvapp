@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.ui.components.tv
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,8 +36,11 @@ import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
+import org.mjdev.tvlib.extensions.ComposeExt.isTV
 import org.mjdev.tvlib.ui.components.badge.Badge
 import org.mjdev.tvlib.ui.components.complex.FocusableBox
+import org.mjdev.tvlib.ui.components.image.ImageAny
+import org.mjdev.tvlib.ui.icons.Menu
 
 @Previews
 @Composable
@@ -51,10 +56,10 @@ fun Header(
     padding: Dp = 0.dp,
     contentPadding: Dp = 2.dp,
     messagesCount: Int = 0,
-    onTitleClick: () -> Unit = {},
-    onClockClick: () -> Unit = {},
-    onMessageBadgeClick: () -> Unit = {},
-    onUserPicClick: () -> Unit = {},
+    onTitleClick: (() -> Unit)? = null,
+    onClockClick: (() -> Unit)? = null,
+    onMessageBadgeClick: (() -> Unit)? = null,
+    onUserPicClick: (() -> Unit)? = null,
 ) {
     val isEdit = isEditMode()
     val isPortrait = isPortraitMode()
@@ -114,21 +119,36 @@ fun Header(
                 modifier = Modifier
                     .wrapContentHeight()
                     .width(0.01.dp),
-                onFocusChange = { state ->
+                onFocusChange = { state, _ ->
                     if ((!isPortrait) && state.isFocused) {
-                        onTitleClick()
+                        onTitleClick?.invoke()
                     }
                 }
             )
-            Title(
-                modifier = Modifier.wrapContentSize(),
-                title = title ?: R.string.app_name,
-                icon = appIcon,
-                fontWeight = fontWeight,
-                fontSize = fontSize,
-                color = color,
-                onClick = onTitleClick,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (!isTV()) {
+                    ImageAny(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clickable {
+                                onTitleClick?.invoke()
+                            },
+                        src = Icons.Filled.Menu,
+                        tint = Color.White
+                    )
+                }
+                Title(
+                    modifier = Modifier.wrapContentSize(),
+                    title = title ?: R.string.app_name,
+                    icon = appIcon,
+                    fontWeight = fontWeight,
+                    fontSize = fontSize,
+                    color = color,
+                    onClick = onTitleClick,
+                )
+            }
         }
     }
 }

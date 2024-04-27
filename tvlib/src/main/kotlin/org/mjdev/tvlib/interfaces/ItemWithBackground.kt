@@ -10,10 +10,14 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemWithBackground<T> {
+
     val background: T?
 
     companion object {
+
         val <T> ItemWithBackground<T>.hasBackground
             get() = background?.toString()?.isNotEmpty() == true
+
     }
+
 }

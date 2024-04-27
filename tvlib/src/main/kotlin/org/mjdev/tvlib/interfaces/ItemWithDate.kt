@@ -10,9 +10,13 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemWithDate {
+
     var date: String?
 
     companion object {
+
         val ItemWithDate.hasDate get() = date?.isNotEmpty() == true
+
     }
+
 }

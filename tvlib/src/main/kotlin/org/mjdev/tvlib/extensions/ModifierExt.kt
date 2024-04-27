@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithCache
@@ -45,8 +46,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.mjdev.tvlib.BuildConfig
+import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.extensions.ComposeExt.isLandscapeMode
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import timber.log.Timber
@@ -56,53 +60,33 @@ import kotlin.math.min
 @Suppress("MemberVisibilityCanBePrivate")
 object ModifierExt {
 
-//    private val VerticalScrollConsumer = object : NestedScrollConnection {
-//        override fun onPreScroll(available: Offset, source: NestedScrollSource) =
-//            available.copy(x = 0f)
-//        override suspend fun onPreFling(available: Velocity) =
-//            available.copy(x = 0f)
-//    }
-
-//    private val HorizontalScrollConsumer = object : NestedScrollConnection {
-//        override fun onPreScroll(available: Offset, source: NestedScrollSource) =
-//            available.copy(y = 0f)
-//        override suspend fun onPreFling(available: Velocity) =
-//            available.copy(y = 0f)
-//    }
-
-//    fun Modifier.disabledVerticalPointerInputScroll(
-//        disabled: Boolean = true
-//    ) = if (disabled) this.nestedScroll(VerticalScrollConsumer) else this
-
-//    fun Modifier.disabledHorizontalPointerInputScroll(
-//        disabled: Boolean = true
-//    ) = if (disabled) this.nestedScroll(HorizontalScrollConsumer) else this
-
     @Composable
-    fun Modifier.conditional(
+    inline fun Modifier.conditional(
         condition: Boolean,
-        other: @Composable Modifier.() -> Modifier
+        ifFalse: Modifier.() -> Modifier = { this },
+        ifTrue: Modifier.() -> Modifier
     ): Modifier {
-        return when (condition) {
-            true -> this.then(other.invoke(this))
-            else -> this
+        return if (condition) {
+            then(ifTrue(this))
+        } else {
+            then(ifFalse(this))
         }
     }
 
     @Composable
     fun Modifier.onEditMode(
         other: @Composable Modifier.() -> Modifier
-    ) = conditional(ComposeExt.isEditMode(), other)
+    ) = conditional(isEditMode()) { other() }
 
     @Composable
     fun Modifier.onlyPortrait(
         other: @Composable Modifier.() -> Modifier
-    ) = conditional(isPortraitMode(), other)
+    ) = conditional(isPortraitMode()) { other() }
 
     @Composable
     fun Modifier.onlyLandscape(
         other: @Composable Modifier.() -> Modifier
-    ) = conditional(isLandscapeMode(), other)
+    ) = conditional(isLandscapeMode()) { other() }
 
     @Composable
     fun Modifier.tvAspectRatio(
@@ -116,24 +100,28 @@ object ModifierExt {
     }
 
     fun Modifier.focusState(
-        focusState: MutableState<FocusState?>
+        focusState: MutableState<FocusState>
     ): Modifier = onFocusChanged { state ->
         focusState.value = state
     }
 
+    @Composable
     fun Modifier.requestFocusOnTouch(
         focusRequester: FocusRequester,
         requestFocus: Boolean = true,
-        onTouch: () -> Unit = {}
+        scope: CoroutineScope = rememberCoroutineScope(),
+        onTouch: (() -> Unit)? = null
     ): Modifier = this then focusRequester(
         focusRequester
     ).pointerInput(this) {
         detectTapGestures(
             onTap = {
                 try {
-                    onTouch()
-                    if (requestFocus) {
-                        focusRequester.requestFocus()
+                    scope.launch {
+                        onTouch?.invoke()
+                        if (requestFocus) {
+                            focusRequester.requestFocus()
+                        }
                     }
                 } catch (e: Throwable) {
                     Timber.e(e)
@@ -235,13 +223,13 @@ object ModifierExt {
 
     fun Modifier.swipeGestures(
         swipeState: MutableIntState = mutableIntStateOf(-1),
-        onSwipeLeft: (dragAmount: Offset) -> Unit = {},
-        onSwipeRight: (dragAmount: Offset) -> Unit = {},
-        onSwipeUp: (dragAmount: Offset) -> Unit = {},
-        onSwipeDown: (dragAmount: Offset) -> Unit = {},
-        onDoubleTap: (Offset) -> Unit = {},
-        onTap: (Offset) -> Unit = {},
-        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero)
+        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero),
+        onSwipeLeft: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeRight: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeUp: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeDown: ((dragAmount: Offset) -> Unit)? = null,
+        onDoubleTap: ((Offset) -> Unit)? = null,
+        onTap: ((Offset) -> Unit)? = null,
     ) = pointerInput(Unit) {
         detectTapGestures(
             onTap = onTap,
@@ -260,11 +248,11 @@ object ModifierExt {
 
     private suspend fun PointerInputScope.detectSwipe(
         swipeState: MutableIntState = mutableIntStateOf(-1),
-        onSwipeLeft: (dragAmount: Offset) -> Unit = {},
-        onSwipeRight: (dragAmount: Offset) -> Unit = {},
-        onSwipeUp: (dragAmount: Offset) -> Unit = {},
-        onSwipeDown: (dragAmount: Offset) -> Unit = {},
-        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero)
+        dragValue: MutableState<Offset> = mutableStateOf(Offset.Zero),
+        onSwipeLeft: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeRight: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeUp: ((dragAmount: Offset) -> Unit)? = null,
+        onSwipeDown: ((dragAmount: Offset) -> Unit)? = null
     ) = detectDragGestures(
         onDrag = { change, dragAmount ->
             dragValue.value = dragAmount
@@ -284,10 +272,10 @@ object ModifierExt {
         },
         onDragEnd = {
             when (swipeState.intValue) {
-                0 -> onSwipeRight(dragValue.value)
-                1 -> onSwipeLeft(dragValue.value)
-                2 -> onSwipeDown(dragValue.value)
-                3 -> onSwipeUp(dragValue.value)
+                0 -> onSwipeRight?.invoke(dragValue.value)
+                1 -> onSwipeLeft?.invoke(dragValue.value)
+                2 -> onSwipeDown?.invoke(dragValue.value)
+                3 -> onSwipeUp?.invoke(dragValue.value)
             }
         }
     )

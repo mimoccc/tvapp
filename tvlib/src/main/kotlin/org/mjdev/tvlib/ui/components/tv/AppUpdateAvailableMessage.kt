@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.extensions.ComposeExt.asException
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -31,11 +30,9 @@ fun AppUpdateAvailableMessage(
     githubRepository: String = "tvapp",
     backgroundColor: Color = Color(0, 132, 0, 255),
     buttonText: Any? = R.string.bt_update,
-    isDebug: Boolean = BuildConfig.DEBUG,
     appUpdater: AppUpdater = rememberAppUpdater(
         githubUser = githubUser,
         githubRepository = githubRepository,
-        isDebug = isDebug
     ),
     isEdit: Boolean = isEditMode(),
     updateAvailable: State<Boolean> = appUpdater.isUpdateAvailable.collectAsState(false),

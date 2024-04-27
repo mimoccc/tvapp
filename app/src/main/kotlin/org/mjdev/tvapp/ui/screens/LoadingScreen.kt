@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -8,7 +8,6 @@
 
 package org.mjdev.tvapp.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -16,16 +15,10 @@ import androidx.compose.material.icons.filled.Tv
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.Screen
-import org.mjdev.tvlib.ui.components.text.TextAny
 
 class LoadingScreen : Screen() {
 
@@ -38,9 +31,7 @@ class LoadingScreen : Screen() {
     @Composable
     override fun Content() {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black, RectangleShape),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
         ) {
         }

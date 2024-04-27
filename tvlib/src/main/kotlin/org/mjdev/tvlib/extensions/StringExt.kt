@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.extensions
 
 import android.net.Uri
+import org.mjdev.tvlib.helpers.http.MimeTypeMapUtils
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -36,5 +37,8 @@ object StringExt {
         } catch (e: MalformedURLException) {
             false
         }
+
+    val String.mimeType: String
+        get() = if (isUrl) MimeTypeMapUtils.getMimeTypeFromUrl(this) ?: "" else ""
 
 }

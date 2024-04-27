@@ -1,228 +1,136 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
-import org.mjdev.gradle.dependency.anotherDependencies
-import org.mjdev.gradle.dependency.baseDependencies
-import org.mjdev.gradle.dependency.composeDependencies
-import org.mjdev.gradle.dependency.daggerDependencies
-import org.mjdev.gradle.dependency.encryptDependencies
-import org.mjdev.gradle.dependency.exoPlayerDependencies
-import org.mjdev.gradle.dependency.glideDependencies
-import org.mjdev.gradle.dependency.mjdevTvLib
-import org.mjdev.gradle.dependency.moshiDependencies
-import org.mjdev.gradle.dependency.okHttpDependencies
-import org.mjdev.gradle.dependency.permissionsDependencies
-import org.mjdev.gradle.dependency.retrofitDependencies
-import org.mjdev.gradle.dependency.sandwichDependencies
-import org.mjdev.gradle.dependency.testDependencies
-import org.mjdev.gradle.dependency.timberDependencies
-import org.mjdev.gradle.dependency.widgetDependencies
-import org.mjdev.gradle.extensions.buildConfigString
-import org.mjdev.gradle.extensions.loadKeyStoreProperties
-import org.mjdev.gradle.extensions.manifestPlaceholders
-import org.mjdev.gradle.extensions.stringRes
-import org.mjdev.gradle.extensions.suffixToString
-import org.mjdev.gradle.extensions.versionCode
-import org.mjdev.gradle.extensions.versionName
-import org.mjdev.gradle.plugin.javaVersion
-import org.mjdev.gradle.plugin.kotlinCompilerExtVersion
-import org.mjdev.gradle.plugin.projectCompileSdk
-import org.mjdev.gradle.plugin.projectMinSdk
-
-@Suppress("PropertyName")
-val CONFIG_KEYSTORE_PROPERTIES_FILE = "config/keystore.properties"
-
-@Suppress("PropertyName")
-val SIGNING_CONFIG_NAME = "Any"
-
 plugins {
-//    kotlinAndroid()
-//    kotlinKapt()
-//    kotlinParcelize()
-//    androidApplication()
-//    hilt()
-//    ksp()
-//    mainAppPlugin()
-//    objectBox()
-    kotlin("android")
-    kotlin("kapt")
-    id("com.android.application")
-    id("kotlin-parcelize")
-    id("com.google.dagger.hilt.android")
-    id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
-//    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-//    id ("app.cash.paparazzi") version "1.3.1"
-//    id("DependencyUpdatePlugin")
-//    id("AndroidCoreLibraryPlugin")
-    id("MainAppPlugin")
-    id("io.objectbox")
+    id("AppPlugin")
 }
 
-android {
-    namespace = "org.mjdev.tvapp"
-    compileSdk = projectCompileSdk
-
-    signingConfigs {
-        loadKeyStoreProperties(
-            CONFIG_KEYSTORE_PROPERTIES_FILE
-        ) { aliasKey, passwordKey, fileStore, passwordStore ->
-            create(SIGNING_CONFIG_NAME) {
-                keyAlias = aliasKey
-                keyPassword = passwordKey
-                storeFile = fileStore
-                storePassword = passwordStore
-            }
-        }
-    }
-
-    defaultConfig {
-        applicationId = "org.mjdev.tvapp"
-
-        minSdk = projectMinSdk
-        targetSdk = projectCompileSdk
-
-        versionCode = project.versionCode
-        versionName = project.versionName
-
-        signingConfig = signingConfigs[SIGNING_CONFIG_NAME]
-
-        buildConfigString(
-            "IPTV_API_URL" to "https://iptv-org.github.io/api/",
-            "GITHUB_USER" to "mimoccc",
-            "GITHUB_REPOSITORY" to "tvapp"
-        )
-
-        multiDexEnabled = true
-
-        manifestPlaceholders(
-            "auth0Domain" to "@string/com_auth0_domain",
-            "auth0Scheme" to "demo"
-        )
-    }
-
-    buildTypes {
-
-        debug {
-            applicationIdSuffix = ".debug"
-            isDebuggable = true
-            isMinifyEnabled = false
-            isShrinkResources = false
-            isCrunchPngs = false
-            isEmbedMicroApp = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            buildConfigString(
-                "SYNC_AUTH" to "${defaultConfig.applicationId}$applicationIdSuffix.sync"
-            )
-            stringRes(
-                "sync_auth" to "${defaultConfig.applicationId}$applicationIdSuffix.sync",
-                "app_name" to "TV App ${applicationIdSuffix.suffixToString()}"
-            )
-        }
-
-        release {
-            applicationIdSuffix = ""
-            isDebuggable = false
-            isMinifyEnabled = true
-            isShrinkResources = true
-            isCrunchPngs = true
-            isEmbedMicroApp = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            buildConfigString(
-                "SYNC_AUTH" to "${defaultConfig.applicationId}$applicationIdSuffix.sync"
-            )
-            stringRes(
-                "sync_auth" to "${defaultConfig.applicationId}$applicationIdSuffix.sync",
-                "app_name" to "TV App ${applicationIdSuffix.suffixToString()}"
-            )
-        }
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-
-    compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-
-    kotlinOptions {
-        jvmTarget = javaVersion.toString()
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = kotlinCompilerExtVersion
-    }
-
-    packaging {
-        resources.excludes.apply {
-            add("/META-INF/{AL2.0,LGPL2.1}")
-            add("/META-INF/DEPENDENCIES")
-            add("/mozilla/public-suffix-list.txt")
-        }
-    }
-
-    lint {
-        checkReleaseBuilds = false
-    }
-
-    kapt {
-        correctErrorTypes = true
-    }
-
-    hilt {
-        enableAggregatingTask = true
-    }
-
-//    applicationVariants.all {
-//        outputs.map {
-//            it as BaseVariantOutputImpl
-//        }.forEach { output ->
-//            val outputFileName = "$applicationId-$versionName.apk"
-//            output.outputFileName = outputFileName
-//        }
-//    }
-
-    tasks {
-        dokkaGfm {
-            outputDirectory.set(File(projectDir, "../wiki/documentation/"))
-        }
-    }
-
-    mainAppConfig {
-        createDocumentation = true
-    }
+// todo
+appConfig {
+    autoCorrectCode = false
+    createDocumentation = true
+//    createReleaseNotes = true
+//    renameApkOutputByAppID = false
+//    createReleaseZip = true
+//    createInfoClass = false
+//    buildTypeInLauncherIcon = false
 }
 
 dependencies {
-    mjdevTvLib()
-    baseDependencies()
-    composeDependencies()
-    daggerDependencies()
-    moshiDependencies()
-    okHttpDependencies()
-    timberDependencies()
-    retrofitDependencies()
-    sandwichDependencies()
-    glideDependencies()
-//    imageIODependencies()
-    exoPlayerDependencies()
-    encryptDependencies()
-    permissionsDependencies()
-    anotherDependencies()
-    widgetDependencies()
-    testDependencies()
+    implementation(project(mapOf("path" to ":tvlib")))
+
+    // compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.activity)
+    // more icons
+    implementation(libs.androidx.material.icons.extended)
+    // tv compose
+    implementation(libs.androidx.tv.foundation)
+    implementation(libs.androidx.tv.material)
+    // view model
+    implementation(libs.androidx.compose.lifecycle.viewmodel)
+    // navigation
+    implementation(libs.androidx.compose.navigation)
+    // todo remove, dynamic background & colors
+    implementation(libs.androidx.material3)
+    // previews
+    debugImplementation(libs.androidx.customview.poolingcontainer)
+    // foundation
+    implementation(libs.androidx.foundation)
+    // dagger
+    implementation(libs.dagger)
+    // dagger android
+    implementation(libs.dagger.android)
+    implementation(libs.dagger.android.support)
+    // dagger hilt
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.compose.hilt.navigation)
+    // dagger annotations
+    kapt(libs.dagger.compiler)
+    kapt(libs.dagger.android.processor)
+    kapt(libs.dagger.hilt.compiler)
+    implementation(libs.moshi)
+    implementation(libs.moshi.retrofit.converter)
+    ksp(libs.moshi.kotlin.codegen)
+    // okhttp
+    implementation(platform(libs.okhttp3.bom))
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging.interceptor)
+    // timber
+    implementation(libs.timber)
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
+    // sandwich
+    implementation(libs.sandwich)
+    implementation(libs.sandwich.retrofit)
+    // glide
+    implementation(libs.glide.okhttp3.integration)
+    implementation(libs.glide.compose)
+    ksp(libs.glide.ksp)
+    // landscapist
+    implementation(libs.landscapist.glide)
+    implementation(libs.landscapist.transformation)
+    implementation(libs.landscapist.palette)
+    implementation(libs.landscapist.placeholder)
+    // exif
+    implementation(libs.androidx.exifinterface)
+    // exoPlayer
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.exoplayer.hls)
+    implementation(libs.androidx.media3.exoplayer.rtsp)
+    implementation(libs.androidx.media3.datasource.cronet)
+    implementation(libs.androidx.media3.datasource.okhttp)
+    implementation(libs.androidx.media3.datasource.rtmp)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.session)
+    implementation(libs.androidx.media3.extractor)
+    implementation(libs.androidx.media3.cast)
+    implementation(libs.androidx.media3.exoplayer.workmanager)
+    implementation(libs.androidx.media3.transformer)
+    implementation(libs.androidx.media3.database)
+    implementation(libs.androidx.media3.decoder)
+    implementation(libs.androidx.media3.datasource)
+    implementation(libs.androidx.media3.common)
+    implementation(libs.androidx.media3.exoplayer.ima)
+    implementation(libs.androidx.media3.ui.leanback)
+    // encrypt
+    implementation(libs.aescrypt)
+    // permission
+    implementation(libs.accompanist.permissions)
+    // another
+    // zxing
+    implementation(libs.zxing.core)
+    // svg
+    implementation(libs.androidsvg.aar)
+    // pallette
+    implementation(libs.androidx.palette.ktx)
+    // lottie
+    implementation(libs.compose.lottie)
+    // jsoup
+    implementation(libs.jsoup)
+    // dm
+    implementation(libs.dailymotion.sdk.android)
+    // dynamic theme
+    implementation(libs.android.material)
+    // widget
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.material)
+    implementation(libs.androidx.glance.material3)
+    // test
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    // anr
+    implementation(libs.anrwatchdog)
+    // oauth
+    implementation(libs.auth0)
+    implementation(libs.android.jwtdecode)
 }

@@ -17,18 +17,23 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
+
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"
         android:maxSdkVersion="22" />
@@ -39,7 +44,6 @@
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
-
     <uses-feature
         android:name="android.software.leanback"
         android:required="false" />
@@ -61,6 +65,10 @@
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="org.mjdev.tvapp.cast.CastOptionsProvider" />
+
         <activity
             android:name=".activity.MainActivity"
             android:clearTaskOnLaunch="true"
@@ -68,9 +76,9 @@
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTask"
-            android:windowLayoutInDisplayCutoutMode="default"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.TvApp">
+            android:theme="@style/Theme.TvApp"
+            android:windowLayoutInDisplayCutoutMode="default">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -104,9 +112,9 @@
             android:finishOnTaskLaunch="true"
             android:label="@string/title_iptv"
             android:launchMode="singleTask"
-            android:windowLayoutInDisplayCutoutMode="default"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.TvApp">
+            android:theme="@style/Theme.TvApp"
+            android:windowLayoutInDisplayCutoutMode="default">
 
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -128,11 +136,11 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:finishOnTaskLaunch="true"
-            android:windowLayoutInDisplayCutoutMode="default"
             android:label="@string/title_web"
             android:launchMode="singleTask"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.TvApp">
+            android:theme="@style/Theme.TvApp"
+            android:windowLayoutInDisplayCutoutMode="default">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -141,7 +149,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!--ebug-->
+            <!--Debug-->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -209,6 +217,10 @@
 
         </service>
 
+        <service
+            android:name=".cast.CastService"
+            android:exported="false" />
+
         <provider
             android:name=".sync.provider.DataProvider"
             android:authorities="@string/sync_auth"
@@ -216,6 +228,14 @@
             android:exported="true"
             android:syncable="true"
             tools:ignore="ExportedContentProvider" />
+
+        <receiver
+            android:name=".sync.SyncStarter"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".widget.MyAppWidgetReceiver"
@@ -230,6 +250,11 @@
                 android:resource="@xml/main_app_widget_info" />
 
         </receiver>
+
+        <receiver
+            android:name="androidx.mediarouter.media.MediaTransferReceiver"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
 
     </application>
 

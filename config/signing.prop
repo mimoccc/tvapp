@@ -1,0 +1,14 @@
+#
+# Copyright (c) Milan Jurkulák 2023.
+# Contact:
+# e: mimoccc@gmail.com
+# e: mj@mjdev.org
+# w: https://mjdev.org
+#
+
+# suppress inspection "SpellCheckingInspection" for whole file
+# suppress inspection "UnusedProperty" for whole file
+keyAlias=test
+keyPassword=testtest
+storeFile=keystore/test.key
+storePassword=testtest

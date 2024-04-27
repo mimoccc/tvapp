@@ -34,7 +34,7 @@ fun Badge(
     textColor: Color = Color.White,
     textSize: TextUnit = 20.sp,
     contentPadding: Dp = 0.dp,
-    onClick: () -> Unit = {}
+    onClick: (() -> Unit)? = null
 ) {
     FocusableBox(
         modifier = modifier.clip(CircleShape),

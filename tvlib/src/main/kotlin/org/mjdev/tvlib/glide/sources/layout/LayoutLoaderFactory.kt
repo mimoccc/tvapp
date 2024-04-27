@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -29,6 +29,7 @@ import com.bumptech.glide.signature.ObjectKey
  * @constructor
  */
 class LayoutLoaderFactory(val context: Context) : ModelLoaderFactory<LayoutResId?, Drawable?> {
+
     private var layoutLoader: LayoutLoader? = null
 
     /**
@@ -56,6 +57,7 @@ class LayoutLoaderFactory(val context: Context) : ModelLoaderFactory<LayoutResId
      * @constructor
      */
     private class LayoutLoader(val context: Context) : ModelLoader<LayoutResId?, Drawable?> {
+
         /**
          * Handling indicator see glide library description
          * @param model LayoutResId
@@ -119,5 +121,7 @@ class LayoutLoaderFactory(val context: Context) : ModelLoaderFactory<LayoutResId
                 }
             }
         }
+
     }
+
 }

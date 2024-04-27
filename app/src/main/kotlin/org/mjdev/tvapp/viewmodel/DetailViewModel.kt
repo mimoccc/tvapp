@@ -12,7 +12,7 @@ package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
@@ -46,7 +46,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         is ItemAudio -> dao.getCachedList<ItemAudio> { localAudioCursor }
         is ItemVideo -> dao.getCachedList<ItemVideo> { localVideoCursor }
         is ItemPhoto -> dao.getCachedList<ItemPhoto> { localPhotoCursor }
-        is Movie -> dao.getCachedList<Movie> { dao.allMediaItems }
+        is Media -> dao.getCachedList<Media> { dao.allMediaItems }
         else -> listOf(data.mediaItem)
     }
 

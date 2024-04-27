@@ -22,6 +22,7 @@ import org.mjdev.tvlib.screen.ScreenWithPages
 import org.mjdev.tvlib.ui.components.page.PagerScope
 import org.mjdev.tvlib.ui.components.page.SearchPage
 
+@Suppress("PreviewShouldNotBeCalledRecursively")
 class MainScreen : ScreenWithPages() {
 
     override val title: Int = R.string.app_name

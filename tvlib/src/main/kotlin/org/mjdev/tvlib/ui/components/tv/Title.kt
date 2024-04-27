@@ -46,7 +46,7 @@ fun Title(
     shadowSize: Dp = 10.dp,
     title: Any? = R.string.app_name,
     icon: Any? = R.drawable.person,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
 ) {
     val isEdit = isEditMode()
     val focusState = rememberFocusState(title)
@@ -56,7 +56,7 @@ fun Title(
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         focusedColor = Color.Transparent,
-        onFocusChange = { state ->
+        onFocusChange = { state, _ ->
             focusState.value = state
         }
     ) {

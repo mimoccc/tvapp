@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -9,6 +9,7 @@
 package org.mjdev.tvlib.helpers.cursor
 
 import android.content.Context
+import org.mjdev.tvlib.data.local.VideoItem
 
 class VideoCursor(
     context: Context

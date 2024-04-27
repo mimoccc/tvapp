@@ -37,7 +37,7 @@ fun UserPic(
     borderColor: Color = Color.White,
     borderSize: Dp = 2.dp,
     contentPadding: Dp = 2.dp,
-    onClick: () -> Unit = {}
+    onClick: (() -> Unit)? = null
 ) = FocusableBox(
     modifier = modifier.wrapContentSize(),
     shape = shape,

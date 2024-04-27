@@ -20,7 +20,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
@@ -77,12 +76,12 @@ class ProvideModule {
         context: Context
     ): NetworkConnectivityService = NetworkConnectivityService(context)
 
-    @Singleton
-    @Provides
-    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().setLevel(
-        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-        else HttpLoggingInterceptor.Level.NONE
-    )
+//    @Singleton
+//    @Provides
+//    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor().setLevel(
+//        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+//        else HttpLoggingInterceptor.Level.NONE
+//    )
 
 //    @Singleton
 //    @Provides
@@ -111,7 +110,7 @@ class ProvideModule {
     fun providesOkHttpClient(
         networkConnectionInterceptor: NetworkConnectionInterceptor,
         userAgentInterceptor: UserAgentInterceptor,
-        httpLoggingInterceptor: HttpLoggingInterceptor,
+//        httpLoggingInterceptor: HttpLoggingInterceptor,
 //        cacheInterceptor: CacheInterceptor,
 //        adBlockInterceptor: AdBlockInterceptor,
     ): OkHttpClient = OkHttpClient.Builder().apply {
@@ -119,9 +118,9 @@ class ProvideModule {
         addNetworkInterceptor(userAgentInterceptor)
 //        addNetworkInterceptor(adBlockInterceptor)
 //        addNetworkInterceptor(cacheInterceptor)
-        if (BuildConfig.DEBUG) {
-            addInterceptor(httpLoggingInterceptor)
-        }
+//        if (BuildConfig.DEBUG) {
+//            addInterceptor(httpLoggingInterceptor)
+//        }
     }.build()
 
     @Singleton

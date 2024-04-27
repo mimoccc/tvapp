@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.HiltExt.appViewModel
@@ -57,6 +58,8 @@ class GalleryScreen : Screen() {
         val dataList = remember(data) {
             viewModel.mediaItemsFor(data)
         }
+
+        pauseSyncUntilGone()
 
         Gallery(
             modifier = Modifier.fillMaxSize(),

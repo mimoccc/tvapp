@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -7,25 +7,37 @@
  */
 
 @file:Suppress("unused")
+
 package org.mjdev.tvlib.extensions
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.view.Gravity
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -45,8 +57,12 @@ import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import com.bumptech.glide.Glide
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.MultiplePermissionsState
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mjdev.tvlib.extensions.BitmapExt.majorColor
 import org.mjdev.tvlib.extensions.ContextExt.isTV
@@ -56,9 +72,98 @@ import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
 import timber.log.Timber
+import org.mjdev.tvlib.events.observe.observeEvent
+import org.mjdev.tvlib.ui.components.card.FocusHelper
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ComposeExt {
+
+    inline fun <T> externalMediaPermission(
+        onSdk33AndUp: () -> T,
+        onSdk32AndDown: () -> T
+    ): T {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            onSdk32AndDown()
+        } else {
+            onSdk33AndUp()
+        }
+    }
+
+    private val imagePermissions = externalMediaPermission(
+        onSdk33AndUp = { Manifest.permission.READ_MEDIA_IMAGES },
+        onSdk32AndDown = { Manifest.permission.READ_EXTERNAL_STORAGE }
+    )
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    fun MultiplePermissionsState.handlePermissionState(
+        context: Context,
+        onGranted: () -> Unit
+    ) {
+        when {
+            allPermissionsGranted -> onGranted()
+            shouldShowRationale -> {
+                val intent = Intent().apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.fromParts("package", context.packageName, null)
+                }
+                context.startActivity(intent)
+            }
+
+            else -> launchMultiplePermissionRequest()
+        }
+    }
+
+    @SuppressLint("ComposableNaming")
+    @OptIn(ExperimentalPermissionsApi::class)
+    class ImagePickerHelper(
+        private val context: Context,
+        private val launcher: ManagedActivityResultLauncher<String, Uri?>,
+        private val storagePermission: MultiplePermissionsState
+    ) {
+        fun pickImage() {
+            storagePermission.handlePermissionState(
+                context = context,
+                onGranted = {
+                    launcher.launch("image/*")
+                }
+            )
+        }
+
+        companion object {
+
+            private val imagePermissions = externalMediaPermission(
+                onSdk33AndUp = {
+                    listOf(
+                        Manifest.permission.READ_MEDIA_IMAGES,
+                        Manifest.permission.READ_MEDIA_AUDIO,
+                        Manifest.permission.READ_MEDIA_VIDEO
+                    )
+                },
+                onSdk32AndDown = {
+                    listOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
+            )
+
+            @OptIn(ExperimentalPermissionsApi::class)
+            @Composable
+            fun rememberImagePickerHelper(
+                onResult: (uri: Uri?) -> Unit
+            ): ImagePickerHelper {
+                val context = LocalContext.current
+                val currentOnResult by rememberUpdatedState(onResult)
+                val storagePermission = rememberMultiplePermissionsState(imagePermissions)
+                val launcher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.GetContent(),
+                    onResult = currentOnResult
+                )
+                return remember {
+                    ImagePickerHelper(context, launcher, storagePermission)
+                }
+            }
+
+        }
+    }
 
     @Composable
     fun isEditMode() = LocalInspectionMode.current
@@ -137,7 +242,7 @@ object ComposeExt {
 
     @Composable
     fun rememberFocusState(
-        initial: FocusState? = null
+        initial: FocusState = FocusHelper(false)
     ) = remember(initial) {
         mutableStateOf(initial)
     }
@@ -145,7 +250,7 @@ object ComposeExt {
     @Composable
     fun rememberFocusState(
         key: Any?,
-        initial: FocusState? = null,
+        initial: FocusState = FocusHelper(false),
     ) = remember(key) {
         mutableStateOf(initial)
     }
@@ -157,16 +262,46 @@ object ComposeExt {
         FocusRequester()
     }
 
-    val MutableState<FocusState?>.isFocused
-        get() = (value?.isFocused == true) || (value?.hasFocus == true)
+    @Composable
+    inline fun <reified T> observeEvent(
+        crossinline onEvent: T.() -> Unit
+    ) {
+        val scope = rememberCoroutineScope()
+        scope.observeEvent<T> { event ->
+            onEvent(event)
+        }
+    }
 
-    val MutableState<FocusState?>.isNotFocused
+    fun <T> runNonNullBlock(
+        scope: CoroutineScope,
+        block: ((T) -> Unit)? = null,
+        arg1: T
+    ) = block?.let { b ->
+        scope.launch { b.invoke(arg1) }
+    }
+
+    @SuppressLint("MutableCollectionMutableState")
+    @Composable
+    inline fun <reified T> observedEvents(): MutableState<MutableList<T>> {
+        val events = mutableStateOf<MutableList<T>>(mutableListOf())
+        val scope = rememberCoroutineScope()
+        scope.observeEvent<T> { e ->
+            events.value.add(e)
+        }
+        return remember { events }
+    }
+
+    val MutableState<FocusState>.isFocused
+        get() = value.isFocused || value.hasFocus
+
+    val MutableState<FocusState>.isNotFocused
         get() = !isFocused
 
-    val FocusState?.isFocused
-        get() = (this?.isFocused == true) || (this?.hasFocus == true)
+    @Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+    val FocusState.isFocused
+        get() = this.isFocused || this.hasFocus
 
-    val FocusState?.isNotFocused
+    val FocusState.isNotFocused
         get() = !isFocused
 
     @Composable
@@ -281,7 +416,7 @@ object ComposeExt {
     @Composable
     fun rememberColorFromImage(
         image: Any?,
-        initialColor: Color = Color.Black,
+        initialColor: Color = Color.Transparent,
         context: Context = LocalContext.current,
         onError: (error: Throwable) -> Unit = { error -> Timber.e(error) }
     ): State<Color> = rememberDerivedState(image, initialColor) {
@@ -292,7 +427,7 @@ object ComposeExt {
                 .submit()
                 .get()
                 .toBitmap()
-                .majorColor(Color.Transparent)
+                .majorColor()
         }.onFailure { e ->
             onError(e)
         }.getOrNull() ?: initialColor
@@ -300,6 +435,6 @@ object ComposeExt {
 
     // todo more types
     @Composable
-    fun remberItemType(item: Any?): ItemType = remember(item) { ItemType(item) }
+    fun rememberItemType(item: Any?): ItemType = remember(item) { ItemType(item) }
 
 }

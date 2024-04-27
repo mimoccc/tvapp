@@ -12,7 +12,9 @@ import android.net.Uri
 import java.net.URL
 
 interface IAdBlocker {
+
     fun isBlocked(reqUrl: String?): Boolean
     fun isBlocked(reqUrl: URL?): Boolean
     fun isBlocked(reqUrl: Uri?): Boolean
+
 }

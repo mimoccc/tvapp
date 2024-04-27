@@ -123,7 +123,7 @@ fun NavigationRow(
             focusedColor = focusedColor.copy(alpha = 0.5f),
             focusRequester = focusRequester,
             unFocusedColor = unFocusedColor,
-            onFocusChange = { state ->
+            onFocusChange = { state, _ -> // todo from user ?
                 if (state.isFocused || state.hasFocus) {
                     onFocus()
                 }

@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
+import android.os.Build
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import kotlinx.coroutines.launch
-import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.interfaces.ItemWithTitle
 import org.mjdev.tvlib.R
@@ -38,7 +38,7 @@ fun BrowseView(
     showHeader: Boolean = true,
     showNetworkState: Boolean = true,
     showAppUpdateState: Boolean = true,
-    title: Any? = "test",
+    title: Any? = Build.MANUFACTURER,
     appIcon: Any? = R.drawable.person,
     userIcon: Any? = R.drawable.person,
     githubUser: String = "mimoccc",
@@ -55,15 +55,14 @@ fun BrowseView(
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(32.dp),
     contentPadding: PaddingValues = PaddingValues(8.dp),
     customRows: List<@Composable () -> Unit> = emptyList(),
-    onTitleClicked: () -> Unit = {},
-    onClockClicked: () -> Unit = {},
-    onMessageBadgeClicked: () -> Unit = {},
-    onUserPicClicked: () -> Unit = {},
-    onItemFocused: (item: Any?) -> Unit = {},
-    onItemClicked: (item: Any?) -> Unit = {},
+    onTitleClicked: (() -> Unit)? = null,
+    onClockClicked: (() -> Unit)? = null,
+    onMessageBadgeClicked: (() -> Unit)? = null,
+    onUserPicClicked: (() -> Unit)? = null,
+    onItemFocused: ((item: Any?, fromUser: Boolean) -> Unit)? = null,
+    onItemClicked: ((item: Any?) -> Unit)? = null,
     state: TvLazyListState = rememberTvLazyListState(),
-    isEdit: Boolean = isEditMode(),
-    isDebug: Boolean = BuildConfig.DEBUG
+    isEdit: Boolean = isEditMode()
 ) {
     val coroutineScope = rememberCoroutineScope()
     ScrollableTvLazyColumn(
@@ -98,7 +97,6 @@ fun BrowseView(
                 }
                 if (isEdit || showAppUpdateState) {
                     AppUpdateAvailableMessage(
-                        isDebug = isDebug,
                         githubUser = githubUser,
                         githubRepository = githubRepository,
                         title = R.string.title_app_update,
@@ -154,8 +152,8 @@ fun BrowseView(
             CategoryRow(
                 title = (entry.first as? ItemWithTitle<*>)?.title ?: entry.first.toString(),
                 items = entry.second,
-                onItemFocus = {
-                    onItemFocused(it)
+                onItemFocus = { item, fromUser ->
+                    onItemFocused?.invoke(item, fromUser)
                 },
                 onItemClick = onItemClicked
             )

@@ -1,0 +1,14 @@
+//[tvlib](../../index.md)/[org.mjdev.tvlib.database.convert](index.md)
+
+# Package-level declarations
+
+## Types
+
+| Name | Summary |
+|---|---|
+| [ConvertEntity](-convert-entity/index.md) | [androidJvm]<br>open class [ConvertEntity](-convert-entity/index.md) |
+| [CustomPropertyConverter](-custom-property-converter/index.md) | [androidJvm]<br>open class [CustomPropertyConverter](-custom-property-converter/index.md)&lt;[T](-custom-property-converter/index.md) : [ConvertEntity](-convert-entity/index.md)&gt;(supplier: (id: [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)) -&gt; [T](-custom-property-converter/index.md)?) : PropertyConverter&lt;[T](-custom-property-converter/index.md), [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)&gt; |
+| [EncryptionConverter](-encryption-converter/index.md) | [androidJvm]<br>class [EncryptionConverter](-encryption-converter/index.md) : PropertyConverter&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [PropertyEnumConverter](-property-enum-converter/index.md) | [androidJvm]<br>open class [PropertyEnumConverter](-property-enum-converter/index.md)&lt;[T](-property-enum-converter/index.md), [R](-property-enum-converter/index.md)&gt;(values: [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)&lt;[T](-property-enum-converter/index.md)&gt;, default: [T](-property-enum-converter/index.md), predicate: [T](-property-enum-converter/index.md).([R](-property-enum-converter/index.md)) -&gt; [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html), supplier: ([T](-property-enum-converter/index.md)) -&gt; [R](-property-enum-converter/index.md)?) : PropertyConverter&lt;[T](-property-enum-converter/index.md), [R](-property-enum-converter/index.md)&gt; |
+| [PropertyJsonConverter](-property-json-converter/index.md) | [androidJvm]<br>open class [PropertyJsonConverter](-property-json-converter/index.md)&lt;[T](-property-json-converter/index.md) : [Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html)&gt;(cls: [Class](https://developer.android.com/reference/kotlin/java/lang/Class.html)&lt;[T](-property-json-converter/index.md)&gt;) : PropertyConverter&lt;[T](-property-json-converter/index.md), [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [StringListConverter](-string-list-converter/index.md) | [androidJvm]<br>class [StringListConverter](-string-list-converter/index.md) : PropertyConverter&lt;[List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?&gt;?, [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?&gt; |

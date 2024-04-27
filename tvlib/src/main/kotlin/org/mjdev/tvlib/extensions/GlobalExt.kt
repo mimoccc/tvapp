@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object GlobalExt {
@@ -41,6 +42,19 @@ object GlobalExt {
     fun launchIO(
         block: suspend CoroutineScope.() -> Unit
     ) = launch(IO) { block() }
+
+    fun launchInMain(block: suspend CoroutineScope.() -> Unit): Job = CoroutineScope(
+        Dispatchers.Main
+    ).launch(
+        EmptyCoroutineContext,
+        CoroutineStart.DEFAULT,
+        block
+    )
+
+    fun <T> withScope(
+        scope: T,
+        block: T.() -> Unit
+    ) = block.invoke(scope)
 
     fun <T> T.postDelayed(
         delay: Long,

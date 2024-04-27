@@ -10,9 +10,13 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemAudio {
+
     val uri: Any?
 
     companion object {
+
         val ItemAudio.hasImage get() = uri?.toString()?.isNotEmpty() == true
+
     }
+
 }

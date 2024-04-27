@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -95,4 +95,5 @@ data class User(
         result = 31 * result + siteAdmin.hashCode()
         return result
     }
+
 }

@@ -10,9 +10,13 @@ package org.mjdev.tvlib.interfaces
 
 @Suppress("unused")
 interface ItemWithTitle<T> {
+
     val title: T?
 
     companion object {
+
         val <T> ItemWithTitle<T>.hasTitle get() = title?.toString()?.isNotEmpty() == true
+
     }
+
 }

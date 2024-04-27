@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -24,6 +24,7 @@ import com.google.zxing.BarcodeFormat
 class QRCodeLoaderFactory(
     val context: Context
 ) : ModelLoaderFactory<QRCodeRes?, Drawable?> {
+
     private var loader: QRCodeLoader? = null
 
     override fun build(multiFactory: MultiModelLoaderFactory): ModelLoader<QRCodeRes?, Drawable?> {
@@ -88,6 +89,7 @@ class QRCodeLoaderFactory(
                 }
             }
         }
+
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,12 +10,9 @@ package org.mjdev.tvlib.helpers.http
 
 @Suppress("unused")
 class ISessionRepository {
-    fun logout() {
 
-    }
+    fun logout() {}
 
-    fun refreshToken() {
-
-    }
+    fun refreshToken() {}
 
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -20,6 +20,7 @@ import androidx.annotation.LayoutRes
  * @constructor
  */
 class LayoutResId(@LayoutRes val resId: Int = View.NO_ID) {
+
     /**
      * return string representation
      * @return String
@@ -27,4 +28,5 @@ class LayoutResId(@LayoutRes val resId: Int = View.NO_ID) {
     override fun toString(): String {
         return resId.toString()
     }
+
 }

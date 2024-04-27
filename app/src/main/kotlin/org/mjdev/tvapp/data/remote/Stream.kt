@@ -39,4 +39,5 @@ class Stream {
         result = 31 * result + (userAgent?.hashCode() ?: 0)
         return result
     }
+
 }

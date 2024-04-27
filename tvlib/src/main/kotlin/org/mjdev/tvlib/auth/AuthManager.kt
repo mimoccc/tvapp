@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -32,7 +32,7 @@ class AuthManager(
     val clientId: String = context.getString(R.string.com_auth0_client_id),
     val domain: String = context.getString(R.string.com_auth0_domain),
     val allowedPackages: List<String> = listOf(), // BuildConfig.APPLICATION_ID
-    val onUserChange: AuthManager.(user: User?) -> Unit = {}
+    val onUserChange: (AuthManager.(user: User?) -> Unit)? = null
 ) {
 
     var idToken: String? = null
@@ -65,7 +65,7 @@ class AuthManager(
         idToken = context
             .getSharedPreferences(SAVE_KEY, Context.MODE_PRIVATE)
             .getString(SAVE_KEY, null)
-        onUserChange(this, user)
+        onUserChange?.invoke(this, user)
     }
 
     private fun saveToken() {
@@ -95,14 +95,14 @@ class AuthManager(
                     override fun onFailure(error: AuthenticationException) {
                         idToken = ""
                         saveToken()
-                        onUserChange(this@AuthManager, user)
+                        onUserChange?.invoke(this@AuthManager, user)
                         Timber.e("Error occurred in login(): $error")
                     }
 
                     override fun onSuccess(result: Credentials) {
                         idToken = result.idToken
                         saveToken()
-                        onUserChange(this@AuthManager, user)
+                        onUserChange?.invoke(this@AuthManager, user)
                         Timber.d("User successfully logged in.")
                     }
                 }
@@ -134,7 +134,7 @@ class AuthManager(
                     override fun onSuccess(result: Void?) {
                         idToken = ""
                         saveToken()
-                        onUserChange(this@AuthManager, user)
+                        onUserChange?.invoke(this@AuthManager, user)
                     }
                 }
             )
@@ -151,7 +151,7 @@ class AuthManager(
             clientId: String? = null,
             domain: String? = null,
             allowedPackages: List<String> = listOf(),
-            onUserChange: AuthManager.(user: User?) -> Unit = {}
+            onUserChange: (AuthManager.(user: User?) -> Unit)? = null
         ) = LocalContext.current.let { ctx ->
             remember {
                 AuthManager(

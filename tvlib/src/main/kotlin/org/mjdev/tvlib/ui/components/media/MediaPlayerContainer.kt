@@ -22,6 +22,7 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.swipeGestures
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
+import timber.log.Timber
 
 @SuppressLint("UnsafeOptInUsageError")
 @Previews
@@ -30,7 +31,13 @@ fun MediaPlayerContainer(
     modifier: Modifier = Modifier,
     visible: Boolean = true,
     enableSwipeGestures: Boolean = true,
-    state: MediaPlayerState = rememberMediaPlayerState(),
+    onError: MediaPlayerState.(error: Throwable) -> Boolean = { e ->
+        Timber.e(e)
+        false
+    },
+    state: MediaPlayerState = rememberMediaPlayerState(
+        onError = onError
+    )
 ) {
     val nextItem: () -> Unit = { state.player.seekToNext() }
     val prevItem: () -> Unit = { state.player.seekToPrevious() }

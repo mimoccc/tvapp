@@ -19,7 +19,6 @@ import com.bumptech.glide.load.model.ModelLoader.LoadData
 import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.BuildConfig
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
@@ -35,14 +34,13 @@ class OkHttpUrlLoaderEx(
         connectTimeout(30, TimeUnit.SECONDS)
         followRedirects(true)
         followSslRedirects(true)
-        addInterceptor(
-            HttpLoggingInterceptor().setLevel(
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                else HttpLoggingInterceptor.Level.NONE
-            )
-        )
+//        addInterceptor(
+//            HttpLoggingInterceptor().setLevel(
+//                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+//                else HttpLoggingInterceptor.Level.NONE
+//            )
+//        )
     }.build()
-
 
     /**
      * Context to be used
@@ -129,5 +127,7 @@ class OkHttpUrlLoaderEx(
             factory?.teardown()
             factory = null
         }
+
     }
+
 }

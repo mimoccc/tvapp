@@ -1,0 +1,9 @@
+//[tvlib](../../index.md)/[org.mjdev.tvlib.ui.components.navigation](index.md)/[NavigationRow](-navigation-row.md)
+
+# NavigationRow
+
+[androidJvm]\
+
+@[Composable](https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html)
+
+fun [NavigationRow](-navigation-row.md)(modifier: [Modifier](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html) = Modifier, textColor: [Color](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html) = Color.White, iconColor: [Color](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html) = Color.White, focusedColor: [Color](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html) = Color.Green, unFocusedColor: [Color](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html) = Color.Transparent, expandedWidth: [Dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html) = 150.dp, roundCornerSize: [Dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html) = 32.dp, shape: [Shape](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shape.html) = RoundedCornerShape(roundCornerSize), strokeWidth: [Dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html) = 1.dp, margin: [Dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html) = 0.dp, padding: [Dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html) = 4.dp, navController: [NavHostControllerEx](../org.mjdev.tvlib.navigation/-nav-host-controller-ex/index.md) = rememberNavControllerEx(), menuItem: [MenuItem](../org.mjdev.tvlib.navigation/-menu-item/index.md) = MenuItem.MENU_ITEM_EXIT)

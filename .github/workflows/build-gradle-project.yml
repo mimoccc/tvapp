@@ -8,7 +8,7 @@ on:
 jobs:
   build-gradle-project:
     runs-on: ubuntu-latest
-#permissions
+# permissions
     permissions:
       contents: write
       deployments: write
@@ -38,7 +38,7 @@ jobs:
       - name: Prepare Version Number
         id: prepare_version
         run: |
-          export GRADLE_PATH="./config/version.properties";
+          export GRADLE_PATH="./config/version.prop";
           export GRADLE_FIELD_VMAJ="majorVersion"
           export GRADLE_FIELD_VMIN="minorVersion"
           export GRADLE_FIELD_VPAT="patchVersion"
@@ -64,12 +64,12 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.TOKEN }}
           tag: release-${{ env.GITHUB_APP_VERSION_NAME }}
-          artifacts: './app/build/outputs/apk/release/app-release.apk, ./release-notes.txt'
+          artifacts: './app/build/outputs/apk/release/app-release.apk, ./documentation/release-notes-$APP_VERSION.txt, ./release.zip'
 # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
         uses: OrlovM/Wiki-Action@v1
         with:
-          path: 'wiki'
+          path: 'documentation'
           token: ${{ secrets.TOKEN }}
 # done

@@ -181,4 +181,5 @@ fun Modifier.angledGradientBackground(
             size = size
         )
     }
+
 )

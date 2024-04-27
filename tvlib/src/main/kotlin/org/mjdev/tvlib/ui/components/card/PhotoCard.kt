@@ -44,10 +44,10 @@ import org.mjdev.tvlib.ui.components.image.PhotoImage
 fun PhotoCard(
     item: Any? = null,
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Fit,
     textColor: Color = Color.White,
     focused: Boolean = isEditMode(),
-    focusState: MutableState<FocusState?> = rememberFocusState(
+    focusState: MutableState<FocusState> = rememberFocusState(
         item,
         FocusHelper(focused)
     ),
@@ -80,8 +80,8 @@ fun PhotoCard(
     aspectRatio: Float = 16f / 9f,
     scale: CardScale = CardDefaults.scale(),
     titlePadding: PaddingValues = PaddingValues(8.dp),
-    onFocus: (item: Any?) -> Unit = {},
-    onClick: (item: Any?) -> Unit = {},
+    onFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    onClick: ((item: Any?) -> Unit)? = null,
 ) {
     ItemCard(
         item = item,

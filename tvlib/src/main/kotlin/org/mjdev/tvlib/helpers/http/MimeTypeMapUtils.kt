@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -32,7 +32,9 @@ object MimeTypeMapUtils {
     }
 
     fun getMimeTypeFromUrl(url: String?): String? {
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(getFileExtensionFromUrl(url))
+        return MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(getFileExtensionFromUrl(url))
+            ?.lowercase()
     }
 
 }

@@ -7,10 +7,12 @@
   ~  w: https://mjdev.org
   -->
 <resources>
-    <style name="Theme.TvApp" parent="android:Theme.Material.NoActionBar.TranslucentDecor">
+<!--    <style name="Theme.TvApp" parent="android:Theme.Material.NoActionBar.TranslucentDecor">-->
+    <style name="Theme.TvApp" parent="android:Theme.Material.Wallpaper">
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
+
         <!--<item name="android:enforceNavigationBarContrast">false</item>-->
         <!--<item name="android:enforceStatusBarContrast">false</item>-->
         <!--<item name="android:navigationBarDividerColor">-->
@@ -18,6 +20,11 @@
         <!--</item>-->
         <!--<item name="android:windowLightStatusBar">false</item>-->
         <!--<item name="android:windowLightNavigationBar">false</item>-->
+
+<!--        <item name="android:windowBackground">@color/transparent</item>-->
+<!--        <item name="android:colorBackgroundCacheHint">@null</item>-->
+<!--        <item name="android:windowShowWallpaper">true</item>-->
+
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentNavigation">true</item>

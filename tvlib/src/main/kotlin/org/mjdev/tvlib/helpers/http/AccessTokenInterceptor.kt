@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -12,6 +12,8 @@ import android.text.TextUtils
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import org.mjdev.tvlib.exception.AuthenticationError
+import org.mjdev.tvlib.exception.ServerException
 import java.io.IOException
 import java.net.HttpURLConnection
 
@@ -75,4 +77,5 @@ class AccessTokenInterceptor internal constructor(
     private fun logout() {
         sessionRepository.logout()
     }
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -23,7 +23,7 @@ import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
-import org.mjdev.tvlib.helpers.cursor.PhotoItem
+import org.mjdev.tvlib.data.local.PhotoItem
 
 @Suppress("DEPRECATION")
 @Previews
@@ -49,8 +49,8 @@ fun LocalPhotosRow(
         sortOrder = sortOrder,
         transform = transform
     ),
-    onItemFocus: (item: Any?) -> Unit = {},
-    openItem: Context.(item: Any?) -> Unit = {},
+    onItemFocus: ((item: Any?, fromUser:Boolean) -> Unit)? = null,
+    openItem: (Context.(item: Any?) -> Unit)? = null,
 ) = CursorRow(
     title = title,
     rowState = rowState,

@@ -12,9 +12,13 @@ import android.content.Intent
 
 @Suppress("unused")
 interface ItemWithIntent {
+
     val intent: Intent?
 
     companion object {
+
         val ItemWithIntent.hasIntent get() = (intent != null)
+
     }
+
 }

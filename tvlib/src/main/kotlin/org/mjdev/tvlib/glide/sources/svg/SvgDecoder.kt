@@ -23,6 +23,7 @@ import java.io.InputStreamReader
  * Decodes an SVG internal representation from an [InputStream].
  */
 class SvgDecoder : ResourceDecoder<InputStream, SVG> {
+
     /**
      * Handles indicator, see glide lib documentation
      * @param source InputStream
@@ -67,4 +68,5 @@ class SvgDecoder : ResourceDecoder<InputStream, SVG> {
             throw IOException("Cannot load SVG from stream", ex)
         }
     }
+
 }

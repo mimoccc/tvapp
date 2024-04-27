@@ -37,8 +37,7 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
 import org.mjdev.tvlib.ui.components.text.TextAny
 
-
-@Suppress("UNUSED_PARAMETER")
+@Suppress("UNUSED_PARAMETER", "PreviewShouldNotBeCalledRecursively")
 @SuppressLint("ModifierParameter")
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
@@ -57,7 +56,7 @@ fun Button(
     borderColor: Color = Color.White,
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
-    focusState: MutableState<FocusState?> = rememberFocusState(),
+    focusState: MutableState<FocusState> = rememberFocusState(),
     content: @Composable RowScope.() -> Unit = {
         TextAny(
             text = text,
@@ -66,14 +65,14 @@ fun Button(
             maxLines = 1
         )
     },
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
 ) = Button(
     modifier = modifier
         .border(BorderStroke(borderSize, borderColor), shape)
-        .clickable { onClick() },
+        .clickable { onClick?.invoke() },
     glow = glow,
     scale = scale,
-    onClick = onClick,
+    onClick = { onClick?.invoke() },
     colors = ButtonDefaults.colors(containerColor = containerColor),
     shape = ButtonDefaults.shape(shape),
     contentPadding = contentPadding,

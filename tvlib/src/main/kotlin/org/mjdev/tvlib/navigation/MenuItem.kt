@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -9,7 +9,7 @@
 package org.mjdev.tvlib.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import org.mjdev.tvlib.R
@@ -77,7 +77,7 @@ data class MenuItem(
 
         val MENU_ITEM_EXIT = MenuItem(
             menuText = R.string.menu_title_exit,
-            menuIcon = Icons.Default.ExitToApp,
+            menuIcon = Icons.AutoMirrored.Filled.ExitToApp,
         )
 
     }

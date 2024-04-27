@@ -8,7 +8,8 @@
 
 package org.mjdev.tvapp.sync.syncers
 
-import org.mjdev.tvapp.data.local.Movie
+import androidx.compose.runtime.MutableState
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.sync.SyncAdapter
 import org.mjdev.tvapp.sync.base.SyncItems
 import org.mjdev.tvapp.sync.base.Syncer
@@ -17,20 +18,24 @@ import org.mjdev.tvlib.database.extensions.ObjectBoxExt.update
 import org.mjdev.tvlib.extensions.ApiResponseExt.safeGet
 import timber.log.Timber
 
-class GithubMoviesSyncer(adapter: SyncAdapter) : Syncer(adapter) {
-    override suspend fun sync() {
+class GithubMoviesSyncer(
+    adapter: SyncAdapter,
+    syncerName: String = GithubMoviesSyncer::class.java.simpleName
+) : Syncer(adapter, syncerName) {
+
+    override suspend fun doSync() {
         val streams = apiService.streams().safeGet()
         val channels = apiService.channels().safeGet()
 
         val oldMovies = movieDao.all
-        val newMovies = mutableListOf<Movie>()
+        val newMovies = mutableListOf<Media>()
 
         streams.forEach { stream ->
             channels.firstOrNull { channel ->
                 channel.id == stream.channelId
             }.also { channel ->
                 (channel?.categories ?: listOf(null)).forEach { ctg ->
-                    newMovies.add(Movie().apply {
+                    newMovies.add(Media().apply {
                         title = channel?.name ?: stream.channelId
                         uri = stream.url
                         category = ctg
@@ -51,6 +56,7 @@ class GithubMoviesSyncer(adapter: SyncAdapter) : Syncer(adapter) {
                     Timber.e(e)
                 }
             }
+
             toUpdate.forEach { movie ->
                 try {
                     dao.movieDao.stx { update(movie) { m -> m.uri == movie.uri } }
@@ -59,6 +65,7 @@ class GithubMoviesSyncer(adapter: SyncAdapter) : Syncer(adapter) {
                     Timber.e(e)
                 }
             }
+
             toRemove.forEach { movie ->
                 try {
                     dao.movieDao.stx { remove(movie) }
@@ -68,5 +75,7 @@ class GithubMoviesSyncer(adapter: SyncAdapter) : Syncer(adapter) {
                 }
             }
         }
+
     }
+
 }

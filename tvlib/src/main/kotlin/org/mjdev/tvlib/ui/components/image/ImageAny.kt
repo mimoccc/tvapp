@@ -46,8 +46,9 @@ fun ImageAny(
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
-    colorFilter: ColorFilter? = null,
-    placeholder : @Composable () -> Unit = {
+    tint: Color? = null,
+    colorFilter: ColorFilter? = tint?.let { ColorFilter.tint(it) },
+    placeholder: @Composable () -> Unit = {
         Image(
             painterResource(R.drawable.broken_image),
             contentDescription,
@@ -65,7 +66,7 @@ fun ImageAny(
     val width = if (constraints.minWidth == 0) 1 else constraints.minWidth
     val height = if (constraints.minHeight == 0) 1 else constraints.minHeight
 
-    val imageSrc = if(src is State<*>) src.value else src
+    val imageSrc = if (src is State<*>) src.value else src
 
     when (imageSrc) {
 

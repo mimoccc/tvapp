@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -70,7 +70,7 @@ object HiltExt {
     @Composable
     fun createHiltViewModelFactory(
         viewModelStoreOwner: ViewModelStoreOwner,
-        modelCreator: MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit = {}
+        modelCreator: (MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit)? = null
     ): ViewModelProvider.Factory = hiltViewModelFactory(
         context = LocalContext.current,
         viewModelStoreOwner = viewModelStoreOwner,
@@ -81,7 +81,7 @@ object HiltExt {
     fun hiltViewModelFactory(
         context: Context,
         viewModelStoreOwner: ViewModelStoreOwner,
-        modelCreator: MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit = {}
+        modelCreator: (MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit)? = null
     ): ViewModelProvider.Factory {
         val navBackStackEntry: NavBackStackEntry? = viewModelStoreOwner as? NavBackStackEntry
         return if (isEditMode() || navBackStackEntry == null)
@@ -134,17 +134,17 @@ object HiltExt {
 
     private fun createInternal(
         context: Context,
-        modelCreator: MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit
+        modelCreator: (MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit)?
     ): ViewModelProvider.Factory = MockViewModelFactory(context, modelCreator)
 
     @Suppress("UNCHECKED_CAST")
     class MockViewModelFactory(
         val context: Context,
-        modelCreator: MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit
+        modelCreator: (MutableMap<KClass<*>, (context: Context) -> Any>.() -> Unit)?
     ) : ViewModelProvider.Factory {
 
         private val store = mutableMapOf<KClass<*>, (context: Context) -> Any>()
-            .apply(modelCreator)
+            .apply { modelCreator?.invoke(this) }
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return store[modelClass.kotlin]?.invoke(context) as T

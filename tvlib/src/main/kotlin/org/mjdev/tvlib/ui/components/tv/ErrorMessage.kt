@@ -14,16 +14,15 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +33,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -69,13 +69,13 @@ fun ErrorMessage(
     visibleState: MutableState<Boolean> = mutableStateOf(visible),
     enter: EnterTransition = EnterTransition.None,
     exit: ExitTransition = ExitTransition.None,
-    dismissOnClick: () -> Unit = {},
+    dismissOnClick: (() -> Unit)? = null,
 ) = AnimatedVisibility(
     visible = visibleState.value,
     enter = enter,
     exit = exit
 ) {
-    Box{
+    Box {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,7 +94,7 @@ fun ErrorMessage(
                 softWrap = false,
                 color = color
             )
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .width(1.dp)
                     .height(24.dp),
@@ -111,7 +111,9 @@ fun ErrorMessage(
                 textAlign = TextAlign.Left,
                 maxLines = 4,
                 softWrap = true,
-                text = error?.message ?: (stringResource(id = R.string.error_unknown))
+                lineHeight = (fontSizeMessage.value + 2).sp,
+                overflow = TextOverflow.Ellipsis,
+                text = error?.message ?: (stringResource(id = R.string.text_app_description))
             )
             if (dismissible && (dismissText != null)) {
                 Button(
@@ -122,7 +124,7 @@ fun ErrorMessage(
                     containerColor = Color.White.copy(alpha = 0.2f),
                     onClick = {
                         visibleState.value = false
-                        dismissOnClick.invoke()
+                        dismissOnClick?.invoke()
                     }
                 )
             }

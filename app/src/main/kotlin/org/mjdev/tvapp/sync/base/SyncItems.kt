@@ -8,17 +8,18 @@
 
 package org.mjdev.tvapp.sync.base
 
-import org.mjdev.tvapp.data.local.Movie
+import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.interfaces.ItemWithUri.Companion.hasUri
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class SyncItems(
-    private val oldMovies: List<Movie>,
-    private val newMovies: List<Movie>
+    private val oldMovies: List<Media>,
+    private val newMovies: List<Media>
 ) {
-    val toAdd = mutableListOf<Movie>()
-    val toUpdate = mutableListOf<Movie>()
-    val toRemove = mutableListOf<Movie>()
+
+    val toAdd = mutableListOf<Media>()
+    val toUpdate = mutableListOf<Media>()
+    val toRemove = mutableListOf<Media>()
 
     init {
         newMovies.filter { newMovie ->
@@ -43,4 +44,5 @@ class SyncItems(
             toRemove.addAll(addMovies)
         }
     }
+
 }

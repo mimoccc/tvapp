@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,10 +10,10 @@
 
 package org.mjdev.gradle.extensions
 
-import com.android.build.api.dsl.VariantDimension
+import com.android.build.api.dsl.ApplicationVariantDimension
 import kotlin.String
 
-fun VariantDimension.buildConfigBoolean(
+fun ApplicationVariantDimension.buildConfigBoolean(
     vararg fields: Pair<String, Boolean>
 ) {
     fields.forEach { pair ->
@@ -21,7 +21,7 @@ fun VariantDimension.buildConfigBoolean(
     }
 }
 
-fun VariantDimension.buildConfigString(
+fun ApplicationVariantDimension.buildConfigString(
     vararg fields: Pair<String, String>
 ) {
     fields.forEach { pair ->
@@ -29,7 +29,15 @@ fun VariantDimension.buildConfigString(
     }
 }
 
-fun VariantDimension.stringRes(
+fun ApplicationVariantDimension.buildConfigStringWithPackageName(
+    vararg fields: Pair<String, String>
+) {
+    fields.forEach { pair ->
+        buildConfigField("String", pair.first, "APPLICATION_ID + \"${pair.second}\"")
+    }
+}
+
+fun ApplicationVariantDimension.stringRes(
     vararg fields: Pair<String, String>
 ) {
     fields.forEach { pair ->
@@ -37,7 +45,39 @@ fun VariantDimension.stringRes(
     }
 }
 
-fun VariantDimension.manifestPlaceholders(
+fun ApplicationVariantDimension.stringRes(
+    name: String,
+    value: String
+) {
+    resValue("string", name, value)
+}
+
+fun ApplicationVariantDimension.stringResWithPackageName(
+    vararg fields: Pair<String, String>
+) {
+    fields.forEach { pair ->
+        resValue("string", pair.first, "\${applicationId}" + pair.second)
+    }
+}
+
+fun ApplicationVariantDimension.addSyncProviderAuthString(
+    name: String = "sync_auth",
+    suffix: String = ".sync"
+) {
+    buildConfigStringWithPackageName(name.uppercase() to suffix)
+    stringResWithPackageName(name to suffix)
+}
+
+//fun ApplicationVariantDimension.createSuffixedStringRes(
+//    name: String,
+//    base: String
+//) {
+//    val suffix = if(applicationIdSuffix.isNullOrEmpty()) ""
+//    else ( " - "  + applicationIdSuffix.suffixToString())
+//    resValue("string", name, base + suffix)
+//}
+
+fun ApplicationVariantDimension.manifestPlaceholders(
     vararg fields: Pair<String, Any>
 ) {
     manifestPlaceholders.apply {

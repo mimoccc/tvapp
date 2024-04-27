@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -88,4 +88,5 @@ class LayoutInflaterDrawable(
             return LayoutInflaterDrawable(context, this)
         }
     }
+
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -24,7 +24,6 @@ import kotlinx.coroutines.Job
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.extensions.GlobalExt.launch
 import org.mjdev.tvlib.helpers.http.UserAgentInterceptor
@@ -55,17 +54,18 @@ class AlbumArtLoaderFactory(
 
     //    private val adBlockInterceptor by lazy { AdBlockInterceptor(context) }
 //    private val cacheInterceptor by lazy { CacheInterceptor() }
-    private val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor().setLevel(
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-            else HttpLoggingInterceptor.Level.NONE
-        )
-    }
+//    private val httpLoggingInterceptor by lazy {
+//        HttpLoggingInterceptor().setLevel(
+//            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+//            else HttpLoggingInterceptor.Level.NONE
+//        )
+//    }
+
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
             addNetworkInterceptor(networkConnectionInterceptor)
             addNetworkInterceptor(userAgentInterceptor)
-            addNetworkInterceptor(httpLoggingInterceptor)
+//            addNetworkInterceptor(httpLoggingInterceptor)
 //            addNetworkInterceptor(cacheInterceptor)
 //            addNetworkInterceptor(adBlockInterceptor)
             cache(httpCache)

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -75,8 +75,16 @@ object MediaItemExt {
             .build()
 
     val Any?.mediaItem: MediaItem
-        get() = if (this is MediaItem) this else MediaItem.Builder()
-            .setUri(uri)
-            .setMediaMetadata(metaData)
-            .build()
+        get() = if (this is MediaItem) this else {
+            val url = uri
+            val webUrl = (this as? org.mjdev.tvlib.data.local.IWebUrlContainer)?.webUrl
+            MediaItem.Builder()
+                .setUri(url)
+//                .setMediaId(url)
+//                .setMimeType(url.mimeType)
+                .setMediaMetadata(metaData)
+                .setTag(webUrl)
+                .build()
+        }
+
 }

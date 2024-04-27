@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -28,15 +28,15 @@ object ObjectBoxExt {
         }
     }
 
-    // todo remove reflection && improve search
-    @Suppress("unused")
-    inline fun <reified T> Box<T>.findById(id: Long?): T? = if (id == null) all.firstOrNull()
-    else all.firstOrNull { o -> o.property("id") == id }
+//    // todo remove reflection && improve search
+//    @Suppress("unused")
+//    inline fun <reified T> Box<T>.findById(id: Long?): T? = if (id == null) all.firstOrNull()
+//    else all.firstOrNull { o -> o.property("id") == id }
 
-    // todo remove reflection
-    inline fun <reified T> T.property(name: String): Any? = T::class.members.firstOrNull {
-        it.name == name
-    }?.call(this)
+//    // todo remove reflection
+//    inline fun <reified T> T.property(name: String): Any? = T::class.members.firstOrNull {
+//        it.name == name
+//    }?.call(this)
 
     fun <T : Any> Box<T>.update(entity: T, query: (T) -> Boolean) {
         val exists = query(query)

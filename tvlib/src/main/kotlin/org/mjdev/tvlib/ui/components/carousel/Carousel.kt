@@ -39,6 +39,7 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isFocused
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusRequester
 import org.mjdev.tvlib.extensions.ModifierExt.bringIntoViewIfChildrenAreFocused
+import org.mjdev.tvlib.ui.components.card.FocusHelper
 import org.mjdev.tvlib.ui.components.carousel.CarouselDefaults.CarouselStateUpdater
 import org.mjdev.tvlib.ui.components.carousel.CarouselDefaults.onAnimationCompletion
 import org.mjdev.tvlib.ui.components.carousel.CarouselDefaults.shouldPerformAutoScroll
@@ -67,7 +68,7 @@ fun Carousel(
         )
     },
     isAutoScrollActive: MutableState<Boolean> = remember(itemCount) { mutableStateOf(false) },
-    focusState: MutableState<FocusState?> = remember(itemCount) { mutableStateOf(null) },
+    focusState: MutableState<FocusState> = remember(itemCount) { mutableStateOf(FocusHelper(false)) },
     content: @Composable AnimatedContentScope.(index: Int) -> Unit = {}
 ) {
 

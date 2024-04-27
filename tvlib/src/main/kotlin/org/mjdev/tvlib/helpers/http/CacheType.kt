@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -16,4 +16,5 @@ enum class CacheType {
     companion object {
         const val KEY_CACHE = "Cache"
     }
+
 }

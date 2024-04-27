@@ -22,11 +22,11 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Suppress("unused")
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel() : ViewModel() {
 
     val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
 
-    private var errorHandler: (error: Throwable) -> Unit = {}
+    private var errorHandler: (error: Throwable) -> Unit = { e -> Timber.e(e) }
 
     init {
         error.onEach { error ->
@@ -79,10 +79,12 @@ open class BaseViewModel : ViewModel() {
 
     fun <T> async(
         block: suspend CoroutineScope.() -> T
-    )  : MutableLiveData<T>  {
+    ): MutableLiveData<T> {
         val result = MutableLiveData<T>()
         viewModelScope.launch {
-            result.postValue(block())
+            block.invoke(this).let { data ->
+                result.postValue(data)
+            }
         }
         return result
     }

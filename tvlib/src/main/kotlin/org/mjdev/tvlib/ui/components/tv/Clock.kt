@@ -55,7 +55,7 @@ fun Clock(
     contentPadding: Dp = 2.dp,
     showTime: Boolean = true,
     showDate: Boolean = true,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
 ) {
     val isEdit = isEditMode()
     val context = LocalContext.current

@@ -47,4 +47,5 @@ class Epg {
         result = 31 * result + (url?.hashCode() ?: 0)
         return result
     }
+
 }
