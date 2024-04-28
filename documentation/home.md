@@ -71,8 +71,8 @@ Use Android studio or use command:
 
 ## Usage
 
-Usable on any android device > SDK V 21 [Lollipop]
-Use as you want.
+- Usable on any android device > SDK V 21 - Lollipop
+- Use as you want. Freeware
 
 ## Credits
 
