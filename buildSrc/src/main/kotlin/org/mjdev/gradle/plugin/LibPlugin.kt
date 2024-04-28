@@ -87,6 +87,7 @@ class LibPlugin : BasePlugin() {
             buildTypes {
                 debug {
                     isMinifyEnabled = false
+                    isShrinkResources = false
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
                         projectProguardRulesFile
@@ -94,6 +95,7 @@ class LibPlugin : BasePlugin() {
                 }
                 release {
                     isMinifyEnabled = true
+                    isShrinkResources = false
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
                         projectProguardRulesFile
