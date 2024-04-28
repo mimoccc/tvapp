@@ -50,3 +50,4 @@ google-services.json
 # Android Profiling
 *.hprof!/release.zip
 !/documentation/release-notes-1.0.0.md
+/reports/

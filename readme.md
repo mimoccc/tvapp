@@ -76,6 +76,10 @@ Technologies that will be used:
 - SyncAdapter
 - Automatic documentation
 - Automatic release
+- Toml dependencies
+- Gradle plugins
+- Screenshots auto creation (coming soon)
+- AI test auto creation (coming soon)
 
 ## Compilation
 

@@ -8,6 +8,7 @@
 
 package org.mjdev.gradle.base
 
+import org.gradle.api.NamedDomainObjectCollection
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -18,5 +19,8 @@ abstract class BasePlugin : Plugin<Project> {
     }
 
     abstract fun Project.work()
+
+    operator fun <T> NamedDomainObjectCollection<T>.get(index:String) =
+        getByName(index)
 
 }

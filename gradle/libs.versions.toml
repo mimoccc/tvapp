@@ -1,17 +1,22 @@
 [versions]
 app-namespace = "org.mjdev.tvapp"
-debug-keyfile = "config/signing.prop"
-release-keyfile = "config/signing.prop"
-#lib-namespace = ""
+lib-namespace = "org.mjdev.tvlib"
+#
 minSdk = "21"
 compileSdk = "34"
 targetSdk = "34"
-
+#
+debug-keyfile = "config/signing.prop"
+release-keyfile = "config/signing.prop"
+#
+jacoco-version = "0.8.8"
+kotlin-compiler-version = "1.5.8"
+#
 accompanist-permissions = "0.33.2-alpha"
 aescrypt = "0.0.1"
 android-documentation-plugin = "1.9.10"
 androidsvg-aar = "1.4"
-
+#
 androidx-activity-compose = "1.9.0"
 androidx-customview-poolingcontainer = "1.0.0"
 androidx-espresso-core = "3.5.1"

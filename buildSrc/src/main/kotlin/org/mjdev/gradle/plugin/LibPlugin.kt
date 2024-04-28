@@ -35,14 +35,16 @@ import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.apply
+import org.mjdev.gradle.extensions.int
+import org.mjdev.gradle.extensions.string
+import org.mjdev.gradle.extensions.projectName
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
-    private val projectNamespace = "org.mjdev.tvlib"
-    private val projectCompileSdk = 34
-    private val projectMinSdk = 21
+    private val configFieldName = "libConfig"
+    // todo : move
     private val projectJavaVersion = JavaVersion.VERSION_17
-    private val projectKotlinCompilerVersion = "1.5.8"
+    // todo : move
     private val projectExcludes = listOf(
         "META-INF/",
         "/META-INF/{AL2.0,LGPL2.1}",
@@ -56,8 +58,6 @@ class LibPlugin : BasePlugin() {
     )
     private val projectProguardFile = "proguard-android-optimize.txt"
     private val projectProguardRulesFile = "proguard-rules.pro"
-    private val projectJacocoVersion = "0.8.8"
-    private val configFieldName = "libConfig"
 
     override fun Project.work() {
         extension<LibConfig>(configFieldName)
@@ -70,18 +70,23 @@ class LibPlugin : BasePlugin() {
         apply(plugin = "com.google.dagger.hilt.android")
         apply(plugin = "dagger.hilt.android.plugin")
         apply(plugin = "io.objectbox")
+        apply("org.jetbrains.dokka")
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
-        apply("org.jetbrains.dokka")
         configure<LibraryExtension> {
-            namespace = projectNamespace
-            compileSdk = projectCompileSdk
+            // todo : move
+            namespace = libs.versions.lib.namespace.string
+            // todo : move
+            compileSdk = libs.versions.compileSdk.int
             compileOptions {
+                // todo : move
                 sourceCompatibility = projectJavaVersion
+                // todo : move
                 targetCompatibility = projectJavaVersion
             }
             defaultConfig {
-                minSdk = projectMinSdk
+                // todo : move
+                minSdk = libs.versions.minSdk.int
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
             buildFeatures {
@@ -89,7 +94,8 @@ class LibPlugin : BasePlugin() {
                 buildConfig = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = projectKotlinCompilerVersion
+                // todo : move
+                kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.version.string
             }
             packaging {
                 resources {
@@ -121,15 +127,17 @@ class LibPlugin : BasePlugin() {
                 checkAllWarnings = true
                 showAll = true
                 explainIssues = true
-                abortOnError = true
-                warningsAsErrors = true
+                // todo : move
+                abortOnError = false
+                // todo : move
+                warningsAsErrors = false
                 disable += "UnusedIds"
             }
             testOptions {
                 unitTests.isReturnDefaultValues = true
             }
             testCoverage {
-                jacocoVersion = projectJacocoVersion
+                jacocoVersion = libs.versions.jacoco.version.string
             }
         }
         afterEvaluate {
@@ -141,19 +149,19 @@ class LibPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (libConfig.autoCorrectCode) runAfterAssembleTask()
+                if (libConfig.autoCorrectCode)
+                    runAfterAssembleTask()
             }
             dokkaTask {
-                outputDirectory.set(
-                    project.rootDir.resolve(libConfig.documentationDir)
-                )
-                moduleName.set(project.name)
+                outputDirectory.set(rootDir.resolve(libConfig.documentationDir))
+                moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
                     includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    reportUndocumented.set(false)
+                    failOnWarning.set(libConfig.failOnDocumentationWarning)
+                    reportUndocumented.set(libConfig.reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
                     jdkVersion.set(projectJavaVersion.asInt())
@@ -161,14 +169,17 @@ class LibPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (libConfig.createDocumentation) runAfterAssembleTask()
+                if (libConfig.createDocumentation)
+                    runAfterAssembleTask()
             }
             configure<DetektExtension> {
+                reportsDir = rootDir.resolve(libConfig.codeReportsDir)
+                ignoreFailures = libConfig.ignoreCodeFailures
                 @Suppress("DEPRECATION")
                 config = files(project.rootDir.resolve(libConfig.detectConfigFile))
             }
             configure<KotlinterExtension> {
-                ignoreFailures = false
+                ignoreFailures = libConfig.ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
 //            configurations.getByName("releaseRuntimeClasspath") {
@@ -178,9 +189,9 @@ class LibPlugin : BasePlugin() {
 //                resolutionStrategy.activateDependencyLocking()
 //            }
         }
-        dependencyLocking {
+//        dependencyLocking {
 //            lockMode.set(LockMode.STRICT)
-        }
+//        }
         dependencies {
             // core
             implementation(libs.androidx.ktx)

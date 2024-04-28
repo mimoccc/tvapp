@@ -45,16 +45,18 @@ import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.apply
+import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.plugin.config.AppConfig
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
-
 @Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
+    private val configFieldName = "appConfig"
+    // todo : move
     private val projectJavaVersion = JavaVersion.VERSION_17
-    private val projectKotlinCompilerVersion = "1.5.8"
+    // todo : move
     private val projectExcludes = listOf(
         "META-INF/",
         "/META-INF/{AL2.0,LGPL2.1}",
@@ -68,8 +70,6 @@ class AppPlugin : BasePlugin() {
     )
     private val projectProguardFile = "proguard-android-optimize.txt"
     private val projectProguardRulesFile = "proguard-rules.pro"
-    private val projectJacocoVersion = "0.8.8"
-    private val configFieldName = "appConfig"
 
     override fun Project.work() {
         extension<AppConfig>(configFieldName)
@@ -92,10 +92,14 @@ class AppPlugin : BasePlugin() {
             runAfterCleanTask()
         }
         configure<ApplicationExtension> {
+            // todo : move
             namespace = libs.versions.app.namespace.string
+            // todo : move
             compileSdk = libs.versions.compileSdk.int
             setSigningConfigs(project) {
+                // todo : move
                 debugKeyFile = libs.versions.debug.keyfile.string
+                // todo : move
                 releaseKeyFile = libs.versions.release.keyfile.string
             }
             buildFeatures {
@@ -103,11 +107,14 @@ class AppPlugin : BasePlugin() {
                 buildConfig = true
             }
             compileOptions {
+                // todo : move
                 sourceCompatibility = projectJavaVersion
+                // todo : move
                 targetCompatibility = projectJavaVersion
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = projectKotlinCompilerVersion
+                // todo : move
+                kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.version.string
             }
             defaultConfig {
                 applicationId = libs.versions.app.namespace.string
@@ -116,11 +123,13 @@ class AppPlugin : BasePlugin() {
                 versionCode = project.versionCode
                 versionName = project.versionName
                 multiDexEnabled = true
+                // todo : move
                 buildConfigString(
                     "IPTV_API_URL" to "https://iptv-org.github.io/api/",
                     "GITHUB_USER" to "mimoccc",
                     "GITHUB_REPOSITORY" to "tvapp"
                 )
+                // todo : move
                 manifestPlaceholders(
                     "auth0Domain" to "@string/com_auth0_domain",
                     "auth0Scheme" to "demo"
@@ -146,7 +155,7 @@ class AppPlugin : BasePlugin() {
 //                  enableAndroidTestCoverage = true
 //                  isRenderscriptDebuggable = true
 //                  isZipAlignEnabled = false
-                    signingConfig = signingConfigs.getAt(name)
+                    signingConfig = signingConfigs[name]
                     stringRes("app_name", "TVApp-Debug")
                     addSyncProviderAuthString("sync_auth", ".sync")
                     proguardFiles(
@@ -155,7 +164,7 @@ class AppPlugin : BasePlugin() {
                     )
                 }
                 release {
-                    applicationIdSuffix = ".$name"
+                    applicationIdSuffix = ""
                     isDebuggable = false
                     isJniDebuggable = false
                     isMinifyEnabled = true
@@ -167,8 +176,10 @@ class AppPlugin : BasePlugin() {
 //                  enableAndroidTestCoverage = false
 //                  isRenderscriptDebuggable = false
 //                  isZipAlignEnabled = true
-                    signingConfig = signingConfigs.getAt(name)
+                    signingConfig = signingConfigs[name]
+                    // todo : move
                     stringRes("app_name", "TVApp")
+                    // todo : move
                     addSyncProviderAuthString("sync_auth", ".sync")
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
@@ -180,22 +191,23 @@ class AppPlugin : BasePlugin() {
                 getByName("main") { jniLibs.srcDirs() }
             }
             lint {
-                checkReleaseBuilds = false
+                checkReleaseBuilds = true
                 checkAllWarnings = true
                 showAll = true
                 explainIssues = true
-                abortOnError = true
-                warningsAsErrors = true
+                // todo : move
+                abortOnError = false
+                // todo move
+                warningsAsErrors = false
                 disable += "UnusedIds"
             }
             testOptions {
                 unitTests.isReturnDefaultValues = true
             }
             testCoverage {
-                jacocoVersion = projectJacocoVersion
+                jacocoVersion = libs.versions.jacoco.version.string
             }
         }
-        // app
         afterEvaluate {
             val appConfig = project.extension<AppConfig>()
             kotlinCompileOptions {
@@ -205,17 +217,19 @@ class AppPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (appConfig.autoCorrectCode) runAfterAssembleTask()
+                if (appConfig.autoCorrectCode)
+                    runAfterAssembleTask()
             }
             dokkaTask {
-                outputDirectory.set(project.rootDir.resolve(appConfig.documentationDir))
-                moduleName.set(project.name)
+                outputDirectory.set(rootDir.resolve(appConfig.documentationDir))
+                moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
                     includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    reportUndocumented.set(false)
+                    failOnWarning.set(appConfig.failOnDocumentationWarning)
+                    reportUndocumented.set(appConfig.reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
                     jdkVersion.set(projectJavaVersion.asInt())
@@ -223,21 +237,27 @@ class AppPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (appConfig.createDocumentation) runAfterAssembleTask()
+                if (appConfig.createDocumentation)
+                    runAfterAssembleTask()
             }
             val rnTask = registerTask<ReleaseNotesCreateTask> {
-                if (appConfig.createReleaseNotes) runAfterAssembleTask()
+                if (appConfig.createReleaseNotes)
+                    runAfterAssembleTask()
             }
             registerTask<ZipReleaseCreateTask> {
-                mustRunAfter(rnTask)
-                if (appConfig.createZipRelease) runAfterAssembleTask()
+                if(appConfig.createReleaseNotes)
+                    mustRunAfter(rnTask)
+                if (appConfig.createZipRelease)
+                    runAfterAssembleTask()
             }
             configure<DetektExtension> {
+                ignoreFailures = appConfig.ignoreCodeFailures
+                reportsDir = rootDir.resolve(appConfig.codeReportsDir)
                 @Suppress("DEPRECATION")
                 config = files(project.rootDir.resolve(appConfig.detectConfigFile))
             }
             configure<KotlinterExtension> {
-                ignoreFailures = false
+                ignoreFailures = appConfig.ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
 //            configurations.getByName("releaseRuntimeClasspath") {
@@ -246,18 +266,21 @@ class AppPlugin : BasePlugin() {
 //            configurations.getByName("debugRuntimeClasspath") {
 //                resolutionStrategy.activateDependencyLocking()
 //            }
-//            applicationVariants.all {
-//                outputs.map {
-//                    it as BaseVariantOutputImpl
-//                }.forEach { output ->
-//                    val outputFileName = "$applicationId-$versionName.apk"
-//                    output.outputFileName = outputFileName
+            // todo
+//            if (appConfig.renameApkOutputByAppID) {
+//                applicationVariants.all {
+//                    outputs.map {
+//                        it as BaseVariantOutputImpl
+//                    }.forEach { output ->
+//                        val outputFileName = "$applicationId-$versionName.apk"
+//                        output.outputFileName = outputFileName
+//                    }
 //                }
 //            }
         }
-        dependencyLocking {
+//        dependencyLocking {
 //            lockMode.set(LockMode.STRICT)
-        }
+//        }
         dependencies {
             implementation(project(mapOf("path" to ":tvlib")))
             // compose

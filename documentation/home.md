@@ -59,6 +59,10 @@ Just an test app to skills showcase of coding skills, using
 - SyncAdapter
 - Automatic documentation
 - Automatic release
+- Toml dependencies
+- Gradle plugins
+- Screenshots auto creation (coming soon)
+- AI test auto creation (coming soon)
 
 ## Compilation
 
