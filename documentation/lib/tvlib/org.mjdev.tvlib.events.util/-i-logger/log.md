@@ -1,4 +1,4 @@
-//[tvlib](../../../index.md)/[com.biubiu.eventbus.util](../index.md)/[ILogger](index.md)/[log](log.md)
+//[tvlib](../../../index.md)/[org.mjdev.tvlib.events.util](../index.md)/[ILogger](index.md)/[log](log.md)
 
 # log
 

@@ -21,6 +21,7 @@ import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
 import org.mjdev.gradle.base.BasePlugin
 import org.mjdev.gradle.plugin.config.LibConfig
+import org.mjdev.gradle.extensions.asInt
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -144,7 +145,7 @@ class LibPlugin : BasePlugin() {
                     reportUndocumented.set(true)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
-                    jdkVersion.set(17)
+                    jdkVersion.set(projectJavaVersion.asInt())
                     noStdlibLink.set(false)
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)

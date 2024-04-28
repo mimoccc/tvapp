@@ -9,7 +9,7 @@
 package org.mjdev.tvlib.events
 
 import android.app.Application
-import com.biubiu.eventbus.util.ILogger
+import org.mjdev.tvlib.events.util.ILogger
 
 object EventBusInitializer {
 

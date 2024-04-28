@@ -12,6 +12,6 @@ open class AppConfig {
     open var autoCorrectCode = false
     open var createDocumentation = false
 
-    open var documentationDir = "documentation"
+    open var documentationDir = "documentation/app"
     open var detectConfigFile = "config/detekt.ym"
 }

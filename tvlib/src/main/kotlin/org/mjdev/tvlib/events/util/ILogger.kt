@@ -1,4 +1,4 @@
-package com.biubiu.eventbus.util
+package org.mjdev.tvlib.events.util
 
 import java.util.logging.Level
 

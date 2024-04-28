@@ -12,6 +12,6 @@ open class LibConfig {
     open var autoCorrectCode = false
     open var createDocumentation = false
 
-    open var documentationDir = "documentation"
+    open var documentationDir = "documentation/lib"
     open var detectConfigFile = "config/detekt.ym"
 }

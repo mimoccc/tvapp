@@ -1,10 +1,6 @@
 $dokka.format:gfm-v1
 $dokka.linkExtension:md
 $dokka.location:////PointingToDeclaration/tvlib/[root].md
-$dokka.location:com.biubiu.eventbus.util////PointingToDeclaration/tvlib/com.biubiu.eventbus.util/index.md
-$dokka.location:com.biubiu.eventbus.util/ILogger///PointingToDeclaration/tvlib/com.biubiu.eventbus.util/-i-logger/index.md
-$dokka.location:com.biubiu.eventbus.util/ILogger/log/#java.util.logging.Level#kotlin.String#kotlin.Throwable/PointingToDeclaration/tvlib/com.biubiu.eventbus.util/-i-logger/log.md
-$dokka.location:com.biubiu.eventbus.util/ILogger/log/#java.util.logging.Level#kotlin.String/PointingToDeclaration/tvlib/com.biubiu.eventbus.util/-i-logger/log.md
 $dokka.location:com.bumptech.glide////PointingToDeclaration/tvlib/com.bumptech.glide.md
 $dokka.location:org.mjdev.tvlib.activity////PointingToDeclaration/tvlib/org.mjdev.tvlib.activity/index.md
 $dokka.location:org.mjdev.tvlib.activity/ActivityResultHandler///PointingToDeclaration/tvlib/org.mjdev.tvlib.activity/-activity-result-handler/index.md
@@ -378,10 +374,13 @@ $dokka.location:org.mjdev.tvlib.events.util//getEventObserverCount/#java.lang.Cl
 $dokka.location:org.mjdev.tvlib.events.util//launchWhenStateAtLeast/androidx.lifecycle.LifecycleOwner#androidx.lifecycle.Lifecycle.State#kotlin.coroutines.SuspendFunction1[kotlinx.coroutines.CoroutineScope,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/launch-when-state-at-least.md
 $dokka.location:org.mjdev.tvlib.events.util//removeStickyEvent/#androidx.lifecycle.ViewModelStoreOwner#java.lang.Class[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/remove-sticky-event.md
 $dokka.location:org.mjdev.tvlib.events.util//removeStickyEvent/#java.lang.Class[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/remove-sticky-event.md
+$dokka.location:org.mjdev.tvlib.events.util/ILogger///PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/-i-logger/index.md
+$dokka.location:org.mjdev.tvlib.events.util/ILogger/log/#java.util.logging.Level#kotlin.String#kotlin.Throwable/PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/-i-logger/log.md
+$dokka.location:org.mjdev.tvlib.events.util/ILogger/log/#java.util.logging.Level#kotlin.String/PointingToDeclaration/tvlib/org.mjdev.tvlib.events.util/-i-logger/log.md
 $dokka.location:org.mjdev.tvlib.events////PointingToDeclaration/tvlib/org.mjdev.tvlib.events/index.md
 $dokka.location:org.mjdev.tvlib.events/EventBusInitializer///PointingToDeclaration/tvlib/org.mjdev.tvlib.events/-event-bus-initializer/index.md
 $dokka.location:org.mjdev.tvlib.events/EventBusInitializer/application/#/PointingToDeclaration/tvlib/org.mjdev.tvlib.events/-event-bus-initializer/application.md
-$dokka.location:org.mjdev.tvlib.events/EventBusInitializer/init/#android.app.Application#com.biubiu.eventbus.util.ILogger?/PointingToDeclaration/tvlib/org.mjdev.tvlib.events/-event-bus-initializer/init.md
+$dokka.location:org.mjdev.tvlib.events/EventBusInitializer/init/#android.app.Application#org.mjdev.tvlib.events.util.ILogger?/PointingToDeclaration/tvlib/org.mjdev.tvlib.events/-event-bus-initializer/init.md
 $dokka.location:org.mjdev.tvlib.events/EventBusInitializer/logger/#/PointingToDeclaration/tvlib/org.mjdev.tvlib.events/-event-bus-initializer/logger.md
 $dokka.location:org.mjdev.tvlib.exception////PointingToDeclaration/tvlib/org.mjdev.tvlib.exception/index.md
 $dokka.location:org.mjdev.tvlib.exception/AuthenticationError///PointingToDeclaration/tvlib/org.mjdev.tvlib.exception/-authentication-error/index.md
@@ -2405,7 +2404,6 @@ $dokka.location:org.mjdev.tvlib.webscrapper/WebVideoScrapper///PointingToDeclara
 $dokka.location:org.mjdev.tvlib.webscrapper/WebVideoScrapper/WebVideoScrapper/#android.content.Context#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.collections.List[kotlin.String]#kotlin.collections.List[org.mjdev.tvlib.webscrapper.base.ScrapeLink]#kotlin.String#kotlin.coroutines.SuspendFunction2[org.mjdev.tvlib.webscrapper.WebVideoScrapper,org.mjdev.tvlib.webscrapper.WebVideoScrapper.Video,kotlin.Unit]?#kotlin.coroutines.SuspendFunction2[org.mjdev.tvlib.webscrapper.WebVideoScrapper,org.mjdev.tvlib.webscrapper.WebVideoScrapper.Audio,kotlin.Unit]?#kotlin.coroutines.SuspendFunction2[org.mjdev.tvlib.webscrapper.WebVideoScrapper,org.mjdev.tvlib.webscrapper.base.ScrapeLink,kotlin.Unit]?#kotlin.coroutines.SuspendFunction2[org.mjdev.tvlib.webscrapper.WebVideoScrapper,org.mjdev.tvlib.webscrapper.base.ScrapeLink,kotlin.Unit]?#kotlin.coroutines.SuspendFunction2[org.mjdev.tvlib.webscrapper.WebVideoScrapper,org.mjdev.tvlib.webscrapper.base.ScrapeLink,kotlin.Unit]?#kotlin.coroutines.SuspendFunction1[org.mjdev.tvlib.webscrapper.WebVideoScrapper,kotlin.Unit]?#org.mjdev.tvlib.webscrapper.adblock.IAdBlocker#androidx.compose.runtime.MutableState[kotlin.Boolean]/PointingToDeclaration/tvlib/org.mjdev.tvlib.webscrapper/-web-video-scrapper/-web-video-scrapper.md
 $dokka.location:org.mjdev.tvlib.webscrapper/WebVideoScrapper/start/#/PointingToDeclaration/tvlib/org.mjdev.tvlib.webscrapper/-web-video-scrapper/start.md
 $dokka.location:org.mjdev.tvlib.webscrapper/WebVideoScrapper/stop/#/PointingToDeclaration/tvlib/org.mjdev.tvlib.webscrapper/-web-video-scrapper/stop.md
-com.biubiu.eventbus.util
 com.bumptech.glide
 org.mjdev.tvlib.activity
 org.mjdev.tvlib.annotations

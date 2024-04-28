@@ -18,11 +18,21 @@
 [![Total lines](https://img.shields.io/tokei/lines/github/mimoccc/tvapp?color=FFC877)](#)
 [![Dependencies](https://img.shields.io/librariesio/github/mimoccc/tvapp?color=FFC877)](#)
 
+## Table of Contents
+
+- [Documentation](#project-documentation)
+- [Description](#description)
+- [Compilation](#compilation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+
 ## Project documentation
 
-[App code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/index.md)
+[App code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/app/index.md)
+[Lib code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/lib/index.md)
 
-Contains all the classes in project
+Documentation contains all the classes in project.
 
 ## Description
 
@@ -47,13 +57,8 @@ Just an test app to skills showcase of coding skills, using
 - Yaml scripting
 - CI/CD
 - SyncAdapter
-
-## Table of Contents (Optional)
-
-- [Compilation](#compilation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
+- Automatic documentation
+- Automatic release
 
 ## Compilation
 
@@ -61,15 +66,12 @@ Use Android studio or use command:
 
 - debug app version :
   ./gradlew assembleDebug
-- mocked app version :
-  ./gradlew assembleMock
-- minified debuggable app version :
-  ./gradlew assembleMinified
 - release app version :
   ./gradlew assembleRelease
 
 ## Usage
 
+Usable on any android device > SDK V 21 [Lollipop]
 Use as you want.
 
 ## Credits
@@ -78,4 +80,4 @@ Milan Jurkulak
 
 ## License
 
-No licenced.
+[Freeware] No licenced.

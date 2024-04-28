@@ -16,18 +16,20 @@
 [![Total lines](https://img.shields.io/tokei/lines/github/mimoccc/tvapp?color=FFC877)](#)
 [![Dependencies](https://img.shields.io/librariesio/github/mimoccc/tvapp?color=FFC877)](#)
 
-## Project documentation
-
-[App code documentation](documentation/documentation/index.md)
-
 ## Table of Contents
 
+- [Documentation](#project-documentation)
 - [Screenshots](#screenshots)
 - [Description](#description)
 - [Compilation](#compilation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
+
+## Project documentation
+
+[App code documentation](documentation/app/index.md)
+[Lib code documentation](documentation/lib/index.md)
 
 ## Screenshots
 
@@ -72,8 +74,8 @@ Technologies that will be used:
 - Yaml scripting
 - CI/CD
 - SyncAdapter
-
-
+- Automatic documentation
+- Automatic release
 
 ## Compilation
 
@@ -81,15 +83,12 @@ Use Android studio or use command:
 
 - debug app version :
   ./gradlew assembleDebug
-- mocked app version :
-  ./gradlew assembleMock
-- minified debuggable app version :
-  ./gradlew assembleMinified
 - release app version :
   ./gradlew assembleRelease
 
 ## Usage
 
+Usable on any android device > SDK V 21 [Lollipop]
 Use as you want.
 
 ## Credits

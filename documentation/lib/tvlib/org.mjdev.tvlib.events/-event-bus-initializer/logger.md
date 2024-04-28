@@ -3,4 +3,4 @@
 # logger
 
 [androidJvm]\
-var [logger](logger.md): [ILogger](../../com.biubiu.eventbus.util/-i-logger/index.md)?
+var [logger](logger.md): [ILogger](../../org.mjdev.tvlib.events.util/-i-logger/index.md)?
