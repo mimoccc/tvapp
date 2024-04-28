@@ -16,6 +16,7 @@ import android.content.ContentResolver.setIsSyncable
 import android.content.ContentResolver.setSyncAutomatically
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.annotation.Keep
@@ -26,6 +27,7 @@ import org.mjdev.tvapp.repository.ApiService
 import timber.log.Timber
 import javax.inject.Inject
 
+@Suppress("MemberVisibilityCanBePrivate")
 @Keep
 @AndroidEntryPoint
 class SyncService : Service() {
@@ -69,6 +71,9 @@ class SyncService : Service() {
                     val accounts = accountManager.getAccountsByType(ACCOUNT_TYPE)
                     if (accounts.isEmpty()) {
                         if (accountManager.addAccountExplicitly(account, "", Bundle())) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                accountManager.notifyAccountAuthenticated(account)
+                            }
                             setIsSyncable(account, AUTHORITY, 1)
                             setSyncAutomatically(account, AUTHORITY, true)
                         } else {

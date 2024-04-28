@@ -8,6 +8,7 @@
 
 package org.mjdev.tvapp.sync
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.BroadcastReceiver
@@ -15,8 +16,9 @@ import org.mjdev.tvapp.sync.SyncService.Companion.createAccountAndSync
 
 class SyncStarter : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent?) {
-        context.createAccountAndSync()
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
+    override fun onReceive(context: Context?, intent: Intent?) {
+        context?.createAccountAndSync()
     }
 
 }

@@ -3,4 +3,7 @@
 # onCreate
 
 [androidJvm]\
+
+@[RequiresApi](https://developer.android.com/reference/kotlin/androidx/annotation/RequiresApi.html)(value = 29)
+
 open override fun [onCreate](on-create.md)()

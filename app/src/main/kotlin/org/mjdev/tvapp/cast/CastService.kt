@@ -138,6 +138,7 @@ class CastService : Service(), SessionManagerListener<CastSession> {
         // Handle transfer failure.
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("ForegroundServiceType")
     override fun onCreate() {
         try {

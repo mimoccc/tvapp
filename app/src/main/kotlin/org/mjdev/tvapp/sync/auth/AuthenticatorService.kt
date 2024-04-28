@@ -22,6 +22,7 @@ class AuthenticatorService : Service() {
         authenticator = Authenticator(this)
     }
 
-    override fun onBind(intent: Intent?): IBinder = authenticator.iBinder
+    override fun onBind(intent: Intent?): IBinder =
+        authenticator.iBinder
 
 }

@@ -34,7 +34,7 @@ import org.mjdev.tvlib.events.post.postEvent
 import org.mjdev.tvlib.extensions.GlobalExt.launchIO
 
 @Keep
-@Suppress("unused")
+@Suppress("unused" , "DEPRECATION")
 class SyncAdapter(
     context: Context,
     val apiService: ApiService,
@@ -46,17 +46,17 @@ class SyncAdapter(
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
-    private val mWifi by lazy {
-        @Suppress("DEPRECATION")
-        connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-    }
+    private val activeNetworkInfo
+        get() = connManager.activeNetworkInfo
+
+    private val isConnected
+        get() = activeNetworkInfo?.isAvailable == true && activeNetworkInfo?.isConnected == true
 
     private fun ifDebug(syncer: Syncer) = if (BuildConfig.DEBUG) syncer else null
     private fun ifNotDebug(syncer: Syncer) = if (!BuildConfig.DEBUG) syncer else null
 
     private val customSyncers: List<Syncer> by lazy {
-        @Suppress("DEPRECATION")
-        if (mWifi?.isConnected == true) {
+        if (isConnected) {
             listOfNotNull(
                 GithubMoviesSyncer(this),
             )

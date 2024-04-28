@@ -57,7 +57,8 @@ abstract class Syncer(
     @CallSuper
     suspend fun sync(coroutineScope: CoroutineScope) {
         with(coroutineScope) {
-            while(pauseState.value) delay(500)
+            while(pauseState.value)
+                delay(500)
             onSyncStart()
             observeEvent<PauseEvent> { event ->
                 pause(coroutineScope, event.timeout)

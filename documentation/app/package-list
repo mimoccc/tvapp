@@ -342,7 +342,7 @@ $dokka.location:org.mjdev.tvapp.sync/SyncService/onBind/#android.content.Intent/
 $dokka.location:org.mjdev.tvapp.sync/SyncService/onCreate/#/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/on-create.md
 $dokka.location:org.mjdev.tvapp.sync/SyncStarter///PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-starter/index.md
 $dokka.location:org.mjdev.tvapp.sync/SyncStarter/SyncStarter/#/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-starter/-sync-starter.md
-$dokka.location:org.mjdev.tvapp.sync/SyncStarter/onReceive/#android.content.Context#android.content.Intent?/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-starter/on-receive.md
+$dokka.location:org.mjdev.tvapp.sync/SyncStarter/onReceive/#android.content.Context?#android.content.Intent?/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-starter/on-receive.md
 $dokka.location:org.mjdev.tvapp.ui.pages////PointingToDeclaration/app/org.mjdev.tvapp.ui.pages/index.md
 $dokka.location:org.mjdev.tvapp.ui.pages/AboutPage///PointingToDeclaration/app/org.mjdev.tvapp.ui.pages/-about-page/index.md
 $dokka.location:org.mjdev.tvapp.ui.pages/AboutPage/AboutPage/#/PointingToDeclaration/app/org.mjdev.tvapp.ui.pages/-about-page/-about-page.md

@@ -23,6 +23,7 @@ import org.mjdev.tvapp.data.local.ParsedLink
 import org.mjdev.tvapp.data.local.TVChannel
 import kotlin.reflect.KClass
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class DAO(
     @ApplicationContext
     val context: Context,

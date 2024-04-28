@@ -11,19 +11,12 @@ package org.mjdev.tvapp.app
 import dagger.hilt.android.HiltAndroidApp
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.cast.CastService
-import org.mjdev.tvapp.sync.SyncService.Companion.createSyncAccount
-import org.mjdev.tvapp.sync.SyncService.Companion.requestSync
+import org.mjdev.tvapp.sync.SyncService.Companion.createAccountAndSync
 import org.mjdev.tvlib.application.TvApplication
 import timber.log.Timber
 
 @HiltAndroidApp
 class Application : TvApplication() {
-
-    private fun createAccountAndSync() {
-        createSyncAccount()?.let { account ->
-            requestSync(account)
-        }
-    }
 
     override fun onCreate() {
         super.onCreate()
