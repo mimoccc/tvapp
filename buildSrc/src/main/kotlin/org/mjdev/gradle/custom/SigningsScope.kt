@@ -6,11 +6,9 @@
  *  w: https://mjdev.org
  */
 
-plugins {
-    id("LibPlugin")
-}
+package org.mjdev.gradle.custom
 
-libConfig {
-    autoCorrectCode = false
-    createDocumentation = true
-}
+class SigningsScope(
+    var debugKeyFile: String = "",
+    var releaseKeyFile: String = ""
+)

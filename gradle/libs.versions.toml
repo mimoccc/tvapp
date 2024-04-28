@@ -1,4 +1,8 @@
 [versions]
+app-namespace = "org.mjdev.tvapp"
+debug-keyfile = "config/signing.prop"
+release-keyfile = "config/signing.prop"
+#lib-namespace = ""
 minSdk = "21"
 compileSdk = "34"
 targetSdk = "34"

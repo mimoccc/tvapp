@@ -11,6 +11,12 @@ package org.mjdev.gradle.plugin.config
 open class AppConfig {
     open var autoCorrectCode = false
     open var createDocumentation = false
+    open var createReleaseNotes = false
+    open var createZipRelease = false
+
+//    open var renameApkOutputByAppID = false
+//    open var createInfoClass = false
+//    open var buildTypeInLauncherIcon = false
 
     open var documentationDir = "documentation/app"
     open var detectConfigFile = "config/detekt.ym"

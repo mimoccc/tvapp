@@ -48,4 +48,5 @@ render.experimental.xml
 google-services.json
 
 # Android Profiling
-*.hprof
+*.hprof!/release.zip
+!/documentation/release-notes-1.0.0.md

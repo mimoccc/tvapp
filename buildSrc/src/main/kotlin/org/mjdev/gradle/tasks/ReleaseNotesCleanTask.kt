@@ -23,8 +23,6 @@ open class ReleaseNotesCleanTask : BaseTask() {
     private val docDir: File
         get() = project.rootProject
             .file("documentation")
-            .file(projectName)
-            .file("documentation")
 
     private val outputFiles = listOf(
         docDir.file(fileName)

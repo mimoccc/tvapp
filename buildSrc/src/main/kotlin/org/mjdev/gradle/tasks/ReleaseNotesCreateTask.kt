@@ -32,9 +32,7 @@ open class ReleaseNotesCreateTask : BaseTask() {
         get() = "release-notes-$projectVersion.md"
 
     private val docDir: File
-        get() = project.rootProject
-            .file("documentation")
-            .file(projectName)
+        get() = project.rootProject.file("documentation")
 
     private val outputFiles = listOf(
         docDir.file(fileName)

@@ -8,6 +8,7 @@
 
 package org.mjdev.gradle.extensions
 
+@Suppress("unused")
 fun <T, V> HashMap<T, V>.onKeyExists(
     key: T,
     block: ((key: T, value: V?) -> (Unit))

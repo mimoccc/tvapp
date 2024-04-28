@@ -17,7 +17,6 @@ open class ZipReleaseCreateTask : Zip() {
 
     private val releaseFile = project.rootProject
         .file("documentation")
-        .file("app")
         .file("release-notes-$projectVersion.md")
 
     private val readmeFile = project.rootProject

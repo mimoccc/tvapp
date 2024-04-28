@@ -15,26 +15,44 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.mjdev.gradle.extensions.addSyncProviderAuthString
-import org.mjdev.gradle.extensions.buildConfigString
-import org.mjdev.gradle.extensions.manifestPlaceholders
-import org.mjdev.gradle.extensions.setSigningConfigs
-import org.mjdev.gradle.extensions.stringRes
-import org.mjdev.gradle.extensions.versionCode
-import org.mjdev.gradle.extensions.versionName
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
 import org.mjdev.gradle.base.BasePlugin
-import org.mjdev.gradle.plugin.config.AppConfig
+import org.mjdev.gradle.extensions.addSyncProviderAuthString
 import org.mjdev.gradle.extensions.asInt
+import org.mjdev.gradle.extensions.registerTask
+import org.mjdev.gradle.extensions.runAfterCleanTask
+import org.mjdev.gradle.extensions.runAfterAssembleTask
+import org.mjdev.gradle.extensions.buildConfigString
+import org.mjdev.gradle.extensions.extension
+import org.mjdev.gradle.extensions.libs
+import org.mjdev.gradle.extensions.string
+import org.mjdev.gradle.extensions.int
+import org.mjdev.gradle.extensions.manifestPlaceholders
+import org.mjdev.gradle.extensions.implementation
+import org.mjdev.gradle.extensions.debugImplementation
+import org.mjdev.gradle.extensions.kapt
+import org.mjdev.gradle.extensions.testImplementation
+import org.mjdev.gradle.extensions.androidTestImplementation
+import org.mjdev.gradle.extensions.ksp
+import org.mjdev.gradle.extensions.setSigningConfigs
+import org.mjdev.gradle.extensions.stringRes
+import org.mjdev.gradle.extensions.versionCode
+import org.mjdev.gradle.extensions.versionName
+import org.mjdev.gradle.extensions.kotlinCompileOptions
+import org.mjdev.gradle.extensions.detektTask
+import org.mjdev.gradle.extensions.dokkaTask
+import org.mjdev.gradle.extensions.apply
+import org.mjdev.gradle.plugin.config.AppConfig
+import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
+import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
+import org.mjdev.gradle.tasks.ZipReleaseClearTask
+import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 
 @Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
-    private val projectNamespace = "org.mjdev.tvapp"
-    private val projectCompileSdk = 34
-    private val projectMinSdk = 21
     private val projectJavaVersion = JavaVersion.VERSION_17
     private val projectKotlinCompilerVersion = "1.5.8"
     private val projectExcludes = listOf(
@@ -51,11 +69,9 @@ class AppPlugin : BasePlugin() {
     private val projectProguardFile = "proguard-android-optimize.txt"
     private val projectProguardRulesFile = "proguard-rules.pro"
     private val projectJacocoVersion = "0.8.8"
-    private val projectLibVersionsFile = "gradle/libs.versions.toml"
     private val configFieldName = "appConfig"
 
     override fun Project.work() {
-        loadVersionCatalog(projectLibVersionsFile)
         extension<AppConfig>(configFieldName)
         apply(plugin = "version-catalog")
         apply(plugin = "kotlin-android")
@@ -66,15 +82,21 @@ class AppPlugin : BasePlugin() {
         apply(plugin = "com.google.dagger.hilt.android")
         apply(plugin = "dagger.hilt.android.plugin")
         apply(plugin = "io.objectbox")
+        apply("org.jetbrains.dokka")
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
-        apply("org.jetbrains.dokka")
+        registerTask<ReleaseNotesCleanTask> {
+            runAfterCleanTask()
+        }
+        registerTask<ZipReleaseClearTask> {
+            runAfterCleanTask()
+        }
         configure<ApplicationExtension> {
-            namespace = projectNamespace
-            compileSdk = projectCompileSdk
+            namespace = libs.versions.app.namespace.string
+            compileSdk = libs.versions.compileSdk.int
             setSigningConfigs(project) {
-                debugKeyFile = "config/signing.prop"
-                releaseKeyFile = "config/signing.prop"
+                debugKeyFile = libs.versions.debug.keyfile.string
+                releaseKeyFile = libs.versions.release.keyfile.string
             }
             buildFeatures {
                 compose = true
@@ -88,9 +110,9 @@ class AppPlugin : BasePlugin() {
                 kotlinCompilerExtensionVersion = projectKotlinCompilerVersion
             }
             defaultConfig {
-                applicationId = projectNamespace
-                minSdk = projectMinSdk
-                targetSdk = projectCompileSdk
+                applicationId = libs.versions.app.namespace.string
+                minSdk = libs.versions.minSdk.int
+                targetSdk = libs.versions.compileSdk.int
                 versionCode = project.versionCode
                 versionName = project.versionName
                 multiDexEnabled = true
@@ -154,9 +176,6 @@ class AppPlugin : BasePlugin() {
                     )
                 }
             }
-//            kotlinOptions {
-//                jvmTarget = JavaVersion.VERSION_17.toString()
-//            }
             sourceSets {
                 getByName("main") { jniLibs.srcDirs() }
             }
@@ -169,12 +188,6 @@ class AppPlugin : BasePlugin() {
                 warningsAsErrors = true
                 disable += "UnusedIds"
             }
-//            kapt {
-//                correctErrorTypes = true
-//            }
-//            hilt {
-//                enableAggregatingTask = true
-//            }
             testOptions {
                 unitTests.isReturnDefaultValues = true
             }
@@ -200,9 +213,9 @@ class AppPlugin : BasePlugin() {
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
-                    includeNonPublic.set(true)
+                    includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    reportUndocumented.set(true)
+                    reportUndocumented.set(false)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
                     jdkVersion.set(projectJavaVersion.asInt())
@@ -211,6 +224,13 @@ class AppPlugin : BasePlugin() {
                     noAndroidSdkLink.set(false)
                 }
                 if (appConfig.createDocumentation) runAfterAssembleTask()
+            }
+            val rnTask = registerTask<ReleaseNotesCreateTask> {
+                if (appConfig.createReleaseNotes) runAfterAssembleTask()
+            }
+            registerTask<ZipReleaseCreateTask> {
+                mustRunAfter(rnTask)
+                if (appConfig.createZipRelease) runAfterAssembleTask()
             }
             configure<DetektExtension> {
                 @Suppress("DEPRECATION")
@@ -239,10 +259,116 @@ class AppPlugin : BasePlugin() {
 //            lockMode.set(LockMode.STRICT)
         }
         dependencies {
-//            add(IMPLEMENTATION, libs.androidx.compose.ui.tooling)
-//            add(IMPLEMENTATION, Dependencies.AndroidX.ANNOTATION)
-//            add(IMPLEMENTATION, Dependencies.AndroidX.APPCOMPAT)
-//            add(IMPLEMENTATION, Dependencies.Kotlin.STD_LIB)
+            implementation(project(mapOf("path" to ":tvlib")))
+            // compose
+            implementation(platform(libs.androidx.compose.bom))
+            implementation(libs.androidx.compose.ui.tooling)
+            implementation(libs.androidx.compose.activity)
+            // more icons
+            implementation(libs.androidx.material.icons.extended)
+            // tv compose
+            implementation(libs.androidx.tv.foundation)
+            implementation(libs.androidx.tv.material)
+            // view model
+            implementation(libs.androidx.compose.lifecycle.viewmodel)
+            // navigation
+            implementation(libs.androidx.compose.navigation)
+            // todo remove, dynamic background & colors
+            implementation(libs.androidx.material3)
+            // previews
+            debugImplementation(libs.androidx.customview.poolingcontainer)
+            // foundation
+            implementation(libs.androidx.foundation)
+            // dagger
+            implementation(libs.dagger)
+            // dagger android
+            implementation(libs.dagger.android)
+            implementation(libs.dagger.android.support)
+            // dagger hilt
+            implementation(libs.dagger.hilt.android)
+            implementation(libs.androidx.compose.hilt.navigation)
+            // dagger annotations
+            kapt(libs.dagger.compiler)
+            kapt(libs.dagger.android.processor)
+            kapt(libs.dagger.hilt.compiler)
+            implementation(libs.moshi)
+            implementation(libs.moshi.retrofit.converter)
+            ksp(libs.moshi.kotlin.codegen)
+            // okhttp
+            implementation(platform(libs.okhttp3.bom))
+            implementation(libs.okhttp3)
+            implementation(libs.okhttp3.logging.interceptor)
+            // timber
+            implementation(libs.timber)
+            // retrofit
+            implementation(libs.retrofit)
+            implementation(libs.retrofit2.kotlin.coroutines.adapter)
+            // sandwich
+            implementation(libs.sandwich)
+            implementation(libs.sandwich.retrofit)
+            // glide
+            implementation(libs.glide.okhttp3.integration)
+            implementation(libs.glide.compose)
+            ksp(libs.glide.ksp)
+            // landscapist
+            implementation(libs.landscapist.glide)
+            implementation(libs.landscapist.transformation)
+            implementation(libs.landscapist.palette)
+            implementation(libs.landscapist.placeholder)
+            // exif
+            implementation(libs.androidx.exifinterface)
+            // exoPlayer
+            implementation(libs.androidx.media3.exoplayer)
+            implementation(libs.androidx.media3.exoplayer.dash)
+            implementation(libs.androidx.media3.exoplayer.hls)
+            implementation(libs.androidx.media3.exoplayer.rtsp)
+            implementation(libs.androidx.media3.datasource.cronet)
+            implementation(libs.androidx.media3.datasource.okhttp)
+            implementation(libs.androidx.media3.datasource.rtmp)
+            implementation(libs.androidx.media3.ui)
+            implementation(libs.androidx.media3.session)
+            implementation(libs.androidx.media3.extractor)
+            implementation(libs.androidx.media3.cast)
+            implementation(libs.androidx.media3.exoplayer.workmanager)
+            implementation(libs.androidx.media3.transformer)
+            implementation(libs.androidx.media3.database)
+            implementation(libs.androidx.media3.decoder)
+            implementation(libs.androidx.media3.datasource)
+            implementation(libs.androidx.media3.common)
+            implementation(libs.androidx.media3.exoplayer.ima)
+            implementation(libs.androidx.media3.ui.leanback)
+            // encrypt
+            implementation(libs.aescrypt)
+            // permission
+            implementation(libs.accompanist.permissions)
+            // another
+            // zxing
+            implementation(libs.zxing.core)
+            // svg
+            implementation(libs.androidsvg.aar)
+            // pallette
+            implementation(libs.androidx.palette.ktx)
+            // lottie
+            implementation(libs.compose.lottie)
+            // jsoup
+            implementation(libs.jsoup)
+            // dm
+            implementation(libs.dailymotion.sdk.android)
+            // dynamic theme
+            implementation(libs.android.material)
+            // widget
+            implementation(libs.androidx.glance.appwidget)
+            implementation(libs.androidx.glance.material)
+            implementation(libs.androidx.glance.material3)
+            // test
+            testImplementation(libs.junit)
+            androidTestImplementation(libs.androidx.junit)
+            androidTestImplementation(libs.androidx.espresso.core)
+            // anr
+            implementation(libs.anrwatchdog)
+            // oauth
+            implementation(libs.auth0)
+            implementation(libs.android.jwtdecode)
         }
     }
 }

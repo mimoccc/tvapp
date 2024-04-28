@@ -12,21 +12,15 @@ package org.mjdev.gradle.base
 
 import com.android.build.gradle.api.ApplicationVariant
 import org.gradle.api.DefaultTask
-import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.SourceTask
 import org.mjdev.gradle.extensions.applicationId
 import org.mjdev.gradle.extensions.buildDirectory
 import org.mjdev.gradle.extensions.capitalize
 import org.mjdev.gradle.extensions.file
-import org.mjdev.gradle.extensions.packageName
 import java.net.URL
 
 open class BaseTask : DefaultTask() {
-
-    private val log by lazy {
-        Logging.getLogger(this::class.java)
-    }
 
     @Internal
     lateinit var variant: ApplicationVariant
@@ -75,8 +69,5 @@ open class BaseTask : DefaultTask() {
         @Internal
         get() = project.tasks
             .findByName("compile${variant.name.capitalize()}Kotlin") as? SourceTask
-
-
-    fun println(message: String) = log.lifecycle(message)
 
 }

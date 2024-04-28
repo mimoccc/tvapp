@@ -6,11 +6,8 @@
  *  w: https://mjdev.org
  */
 
-plugins {
-    id("LibPlugin")
-}
+package org.mjdev.gradle.custom.unittest
 
-libConfig {
-    autoCorrectCode = false
-    createDocumentation = true
+internal interface Worker {
+    fun work()
 }
