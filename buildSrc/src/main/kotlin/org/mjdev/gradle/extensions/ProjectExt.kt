@@ -36,6 +36,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
 import kotlin.reflect.KClass
 
 private const val VERSION_TAG_MAJOR = "majorVersion"
@@ -204,6 +206,18 @@ val Project.log: Logger
 //        configurationAction.execute(this)
 //    })
 //}
+
+fun Project.loadPropertiesFile(path:String) {
+    val propertiesFile = project.rootDir.resolve(path)
+    val props = Properties()
+    props.load(FileInputStream(propertiesFile))
+    props.forEach { prop ->
+        project.rootProject.extra.set(
+            prop.key.toString(),
+            prop.value.toString()
+        )
+    }
+}
 
 inline fun <reified T> Project.extension(name: String? = null): T = runCatching {
     var cfg: T? = project.extensions.findByType(T::class.java)

@@ -22,6 +22,7 @@ import android.os.IBinder
 import androidx.annotation.Keep
 import dagger.hilt.android.AndroidEntryPoint
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.R
 import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.ApiService
 import timber.log.Timber
@@ -77,16 +78,30 @@ class SyncService : Service() {
                             setIsSyncable(account, AUTHORITY, 1)
                             setSyncAutomatically(account, AUTHORITY, true)
                         } else {
-                            Timber.e("Can not create sync account")
+                            printError("Can not create sync account")
                         }
                     } else {
-                        Timber.d("Account already exists.")
+//                        printError("Account already exists.")
                     }
                 }
             } catch (e: Throwable) {
-                Timber.e(e)
+                printError(e)
                 null
             }
+        }
+
+        fun Context.printError(e: Throwable) {
+            Timber.e(e)
+            Timber.e("Sync details:")
+            Timber.e("Sync account name : $ACCOUNT_NAME")
+            Timber.e("Sync account type : $ACCOUNT_TYPE")
+            Timber.e("Sync authority : $AUTHORITY")
+            Timber.e("Sync build config : ${BuildConfig.SYNC_AUTH}")
+            Timber.e("Sync resources : ${getString(R.string.sync_auth)}")
+        }
+
+        fun Context.printError(message:String) {
+            printError(Exception(message))
         }
 
         fun requestSync(account: Account) {

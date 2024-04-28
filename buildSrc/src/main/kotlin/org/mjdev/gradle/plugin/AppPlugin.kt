@@ -36,6 +36,7 @@ import org.mjdev.gradle.extensions.debugImplementation
 import org.mjdev.gradle.extensions.kapt
 import org.mjdev.gradle.extensions.testImplementation
 import org.mjdev.gradle.extensions.androidTestImplementation
+import org.mjdev.gradle.extensions.applicationId
 import org.mjdev.gradle.extensions.ksp
 import org.mjdev.gradle.extensions.setSigningConfigs
 import org.mjdev.gradle.extensions.stringRes
@@ -46,16 +47,20 @@ import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.apply
 import org.mjdev.gradle.extensions.projectName
+import org.mjdev.gradle.extensions.loadPropertiesFile
 import org.mjdev.gradle.plugin.config.AppConfig
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
+
 @Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
     private val configFieldName = "appConfig"
+
     // todo : move
     private val projectJavaVersion = JavaVersion.VERSION_17
+
     // todo : move
     private val projectExcludes = listOf(
         "META-INF/",
@@ -71,8 +76,12 @@ class AppPlugin : BasePlugin() {
     private val projectProguardFile = "proguard-android-optimize.txt"
     private val projectProguardRulesFile = "proguard-rules.pro"
 
+    // todo : move
+    private val versionPropertiesFile = "config/version.prop"
+
     override fun Project.work() {
         extension<AppConfig>(configFieldName)
+        loadPropertiesFile(versionPropertiesFile)
         apply(plugin = "version-catalog")
         apply(plugin = "kotlin-android")
         apply(plugin = "com.android.application")
@@ -157,7 +166,11 @@ class AppPlugin : BasePlugin() {
 //                  isZipAlignEnabled = false
                     signingConfig = signingConfigs[name]
                     stringRes("app_name", "TVApp-Debug")
-                    addSyncProviderAuthString("sync_auth", ".sync")
+                    addSyncProviderAuthString(
+                        "$applicationId$applicationIdSuffix",
+                        "sync_auth",
+                        "sync"
+                    )
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
                         projectProguardRulesFile
@@ -180,7 +193,11 @@ class AppPlugin : BasePlugin() {
                     // todo : move
                     stringRes("app_name", "TVApp")
                     // todo : move
-                    addSyncProviderAuthString("sync_auth", ".sync")
+                    addSyncProviderAuthString(
+                        "$applicationId$applicationIdSuffix",
+                        "sync_auth",
+                        "sync"
+                    )
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
                         projectProguardRulesFile
@@ -245,7 +262,7 @@ class AppPlugin : BasePlugin() {
                     runAfterAssembleTask()
             }
             registerTask<ZipReleaseCreateTask> {
-                if(appConfig.createReleaseNotes)
+                if (appConfig.createReleaseNotes)
                     mustRunAfter(rnTask)
                 if (appConfig.createZipRelease)
                     runAfterAssembleTask()

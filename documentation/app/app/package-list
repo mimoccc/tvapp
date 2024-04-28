@@ -333,6 +333,8 @@ $dokka.location:org.mjdev.tvapp.sync/SyncAdapter/onPerformSync/#android.accounts
 $dokka.location:org.mjdev.tvapp.sync/SyncService.Companion///PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/index.md
 $dokka.location:org.mjdev.tvapp.sync/SyncService.Companion/createAccountAndSync/android.content.Context#/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/create-account-and-sync.md
 $dokka.location:org.mjdev.tvapp.sync/SyncService.Companion/createSyncAccount/android.content.Context#/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/create-sync-account.md
+$dokka.location:org.mjdev.tvapp.sync/SyncService.Companion/printError/android.content.Context#kotlin.String/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/print-error.md
+$dokka.location:org.mjdev.tvapp.sync/SyncService.Companion/printError/android.content.Context#kotlin.Throwable/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/print-error.md
 $dokka.location:org.mjdev.tvapp.sync/SyncService.Companion/requestSync/#android.accounts.Account/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-companion/request-sync.md
 $dokka.location:org.mjdev.tvapp.sync/SyncService///PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/index.md
 $dokka.location:org.mjdev.tvapp.sync/SyncService/SyncService/#/PointingToDeclaration/app/org.mjdev.tvapp.sync/-sync-service/-sync-service.md

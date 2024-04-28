@@ -33,7 +33,11 @@ fun ApplicationVariantDimension.buildConfigStringWithPackageName(
     vararg fields: Pair<String, String>
 ) {
     fields.forEach { pair ->
-        buildConfigField("String", pair.first, "APPLICATION_ID + \"${pair.second}\"")
+        buildConfigField(
+            "String",
+            pair.first,
+            "APPLICATION_ID + " + "\".${pair.second}\""
+        )
     }
 }
 
@@ -53,19 +57,21 @@ fun ApplicationVariantDimension.stringRes(
 }
 
 fun ApplicationVariantDimension.stringResWithPackageName(
+    applicationId: String,
     vararg fields: Pair<String, String>
 ) {
     fields.forEach { pair ->
-        resValue("string", pair.first, "\${applicationId}" + pair.second)
+        resValue("string", pair.first, "$applicationId.${pair.second}")
     }
 }
 
 fun ApplicationVariantDimension.addSyncProviderAuthString(
+    applicationId: String,
     name: String = "sync_auth",
-    suffix: String = ".sync"
+    suffix: String = "sync"
 ) {
     buildConfigStringWithPackageName(name.uppercase() to suffix)
-    stringResWithPackageName(name to suffix)
+    stringResWithPackageName(applicationId, name to suffix)
 }
 
 //fun ApplicationVariantDimension.createSuffixedStringRes(
