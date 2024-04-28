@@ -29,8 +29,8 @@
 
 ## Project documentation
 
-[App code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/app/index.md)
-[Lib code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/lib/index.md)
+- [App code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/app/index.md)
+- [Lib code documentation](https://github.com/mimoccc/tvapp/blob/main/wiki/documentation/lib/index.md)
 
 Documentation contains all the classes in project.
 

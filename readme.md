@@ -28,8 +28,8 @@
 
 ## Project documentation
 
-[App code documentation](documentation/app/index.md)
-[Lib code documentation](documentation/lib/index.md)
+- [App code documentation](documentation/app/index.md)
+- [Lib code documentation](documentation/lib/index.md)
 
 ## Screenshots
 
