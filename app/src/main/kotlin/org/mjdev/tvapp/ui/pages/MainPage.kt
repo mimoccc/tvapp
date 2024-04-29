@@ -1,9 +1,9 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 package org.mjdev.tvapp.ui.pages
@@ -12,7 +12,6 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
@@ -48,7 +46,6 @@ import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
 import org.mjdev.tvlib.interfaces.ItemWithImage
-import org.mjdev.tvlib.ui.dialog.BlurDialog
 import java.io.Serializable
 import java.net.URL
 

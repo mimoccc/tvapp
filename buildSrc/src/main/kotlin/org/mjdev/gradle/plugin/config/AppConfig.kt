@@ -8,8 +8,13 @@
 
 package org.mjdev.gradle.plugin.config
 
+import org.mjdev.gradle.extensions.BuildTypeFnc
+
 open class AppConfig {
-    open var autoCorrectCode = true
+
+    private val buildTypes = mutableMapOf<String, BuildTypeFnc>()
+
+    open var autoCorrectCode = false
     open var ignoreCodeFailures = true
     open var createDocumentation = false
     open var reportUndocumentedFiles = false
@@ -24,4 +29,29 @@ open class AppConfig {
     open var codeReportsDir = "reports/app"
     open var documentationDir = "documentation/app"
     open var detectConfigFile = "config/detekt.yml"
+
+    fun default (action:BuildTypeFnc) {
+        buildTypes.put("debug", action)
+    }
+
+    fun debug(action: BuildTypeFnc) {
+        buildTypes.put("debug", action)
+    }
+
+    fun release(action: BuildTypeFnc) {
+        buildTypes.put("release", action)
+    }
+
+    fun minified(action: BuildTypeFnc) {
+        buildTypes.put("minified", action)
+    }
+
+    fun test(action: BuildTypeFnc) {
+        buildTypes.put("test", action)
+    }
+
+    fun publish(action: BuildTypeFnc) {
+        buildTypes.put("test", action)
+    }
+
 }

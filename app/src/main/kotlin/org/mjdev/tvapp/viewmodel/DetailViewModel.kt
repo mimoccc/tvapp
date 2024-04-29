@@ -28,6 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor() : BaseViewModel() {
 
+//    private val cache = mutableMapOf<KClass<*>, List<*>>()
+
     @Inject
     lateinit var dao: DAO
 
@@ -40,13 +42,24 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var localPhotoCursor: PhotoCursor
 
+    // todo : improve on changes
+    inline fun <reified T> getCachedList(creator: () -> List<*>): List<*> {
+//        if (!cache.containsKey(T::class)) {
+//            creator().let { list ->
+//                cache[T::class] = list
+//            }
+//        }
+//        return cache[T::class] ?: emptyList<Any>()
+        return creator()
+    }
+
     fun mediaItemsFor(
         data: Any?
     ): List<Any?> = when (data) {
-        is ItemAudio -> dao.getCachedList<ItemAudio> { localAudioCursor }
-        is ItemVideo -> dao.getCachedList<ItemVideo> { localVideoCursor }
-        is ItemPhoto -> dao.getCachedList<ItemPhoto> { localPhotoCursor }
-        is Media -> dao.getCachedList<Media> { dao.allMediaItems }
+        is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
+        is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
+        is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
+        is Media -> getCachedList<Media> { dao.allMediaItems }
         else -> listOf(data.mediaItem)
     }
 
@@ -56,7 +69,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         fun mock(
             context: Context
         ): DetailViewModel = DetailViewModel().apply {
-            dao = DAO(context)
+            dao = DAO(context, true)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)
             localPhotoCursor = PhotoCursor(context)

@@ -68,8 +68,6 @@ dependencies {
     implementation(libs.gradle.detekt.plugin)
     implementation(libs.gradle.dokka.plugin)
     implementation(libs.gradle.kotlinter)
-//    implementation(libs.ktoml.core)
-//    implementation(libs.ktoml.file)
     implementation(libs.jsoup)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.detekt.formatting)

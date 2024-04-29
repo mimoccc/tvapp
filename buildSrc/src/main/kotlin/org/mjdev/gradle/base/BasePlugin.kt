@@ -20,7 +20,6 @@ abstract class BasePlugin : Plugin<Project> {
 
     abstract fun Project.work()
 
-    operator fun <T> NamedDomainObjectCollection<T>.get(index:String) =
-        getByName(index)
+    operator fun <T> NamedDomainObjectCollection<T>.get(index:String) = findByName(index)
 
 }

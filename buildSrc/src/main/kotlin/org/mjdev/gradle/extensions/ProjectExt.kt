@@ -312,8 +312,15 @@ fun Project.fileTree(directory: String, inc: String, exc: String): List<File> {
     }.toList()
 }
 
-//fun Project.androidComponents(
-//    block: AndroidComponentsExtension<*, *, *>.() -> Unit
-//) {
-//    block.invoke(androidComponents)
-//}
+inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit) {
+    afterEvaluate {
+        val config = project.extension<T>()
+        function(config)
+    }
+}
+
+fun Project.androidComponents(
+    block: AndroidComponentsExtension<*, *, *>.() -> Unit
+) {
+    block.invoke(androidComponents)
+}

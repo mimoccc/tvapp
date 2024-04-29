@@ -105,7 +105,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         fun mock(
             context: Context
         ): MainViewModel = MainViewModel().apply {
-            dao = DAO(context)
+            dao = DAO(context, true)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)
             localPhotoCursor = PhotoCursor(context)

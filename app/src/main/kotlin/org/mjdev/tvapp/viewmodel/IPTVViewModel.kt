@@ -79,7 +79,7 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
         fun mock(
             context: Context
         ): IPTVViewModel = IPTVViewModel().apply {
-            dao = DAO(context)
+            dao = DAO(context, true)
             networkInfo = NetworkConnectivityService(context)
             localAudioCursor = AudioCursor(context)
             localVideoCursor = VideoCursor(context)

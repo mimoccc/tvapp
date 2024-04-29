@@ -46,7 +46,7 @@ class ProvideModule {
     fun provideDAO(
         @ApplicationContext
         context: Context
-    ): DAO = DAO(context)
+    ): DAO = DAO(context, BuildConfig.DEBUG)
 
     @Singleton
     @Provides

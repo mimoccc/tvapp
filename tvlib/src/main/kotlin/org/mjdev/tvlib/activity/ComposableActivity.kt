@@ -70,8 +70,8 @@ open class ComposableActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             setDecorFitsSystemWindows(window, false)
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         } else {
             setDecorFitsSystemWindows(window, true)

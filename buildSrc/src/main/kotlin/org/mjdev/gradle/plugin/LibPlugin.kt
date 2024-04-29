@@ -38,6 +38,8 @@ import org.mjdev.gradle.extensions.apply
 import org.mjdev.gradle.extensions.int
 import org.mjdev.gradle.extensions.string
 import org.mjdev.gradle.extensions.projectName
+import org.mjdev.gradle.extensions.runConfigured
+import org.mjdev.gradle.plugin.config.AppConfig
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -112,7 +114,8 @@ class LibPlugin : BasePlugin() {
                     )
                 }
                 release {
-                    isMinifyEnabled = true
+                    // todo minify
+                    isMinifyEnabled = false
                     isShrinkResources = false
                     proguardFiles(
                         getDefaultProguardFile(projectProguardFile),
@@ -140,8 +143,7 @@ class LibPlugin : BasePlugin() {
                 jacocoVersion = libs.versions.jacoco.version.string
             }
         }
-        afterEvaluate {
-            val libConfig = project.extension<LibConfig>()
+        runConfigured<LibConfig> {
             kotlinCompileOptions{
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
@@ -149,19 +151,19 @@ class LibPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (libConfig.autoCorrectCode)
+                if (autoCorrectCode)
                     runAfterAssembleTask()
             }
             dokkaTask {
-                outputDirectory.set(rootDir.resolve(libConfig.documentationDir))
+                outputDirectory.set(rootDir.resolve(documentationDir))
                 moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
                     includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    failOnWarning.set(libConfig.failOnDocumentationWarning)
-                    reportUndocumented.set(libConfig.reportUndocumentedFiles)
+                    failOnWarning.set(failOnDocumentationWarning)
+                    reportUndocumented.set(reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
                     jdkVersion.set(projectJavaVersion.asInt())
@@ -169,17 +171,17 @@ class LibPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (libConfig.createDocumentation)
+                if (createDocumentation)
                     runAfterAssembleTask()
             }
             configure<DetektExtension> {
-                reportsDir = rootDir.resolve(libConfig.codeReportsDir)
-                ignoreFailures = libConfig.ignoreCodeFailures
+                reportsDir = rootDir.resolve(codeReportsDir)
+                ignoreFailures = ignoreCodeFailures
                 @Suppress("DEPRECATION")
-                config = files(project.rootDir.resolve(libConfig.detectConfigFile))
+                config = files(project.rootDir.resolve(detectConfigFile))
             }
             configure<KotlinterExtension> {
-                ignoreFailures = libConfig.ignoreCodeFailures
+                ignoreFailures = ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
 //            configurations.getByName("releaseRuntimeClasspath") {

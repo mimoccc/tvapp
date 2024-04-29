@@ -11,7 +11,8 @@
 package org.mjdev.gradle.extensions
 
 import com.android.build.api.dsl.ApplicationVariantDimension
-import kotlin.String
+
+typealias BuildTypeFnc = ApplicationVariantDimension.() -> Unit
 
 fun ApplicationVariantDimension.buildConfigBoolean(
     vararg fields: Pair<String, Boolean>
@@ -26,18 +27,6 @@ fun ApplicationVariantDimension.buildConfigString(
 ) {
     fields.forEach { pair ->
         buildConfigField("String", pair.first, "\"${pair.second}\"")
-    }
-}
-
-fun ApplicationVariantDimension.buildConfigStringWithPackageName(
-    vararg fields: Pair<String, String>
-) {
-    fields.forEach { pair ->
-        buildConfigField(
-            "String",
-            pair.first,
-            "APPLICATION_ID + " + "\".${pair.second}\""
-        )
     }
 }
 
@@ -56,17 +45,8 @@ fun ApplicationVariantDimension.stringRes(
     resValue("string", name, value)
 }
 
-fun ApplicationVariantDimension.stringResWithPackageName(
-    applicationId: String,
-    vararg fields: Pair<String, String>
-) {
-    fields.forEach { pair ->
-        resValue("string", pair.first, "$applicationId.${pair.second}")
-    }
-}
-
 fun ApplicationVariantDimension.addSyncProviderAuthString(
-    applicationId: String,
+    applicationId:String,
     name: String = "sync_auth",
     suffix: String = "sync"
 ) {
@@ -74,14 +54,26 @@ fun ApplicationVariantDimension.addSyncProviderAuthString(
     stringResWithPackageName(applicationId, name to suffix)
 }
 
-//fun ApplicationVariantDimension.createSuffixedStringRes(
-//    name: String,
-//    base: String
-//) {
-//    val suffix = if(applicationIdSuffix.isNullOrEmpty()) ""
-//    else ( " - "  + applicationIdSuffix.suffixToString())
-//    resValue("string", name, base + suffix)
-//}
+fun ApplicationVariantDimension.stringResWithPackageName(
+    applicationId:String,
+    vararg fields: Pair<String, String>
+) {
+    fields.forEach { pair ->
+        resValue("string", pair.first, "$applicationId.${pair.second}")
+    }
+}
+
+fun ApplicationVariantDimension.buildConfigStringWithPackageName(
+    vararg fields: Pair<String, String>
+) {
+    fields.forEach { pair ->
+        buildConfigField(
+            "String",
+            pair.first,
+            "APPLICATION_ID + " + "\".${pair.second}\""
+        )
+    }
+}
 
 fun ApplicationVariantDimension.manifestPlaceholders(
     vararg fields: Pair<String, Any>

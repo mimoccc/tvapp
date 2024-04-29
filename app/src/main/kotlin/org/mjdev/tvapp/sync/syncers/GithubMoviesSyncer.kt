@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -47,13 +47,14 @@ class GithubMoviesSyncer(
             }
         }
 
+        // todo if exists
         with(SyncItems(oldMovies, newMovies)) {
             toAdd.forEach { movie ->
                 try {
                     dao.movieDao.stx { put(movie) }
                     Timber.d("Movie: $movie stored.")
                 } catch (e: Exception) {
-                    Timber.e(e)
+//                    Timber.e(e)
                 }
             }
 

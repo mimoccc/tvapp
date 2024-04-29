@@ -48,6 +48,7 @@ import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.apply
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.loadPropertiesFile
+import org.mjdev.gradle.extensions.runConfigured
 import org.mjdev.gradle.plugin.config.AppConfig
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
@@ -82,9 +83,9 @@ class AppPlugin : BasePlugin() {
     override fun Project.work() {
         extension<AppConfig>(configFieldName)
         loadPropertiesFile(versionPropertiesFile)
-        apply(plugin = "version-catalog")
-        apply(plugin = "kotlin-android")
+//        apply(plugin = "version-catalog")
         apply(plugin = "com.android.application")
+        apply(plugin = "kotlin-android")
         apply(plugin = "kotlin-kapt")
         apply(plugin = "kotlin-parcelize")
         apply(plugin = "com.google.devtools.ksp")
@@ -158,12 +159,6 @@ class AppPlugin : BasePlugin() {
                     isMinifyEnabled = false
                     isShrinkResources = false
                     isCrunchPngs = false
-//                  isEmbedMicroApp = true
-//                  isPseudoLocalesEnabled = true
-//                  enableUnitTestCoverage = true
-//                  enableAndroidTestCoverage = true
-//                  isRenderscriptDebuggable = true
-//                  isZipAlignEnabled = false
                     signingConfig = signingConfigs[name]
                     stringRes("app_name", "TVApp-Debug")
                     addSyncProviderAuthString(
@@ -183,12 +178,6 @@ class AppPlugin : BasePlugin() {
                     isMinifyEnabled = true
                     isShrinkResources = true
                     isCrunchPngs = true
-//                  isEmbedMicroApp = true
-//                  isPseudoLocalesEnabled = false
-//                  enableUnitTestCoverage = false
-//                  enableAndroidTestCoverage = false
-//                  isRenderscriptDebuggable = false
-//                  isZipAlignEnabled = true
                     signingConfig = signingConfigs[name]
                     // todo : move
                     stringRes("app_name", "TVApp")
@@ -225,8 +214,7 @@ class AppPlugin : BasePlugin() {
                 jacocoVersion = libs.versions.jacoco.version.string
             }
         }
-        afterEvaluate {
-            val appConfig = project.extension<AppConfig>()
+        runConfigured<AppConfig> {
             kotlinCompileOptions {
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
@@ -234,19 +222,19 @@ class AppPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (appConfig.autoCorrectCode)
+                if (autoCorrectCode)
                     runAfterAssembleTask()
             }
             dokkaTask {
-                outputDirectory.set(rootDir.resolve(appConfig.documentationDir))
+                outputDirectory.set(rootDir.resolve(documentationDir))
                 moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
                     includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    failOnWarning.set(appConfig.failOnDocumentationWarning)
-                    reportUndocumented.set(appConfig.reportUndocumentedFiles)
+                    failOnWarning.set(failOnDocumentationWarning)
+                    reportUndocumented.set(reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
                     jdkVersion.set(projectJavaVersion.asInt())
@@ -254,36 +242,38 @@ class AppPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (appConfig.createDocumentation)
+                if (createDocumentation)
                     runAfterAssembleTask()
             }
             val rnTask = registerTask<ReleaseNotesCreateTask> {
-                if (appConfig.createReleaseNotes)
+                if (createReleaseNotes)
                     runAfterAssembleTask()
             }
             registerTask<ZipReleaseCreateTask> {
-                if (appConfig.createReleaseNotes)
+                if (createReleaseNotes)
                     mustRunAfter(rnTask)
-                if (appConfig.createZipRelease)
+                if (createZipRelease)
                     runAfterAssembleTask()
             }
             configure<DetektExtension> {
-                ignoreFailures = appConfig.ignoreCodeFailures
-                reportsDir = rootDir.resolve(appConfig.codeReportsDir)
+                ignoreFailures = ignoreCodeFailures
+                reportsDir = rootDir.resolve(codeReportsDir)
                 @Suppress("DEPRECATION")
-                config = files(project.rootDir.resolve(appConfig.detectConfigFile))
+                config = files(project.rootDir.resolve(detectConfigFile))
             }
             configure<KotlinterExtension> {
-                ignoreFailures = appConfig.ignoreCodeFailures
+                ignoreFailures = ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
+// todo
 //            configurations.getByName("releaseRuntimeClasspath") {
 //                resolutionStrategy.activateDependencyLocking()
 //            }
+// todo
 //            configurations.getByName("debugRuntimeClasspath") {
 //                resolutionStrategy.activateDependencyLocking()
 //            }
-            // todo
+// todo
 //            if (appConfig.renameApkOutputByAppID) {
 //                applicationVariants.all {
 //                    outputs.map {
@@ -295,6 +285,7 @@ class AppPlugin : BasePlugin() {
 //                }
 //            }
         }
+// todo
 //        dependencyLocking {
 //            lockMode.set(LockMode.STRICT)
 //        }
