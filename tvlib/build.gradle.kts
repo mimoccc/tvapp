@@ -11,7 +11,7 @@ plugins {
 }
 
 libConfig {
-    autoCorrectCode = true
+    autoCorrectCode = false
     createDocumentation = true
     minify = false
 }

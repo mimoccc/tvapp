@@ -11,10 +11,10 @@ plugins {
 }
 
 appConfig {
-    autoCorrectCode = true
+    autoCorrectCode = false
     createDocumentation = false
-    createReleaseNotes = false
-    createZipRelease = false
+    createReleaseNotes = true
+    createZipRelease = true
 
     createWebApp = false
     // todo
