@@ -22,18 +22,25 @@ import org.mjdev.tvlib.screen.Screen
 
 class LoadingScreen : Screen() {
 
+//    private val appInfo = ApplicationInfo()
+
     override val title = R.string.msg_loading
     override val menuIcon: ImageVector get() = Icons.Filled.Tv
     override val immersive: Boolean = true
     override val showOnce: Boolean = true
 
+//    @OptIn(ExperimentalTvMaterial3Api::class)
     @Previews
     @Composable
     override fun Content() {
         Box(
             modifier = Modifier.fillMaxSize(),
+//                .background(Color.Black, RectangleShape),
             contentAlignment = Alignment.Center,
         ) {
+//            Text(
+//                text = appInfo.getInfo()
+//            )
         }
     }
 

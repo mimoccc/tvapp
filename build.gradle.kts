@@ -10,6 +10,10 @@ plugins {
     alias(libs.plugins.android.dagger.hilt) apply false
     alias(libs.plugins.devtools.google.ksp) apply false
     alias(libs.plugins.gradle.ktlint) apply false
+//    alias(libs.plugins.gradle.markdown) apply false
+//    alias(libs.plugins.gradle.os.packages) apply false
+//    alias(libs.plugins.gradle.versions)apply false
+//    alias(libs.plugins.gradle.catalogs.update) apply false
 }
 
 buildscript {
@@ -19,6 +23,7 @@ buildscript {
         maven("https://mvn.dailymotion.com/repository/releases/")
         google()
     }
+
     dependencies {
         classpath(libs.gradle)
         classpath(libs.gradle.api)
@@ -29,6 +34,12 @@ buildscript {
         classpath(libs.gradle.paparazzi.plugin)
         classpath(libs.gradle.kotlinter)
         classpath(libs.gradle.dokka.plugin)
+//        classpath(libs.gradle.markdown.plugin)
+//        classpath(libs.gradle.ospackage.plugin)
+    }
+
+    configurations.classpath {
+        resolutionStrategy.activateDependencyLocking()
     }
 }
 

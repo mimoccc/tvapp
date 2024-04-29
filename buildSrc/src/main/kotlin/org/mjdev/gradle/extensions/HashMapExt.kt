@@ -17,3 +17,9 @@ fun <T, V> HashMap<T, V>.onKeyExists(
         block.invoke(key, this[key])
     }
 }
+
+fun <K, V> Map<K, V>.mapToString(): String = map { kv ->
+    val sdKey = kv.key.toString().replace("\"", "")
+    val sdValue = kv.value.toString().replace("\"", "")
+    "\t\"$sdKey\": \"$sdValue\""
+}.joinToString(",\n") + "\n"

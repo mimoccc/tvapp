@@ -25,7 +25,6 @@ open class ZipReleaseClearTask : BaseTask() {
 
     @TaskAction
     fun taskAction() {
-        println("> Clearing release zip archive") // todo
         outputFiles.forEach { file ->
             if (file.isDirectory) {
                 file.deleteRecursively()

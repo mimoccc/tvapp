@@ -13,6 +13,7 @@ import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -52,8 +53,12 @@ import org.mjdev.gradle.extensions.runConfigured
 import org.mjdev.gradle.plugin.config.AppConfig
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
+import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
+
+//import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
+//import org.mjdev.gradle.extensions.markDownToHtmlTask
 
 @Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
@@ -83,7 +88,6 @@ class AppPlugin : BasePlugin() {
     override fun Project.work() {
         extension<AppConfig>(configFieldName)
         loadPropertiesFile(versionPropertiesFile)
-//        apply(plugin = "version-catalog")
         apply(plugin = "com.android.application")
         apply(plugin = "kotlin-android")
         apply(plugin = "kotlin-kapt")
@@ -92,7 +96,8 @@ class AppPlugin : BasePlugin() {
         apply(plugin = "com.google.dagger.hilt.android")
         apply(plugin = "dagger.hilt.android.plugin")
         apply(plugin = "io.objectbox")
-        apply("org.jetbrains.dokka")
+        apply(plugin = "org.jetbrains.dokka")
+//        apply(MarkdownPlugin::class)
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
         registerTask<ReleaseNotesCleanTask> {
@@ -160,7 +165,9 @@ class AppPlugin : BasePlugin() {
                     isShrinkResources = false
                     isCrunchPngs = false
                     signingConfig = signingConfigs[name]
+                    // todo : move
                     stringRes("app_name", "TVApp-Debug")
+                    // todo : move
                     addSyncProviderAuthString(
                         "$applicationId$applicationIdSuffix",
                         "sync_auth",
@@ -245,6 +252,39 @@ class AppPlugin : BasePlugin() {
                 if (createDocumentation)
                     runAfterAssembleTask()
             }
+//            markDownToHtmlTask {
+//                sourceDir = rootDir
+//                outputDir = rootDir.resolve("web")
+//                hardwraps = true
+//                autoLinks = true
+//                abbreviations = true
+//                definitionLists = true
+//                smartQuotes = true
+//                smartPunctuation = true
+//                smart = true
+//                fencedCodeBlocks = true
+//                tables = true
+//                all = true
+//                removeHtml = true
+//                removeTables = true
+//                baseUri = ""
+//                customizePegdown = {}
+//                customizeRemark = {}
+//                if(createWebSiteFromGit) {
+//                    runAfterAssembleTask()
+//                }
+//            }
+            if (createWebApp) {
+                registerTask<WebServiceCreateTask> {
+                    domain = "localhost"
+                    servicePort = 2222
+                    serviceName = project.name
+                    serviceVersion = project.versionName
+                    serviceCompany = "mjdev"
+                    serviceLicense = ""
+                    runAfterCleanTask()
+                }
+            }
             val rnTask = registerTask<ReleaseNotesCreateTask> {
                 if (createReleaseNotes)
                     runAfterAssembleTask()
@@ -265,15 +305,6 @@ class AppPlugin : BasePlugin() {
                 ignoreFailures = ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
-// todo
-//            configurations.getByName("releaseRuntimeClasspath") {
-//                resolutionStrategy.activateDependencyLocking()
-//            }
-// todo
-//            configurations.getByName("debugRuntimeClasspath") {
-//                resolutionStrategy.activateDependencyLocking()
-//            }
-// todo
 //            if (appConfig.renameApkOutputByAppID) {
 //                applicationVariants.all {
 //                    outputs.map {
@@ -285,10 +316,9 @@ class AppPlugin : BasePlugin() {
 //                }
 //            }
         }
-// todo
-//        dependencyLocking {
-//            lockMode.set(LockMode.STRICT)
-//        }
+        dependencyLocking {
+            lockMode.set(LockMode.STRICT)
+        }
         dependencies {
             implementation(project(mapOf("path" to ":tvlib")))
             // compose

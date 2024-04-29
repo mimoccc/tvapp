@@ -12,8 +12,6 @@ package org.mjdev.gradle.extensions
 
 import com.android.build.api.dsl.ApplicationVariantDimension
 
-typealias BuildTypeFnc = ApplicationVariantDimension.() -> Unit
-
 fun ApplicationVariantDimension.buildConfigBoolean(
     vararg fields: Pair<String, Boolean>
 ) {

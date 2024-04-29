@@ -13,6 +13,7 @@ import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -39,7 +40,6 @@ import org.mjdev.gradle.extensions.int
 import org.mjdev.gradle.extensions.string
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.runConfigured
-import org.mjdev.gradle.plugin.config.AppConfig
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -63,7 +63,6 @@ class LibPlugin : BasePlugin() {
 
     override fun Project.work() {
         extension<LibConfig>(configFieldName)
-        apply(plugin ="version-catalog")
         apply(plugin = "kotlin-android")
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-kapt")
@@ -86,11 +85,6 @@ class LibPlugin : BasePlugin() {
                 // todo : move
                 targetCompatibility = projectJavaVersion
             }
-            defaultConfig {
-                // todo : move
-                minSdk = libs.versions.minSdk.int
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-            }
             buildFeatures {
                 compose = true
                 buildConfig = true
@@ -98,6 +92,11 @@ class LibPlugin : BasePlugin() {
             composeOptions {
                 // todo : move
                 kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.version.string
+            }
+            defaultConfig {
+                // todo : move
+                minSdk = libs.versions.minSdk.int
+                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
             packaging {
                 resources {
@@ -124,7 +123,9 @@ class LibPlugin : BasePlugin() {
                 }
             }
             sourceSets {
-                getByName("main") { jniLibs.srcDirs() }
+                getByName("main") {
+                    jniLibs.srcDirs()
+                }
             }
             lint {
                 checkAllWarnings = true
@@ -184,16 +185,10 @@ class LibPlugin : BasePlugin() {
                 ignoreFailures = ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
-//            configurations.getByName("releaseRuntimeClasspath") {
-//                resolutionStrategy.activateDependencyLocking()
-//            }
-//            configurations.getByName("debugRuntimeClasspath") {
-//                resolutionStrategy.activateDependencyLocking()
-//            }
         }
-//        dependencyLocking {
-//            lockMode.set(LockMode.STRICT)
-//        }
+        dependencyLocking {
+            lockMode.set(LockMode.STRICT)
+        }
         dependencies {
             // core
             implementation(libs.androidx.ktx)

@@ -35,6 +35,8 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.mjdev.gradle.plugin.config.base.BuildConfigs
+//import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
 import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
@@ -264,6 +266,10 @@ fun Project.dokkaTask(scoped: DokkaTask.() -> Unit) {
     tasks.withType<DokkaTask>().first().also { t -> scoped(t) }
 }
 
+//fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) {
+//    tasks.withType<MarkdownToHtmlTask>().first().also { t -> scoped(t) }
+//}
+
 fun Project.registerSources(outDir: File, variant: BaseVariant) {
     if (outDir.absolutePath.contains("generated/source")) {
         project.kotlinExtension.sourceSets.findByName(variant.name)?.apply {
@@ -315,6 +321,14 @@ fun Project.fileTree(directory: String, inc: String, exc: String): List<File> {
 inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit) {
     afterEvaluate {
         val config = project.extension<T>()
+        if (config is BuildConfigs) {
+//            project.androidExtension.buildTypes.forEach { bt ->
+//                println("> Configuring build : ${bt.name}")
+//                val btConfig = config.buildTypes[bt.name.lowercase()]
+//                println ("> Config: $btConfig")
+//                btConfig?.invoke(bt)
+//            }
+        }
         function(config)
     }
 }

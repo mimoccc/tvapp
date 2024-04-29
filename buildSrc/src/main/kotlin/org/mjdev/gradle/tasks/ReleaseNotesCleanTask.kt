@@ -10,7 +10,6 @@ package org.mjdev.gradle.tasks
 
 import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.extensions.file
-import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.projectVersion
 import java.io.File
 import org.mjdev.gradle.base.BaseTask
@@ -36,7 +35,6 @@ open class ReleaseNotesCleanTask : BaseTask() {
 
     @TaskAction
     fun taskAction() {
-        println("> Clearing release notes") // todo
         outputFiles.forEach { file ->
             if (file.isDirectory) {
                 file.deleteRecursively()

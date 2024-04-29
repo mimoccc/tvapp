@@ -11,11 +11,16 @@ plugins {
 }
 
 appConfig {
-    autoCorrectCode = false
+    autoCorrectCode = true
     createDocumentation = false
-    createReleaseNotes = true
+    createReleaseNotes = false
     createZipRelease = false
 
+    createWebApp = false
+    // todo
+    createWebSiteFromGit = false
+
+    // todo
     default {
 //        buildConfigString(
 //            "IPTV_API_URL" to "https://iptv-org.github.io/api/",
@@ -28,16 +33,21 @@ appConfig {
 //        )
     }
 
+    // todo
     debug {
+//        println("creating test bt config field")
+//        buildConfigField("String" , "TEST", "\"TEST\"")
 //        stringRes("app_name", "TVApp-Debug")
 //        addSyncProviderAuthString("sync_auth", "sync")
     }
 
+    // todo
     release {
 //        stringRes("app_name", "TVApp")
 //        addSyncProviderAuthString("sync_auth", "sync")
     }
 
+    // todo
     minified {
 //        stringRes("app_name", "TVApp-Minified")
 //        addSyncProviderAuthString("sync_auth", "sync")

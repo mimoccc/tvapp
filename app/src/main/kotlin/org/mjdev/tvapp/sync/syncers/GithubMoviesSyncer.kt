@@ -8,7 +8,6 @@
 
 package org.mjdev.tvapp.sync.syncers
 
-import androidx.compose.runtime.MutableState
 import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.sync.SyncAdapter
 import org.mjdev.tvapp.sync.base.SyncItems
