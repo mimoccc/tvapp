@@ -18,6 +18,7 @@ import com.android.build.gradle.api.BaseVariant
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.TaskExecutionRequest
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -27,7 +28,6 @@ import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSetContainer
-import org.gradle.api.tasks.TaskProvider
 import org.gradle.internal.impldep.jakarta.xml.bind.DatatypeConverter.parseBoolean
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.findByType
@@ -170,16 +170,6 @@ val Project.androidExtension: AppExtension
 val Project.kotlinExtension: KotlinProjectExtension
     get() = extensions.getByName("kotlin") as KotlinProjectExtension
 
-//val Project.assembleTasks: List<Task>
-//    get() = mutableListOf<Task>().apply {
-//        androidExtension.apply {
-//            applicationVariants.all { variant ->
-//                val task = project.tasks.getByName("assemble${variant.name.capitalize()}")
-//                add(task)
-//            }
-//        }
-//    }
-
 val Project.variants: List<ApplicationVariant>
     get() = androidExtension.applicationVariants.toList()
 
@@ -241,11 +231,10 @@ inline fun <reified T> Project.extension(name: String? = null): T = runCatching 
     cfg!!
 }.getOrThrow()
 
-inline fun <reified T : Any> Project.extension(): T = runCatching {
-    extensions.getByType(T::class.java)
-}.onFailure {
-    println("Config missing.")
-}.getOrThrow()
+inline fun <reified T : Any> Project.extension(): T =
+    rootProject.extensions.findByType(T::class.java)
+        ?: project.extensions.findByType(T::class.java) ?:
+        throw (GradleException("Extension not configured : ${T::class.java.simpleName}"))
 
 inline fun <reified T : Task> Project.registerTask(
     name: String? = null,
@@ -333,12 +322,12 @@ inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit)
     afterEvaluate {
         val config = project.extension<T>()
         if (config is BuildConfigs) {
-//            project.androidExtension.buildTypes.forEach { bt ->
-//                println("> Configuring build : ${bt.name}")
+            project.androidExtension.buildTypes.forEach { bt ->
+                println("> Configuring build : ${bt.name}")
 //                val btConfig = config.buildTypes[bt.name.lowercase()]
 //                println ("> Config: $btConfig")
 //                btConfig?.invoke(bt)
-//            }
+            }
         }
         function(config)
     }

@@ -65,6 +65,9 @@ val Task.tasks: TaskContainer
 val Task.cleanTask: Task
     get() = tasks.byName<Task>("clean")
 
+val Task.tasksTask : Task
+    get() = tasks.byName<Task>("tasks")
+
 val Task.taskGroup: String
     get() = this.group.toString()
 

@@ -215,7 +215,7 @@ sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
 sandwich-retrofit = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwich" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
-
+#
 #classpath("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
 #classpath("org.jetbrains.kotlin:kotlin-scripting-common:1.9.22")
 #classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22")
@@ -224,6 +224,7 @@ zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
 #classpath("com.bmuschko:gradle-docker-plugin:9.4.0")
 #classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
 #classpath("com.newrelic.agent.android:agent-gradle-plugin:5.9.0")
+
 ## plugins #########################################################################################
 [plugins]
 android-application = "com.android.application:8.3.2"

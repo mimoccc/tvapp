@@ -11,7 +11,6 @@ package org.mjdev.gradle.plugin
 import com.android.build.api.dsl.ApplicationExtension
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.apply
@@ -58,36 +57,39 @@ import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
+import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.markDownToHtmlTask
+import org.mjdev.gradle.extensions.runConfigured
 
-@Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
     private val configFieldName = "appConfig"
 
-    // todo : move
-    private val projectJavaVersion = JavaVersion.VERSION_17
-
-    // todo : move
-    private val projectExcludes = listOf(
-        "META-INF/",
-        "/META-INF/{AL2.0,LGPL2.1}",
-        "/META-INF/DEPENDENCIES",
-        "/mozilla/public-suffix-list.txt",
-        "okhttp3/",
-        "kotlin/",
-        "org/",
-        ".properties",
-        ".bin",
-    )
-    private val projectProguardFile = "proguard-android-optimize.txt"
-    private val projectProguardRulesFile = "proguard-rules.pro"
-
-    // todo : move
-    private val versionPropertiesFile = "config/version.prop"
-
     override fun Project.work() {
-        extension<AppConfig>(configFieldName)
-        loadPropertiesFile(versionPropertiesFile)
+        val appConfig = extension<AppConfig>(configFieldName)
+        loadPropertiesFile(appConfig.versionPropertiesFile)
+        println("---------------------------------------------------------------------")
+        println("App Configuration")
+        println("---------------------------------------------------------------------")
+        println("Project version : ${project.versionName}")
+        println("Project description : $description")
+        println("---------------------------------------------------------------------")
+        println("autoCorrectCode : ${appConfig.autoCorrectCode}")
+        println("ignoreCodeFailures : ${appConfig.ignoreCodeFailures}")
+        println("createDocumentation : ${appConfig.createDocumentation}")
+        println("reportUndocumentedFiles : ${appConfig.reportUndocumentedFiles}")
+        println("failOnDocumentationWarning : ${appConfig.failOnDocumentationWarning}")
+        println("createReleaseNotes : ${appConfig.createReleaseNotes}")
+        println("createZipRelease : ${appConfig.createZipRelease}")
+        println("createInfoClass : ${appConfig.createInfoClass}")
+        println("createWebApp : ${appConfig.createWebApp}")
+        println("createWebSiteFromGit : ${appConfig.createWebSiteFromGit}")
+        println("renameApkOutputByAppID : ${appConfig.renameApkOutputByAppID}")
+        println("launcherIconByBuildType : ${appConfig.launcherIconByBuildType}")
+        println("---------------------------------------------------------------------")
+        println("codeReportsDir : ${appConfig.codeReportsDir}")
+        println("documentationDir : ${appConfig.documentationDir}")
+        println("detectConfigFile : ${appConfig.detectConfigFile}")
+        println("---------------------------------------------------------------------")
         apply(plugin = "com.android.application")
         apply(plugin = "kotlin-kapt")
         apply(plugin = "kotlin-android")
@@ -102,7 +104,6 @@ class AppPlugin : BasePlugin() {
         apply(KotlinterPlugin::class)
         registerTask<ReleaseNotesCleanTask> { runAfterCleanTask() }
         registerTask<ZipReleaseClearTask> { runAfterCleanTask() }
-        registerTask<ApplicationConfigTask> { runAfterCleanTask() }
         configure<ApplicationExtension> {
             // todo : move
             namespace = libs.versions.app.namespace.string
@@ -120,13 +121,14 @@ class AppPlugin : BasePlugin() {
             }
             compileOptions {
                 // todo : move
-                sourceCompatibility = projectJavaVersion
+                sourceCompatibility = appConfig.javaVersion
                 // todo : move
-                targetCompatibility = projectJavaVersion
+                targetCompatibility = appConfig.javaVersion
             }
             composeOptions {
                 // todo : move
-                kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.version.string
+                kotlinCompilerExtensionVersion =
+                    libs.versions.kotlin.compiler.version.string
             }
             defaultConfig {
                 applicationId = libs.versions.app.namespace.string
@@ -150,7 +152,7 @@ class AppPlugin : BasePlugin() {
             }
             packaging {
                 resources {
-                    excludes.addAll(projectExcludes)
+                    excludes.addAll(appConfig.projectExcludes)
                 }
             }
             buildTypes {
@@ -171,8 +173,8 @@ class AppPlugin : BasePlugin() {
                         "sync"
                     )
                     proguardFiles(
-                        getDefaultProguardFile(projectProguardFile),
-                        projectProguardRulesFile
+                        getDefaultProguardFile(appConfig.projectProguardFile),
+                        appConfig.projectProguardRulesFile
                     )
                 }
                 release {
@@ -192,8 +194,8 @@ class AppPlugin : BasePlugin() {
                         "sync"
                     )
                     proguardFiles(
-                        getDefaultProguardFile(projectProguardFile),
-                        projectProguardRulesFile
+                        getDefaultProguardFile(appConfig.projectProguardFile),
+                        appConfig.projectProguardRulesFile
                     )
                 }
             }
@@ -222,7 +224,7 @@ class AppPlugin : BasePlugin() {
             kotlinCompileOptions {
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
-                    jvmTarget = projectJavaVersion.toString()
+                    jvmTarget = javaVersion.toString()
                 }
             }
             detektTask {
@@ -241,7 +243,7 @@ class AppPlugin : BasePlugin() {
                     reportUndocumented.set(reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
-                    jdkVersion.set(projectJavaVersion.asInt())
+                    jdkVersion.set(javaVersion.asInt())
                     noStdlibLink.set(false)
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
@@ -302,16 +304,6 @@ class AppPlugin : BasePlugin() {
                 ignoreFailures = ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
-//            if (appConfig.renameApkOutputByAppID) {
-//                applicationVariants.all {
-//                    outputs.map {
-//                        it as BaseVariantOutputImpl
-//                    }.forEach { output ->
-//                        val outputFileName = "$applicationId-$versionName.apk"
-//                        output.outputFileName = outputFileName
-//                    }
-//                }
-//            }
         }
         dependencyLocking {
             lockMode.set(LockMode.STRICT)
@@ -430,3 +422,15 @@ class AppPlugin : BasePlugin() {
         }
     }
 }
+
+// todo task
+//if (appConfig.renameApkOutputByAppID) {
+//    applicationVariants.all {
+//        outputs.map {
+//            it as BaseVariantOutputImpl
+//        }.forEach { output ->
+//            val outputFileName = "$applicationId-$versionName.apk"
+//            output.outputFileName = outputFileName
+//        }
+//    }
+//}

@@ -8,6 +8,10 @@ buildSrc/.gradle
 buildSrc/.gradle/
 /buildSrc/.gradle
 /buildSrc/.gradle/
+/app/.gradle
+/app/.gradle/
+/tvlib/.gradle
+/tvlib/.gradle/
 
 # any build folder
 build
@@ -15,9 +19,14 @@ build/
 /build/
 /buildSrc/build
 /buildSrc/build/
+/tvlib/build
+/tvlib/build/
+/app/build
+/app/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
+release*.zip
 
 # Log/OS Files
 *.log
@@ -51,19 +60,13 @@ google-services.json
 *.hprof!/release.zip
 
 # documentation
-!/documentation/release-notes-*.md
+!/documentation/release-notes*
 
 #reports
-!/reports/
-!/reports/app/
-!/reports/lib/
+/reports/app/
+/reports/lib/
 
 # web app
 !/web/app.nginx
 !/web/app.service
 !/web/package.json
-
-# tvlib
-!/tvlib/.gradle/
-!/tvlib/build/
-

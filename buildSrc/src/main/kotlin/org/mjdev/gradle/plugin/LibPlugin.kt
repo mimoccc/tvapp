@@ -44,25 +44,9 @@ import org.mjdev.gradle.extensions.runConfigured
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
     private val configFieldName = "libConfig"
-    // todo : move
-    private val projectJavaVersion = JavaVersion.VERSION_17
-    // todo : move
-    private val projectExcludes = listOf(
-        "META-INF/",
-        "/META-INF/{AL2.0,LGPL2.1}",
-        "/META-INF/DEPENDENCIES",
-        "/mozilla/public-suffix-list.txt",
-        "okhttp3/",
-        "kotlin/",
-        "org/",
-        ".properties",
-        ".bin",
-    )
-    private val projectProguardFile = "proguard-android-optimize.txt"
-    private val projectProguardRulesFile = "proguard-rules.pro"
 
     override fun Project.work() {
-        extension<LibConfig>(configFieldName)
+        val libConfig = extension<LibConfig>(configFieldName)
         apply(plugin = "kotlin-android")
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-kapt")
@@ -81,9 +65,9 @@ class LibPlugin : BasePlugin() {
             compileSdk = libs.versions.compileSdk.int
             compileOptions {
                 // todo : move
-                sourceCompatibility = projectJavaVersion
+                sourceCompatibility = libConfig.javaVersion
                 // todo : move
-                targetCompatibility = projectJavaVersion
+                targetCompatibility = libConfig.javaVersion
             }
             buildFeatures {
                 compose = true
@@ -100,7 +84,7 @@ class LibPlugin : BasePlugin() {
             }
             packaging {
                 resources {
-                    excludes.addAll(projectExcludes)
+                    excludes.addAll(libConfig.projectExcludes)
                 }
             }
             buildTypes {
@@ -108,8 +92,8 @@ class LibPlugin : BasePlugin() {
                     isMinifyEnabled = false
                     isShrinkResources = false
                     proguardFiles(
-                        getDefaultProguardFile(projectProguardFile),
-                        projectProguardRulesFile
+                        getDefaultProguardFile(libConfig.projectProguardFile),
+                        libConfig.projectProguardRulesFile
                     )
                 }
                 release {
@@ -117,8 +101,8 @@ class LibPlugin : BasePlugin() {
                     isMinifyEnabled = false
                     isShrinkResources = false
                     proguardFiles(
-                        getDefaultProguardFile(projectProguardFile),
-                        projectProguardRulesFile
+                        getDefaultProguardFile(libConfig.projectProguardFile),
+                        libConfig.projectProguardRulesFile
                     )
                 }
             }
@@ -145,10 +129,10 @@ class LibPlugin : BasePlugin() {
             }
         }
         runConfigured<LibConfig> {
-            kotlinCompileOptions{
+            kotlinCompileOptions {
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
-                    jvmTarget = projectJavaVersion.toString()
+                    jvmTarget = javaVersion.toString()
                 }
             }
             detektTask {
@@ -167,7 +151,7 @@ class LibPlugin : BasePlugin() {
                     reportUndocumented.set(reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
-                    jdkVersion.set(projectJavaVersion.asInt())
+                    jdkVersion.set(javaVersion.asInt())
                     noStdlibLink.set(false)
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
