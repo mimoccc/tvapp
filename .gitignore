@@ -49,8 +49,21 @@ google-services.json
 
 # Android Profiling
 *.hprof!/release.zip
+
+# documentation
 !/documentation/release-notes-*.md
-/reports/
+
+#reports
+!/reports/
+!/reports/app/
+!/reports/lib/
+
+# web app
 !/web/app.nginx
 !/web/app.service
 !/web/package.json
+
+# tvlib
+!/tvlib/.gradle/
+!/tvlib/build/
+
