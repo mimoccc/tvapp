@@ -8,7 +8,6 @@
 
 package org.mjdev.gradle.tasks
 
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.custom.unittest.Worker
 import org.mjdev.gradle.custom.unittest.WorkerImpl
@@ -36,7 +35,6 @@ abstract class TestCaseGeneratorTask : BaseTask() {
         description = "Test classes generation tool"
     }
 
-    @TaskAction
     fun injectSource() {
         worker = WorkerImpl(urls, sourceDirectoryList, exclude).apply {
             work()

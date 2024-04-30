@@ -8,7 +8,6 @@
 
 package org.mjdev.gradle.tasks
 
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.projectVersion
 import java.io.File
@@ -33,8 +32,7 @@ open class ReleaseNotesCleanTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         outputFiles.forEach { file ->
             if (file.isDirectory) {
                 file.deleteRecursively()

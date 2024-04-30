@@ -9,9 +9,7 @@
 package org.mjdev.gradle.tasks
 
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.api.Project
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.allFiles
@@ -46,8 +44,7 @@ open class TestClassesGeneratorTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         println("> Got files:")
         fileMap.keys.forEach { project ->
             val files = fileMap[project] ?: emptyList()
@@ -74,9 +71,7 @@ open class TestClassesGeneratorTask : BaseTask() {
         destfile: File
     ) {
         worker.makeTestClass(srcFile).also { createdClass ->
-            if (createdClass != null) {
-                createdClass.writeTo(destfile)
-            }
+            createdClass?.writeTo(destfile)
         }
     }
 

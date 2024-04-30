@@ -8,7 +8,6 @@
 
 package org.mjdev.gradle.tasks
 
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.base.BaseTask
 
 open class ZipReleaseClearTask : BaseTask() {
@@ -23,8 +22,7 @@ open class ZipReleaseClearTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         outputFiles.forEach { file ->
             if (file.isDirectory) {
                 file.deleteRecursively()

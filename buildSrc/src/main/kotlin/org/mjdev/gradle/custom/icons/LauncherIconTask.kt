@@ -9,7 +9,6 @@
 package org.mjdev.gradle.custom.icons
 
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.extensions.androidManifestFiles
 import org.mjdev.gradle.extensions.fileTree
@@ -23,7 +22,7 @@ open class LauncherIconTask : BaseTask() {
 
     val outputDir
         @OutputDirectory
-        get()= resOutputDirectory
+        get() = resOutputDirectory
 
     private var iconNames: MutableSet<String> = HashSet()
     private var foregroundIconNames: MutableSet<String> = HashSet()
@@ -42,8 +41,7 @@ open class LauncherIconTask : BaseTask() {
         description = "Generate icon due application variant"
     }
 
-    @TaskAction
-    fun run() {
+    override fun doTask() {
         if (filters.isEmpty()) return
         val names = HashSet<String>().apply {
             iconNames.forEach { add(it) }
@@ -92,4 +90,5 @@ open class LauncherIconTask : BaseTask() {
             }
         }
     }
+
 }

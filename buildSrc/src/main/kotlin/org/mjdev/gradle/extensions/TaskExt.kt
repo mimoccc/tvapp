@@ -14,17 +14,26 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.api.BaseVariant
+import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.StartParameter
 import org.gradle.api.GradleException
+import org.gradle.api.Plugin
+import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.plugins.AppliedPlugin
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.gradle.api.tasks.TaskContainer
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.mjdev.gradle.base.BaseTask
+import org.mjdev.gradle.plugin.config.base.BuildConfigs
 import java.io.File
+import kotlin.reflect.KClass
 
 val Task.projectName: String
     get() = project.name
@@ -108,6 +117,17 @@ val BaseTask.androidManifestFiles: List<File>
             manifestFile.exists()
         }
     }
+
+val Task.rootDir: File
+    get() = project.rootDir
+
+inline fun <reified T : Task> Task.registerTask(
+    name: String? = null,
+    fn: T.() -> Unit = {}
+): T = project.registerTask(name, fn)
+
+fun Task.files(vararg paths: Any): ConfigurableFileCollection =
+    project.files(paths)
 
 @Suppress("UnstableApiUsage")
 fun Task.finalizeDsl(block: CommonExtension<*, *, *, *, *>.() -> Unit) {
@@ -269,6 +289,31 @@ fun Task.runBeforeAssemble() = assembleTasks.forEach { task -> task.dependsOn(th
 fun Task.setTaskDescription(description: String?): Task = this.apply {
     description?.let { this.description = it }
 }
+
+inline fun <reified T> Task.runConfigured(crossinline function: T.() -> Unit) {
+    val config = project.extension<T>()
+    if (config is BuildConfigs) {
+//            project.androidExtension.buildTypes.forEach { bt ->
+//                println("> Configuring build : ${bt.name}")
+//                val btConfig = config.buildTypes[bt.name.lowercase()]
+//                println ("> Config: $btConfig")
+//                btConfig?.invoke(bt)
+//            }
+    }
+    function(config)
+}
+
+fun <T : Plugin<*>> Task.apply(type: KClass<T>): T =
+    project.apply(type)
+
+fun Task.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit) =
+    project.kotlinCompileOptions(scoped)
+
+fun Task.detektTask(scoped: Detekt.() -> Unit) =
+    project.detektTask(scoped)
+
+fun Task.dokkaTask(scoped: DokkaTask.() -> Unit) =
+    project.dokkaTask(scoped)
 
 fun Task.println(message: String) = this.log.lifecycle(message)
 

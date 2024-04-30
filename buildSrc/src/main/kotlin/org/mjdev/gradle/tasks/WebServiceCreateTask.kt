@@ -147,8 +147,7 @@ open class WebServiceCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         webDir.file(systemdFile).writeText(systemdFileContent)
         webDir.file(nginxFileName).writeText(nginxFileContent)
         webDir.file(packageFileName).writeText(packageJsonFile)

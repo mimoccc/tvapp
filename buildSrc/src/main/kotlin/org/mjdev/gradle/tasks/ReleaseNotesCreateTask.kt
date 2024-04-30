@@ -8,7 +8,6 @@
 
 package org.mjdev.gradle.tasks
 
-import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.impldep.org.eclipse.jgit.api.Git
 import org.gradle.internal.impldep.org.eclipse.jgit.internal.storage.file.FileRepository
 import org.mjdev.gradle.extensions.toDateString
@@ -18,7 +17,6 @@ import java.util.Locale
 import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.writeText
 import org.mjdev.gradle.extensions.projectVersion
-import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.base.BaseTask
 
 open class ReleaseNotesCreateTask : BaseTask() {
@@ -44,11 +42,10 @@ open class ReleaseNotesCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @Suppress("DEPRECATION")
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         println("Creating release notes")
         StringBuilder().apply {
+            @Suppress("DEPRECATION")
             append("** Release notes $projectVersion - ${Date().toLocaleString()}\n")
             branches.forEach { ref ->
                 if (ref.name.endsWith(branchName)) {
@@ -59,11 +56,11 @@ open class ReleaseNotesCreateTask : BaseTask() {
                     commits.forEach { commit ->
                         val author = commit.authorIdent
                             .name
-                            .toLowerCase(Locale.getDefault())
+                            .lowercase(Locale.getDefault())
                         val date = commit.authorIdent.`when`.toDateString()
                         val message = commit.fullMessage
                             .replace("\n", " ")
-                            .toLowerCase(Locale.getDefault())
+                            .lowercase(Locale.getDefault())
                         if (lastDate == null || !lastDate.contentEquals(date)) {
                             lastDate = date
                             append("\n")

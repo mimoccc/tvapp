@@ -28,6 +28,7 @@ import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.internal.impldep.jakarta.xml.bind.DatatypeConverter.parseBoolean
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.the
@@ -36,7 +37,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.mjdev.gradle.plugin.config.base.BuildConfigs
-//import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
+import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
 import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
@@ -136,6 +137,15 @@ val Project.isAndroid: Boolean
 val Project.packageName: String
     get() = applicationId
 
+val Project.androidStudioVersion
+    get() = project.extra.properties["android.studio.version"]
+
+val Project.runningFromAndroidStudio
+    get() = parseBoolean(project.extra.properties["android.injected.invoked.from.ide"].toString())
+
+val Project.isAndroidStudio
+    get() = project.extra.properties.keys.contains("android.studio.version")
+
 val Project.applicationId: String
     get() = if (isAndroid) android.defaultConfig.applicationId ?: "" else ""
 
@@ -209,7 +219,7 @@ val Project.log: Logger
 //    })
 //}
 
-fun Project.loadPropertiesFile(path:String) {
+fun Project.loadPropertiesFile(path: String) {
     val propertiesFile = project.rootDir.resolve(path)
     val props = Properties()
     props.load(FileInputStream(propertiesFile))
@@ -222,9 +232,10 @@ fun Project.loadPropertiesFile(path:String) {
 }
 
 inline fun <reified T> Project.extension(name: String? = null): T = runCatching {
-    var cfg: T? = project.extensions.findByType(T::class.java)
+    var cfg: T? = project.rootProject.extensions.findByType(T::class.java)
+        ?: project.extensions.findByType(T::class.java)
     if (cfg == null && name != null) {
-        project.extensions.add(name, T::class.java)
+        project.extensions.create(name, T::class.java)
     }
     cfg = project.extensions.findByType(T::class.java)
     cfg!!
@@ -266,9 +277,9 @@ fun Project.dokkaTask(scoped: DokkaTask.() -> Unit) {
     tasks.withType<DokkaTask>().first().also { t -> scoped(t) }
 }
 
-//fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) {
-//    tasks.withType<MarkdownToHtmlTask>().first().also { t -> scoped(t) }
-//}
+fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) {
+    tasks.withType<MarkdownToHtmlTask>().first().also { t -> scoped(t) }
+}
 
 fun Project.registerSources(outDir: File, variant: BaseVariant) {
     if (outDir.absolutePath.contains("generated/source")) {
