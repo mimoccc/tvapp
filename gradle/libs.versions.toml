@@ -1,47 +1,41 @@
 [versions]
-app-namespace = "org.mjdev.tvapp"
-gradleOspackagePlugin = "8.4.1"
-lib-namespace = "org.mjdev.tvlib"
-#
-markdownGradlePlugin = "2.2.0"
-minSdk = "21"
-compileSdk = "34"
-targetSdk = "34"
-#
-debug-keyfile = "config/signing.prop"
-release-keyfile = "config/signing.prop"
-#
-jacoco-version = "0.8.8"
-kotlin-compiler-version = "1.5.8"
 #
 accompanist-permissions = "0.33.2-alpha"
 aescrypt = "0.0.1"
 android-documentation-plugin = "1.9.10"
+android-material = "1.11.0"
 androidsvg-aar = "1.4"
 #
 androidx-activity-compose = "1.9.0"
+androidx-compose-bom = "2024.04.01"
 androidx-customview-poolingcontainer = "1.0.0"
 androidx-espresso-core = "3.5.1"
 androidx-exifinterface = "1.3.7"
 androidx-foundation = "1.6.6"
 androidx-glance-appwidget = "1.0.0"
 androidx-hilt-navigation-compose = "1.2.0"
+androidx-junit = "1.1.5"
 androidx-ktx = "1.13.0"
-androidx-compose-bom = "2024.04.01"
 androidx-lifecycle-viewmodel-compose = "2.7.0"
 androidx-material-icons-extended = "1.6.6"
+androidx-material3 = "1.2.1"
 androidx-media3 = "1.3.1"
 androidx-navigation-compose = "2.7.7"
 androidx-palette-ktx = "1.0.0"
 androidx-tv = "1.0.0-alpha10"
-androidx-junit = "1.1.5"
-androidx-material3 = "1.2.1"
-
+androidx-window = "1.2.0"
+androidx-work-runtime-ktx = "2.9.0"
 anrwatchdog = "1.4.0"
 apk-parser = "2.6.10"
+app-namespace = "org.mjdev.tvapp"
 auth0 = "2.10.2"
+compileSdk = "34"
 compose = "1.0.0-beta01"
 converter-moshi = "2.9.0"
+dagger = "2.50"
+dailymotion-sdk-android = "0.2.12"
+#
+debug-keyfile = "config/signing.prop"
 dependency-analysis-gradle-plugin = "0.10.0"
 detekt-formatting = "1.23.4"
 detekt-gradle-plugin = "1.23.4"
@@ -51,84 +45,75 @@ google-api-services-androidpublisher = "v3-rev41-1.25.0"
 gradle = "8.2.2"
 gradle-api = "8.2.2"
 gradle-docker-plugin = "9.4.0"
+gradleOspackagePlugin = "8.4.1"
 ini4j = "0.5.4"
+#
+jacoco-version = "0.8.8"
 javapoet = "1.13.0"
+jsoup = "1.17.2"
+junit = "4.13.2"
+jwtdecode = "2.0.2"
 korim-jvm = "4.0.2"
+kotlin-compiler-version = "1.5.8"
 kotlin-gradle-plugin = "1.9.22"
+kotlin-reflect = "1.9.22"
 kotlin-stdlib-jdk8 = "1.9.22"
 kotlinpoet = "1.13.2"
 kotlinter-gradle = "3.16.0"
+kotlinx-coroutines-android = "1.8.0"
 ktoml = "0.5.1"
+landscapist-glide = "2.2.13"
+lib-namespace = "org.mjdev.tvlib"
+lottie-compose = "6.2.0"
+#
+markdownGradlePlugin = "2.2.0"
+minSdk = "21"
 mockito-kotlin = "5.2.1"
+moshi = "1.15.0"
 moshi-kotlin = "1.12.0"
 objectbox-gradle-plugin = "3.7.1"
 okhttp = "5.0.0-alpha.12"
+okhttp3-bom = "5.0.0-alpha.12"
+okhttp3-integration = "4.16.0"
+okhttp3-logging-interceptor = "5.0.0-alpha.12"
 org-eclipse-jgit = "4.8.0.201706111038-r"
 paparazzi-gradle-plugin = "1.3.2"
 photofilter = "2.0.2"
 r8 = "8.3.37"
-zxing-core = "3.5.2"
-dagger = "2.50"
-jsoup = "1.17.2"
-junit = "4.13.2"
-jwtdecode = "2.0.2"
-kotlin-reflect = "1.9.22"
-kotlinx-coroutines-android = "1.8.0"
-landscapist-glide = "2.2.13"
-okhttp3-logging-interceptor = "5.0.0-alpha.12"
-lottie-compose = "6.2.0"
-android-material = "1.11.0"
-moshi = "1.15.0"
-okhttp3-integration = "4.16.0"
+release-keyfile = "config/signing.prop"
 retrofit2-kotlin-coroutines-adapter = "0.9.2"
 sandwich = "2.0.5"
-dailymotion-sdk-android = "0.2.12"
+targetSdk = "34"
 timber = "5.0.1"
-androidx-window = "1.2.0"
-androidx-work-runtime-ktx = "2.9.0"
-okhttp3-bom = "5.0.0-alpha.12"
+zxing-core = "3.5.2"
+
 # libraries ########################################################################################
 [libraries]
 # common
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
 aescrypt = { module = "com.scottyab:aescrypt", version.ref = "aescrypt" }
+android-jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" }
+# material
+android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 androidsvg-aar = { module = "com.caverock:androidsvg-aar", version.ref = "androidsvg-aar" }
-anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
-apk-parser = { module = "net.dongliu:apk-parser", version.ref = "apk-parser" }
-auth0 = { module = "com.auth0.android:auth0", version.ref = "auth0" }
-ini4j = { module = "org.ini4j:ini4j", version.ref = "ini4j" }
-jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
-junit = { module = "junit:junit", version.ref = "junit" }
-# kotlin
-kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin-stdlib-jdk8" }
-kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-reflect" }
-# kotlinx
-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-android" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+# compose
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt-navigation-compose" }
+androidx-compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle-viewmodel-compose" }
+androidx-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation-compose" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 # androidx
 androidx-customview-poolingcontainer = { module = "androidx.customview:customview-poolingcontainer", version.ref = "androidx-customview-poolingcontainer" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso-core" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "androidx-exifinterface" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-foundation" }
-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
-androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-ktx" }
-androidx-window = { module = "androidx.window:window", version.ref = "androidx-window" }
-androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work-runtime-ktx" }
 # glance
 androidx-glance-appwidget = { module = "androidx.glance:glance-appwidget", version.ref = "androidx-glance-appwidget" }
 androidx-glance-material = { module = "androidx.glance:glance-material", version.ref = "androidx-glance-appwidget" }
 androidx-glance-material3 = { module = "androidx.glance:glance-material3", version.ref = "androidx-glance-appwidget" }
-# compose
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
-androidx-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt-navigation-compose" }
-androidx-compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle-viewmodel-compose" }
-androidx-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation-compose" }
-compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
-# material
-android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
+androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-ktx" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-material-icons-extended" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-material3" }
 # media
@@ -137,9 +122,9 @@ androidx-media3-common = { module = "androidx.media3:media3-common", version.ref
 androidx-media3-database = { module = "androidx.media3:media3-database", version.ref = "androidx-media3" }
 androidx-media3-datasource = { module = "androidx.media3:media3-datasource", version.ref = "androidx-media3" }
 androidx-media3-datasource-cronet = { module = "androidx.media3:media3-datasource-cronet", version.ref = "androidx-media3" }
-androidx-media3-decoder = { module = "androidx.media3:media3-decoder", version.ref = "androidx-media3" }
 androidx-media3-datasource-okhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
 androidx-media3-datasource-rtmp = { module = "androidx.media3:media3-datasource-rtmp", version.ref = "androidx-media3" }
+androidx-media3-decoder = { module = "androidx.media3:media3-decoder", version.ref = "androidx-media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
 androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "androidx-media3" }
 androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "androidx-media3" }
@@ -156,10 +141,12 @@ androidx-palette-ktx = { module = "androidx.palette:palette-ktx", version.ref = 
 # tv
 androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "androidx-tv" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx-tv" }
-# glide
-glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
-glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "okhttp3-integration" }
-glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "okhttp3-integration" }
+androidx-window = { module = "androidx.window:window", version.ref = "androidx-window" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work-runtime-ktx" }
+anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
+apk-parser = { module = "net.dongliu:apk-parser", version.ref = "apk-parser" }
+auth0 = { module = "com.auth0.android:auth0", version.ref = "auth0" }
+compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
 # dagger
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
@@ -168,6 +155,45 @@ dagger-android-support = { module = "com.google.dagger:dagger-android-support", 
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+dailymotion-sdk-android = { module = "com.dailymotion.dailymotion-sdk-android:sdk", version.ref = "dailymotion-sdk-android" }
+#
+dependency-analysis-gradle-plugin = { module = "gradle.plugin.com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependency-analysis-gradle-plugin" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt-formatting" }
+eclipse-jgit = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "org-eclipse-jgit" }
+# glide
+glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
+glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "okhttp3-integration" }
+glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "okhttp3-integration" }
+google-api-services-androidpublisher = { module = "com.google.apis:google-api-services-androidpublisher", version.ref = "google-api-services-androidpublisher" }
+# gradle ###########################################################################################
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "gradle-api" }
+gradle-detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle-plugin" }
+gradle-docker-plugin = { module = "com.bmuschko:gradle-docker-plugin", version.ref = "gradle-docker-plugin" }
+gradle-dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka-gradle-plugin" }
+gradle-kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+gradle-kotlinter = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "kotlinter-gradle" }
+gradle-markdown-plugin = { module = "org.kordamp.gradle:markdown-gradle-plugin", version.ref = "markdownGradlePlugin" }
+gradle-objectbox-plugin = { module = "io.objectbox:objectbox-gradle-plugin", version.ref = "objectbox-gradle-plugin" }
+gradle-ospackage-plugin = { module = "com.netflix.nebula:gradle-ospackage-plugin", version.ref = "gradleOspackagePlugin" }
+gradle-paparazzi-plugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "paparazzi-gradle-plugin" }
+gradle-tools-r8 = { module = "com.android.tools:r8", version.ref = "r8" }
+ini4j = { module = "org.ini4j:ini4j", version.ref = "ini4j" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+junit = { module = "junit:junit", version.ref = "junit" }
+korim-jvm = { module = "com.soywiz.korlibs.korim:korim-jvm", version.ref = "korim-jvm" }
+kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-reflect" }
+# kotlin
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin-stdlib-jdk8" }
+# kotlinx
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-android" }
+# landscapist
+landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapist-glide" }
+landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "landscapist-glide" }
+landscapist-placeholder = { module = "com.github.skydoves:landscapist-placeholder", version.ref = "landscapist-glide" }
+landscapist-transformation = { module = "com.github.skydoves:landscapist-transformation", version.ref = "landscapist-glide" }
 # ktoml
 #ktoml-core = { module = "com.akuleshov7:ktoml-core", version.ref = "ktoml" }
 #ktoml-file = { module = "com.akuleshov7:ktoml-file", version.ref = "ktoml" }
@@ -176,45 +202,20 @@ moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi-kotlin" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 moshi-retrofit-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converter-moshi" }
-# landscapist
-landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapist-glide" }
-landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "landscapist-glide" }
-landscapist-placeholder = { module = "com.github.skydoves:landscapist-placeholder", version.ref = "landscapist-glide" }
-landscapist-transformation = { module = "com.github.skydoves:landscapist-transformation", version.ref = "landscapist-glide" }
 # okhttp
-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-okhttp3-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp3-bom" }
+okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp3-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp3-bom" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3-logging-interceptor" }
-#
-dependency-analysis-gradle-plugin = { module = "gradle.plugin.com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependency-analysis-gradle-plugin" }
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt-formatting" }
-google-api-services-androidpublisher = { module = "com.google.apis:google-api-services-androidpublisher", version.ref = "google-api-services-androidpublisher" }
+photofilter = { module = "com.github.mukeshsolanki:photofilter", version.ref = "photofilter" }
 poet-java = { module = "com.squareup:javapoet", version.ref = "javapoet" }
 poet-kotlin = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
-korim-jvm = { module = "com.soywiz.korlibs.korim:korim-jvm", version.ref = "korim-jvm" }
-eclipse-jgit = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "org-eclipse-jgit" }
-photofilter = { module = "com.github.mukeshsolanki:photofilter", version.ref = "photofilter" }
-zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
-android-jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converter-moshi" }
 retrofit2-kotlin-coroutines-adapter = { module = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter", version.ref = "retrofit2-kotlin-coroutines-adapter" }
 sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
 sandwich-retrofit = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwich" }
-dailymotion-sdk-android = { module = "com.dailymotion.dailymotion-sdk-android:sdk", version.ref = "dailymotion-sdk-android" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-# gradle ###########################################################################################
-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
-gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "gradle-api" }
-gradle-docker-plugin = { module = "com.bmuschko:gradle-docker-plugin", version.ref = "gradle-docker-plugin" }
-gradle-kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
-gradle-objectbox-plugin = { module = "io.objectbox:objectbox-gradle-plugin", version.ref = "objectbox-gradle-plugin" }
-gradle-tools-r8 = { module = "com.android.tools:r8", version.ref = "r8" }
-gradle-detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle-plugin" }
-gradle-paparazzi-plugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "paparazzi-gradle-plugin" }
-gradle-kotlinter = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "kotlinter-gradle" }
-gradle-dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka-gradle-plugin" }
-gradle-markdown-plugin = { module = "org.kordamp.gradle:markdown-gradle-plugin", version.ref = "markdownGradlePlugin" }
-gradle-ospackage-plugin = { module = "com.netflix.nebula:gradle-ospackage-plugin", version.ref = "gradleOspackagePlugin" }
+zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
+
 #classpath("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
 #classpath("org.jetbrains.kotlin:kotlin-scripting-common:1.9.22")
 #classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22")
@@ -225,15 +226,15 @@ gradle-ospackage-plugin = { module = "com.netflix.nebula:gradle-ospackage-plugin
 #classpath("com.newrelic.agent.android:agent-gradle-plugin:5.9.0")
 ## plugins #########################################################################################
 [plugins]
-android-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.9.22" }
-android-application = { id = "com.android.application", version = "8.3.2" }
-android-library = { id = "com.android.library", version = "8.3.2" }
-android-dagger-hilt = { id = "com.google.dagger.hilt.android", version = "2.47" }
-devtools-google-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "11.3.2" }
-gradle-markdown = { id = "org.kordamp.gradle.markdown", version = "2.2.0" }
-gradle-os-packages = { id = "nebula.ospackage", version = "9.1.1" }
-gradle-versions = { id = "com.github.ben-manes.versions", version = "0.41.0" }
-gradle-catalogs-update = { id = "nl.littlerobots.version-catalog-update", version = "0.8.4" }
+android-application = "com.android.application:8.3.2"
+android-kotlin = "org.jetbrains.kotlin.android:1.9.22"
+android-library = "com.android.library:8.3.2"
+gradle-android-dagger-hilt = "com.google.dagger.hilt.android:2.47"
+gradle-catalogs-update = "nl.littlerobots.version-catalog-update:0.8.4"
+gradle-devtools-google-ksp = "com.google.devtools.ksp:1.9.22-1.0.17"
+gradle-ktlint = "org.jlleitschuh.gradle.ktlint:11.3.2"
 # todo ktorfit https://foso.github.io/Ktorfit/
-gradle-ktorfit = { id = "de.jensklingenberg.ktorfit", version = "1.10.2" }
+gradle-ktorfit = "de.jensklingenberg.ktorfit:1.10.2"
+gradle-markdown = "org.kordamp.gradle.markdown:2.2.0"
+gradle-os-packages = "nebula.ospackage:9.1.1"
+gradle-versions = "com.github.ben-manes.versions:0.41.0"

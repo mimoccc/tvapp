@@ -13,6 +13,8 @@ import org.mjdev.gradle.plugin.config.base.BuildConfigs
 @Suppress("unused")
 open class AppConfig : BuildConfigs() {
 
+    open var description = ""
+
     open var autoCorrectCode = false
     open var ignoreCodeFailures = true
     open var createDocumentation = false

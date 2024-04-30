@@ -51,14 +51,14 @@ import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.loadPropertiesFile
 import org.mjdev.gradle.extensions.runConfigured
 import org.mjdev.gradle.plugin.config.AppConfig
+import org.mjdev.gradle.tasks.ApplicationConfigTask
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
-
-//import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
-//import org.mjdev.gradle.extensions.markDownToHtmlTask
+import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
+import org.mjdev.gradle.extensions.markDownToHtmlTask
 
 @Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
@@ -89,23 +89,20 @@ class AppPlugin : BasePlugin() {
         extension<AppConfig>(configFieldName)
         loadPropertiesFile(versionPropertiesFile)
         apply(plugin = "com.android.application")
-        apply(plugin = "kotlin-android")
         apply(plugin = "kotlin-kapt")
+        apply(plugin = "kotlin-android")
         apply(plugin = "kotlin-parcelize")
         apply(plugin = "com.google.devtools.ksp")
         apply(plugin = "com.google.dagger.hilt.android")
         apply(plugin = "dagger.hilt.android.plugin")
         apply(plugin = "io.objectbox")
         apply(plugin = "org.jetbrains.dokka")
-//        apply(MarkdownPlugin::class)
+        apply(MarkdownPlugin::class)
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
-        registerTask<ReleaseNotesCleanTask> {
-            runAfterCleanTask()
-        }
-        registerTask<ZipReleaseClearTask> {
-            runAfterCleanTask()
-        }
+        registerTask<ReleaseNotesCleanTask> { runAfterCleanTask() }
+        registerTask<ZipReleaseClearTask> { runAfterCleanTask() }
+        registerTask<ApplicationConfigTask> { runAfterCleanTask() }
         configure<ApplicationExtension> {
             // todo : move
             namespace = libs.versions.app.namespace.string
@@ -252,7 +249,7 @@ class AppPlugin : BasePlugin() {
                 if (createDocumentation)
                     runAfterAssembleTask()
             }
-//            markDownToHtmlTask {
+            markDownToHtmlTask {
 //                sourceDir = rootDir
 //                outputDir = rootDir.resolve("web")
 //                hardwraps = true
@@ -273,7 +270,7 @@ class AppPlugin : BasePlugin() {
 //                if(createWebSiteFromGit) {
 //                    runAfterAssembleTask()
 //                }
-//            }
+            }
             if (createWebApp) {
                 registerTask<WebServiceCreateTask> {
                     domain = "localhost"

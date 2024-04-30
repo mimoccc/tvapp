@@ -9,7 +9,6 @@
 package org.mjdev.gradle.tasks
 
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.extensions.applicationId
 import org.mjdev.gradle.extensions.createFile
 import org.mjdev.gradle.extensions.srcOutputDirectory
@@ -18,7 +17,6 @@ import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.extensions.write
 import org.mjdev.gradle.extensions.registerSourceDirectory
 
-@Suppress("MemberVisibilityCanBePrivate")
 open class InAppInfoCreateTask : BaseTask() {
 
     @get:OutputDirectory
@@ -31,8 +29,7 @@ open class InAppInfoCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun taskAction() {
+    override fun doTask() {
         registerSourceDirectory(srcOutputDir)
         createFile(
             name = "ApplicationInfo",

@@ -7,13 +7,11 @@
  */
 
 plugins {
-    alias(libs.plugins.android.dagger.hilt) apply false
-    alias(libs.plugins.devtools.google.ksp) apply false
+    alias(libs.plugins.gradle.android.dagger.hilt) apply false
+    alias(libs.plugins.gradle.devtools.google.ksp) apply false
     alias(libs.plugins.gradle.ktlint) apply false
-//    alias(libs.plugins.gradle.markdown) apply false
-//    alias(libs.plugins.gradle.os.packages) apply false
-//    alias(libs.plugins.gradle.versions)apply false
-//    alias(libs.plugins.gradle.catalogs.update) apply false
+    alias(libs.plugins.gradle.versions) apply true
+    alias(libs.plugins.gradle.catalogs.update) apply true
 }
 
 buildscript {
@@ -34,12 +32,31 @@ buildscript {
         classpath(libs.gradle.paparazzi.plugin)
         classpath(libs.gradle.kotlinter)
         classpath(libs.gradle.dokka.plugin)
-//        classpath(libs.gradle.markdown.plugin)
-//        classpath(libs.gradle.ospackage.plugin)
+        classpath(libs.gradle.markdown.plugin)
+        classpath(libs.gradle.ospackage.plugin)
     }
 
     configurations.classpath {
         resolutionStrategy.activateDependencyLocking()
+    }
+}
+
+versionCatalogUpdate {
+    sortByKey = true
+    pin {
+//        versions = ["my-version-name", "other-version"]
+//        libraries = [libs.my.library.reference, libs.my.other.library.reference]
+//        plugins = [libs.plugins.my.plugin, libs.plugins.my.other.plugin]
+//        groups = ["com.somegroup", "com.someothergroup"]
+    }
+    keep {
+//        versions = ["my-version-name", "other-version"]
+//        libraries = [libs.my.library.reference, libs.my.other.library.reference]
+//        plugins = [libs.plugins.my.plugin, libs.plugins.my.other.plugin]
+//        groups = ["com.somegroup", "com.someothergroup"]
+        keepUnusedVersions = true
+        keepUnusedLibraries = true
+        keepUnusedPlugins = true
     }
 }
 
