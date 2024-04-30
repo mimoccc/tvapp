@@ -20,6 +20,7 @@ open class LibConfig {
 
     open var codeReportsDir = "reports/lib"
     open var documentationDir = "documentation/lib"
+
     open var detectConfigFile = "config/detekt.yml"
 
     open var javaVersion = JavaVersion.VERSION_17

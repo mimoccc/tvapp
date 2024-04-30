@@ -1,7 +1,8 @@
-** Release notes 1.2.6 - 30. 4. 2024, 22:12:56
+** Release notes 1.2.6 - 30. 4. 2024, 22:34:31
 
 * 30.04.2024
 
+* [milan jurkulák] : code improvements 
 * [milan jurkulak] : on main:  
 * [milan jurkulak] : index on main: beb6796 code improvements  
 * [milan jurkulák] : code improvements 

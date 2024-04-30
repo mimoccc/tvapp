@@ -50,46 +50,44 @@ import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.loadPropertiesFile
 import org.mjdev.gradle.extensions.runConfigured
 import org.mjdev.gradle.plugin.config.AppConfig
-import org.mjdev.gradle.tasks.ApplicationConfigTask
 import org.mjdev.gradle.tasks.ReleaseNotesCleanTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseClearTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
-import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.markDownToHtmlTask
-import org.mjdev.gradle.extensions.runConfigured
 
+@Suppress("UnstableApiUsage")
 class AppPlugin : BasePlugin() {
     private val configFieldName = "appConfig"
 
     override fun Project.work() {
         val appConfig = extension<AppConfig>(configFieldName)
         loadPropertiesFile(appConfig.versionPropertiesFile)
-        println("---------------------------------------------------------------------")
-        println("App Configuration")
-        println("---------------------------------------------------------------------")
-        println("Project version : ${project.versionName}")
-        println("Project description : $description")
-        println("---------------------------------------------------------------------")
-        println("autoCorrectCode : ${appConfig.autoCorrectCode}")
-        println("ignoreCodeFailures : ${appConfig.ignoreCodeFailures}")
-        println("createDocumentation : ${appConfig.createDocumentation}")
-        println("reportUndocumentedFiles : ${appConfig.reportUndocumentedFiles}")
-        println("failOnDocumentationWarning : ${appConfig.failOnDocumentationWarning}")
-        println("createReleaseNotes : ${appConfig.createReleaseNotes}")
-        println("createZipRelease : ${appConfig.createZipRelease}")
-        println("createInfoClass : ${appConfig.createInfoClass}")
-        println("createWebApp : ${appConfig.createWebApp}")
-        println("createWebSiteFromGit : ${appConfig.createWebSiteFromGit}")
-        println("renameApkOutputByAppID : ${appConfig.renameApkOutputByAppID}")
-        println("launcherIconByBuildType : ${appConfig.launcherIconByBuildType}")
-        println("---------------------------------------------------------------------")
-        println("codeReportsDir : ${appConfig.codeReportsDir}")
-        println("documentationDir : ${appConfig.documentationDir}")
-        println("detectConfigFile : ${appConfig.detectConfigFile}")
-        println("---------------------------------------------------------------------")
+//        println("---------------------------------------------------------------------")
+//        println("App Configuration")
+//        println("---------------------------------------------------------------------")
+//        println("Project version : ${project.versionName}")
+//        println("Project description : $description")
+//        println("---------------------------------------------------------------------")
+//        println("autoCorrectCode : ${appConfig.autoCorrectCode}")
+//        println("ignoreCodeFailures : ${appConfig.ignoreCodeFailures}")
+//        println("createDocumentation : ${appConfig.createDocumentation}")
+//        println("reportUndocumentedFiles : ${appConfig.reportUndocumentedFiles}")
+//        println("failOnDocumentationWarning : ${appConfig.failOnDocumentationWarning}")
+//        println("createReleaseNotes : ${appConfig.createReleaseNotes}")
+//        println("createZipRelease : ${appConfig.createZipRelease}")
+//        println("createInfoClass : ${appConfig.createInfoClass}")
+//        println("createWebApp : ${appConfig.createWebApp}")
+//        println("createWebSiteFromGit : ${appConfig.createWebSiteFromGit}")
+//        println("renameApkOutputByAppID : ${appConfig.renameApkOutputByAppID}")
+//        println("launcherIconByBuildType : ${appConfig.launcherIconByBuildType}")
+//        println("---------------------------------------------------------------------")
+//        println("codeReportsDir : ${appConfig.codeReportsDir}")
+//        println("documentationDir : ${appConfig.documentationDir}")
+//        println("detectConfigFile : ${appConfig.detectConfigFile}")
+//        println("---------------------------------------------------------------------")
         apply(plugin = "com.android.application")
         apply(plugin = "kotlin-kapt")
         apply(plugin = "kotlin-android")
@@ -102,8 +100,14 @@ class AppPlugin : BasePlugin() {
         apply(MarkdownPlugin::class)
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
-        registerTask<ReleaseNotesCleanTask> { runAfterCleanTask() }
-        registerTask<ZipReleaseClearTask> { runAfterCleanTask() }
+        registerTask<ReleaseNotesCleanTask> {
+            enabled = appConfig.createReleaseNotes
+            runAfterCleanTask()
+        }
+        registerTask<ZipReleaseClearTask> {
+            enabled = appConfig.createZipRelease
+            runAfterCleanTask()
+        }
         configure<ApplicationExtension> {
             // todo : move
             namespace = libs.versions.app.namespace.string
@@ -228,10 +232,11 @@ class AppPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (autoCorrectCode)
-                    runAfterAssembleTask()
+                enabled = autoCorrectCode
+                runAfterAssembleTask()
             }
             dokkaTask {
+                enabled = createDocumentation
                 outputDirectory.set(rootDir.resolve(documentationDir))
                 moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
@@ -248,10 +253,10 @@ class AppPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (createDocumentation)
-                    runAfterAssembleTask()
+                runAfterAssembleTask()
             }
             markDownToHtmlTask {
+                enabled = createWebSiteFromGit
 //                sourceDir = rootDir
 //                outputDir = rootDir.resolve("web")
 //                hardwraps = true
@@ -273,26 +278,24 @@ class AppPlugin : BasePlugin() {
 //                    runAfterAssembleTask()
 //                }
             }
-            if (createWebApp) {
-                registerTask<WebServiceCreateTask> {
-                    domain = "localhost"
-                    servicePort = 2222
-                    serviceName = project.name
-                    serviceVersion = project.versionName
-                    serviceCompany = "mjdev"
-                    serviceLicense = ""
-                    runAfterCleanTask()
-                }
+            registerTask<WebServiceCreateTask> {
+                enabled = createWebApp
+                domain = "localhost"
+                servicePort = 2222
+                serviceName = project.name
+                serviceVersion = project.versionName
+                serviceCompany = "mjdev"
+                serviceLicense = ""
+                runAfterCleanTask()
             }
             val rnTask = registerTask<ReleaseNotesCreateTask> {
-                if (createReleaseNotes)
-                    runAfterAssembleTask()
+                enabled = createReleaseNotes
+                runAfterAssembleTask()
             }
             registerTask<ZipReleaseCreateTask> {
-                if (createReleaseNotes)
-                    mustRunAfter(rnTask)
-                if (createZipRelease)
-                    runAfterAssembleTask()
+                enabled = createZipRelease
+                if (createReleaseNotes) mustRunAfter(rnTask)
+                runAfterAssembleTask()
             }
             configure<DetektExtension> {
                 ignoreFailures = ignoreCodeFailures

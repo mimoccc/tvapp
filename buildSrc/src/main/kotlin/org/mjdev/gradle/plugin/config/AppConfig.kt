@@ -32,6 +32,7 @@ open class AppConfig : BuildConfigs() {
 
     open var codeReportsDir = "reports/app"
     open var documentationDir = "documentation/app"
+
     open var detectConfigFile = "config/detekt.yml"
 
     open var javaVersion = JavaVersion.VERSION_17

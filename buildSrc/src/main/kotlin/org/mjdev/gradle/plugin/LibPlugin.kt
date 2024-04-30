@@ -11,7 +11,6 @@ package org.mjdev.gradle.plugin
 import com.android.build.api.dsl.LibraryExtension
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.apply
@@ -136,10 +135,11 @@ class LibPlugin : BasePlugin() {
                 }
             }
             detektTask {
-                if (autoCorrectCode)
-                    runAfterAssembleTask()
+                enabled = autoCorrectCode
+                runAfterAssembleTask()
             }
             dokkaTask {
+                enabled = createDocumentation
                 outputDirectory.set(rootDir.resolve(documentationDir))
                 moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
@@ -156,8 +156,7 @@ class LibPlugin : BasePlugin() {
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                if (createDocumentation)
-                    runAfterAssembleTask()
+                runAfterAssembleTask()
             }
             configure<DetektExtension> {
                 reportsDir = rootDir.resolve(codeReportsDir)
