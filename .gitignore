@@ -26,7 +26,7 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
-release*.zip
+release.zip
 
 # Log/OS Files
 *.log
@@ -59,14 +59,13 @@ google-services.json
 # Android Profiling
 *.hprof!/release.zip
 
-# documentation
-!/documentation/release-notes*
-
 #reports
+/reports/app
 /reports/app/
+/reports/lib
 /reports/lib/
 
 # web app
-!/web/app.nginx
-!/web/app.service
-!/web/package.json
+/web/app.nginx
+/web/app.service
+/web/package.json

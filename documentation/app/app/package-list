@@ -230,14 +230,14 @@ $dokka.location:org.mjdev.tvapp.database////PointingToDeclaration/app/org.mjdev
 $dokka.location:org.mjdev.tvapp.database/DAO.Companion///PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/-companion/index.md
 $dokka.location:org.mjdev.tvapp.database/DAO.Companion/DATABASE_NAME/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/-companion/-d-a-t-a-b-a-s-e_-n-a-m-e.md
 $dokka.location:org.mjdev.tvapp.database/DAO///PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/index.md
-$dokka.location:org.mjdev.tvapp.database/DAO/DAO/#android.content.Context/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/-d-a-o.md
+$dokka.location:org.mjdev.tvapp.database/DAO/DAO/#android.content.Context#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/-d-a-o.md
 $dokka.location:org.mjdev.tvapp.database/DAO/allMediaItems/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/all-media-items.md
-$dokka.location:org.mjdev.tvapp.database/DAO/cache/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/cache.md
+$dokka.location:org.mjdev.tvapp.database/DAO/autoDeleteDatabaseOnSchemaError/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/auto-delete-database-on-schema-error.md
 $dokka.location:org.mjdev.tvapp.database/DAO/categoryDao/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/category-dao.md
 $dokka.location:org.mjdev.tvapp.database/DAO/channelsDao/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/channels-dao.md
 $dokka.location:org.mjdev.tvapp.database/DAO/context/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/context.md
 $dokka.location:org.mjdev.tvapp.database/DAO/countriesDao/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/countries-dao.md
-$dokka.location:org.mjdev.tvapp.database/DAO/getCachedList/#kotlin.Function0[kotlin.collections.List[*]]/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/get-cached-list.md
+$dokka.location:org.mjdev.tvapp.database/DAO/isDebug/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/is-debug.md
 $dokka.location:org.mjdev.tvapp.database/DAO/messagesDao/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/messages-dao.md
 $dokka.location:org.mjdev.tvapp.database/DAO/movieDao/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/movie-dao.md
 $dokka.location:org.mjdev.tvapp.database/DAO/parsedLinks/#/PointingToDeclaration/app/org.mjdev.tvapp.database/-d-a-o/parsed-links.md
@@ -415,6 +415,7 @@ $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel.Companion/mock/#androi
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel///PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/index.md
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/DetailViewModel/#/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/-detail-view-model.md
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/dao/#/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/dao.md
+$dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/getCachedList/#kotlin.Function0[kotlin.collections.List[*]]/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/get-cached-list.md
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/localAudioCursor/#/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/local-audio-cursor.md
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/localPhotoCursor/#/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/local-photo-cursor.md
 $dokka.location:org.mjdev.tvapp.viewmodel/DetailViewModel/localVideoCursor/#/PointingToDeclaration/app/org.mjdev.tvapp.viewmodel/-detail-view-model/local-video-cursor.md
