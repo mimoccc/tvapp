@@ -9,35 +9,39 @@
 package org.mjdev.gradle.tasks
 
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.projectVersion
+import org.mjdev.gradle.extensions.zipArchive
 
 open class ZipReleaseCreateTask : BaseTask() {
 
-    private val releaseFile = project.rootProject
-        .file("documentation")
-        .file("release-notes-$projectVersion.md")
+    private val zipFileName = "release.zip"
 
-    private val readmeFile = project.rootProject
-        .file("readme.md")
-
-    private val files = arrayListOf(
-        releaseFile,
-        readmeFile,
-        project.rootProject.file("dependencies.txt"),
-        project.rootProject.file("reports"),
-        project.rootProject.file("web"),
-        project.file("build").file("outputs").file("apk").file("debug"),
-        project.file("build").file("outputs").file("apk").file("release"),
+    @Suppress("DEPRECATION")
+    private val files = mutableListOf(
+        project.rootDir
+            .resolve("documentation"),
+        project.rootDir
+            .resolve("readme.md"),
+        project.rootDir
+            .resolve("reports"),
+        project.rootDir
+            .resolve("web"),
+        project.buildDir
+            .resolve("outputs")
+            .resolve("apk")
+            .resolve("debug"),
+        project.buildDir
+            .resolve("outputs")
+            .resolve("apk")
+            .resolve("release"),
     )
 
-    private val zipFileName = "zipFileName"
-    private val zipFile = project.rootDir.resolve(zipFileName)
+    private val zipFile
+        get() = project.rootDir.resolve(zipFileName)
 
     init {
         group = "mjdev"
         description = "This task makes archive from build artifacts and wiki, and logs."
-
         outputs.upToDateWhen { false }
     }
 
@@ -48,12 +52,7 @@ open class ZipReleaseCreateTask : BaseTask() {
     }
 
     override fun onAssemble() {
-//        from(files)
-//        include("*", "*/*", "*/**")
-//        includeEmptyDirs = true
-//        destinationDirectory.set(project.rootProject.rootDir)
-//        archiveFileName.set("release.zip")
-        // todo
+        zipArchive(files, zipFile)
     }
 
 }

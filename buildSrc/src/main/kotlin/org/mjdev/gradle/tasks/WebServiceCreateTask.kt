@@ -108,9 +108,9 @@ open class WebServiceCreateTask : BaseTask() {
                 "  \"scripts\": {\n" +
                 "    \"start\": \"export PORT=$servicePort && node $appName\",\n" +
                 "    \"dev\": \"nodemon\",\n" +
-                "    \"build\": \"npm install && npm run build\",\n" +
+                "    \"build\": \"npm install.sh && npm run build\",\n" +
                 "    \"serve\": \"node $appName\",\n" +
-                "    \"release\": \"npm install && npm run build && export PORT=$servicePort && node $appName\"\n" +
+                "    \"release\": \"npm install.sh && npm run build && export PORT=$servicePort && node $appName\"\n" +
                 "  },\n" +
                 "  \"author\": \"$serviceAuthor $serviceCompany (c) ${Date().year}\",\n" +
                 "  \"license\": \"$serviceLicense\",\n" +

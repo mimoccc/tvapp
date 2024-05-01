@@ -11,6 +11,8 @@
 package org.mjdev.gradle.extensions
 
 import org.gradle.internal.impldep.org.apache.commons.io.FileUtils
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.LinkOption
@@ -21,6 +23,56 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+private const val DEFAULT_BUFFER_SIZE: Int = 8 * 1024
+
+fun File.bufferedOutputStream(size: Int = kotlin.io.DEFAULT_BUFFER_SIZE) =
+    BufferedOutputStream(this.outputStream(), size)
+
+fun File.zipOutputStream(size: Int = kotlin.io.DEFAULT_BUFFER_SIZE) =
+    ZipOutputStream(this.bufferedOutputStream(size))
+
+fun File.bufferedInputStream(size: Int = kotlin.io.DEFAULT_BUFFER_SIZE) =
+    BufferedInputStream(this.inputStream(), size)
+
+fun zipArchive(
+    files: List<File>,
+    destination: File,
+    excludes: List<String> = emptyList() // todo
+) {
+    destination.zipOutputStream().use { zipStream ->
+        zipArchive(files, zipStream, "", excludes)
+    }
+}
+
+private fun zipArchive(
+    files: List<File>,
+    zipStream: ZipOutputStream,
+    dirName:String="",
+    excludes: List<String> = emptyList() // todo
+) {
+    files.forEach { file ->
+        if (file.exists()) {
+            val fileName = if (file.isDirectory) {
+                "${if (dirName.isNotEmpty()) dirName else ""}${file.name}/"
+            } else {
+                "${if (dirName.isNotEmpty()) dirName else ""}${file.name}"
+            }
+            zipStream.putNextEntry(ZipEntry(fileName))
+            if (file.isFile) {
+                file.bufferedInputStream().use { bis ->
+                    bis.copyTo(zipStream)
+                }
+            } else {
+                file.listFiles()?.let {
+                    zipArchive(it.toList(), zipStream, fileName, excludes)
+                }
+            }
+        }
+    }
+}
 
 fun File.file(
     name: String

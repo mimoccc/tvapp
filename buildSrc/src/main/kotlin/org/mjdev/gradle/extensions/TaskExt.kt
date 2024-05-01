@@ -262,7 +262,6 @@ inline fun <reified T : Task> Task.shouldRunAfter() = tasks.forEach { task ->
     }
 }
 
-
 fun Task.runAfterAssembleTask() {
     project.assembleTasks.forEach { t -> t.finalizedBy(this) }
 }

@@ -1,4 +1,8 @@
-** Release notes 1.0.0 - 1. 5. 2024, 21:24:41
+** Release notes 1.0.0 - 1. 5. 2024, 23:08:08
+
+* 01.05.2024
+
+* [milan jurkulák] : code improvements 
 
 * 30.04.2024
 

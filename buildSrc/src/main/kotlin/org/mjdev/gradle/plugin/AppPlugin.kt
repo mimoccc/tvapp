@@ -9,6 +9,7 @@
 package org.mjdev.gradle.plugin
 
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
@@ -55,6 +56,8 @@ import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.CreatePropsTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.extensions.assembleTasks
+import org.mjdev.gradle.extensions.markDownToHtmlTask
+import org.mjdev.gradle.extensions.variants
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 
@@ -195,35 +198,35 @@ class AppPlugin : BasePlugin() {
             }
         }
         afterEvaluate {
-        detektTask {
-            if (appConfig.autoCorrectCode) {
-                mustRunAfter(assembleTasks)
-                runAfterAssembleTask()
+            detektTask {
+                if (appConfig.autoCorrectCode) {
+                    mustRunAfter(assembleTasks)
+                    runAfterAssembleTask()
+                }
             }
-        }
-        dokkaTask {
-            outputDirectory.set(rootDir.resolve(appConfig.documentationDir))
-            moduleName.set(projectName)
-            suppressObviousFunctions.set(false)
-            dokkaSourceSets.configureEach {
-                offlineMode.set(false)
-                includeNonPublic.set(false)
-                skipDeprecated.set(false)
-                failOnWarning.set(appConfig.failOnDocumentationWarning)
-                reportUndocumented.set(appConfig.reportUndocumentedFiles)
-                skipEmptyPackages.set(false)
-                platform.set(Platform.jvm)
-                jdkVersion.set(AppConfig.javaVersion.asInt())
-                noStdlibLink.set(false)
-                noJdkLink.set(false)
-                noAndroidSdkLink.set(false)
+            dokkaTask {
+                outputDirectory.set(rootDir.resolve(appConfig.documentationDir))
+                moduleName.set(projectName)
+                suppressObviousFunctions.set(false)
+                dokkaSourceSets.configureEach {
+                    offlineMode.set(false)
+                    includeNonPublic.set(false)
+                    skipDeprecated.set(false)
+                    failOnWarning.set(appConfig.failOnDocumentationWarning)
+                    reportUndocumented.set(appConfig.reportUndocumentedFiles)
+                    skipEmptyPackages.set(false)
+                    platform.set(Platform.jvm)
+                    jdkVersion.set(AppConfig.javaVersion.asInt())
+                    noStdlibLink.set(false)
+                    noJdkLink.set(false)
+                    noAndroidSdkLink.set(false)
+                }
+                if (appConfig.createDocumentation) {
+                    mustRunAfter(assembleTasks)
+                    runAfterAssembleTask()
+                }
             }
-            if (appConfig.createDocumentation) {
-                mustRunAfter(assembleTasks)
-                runAfterAssembleTask()
-            }
-        }
-//        markDownToHtmlTask {
+            markDownToHtmlTask {
 //            enabled = appConfig.createWebSiteFromGit
 //                sourceDir = rootDir
 //                outputDir = rootDir.resolve("web")
@@ -245,24 +248,25 @@ class AppPlugin : BasePlugin() {
 //                if(createWebSiteFromGit) {
 //                    runAfterAssembleTask()
 //                }
-//        }
-        releaseNotesCreateTask {
-            if (appConfig.createReleaseNotes) {
-                runAfterAssembleTask()
             }
-        }
-        webServiceCreateTask {
-            domain = "localhost"
-            servicePort = 2222
-            serviceName = project.name
-            serviceVersion = project.versionName
-            serviceCompany = "mjdev"
-            serviceLicense = ""
-            if (appConfig.createWebApp) {
-                runAfterAssembleTask()
+            releaseNotesCreateTask {
+                if (appConfig.createReleaseNotes) {
+                    runAfterAssembleTask()
+                }
             }
-        }
+            webServiceCreateTask {
+                domain = "localhost"
+                servicePort = 2222
+                serviceName = project.name
+                serviceVersion = project.versionName
+                serviceCompany = "mjdev"
+                serviceLicense = ""
+                if (appConfig.createWebApp) {
+                    runAfterAssembleTask()
+                }
+            }
             zipReleaseCreateTask {
+                // todo files here
                 if (appConfig.createZipRelease) {
                     runAfterAssembleTask()
                 }
@@ -285,6 +289,16 @@ class AppPlugin : BasePlugin() {
             configure<KotlinterExtension> {
                 ignoreFailures = appConfig.ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
+            }
+            if (appConfig.renameApkOutputByAppID) {
+                this.variants.forEach { variant ->
+                    variant.outputs.map {
+                        it as BaseVariantOutputImpl
+                    }.forEach { output ->
+                        val outputFileName = "$applicationId-$versionName.apk"
+                        output.outputFileName = outputFileName
+                    }
+                }
             }
         }
         dependencyLocking {
@@ -404,15 +418,3 @@ class AppPlugin : BasePlugin() {
         }
     }
 }
-
-// todo task
-//if (appConfig.renameApkOutputByAppID) {
-//    applicationVariants.all {
-//        outputs.map {
-//            it as BaseVariantOutputImpl
-//        }.forEach { output ->
-//            val outputFileName = "$applicationId-$versionName.apk"
-//            output.outputFileName = outputFileName
-//        }
-//    }
-//}

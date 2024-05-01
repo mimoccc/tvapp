@@ -10,7 +10,7 @@ service_name="app"
 # store actual dir
 pwd=$(pwd)
 # sw needed
-sudo apt-get install certbot nginx-full nodejs npm ufw yarn
+sudo apt-get install.sh certbot nginx-full nodejs npm ufw yarn
 # stop service
 sudo systemctl stop "service-$service_name"
 sudo systemctl disable "service-$service_name"
@@ -31,7 +31,7 @@ sudo ln -s "/opt/services/$service_name/$service_name.nginx" "/etc/nginx/sites-e
 # go to directory
 cd "/opt/services/$service_name" || exit
 # build
-sudo npm install
+sudo npm install.sh
 sudo npm audit fix
 sudo npm upgrade
 #sudo npm run build
