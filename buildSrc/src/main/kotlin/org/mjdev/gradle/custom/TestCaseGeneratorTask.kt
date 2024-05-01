@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.gradle.tasks
+package org.mjdev.gradle.custom
 
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.custom.unittest.Worker

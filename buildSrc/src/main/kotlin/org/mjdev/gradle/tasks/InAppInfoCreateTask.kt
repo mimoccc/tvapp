@@ -29,7 +29,10 @@ open class InAppInfoCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    override fun doTask() {
+    override fun onClean() {
+    }
+
+    override fun onAssemble() {
         registerSourceDirectory(srcOutputDir)
         createFile(
             name = "ApplicationInfo",

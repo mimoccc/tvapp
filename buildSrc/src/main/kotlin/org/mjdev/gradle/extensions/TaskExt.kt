@@ -293,17 +293,21 @@ fun Task.setTaskDescription(description: String?): Task = this.apply {
     description?.let { this.description = it }
 }
 
-inline fun <reified T> Task.runConfigured(crossinline function: T.() -> Unit) {
-    val config = project.extension<T>()
-    if (config is BuildConfigs) {
-//            project.androidExtension.buildTypes.forEach { bt ->
-//                println("> Configuring build : ${bt.name}")
-//                val btConfig = config.buildTypes[bt.name.lowercase()]
-//                println ("> Config: $btConfig")
-//                btConfig?.invoke(bt)
-//            }
-    }
-    function(config)
+//inline fun <reified T> Task.runConfigured(crossinline function: T.() -> Unit) {
+//    val config = project.extension<T>()
+//    if (config is BuildConfigs<*>) {
+////            project.androidExtension.buildTypes.forEach { bt ->
+////                println("> Configuring build : ${bt.name}")
+////                val btConfig = config.buildTypes[bt.name.lowercase()]
+////                println ("> Config: $btConfig")
+////                btConfig?.invoke(bt)
+////            }
+//    }
+//    function(config)
+//}
+
+fun Task.mustRunAfter(taskScope: () -> Task) {
+    mustRunAfter(taskScope())
 }
 
 fun <T : Plugin<*>> Task.apply(type: KClass<T>): T =
@@ -318,14 +322,14 @@ fun Task.detektTask(scoped: Detekt.() -> Unit) =
 fun Task.dokkaTask(scoped: DokkaTask.() -> Unit) =
     project.dokkaTask(scoped)
 
-fun Task.println(message: String) = this.log.lifecycle(message)
+fun Task.println(message: String) = this.log.lifecycle("> $message")
 
-fun Task.println(exception: Throwable) = this.log.lifecycle(exception.message)
+fun Task.println(exception: Throwable) = this.log.lifecycle("> ${exception.message}")
 
-fun Task.printError(message: String) = this.log.error(message)
+fun Task.printError(message: String) = this.log.error("> $message")
 
-fun Task.printError(exception: Throwable) = this.log.error(exception.message)
+fun Task.printError(exception: Throwable) = this.log.error("> ${exception.message}")
 
-fun Task.printWarning(message: String) = this.log.warn(message)
+fun Task.printWarning(message: String) = this.log.warn("> $message")
 
-fun Task.printWarning(exception: Throwable) = this.log.warn(exception.message)
+fun Task.printWarning(exception: Throwable) = this.log.warn("> ${exception.message}")

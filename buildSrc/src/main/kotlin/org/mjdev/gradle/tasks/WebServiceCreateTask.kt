@@ -147,7 +147,13 @@ open class WebServiceCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    override fun doTask() {
+    override fun onClean() {
+        webDir.file(systemdFile).delete()
+        webDir.file(nginxFileName).delete()
+        webDir.file(packageFileName).delete()
+    }
+
+    override fun onAssemble() {
         webDir.file(systemdFile).writeText(systemdFileContent)
         webDir.file(nginxFileName).writeText(nginxFileContent)
         webDir.file(packageFileName).writeText(packageJsonFile)

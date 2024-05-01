@@ -42,7 +42,17 @@ open class ReleaseNotesCreateTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    override fun doTask() {
+    override fun onClean() {
+        outputFiles.forEach { file ->
+            if (file.isDirectory) {
+                file.deleteRecursively()
+            } else {
+                file.delete()
+            }
+        }
+    }
+
+    override fun onAssemble() {
         println("Creating release notes")
         StringBuilder().apply {
             @Suppress("DEPRECATION")

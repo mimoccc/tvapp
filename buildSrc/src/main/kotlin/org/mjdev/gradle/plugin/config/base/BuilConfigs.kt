@@ -13,8 +13,9 @@ import com.android.build.api.dsl.BuildType
 typealias BuildTypeFnc = BuildType.() -> Unit
 
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BuildConfigs {
+abstract class BuildConfigs : IConfig {
 
+    // todo serialize
     val buildTypes = mutableMapOf<String, BuildTypeFnc>()
 
     fun create(name: String, action: BuildTypeFnc) {

@@ -9,11 +9,13 @@
 package org.mjdev.gradle.plugin.config
 
 import org.gradle.api.JavaVersion
+import org.mjdev.gradle.extensions.toHashMap
 import org.mjdev.gradle.plugin.config.base.BuildConfigs
 
 @Suppress("unused")
 open class AppConfig : BuildConfigs() {
 
+    open var namespace = "org.mjdev.tvapp"
     open var description = ""
 
     open var autoCorrectCode = true
@@ -34,23 +36,44 @@ open class AppConfig : BuildConfigs() {
     open var documentationDir = "documentation/app"
 
     open var detectConfigFile = "config/detekt.yml"
+    open var versionPropertiesFile = "config/version.app.prop"
+    open var debugKeySigningFile = "config/signing.debug.prop"
+    open var releaseSigningFile = "config/signing.release.prop"
 
-    open var javaVersion = JavaVersion.VERSION_17
+    open var proguardFile = "proguard-android-optimize.txt"
+    open var proguardRulesFile = "proguard-rules.pro"
 
-    open var projectExcludes = listOf(
-        "META-INF/",
-        "/META-INF/{AL2.0,LGPL2.1}",
-        "/META-INF/DEPENDENCIES",
-        "/mozilla/public-suffix-list.txt",
-        "okhttp3/",
-        "kotlin/",
-        "org/",
-        ".properties",
-        ".bin",
-    )
 
-    open var projectProguardFile = "proguard-android-optimize.txt"
-    open var projectProguardRulesFile = "proguard-rules.pro"
-    open var versionPropertiesFile = "config/version.prop"
+    companion object {
+        const val configFieldName = "appConfig"
+        const val configPropertiesFile = "app.config.prop"
+
+        const val composeEnabled = true
+        const val buildConfigEnabled = true
+
+        const val compileSdk = 34
+        const val minSdk = 21
+
+        const val kotlinCompilerVersion = "1.5.8"
+        const val jacocoVersion = "0.8.8"
+
+        const val multiDexEnabled = true
+
+        val javaVersion = JavaVersion.VERSION_17
+
+        val projectExcludes = listOf(
+            "META-INF/",
+            "/META-INF/{AL2.0,LGPL2.1}",
+            "/META-INF/DEPENDENCIES",
+            "/mozilla/public-suffix-list.txt",
+            "okhttp3/",
+            "kotlin/",
+            "org/",
+            ".properties",
+            ".bin",
+        )
+    }
+
+    override fun toMap(): Map<*, *> = toHashMap()
 
 }

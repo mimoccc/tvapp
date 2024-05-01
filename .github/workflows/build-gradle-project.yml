@@ -38,7 +38,7 @@ jobs:
       - name: Prepare Version Number
         id: prepare_version
         run: |
-          export GRADLE_PATH="./config/version.prop";
+          export GRADLE_PATH="./config/version.app.prop";
           export GRADLE_FIELD_VMAJ="majorVersion"
           export GRADLE_FIELD_VMIN="minorVersion"
           export GRADLE_FIELD_VPAT="patchVersion"
@@ -54,7 +54,7 @@ jobs:
 # build apk for release
       - name: Build Release APK
         id: build_release_apk
-        run: ./gradlew assembleRelease
+        run: ./gradlew clean assembleRelease
 # publish github release
       - name: Create Release
         id: release

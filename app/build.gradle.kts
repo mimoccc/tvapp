@@ -11,14 +11,8 @@ plugins {
 }
 
 appConfig {
+    namespace = "org.mjdev.tvapp"
     description = "Smart TV android app for any android device"
-    autoCorrectCode = true
-    createDocumentation = true
-    createReleaseNotes = true
-    createZipRelease = true
-    // todo
-    createWebApp = true
-    // todo
     createWebSiteFromGit = false
     // todo
     default {

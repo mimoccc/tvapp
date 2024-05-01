@@ -41,7 +41,7 @@ open class LauncherIconTask : BaseTask() {
         description = "Generate icon due application variant"
     }
 
-    override fun doTask() {
+    fun doTask() {
         if (filters.isEmpty()) return
         val names = HashSet<String>().apply {
             iconNames.forEach { add(it) }
@@ -89,6 +89,14 @@ open class LauncherIconTask : BaseTask() {
                 }
             }
         }
+    }
+
+    override fun onClean() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAssemble() {
+        TODO("Not yet implemented")
     }
 
 }

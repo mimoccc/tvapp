@@ -35,17 +35,19 @@ import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.apply
-import org.mjdev.gradle.extensions.int
-import org.mjdev.gradle.extensions.string
+import org.mjdev.gradle.extensions.fromBuildPropertiesFile
+import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.projectName
-import org.mjdev.gradle.extensions.runConfigured
+import org.mjdev.gradle.extensions.registerTask
+import org.mjdev.gradle.extensions.runAfterCleanTask
+import org.mjdev.gradle.tasks.CreatePropsTask
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
-    private val configFieldName = "libConfig"
-
     override fun Project.work() {
-        val libConfig = extension<LibConfig>(configFieldName)
+        val libConfig: LibConfig = extension<LibConfig>(LibConfig.configFieldName)
+        fromBuildPropertiesFile(libConfig, LibConfig.configPropertiesFile)
+        loadRootPropertiesFile(libConfig.versionPropertiesFile)
         apply(plugin = "kotlin-android")
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-kapt")
@@ -57,51 +59,45 @@ class LibPlugin : BasePlugin() {
         apply("org.jetbrains.dokka")
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
+        registerTask<CreatePropsTask> {
+            propsFilePath = LibConfig.configPropertiesFile
+            propsClass = LibConfig::class.java
+            runAfterCleanTask()
+        }
         configure<LibraryExtension> {
-            // todo : move
-            namespace = libs.versions.lib.namespace.string
-            // todo : move
-            compileSdk = libs.versions.compileSdk.int
+            namespace = libConfig.namespace
+            compileSdk = LibConfig.compileSdk
             compileOptions {
-                // todo : move
-                sourceCompatibility = libConfig.javaVersion
-                // todo : move
-                targetCompatibility = libConfig.javaVersion
+                sourceCompatibility = LibConfig.javaVersion
+                targetCompatibility = LibConfig.javaVersion
             }
             buildFeatures {
-                compose = true
-                buildConfig = true
+                compose = LibConfig.composeEnabled
+                buildConfig = LibConfig.buildConfigEnabled
             }
             composeOptions {
-                // todo : move
-                kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.version.string
+                kotlinCompilerExtensionVersion = LibConfig.kotlinCompilerVersion
             }
             defaultConfig {
-                // todo : move
-                minSdk = libs.versions.minSdk.int
+                minSdk = LibConfig.minSdk
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
-            packaging {
-                resources {
-                    excludes.addAll(libConfig.projectExcludes)
-                }
-            }
+            packaging.resources.excludes.addAll(LibConfig.projectExcludes)
             buildTypes {
                 debug {
                     isMinifyEnabled = false
                     isShrinkResources = false
                     proguardFiles(
-                        getDefaultProguardFile(libConfig.projectProguardFile),
-                        libConfig.projectProguardRulesFile
+                        getDefaultProguardFile(libConfig.proguardFile),
+                        libConfig.proguardRulesFile
                     )
                 }
                 release {
-                    // todo minify
-                    isMinifyEnabled = false
+                    isMinifyEnabled = libConfig.minify
                     isShrinkResources = false
                     proguardFiles(
-                        getDefaultProguardFile(libConfig.projectProguardFile),
-                        libConfig.projectProguardRulesFile
+                        getDefaultProguardFile(libConfig.proguardFile),
+                        libConfig.proguardRulesFile
                     )
                 }
             }
@@ -111,61 +107,62 @@ class LibPlugin : BasePlugin() {
                 }
             }
             lint {
+                checkReleaseBuilds = true
                 checkAllWarnings = true
                 showAll = true
                 explainIssues = true
-                // todo : move
-                abortOnError = false
-                // todo : move
-                warningsAsErrors = false
+                abortOnError = !libConfig.ignoreCodeFailures
+                warningsAsErrors = !libConfig.ignoreCodeFailures
                 disable += "UnusedIds"
             }
             testOptions {
                 unitTests.isReturnDefaultValues = true
             }
             testCoverage {
-                jacocoVersion = libs.versions.jacoco.version.string
+                jacocoVersion = LibConfig.jacocoVersion
             }
         }
-        runConfigured<LibConfig> {
-            kotlinCompileOptions {
-                kotlinOptions {
-                    freeCompilerArgs += "-Xjsr305=strict"
-                    jvmTarget = javaVersion.toString()
+        afterEvaluate {
+            detektTask {
+                if (libConfig.autoCorrectCode) {
+                    runAfterAssembleTask()
                 }
             }
-            detektTask {
-                enabled = autoCorrectCode
-                runAfterAssembleTask()
-            }
             dokkaTask {
-                enabled = createDocumentation
-                outputDirectory.set(rootDir.resolve(documentationDir))
+                outputDirectory.set(rootDir.resolve(libConfig.documentationDir))
                 moduleName.set(projectName)
                 suppressObviousFunctions.set(false)
                 dokkaSourceSets.configureEach {
                     offlineMode.set(false)
                     includeNonPublic.set(false)
                     skipDeprecated.set(false)
-                    failOnWarning.set(failOnDocumentationWarning)
-                    reportUndocumented.set(reportUndocumentedFiles)
+                    failOnWarning.set(libConfig.failOnDocumentationWarning)
+                    reportUndocumented.set(libConfig.reportUndocumentedFiles)
                     skipEmptyPackages.set(false)
                     platform.set(Platform.jvm)
-                    jdkVersion.set(javaVersion.asInt())
+                    jdkVersion.set(LibConfig.javaVersion.asInt())
                     noStdlibLink.set(false)
                     noJdkLink.set(false)
                     noAndroidSdkLink.set(false)
                 }
-                runAfterAssembleTask()
+                if (libConfig.createDocumentation) {
+                    runAfterAssembleTask()
+                }
+            }
+            kotlinCompileOptions {
+                kotlinOptions {
+                    freeCompilerArgs += "-Xjsr305=strict"
+                    jvmTarget = LibConfig.javaVersion.toString()
+                }
             }
             configure<DetektExtension> {
-                reportsDir = rootDir.resolve(codeReportsDir)
-                ignoreFailures = ignoreCodeFailures
+                reportsDir = rootDir.resolve(libConfig.codeReportsDir)
+                ignoreFailures = libConfig.ignoreCodeFailures
                 @Suppress("DEPRECATION")
-                config = files(project.rootDir.resolve(detectConfigFile))
+                config = files(project.rootDir.resolve(libConfig.detectConfigFile))
             }
             configure<KotlinterExtension> {
-                ignoreFailures = ignoreCodeFailures
+                ignoreFailures = libConfig.ignoreCodeFailures
                 reporters = arrayOf("checkstyle", "plain")
             }
         }

@@ -1,8 +1,8 @@
+# versions #########################################################################################
 [versions]
 #
-accompanist-permissions = "0.33.2-alpha"
+accompanist-permissions = "0.34.0"
 aescrypt = "0.0.1"
-android-documentation-plugin = "1.9.10"
 android-material = "1.11.0"
 androidsvg-aar = "1.4"
 #
@@ -27,20 +27,17 @@ androidx-window = "1.2.0"
 androidx-work-runtime-ktx = "2.9.0"
 anrwatchdog = "1.4.0"
 apk-parser = "2.6.10"
-app-namespace = "org.mjdev.tvapp"
 auth0 = "2.10.2"
-compileSdk = "34"
 compose = "1.0.0-beta01"
 converter-moshi = "2.9.0"
 dagger = "2.50"
 dailymotion-sdk-android = "0.2.12"
 #
-debug-keyfile = "config/signing.prop"
+
 dependency-analysis-gradle-plugin = "0.10.0"
 detekt-formatting = "1.23.4"
 detekt-gradle-plugin = "1.23.4"
 dokka-gradle-plugin = "1.8.10"
-gfm-plugin = "1.8.10"
 google-api-services-androidpublisher = "v3-rev41-1.25.0"
 gradle = "8.2.2"
 gradle-api = "8.2.2"
@@ -48,26 +45,22 @@ gradle-docker-plugin = "9.4.0"
 gradleOspackagePlugin = "8.4.1"
 ini4j = "0.5.4"
 #
-jacoco-version = "0.8.8"
 javapoet = "1.13.0"
 jsoup = "1.17.2"
 junit = "4.13.2"
 jwtdecode = "2.0.2"
 korim-jvm = "4.0.2"
-kotlin-compiler-version = "1.5.8"
+
 kotlin-gradle-plugin = "1.9.22"
 kotlin-reflect = "1.9.22"
 kotlin-stdlib-jdk8 = "1.9.22"
 kotlinpoet = "1.13.2"
 kotlinter-gradle = "3.16.0"
 kotlinx-coroutines-android = "1.8.0"
-ktoml = "0.5.1"
 landscapist-glide = "2.2.13"
-lib-namespace = "org.mjdev.tvlib"
 lottie-compose = "6.2.0"
 #
 markdownGradlePlugin = "2.2.0"
-minSdk = "21"
 mockito-kotlin = "5.2.1"
 moshi = "1.15.0"
 moshi-kotlin = "1.12.0"
@@ -80,10 +73,8 @@ org-eclipse-jgit = "4.8.0.201706111038-r"
 paparazzi-gradle-plugin = "1.3.2"
 photofilter = "2.0.2"
 r8 = "8.3.37"
-release-keyfile = "config/signing.prop"
 retrofit2-kotlin-coroutines-adapter = "0.9.2"
 sandwich = "2.0.5"
-targetSdk = "34"
 timber = "5.0.1"
 zxing-core = "3.5.2"
 
@@ -136,7 +127,7 @@ androidx-media3-session = { module = "androidx.media3:media3-session", version.r
 androidx-media3-transformer = { module = "androidx.media3:media3-transformer", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
 androidx-media3-ui-leanback = { module = "androidx.media3:media3-ui-leanback", version.ref = "androidx-media3" }
-#
+# pallete
 androidx-palette-ktx = { module = "androidx.palette:palette-ktx", version.ref = "androidx-palette-ktx" }
 # tv
 androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "androidx-tv" }
@@ -155,17 +146,16 @@ dagger-android-support = { module = "com.google.dagger:dagger-android-support", 
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+# dailymotion
 dailymotion-sdk-android = { module = "com.dailymotion.dailymotion-sdk-android:sdk", version.ref = "dailymotion-sdk-android" }
-#
-dependency-analysis-gradle-plugin = { module = "gradle.plugin.com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependency-analysis-gradle-plugin" }
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt-formatting" }
+# git
 eclipse-jgit = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "org-eclipse-jgit" }
 # glide
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "okhttp3-integration" }
 glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "okhttp3-integration" }
 google-api-services-androidpublisher = { module = "com.google.apis:google-api-services-androidpublisher", version.ref = "google-api-services-androidpublisher" }
-# gradle ###########################################################################################
+# gradle
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "gradle-api" }
 gradle-detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle-plugin" }
@@ -194,9 +184,6 @@ landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.
 landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "landscapist-glide" }
 landscapist-placeholder = { module = "com.github.skydoves:landscapist-placeholder", version.ref = "landscapist-glide" }
 landscapist-transformation = { module = "com.github.skydoves:landscapist-transformation", version.ref = "landscapist-glide" }
-# ktoml
-#ktoml-core = { module = "com.akuleshov7:ktoml-core", version.ref = "ktoml" }
-#ktoml-file = { module = "com.akuleshov7:ktoml-file", version.ref = "ktoml" }
 # moshi
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi-kotlin" }

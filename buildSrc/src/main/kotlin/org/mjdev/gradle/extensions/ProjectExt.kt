@@ -24,6 +24,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
+import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
@@ -36,8 +37,11 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.mjdev.gradle.plugin.config.base.BuildConfigs
+import org.mjdev.gradle.tasks.CreatePropsTask
 import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
+import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
+import org.mjdev.gradle.tasks.WebServiceCreateTask
+import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
@@ -209,32 +213,61 @@ val Project.log: Logger
 //    })
 //}
 
-fun Project.loadPropertiesFile(path: String) {
-    val propertiesFile = project.rootDir.resolve(path)
-    val props = Properties()
-    props.load(FileInputStream(propertiesFile))
-    props.forEach { prop ->
-        project.rootProject.extra.set(
-            prop.key.toString(),
-            prop.value.toString()
-        )
+fun Project.loadRootPropertiesFile(
+    path: String,
+    exposeToExtra: Boolean = true
+) = loadPropertiesFile(
+    project.rootDir.resolve(path),
+    if (exposeToExtra) project.rootProject.extra else null
+)
+
+fun Project.loadBuildPropertiesFile(
+    path: String,
+    exposeToExtra: Boolean = true
+) = loadPropertiesFile(
+    project.buildDir.resolve(path),
+    if (exposeToExtra) project.extra else null
+)
+
+fun Project.loadPropertiesFile(
+    propertiesFile: File,
+    exposeToExtra: ExtraPropertiesExtension?
+) = Properties().apply {
+    try {
+        load(FileInputStream(propertiesFile))
+    } catch (e: Exception) {
+    }
+}.apply {
+    if (exposeToExtra != null) {
+        forEach { prop ->
+            exposeToExtra.set(prop.key.toString(), prop.value.toString())
+        }
     }
 }
 
-inline fun <reified T> Project.extension(name: String? = null): T = runCatching {
-    var cfg: T? = project.rootProject.extensions.findByType(T::class.java)
-        ?: project.extensions.findByType(T::class.java)
+inline fun <reified T> Project.extension(
+    name: String? = null,
+    config: T.() -> Unit = {}
+): T = runCatching {
+    var cfg: T? = project.extensions.findByType(T::class.java)
     if (cfg == null && name != null) {
         project.extensions.create(name, T::class.java)
     }
     cfg = project.extensions.findByType(T::class.java)
-    cfg!!
+    cfg!!.apply {
+        config(this)
+    }
 }.getOrThrow()
 
 inline fun <reified T : Any> Project.extension(): T =
     rootProject.extensions.findByType(T::class.java)
-        ?: project.extensions.findByType(T::class.java) ?:
-        throw (GradleException("Extension not configured : ${T::class.java.simpleName}"))
+        ?: project.extensions.findByType(T::class.java)
+        ?: throw (GradleException("Extension not configured : ${T::class.java.simpleName}"))
+
+fun <T> Project.extension(cls: Class<T>): T =
+    rootProject.extensions.findByType(cls)
+        ?: project.extensions.findByType(cls)
+        ?: throw (GradleException("Extension not configured : ${cls.simpleName}"))
 
 inline fun <reified T : Task> Project.registerTask(
     name: String? = null,
@@ -254,21 +287,35 @@ fun <T : Plugin<*>> Project.apply(type: KClass<T>): T = plugins.apply(type.java)
 
 fun Project.apply(id: String): Plugin<*> = plugins.apply(id)
 
-fun Project.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit) {
-    tasks.withType<KotlinCompile>().first().also { t -> scoped(t) }
+inline fun <reified T : Task> Project.task(scoped: T.() -> Unit = {}): T {
+    val task = tasks.withType<T>().first()
+    scoped(task)
+    return task
 }
 
-fun Project.detektTask(scoped: Detekt.() -> Unit) {
-    tasks.withType<Detekt>().first().also { t -> scoped(t) }
-}
+fun Project.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit = {}) =
+    task<KotlinCompile>(scoped)
 
-fun Project.dokkaTask(scoped: DokkaTask.() -> Unit) {
-    tasks.withType<DokkaTask>().first().also { t -> scoped(t) }
-}
+fun Project.detektTask(scoped: Detekt.() -> Unit = {}) =
+    task<Detekt>(scoped)
 
-fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) {
-    tasks.withType<MarkdownToHtmlTask>().first().also { t -> scoped(t) }
-}
+fun Project.createPropsTask(scoped: CreatePropsTask.() -> Unit = {}) =
+    task<CreatePropsTask>(scoped)
+
+fun Project.webServiceCreateTask(scoped: WebServiceCreateTask.() -> Unit = {}) =
+    task<WebServiceCreateTask>(scoped)
+
+fun Project.releaseNotesCreateTask(scoped: ReleaseNotesCreateTask.() -> Unit = {}) =
+    task<ReleaseNotesCreateTask>(scoped)
+
+fun Project.zipReleaseCreateTask(scoped: ZipReleaseCreateTask.() -> Unit = {}) =
+    task<ZipReleaseCreateTask>(scoped)
+
+fun Project.dokkaTask(scoped: DokkaTask.() -> Unit) =
+    task<DokkaTask>(scoped)
+
+fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) =
+    task<MarkdownToHtmlTask>(scoped)
 
 fun Project.registerSources(outDir: File, variant: BaseVariant) {
     if (outDir.absolutePath.contains("generated/source")) {
@@ -318,20 +365,20 @@ fun Project.fileTree(directory: String, inc: String, exc: String): List<File> {
     }.toList()
 }
 
-inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit) {
-    afterEvaluate {
-        val config = project.extension<T>()
-        if (config is BuildConfigs) {
-            project.androidExtension.buildTypes.forEach { bt ->
-                println("> Configuring build : ${bt.name}")
-//                val btConfig = config.buildTypes[bt.name.lowercase()]
-//                println ("> Config: $btConfig")
-//                btConfig?.invoke(bt)
-            }
-        }
-        function(config)
-    }
-}
+//inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit) {
+//    afterEvaluate {
+//        val config = project.extension<T>()
+//        if (config is BuildConfigs) {
+//            project.androidExtension.buildTypes.forEach { bt ->
+//                println("> Configuring build : ${bt.name}")
+////                val btConfig = config.buildTypes[bt.name.lowercase()]
+////                println ("> Config: $btConfig")
+////                btConfig?.invoke(bt)
+//            }
+//        }
+//        function(config)
+//    }
+//}
 
 fun Project.androidComponents(
     block: AndroidComponentsExtension<*, *, *>.() -> Unit

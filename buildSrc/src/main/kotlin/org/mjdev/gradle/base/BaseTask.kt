@@ -21,7 +21,9 @@ import org.mjdev.gradle.extensions.applicationId
 import org.mjdev.gradle.extensions.buildDirectory
 import org.mjdev.gradle.extensions.capitalize
 import org.mjdev.gradle.extensions.file
+import org.mjdev.gradle.extensions.hasAssembleTask
 import org.mjdev.gradle.extensions.println
+import org.mjdev.gradle.extensions.runAfterCleanTask
 import java.net.URL
 
 abstract class BaseTask : DefaultTask() {
@@ -29,12 +31,12 @@ abstract class BaseTask : DefaultTask() {
     @Internal
     lateinit var variant: ApplicationVariant
 
+    @get:Internal
     val variantName: String
-        @Internal
         get() = variant.name.capitalize()
 
+    @get:Internal
     val javaCompiledClasses: URL
-        @Internal
         get() = variant
             .javaCompileProvider
             .get()
@@ -47,8 +49,8 @@ abstract class BaseTask : DefaultTask() {
             .toURI()
             .toURL()
 
+    @get:Internal
     val kotlinCompiledClasses: URL
-        @Internal
         get() = project.buildDirectory
             .file("tmp")
             .file("kotlin-classes")
@@ -60,8 +62,8 @@ abstract class BaseTask : DefaultTask() {
             .toURI()
             .toURL()
 
+    @get:Internal
     val restDependencies
-        @Internal
         get() = variant
             .getCompileClasspath(null)
             .files
@@ -69,18 +71,29 @@ abstract class BaseTask : DefaultTask() {
                 it.toURI().toURL()
             }.toTypedArray()
 
+    @get:Internal
     val kotlinCompileTask
-        @Internal
         get() = project.tasks
             .findByName("compile${variant.name.capitalize()}Kotlin") as? SourceTask
 
+    @get:Internal
+    val isAssembleTask
+        get() = hasAssembleTask
+
+    init {
+        runAfterCleanTask()
+    }
+
     @TaskAction
     fun taskAction() {
-        if (enabled) {
-            doTask()
+        when (isAssembleTask) {
+            true -> onAssemble()
+            false -> onClean()
         }
     }
 
-    abstract fun doTask()
+    abstract fun onClean()
+
+    abstract fun onAssemble()
 
 }

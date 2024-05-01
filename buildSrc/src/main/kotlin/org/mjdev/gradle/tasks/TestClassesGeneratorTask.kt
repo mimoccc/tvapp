@@ -44,17 +44,6 @@ open class TestClassesGeneratorTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    override fun doTask() {
-        println("> Got files:")
-        fileMap.keys.forEach { project ->
-            val files = fileMap[project] ?: emptyList()
-            files.forEach { file ->
-                println("> ${project.name} > $file")
-                createTestFile(project, file)
-            }
-        }
-    }
-
     private fun createTestFile(
         project: Project,
         file: File
@@ -83,6 +72,20 @@ open class TestClassesGeneratorTask : BaseTask() {
 
     class GithubClassWorker : ClassWorker {
         override fun makeTestClass(file: File): FileSpec? = null
+    }
+
+    override fun onClean() {
+    }
+
+    override fun onAssemble() {
+        println("> Got files:")
+        fileMap.keys.forEach { project ->
+            val files = fileMap[project] ?: emptyList()
+            files.forEach { file ->
+                println("> ${project.name} > $file")
+                createTestFile(project, file)
+            }
+        }
     }
 
 }

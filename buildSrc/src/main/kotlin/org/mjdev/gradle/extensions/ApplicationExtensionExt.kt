@@ -6,15 +6,12 @@
  *  w: https://mjdev.org
  */
 
-@file:Suppress("unused")
-
 package org.mjdev.gradle.extensions
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Project
 import java.io.FileInputStream
 import java.util.*
-import kotlin.String
 import org.mjdev.gradle.custom.SigningsScope
 
 fun ApplicationExtension.setSigningConfigs(
@@ -24,41 +21,41 @@ fun ApplicationExtension.setSigningConfigs(
 ) = signingConfigs {
     config.invoke(scope)
     create("release") {
-        val rootProject = project.rootProject
-        val keystorePropertiesFile = rootProject.file(scope.releaseKeyFile)
-        if (!keystorePropertiesFile.exists()) {
-            System.err.println("📜 Missing release.signing.properties file for release signing")
-        } else {
-            val keystoreProperties = Properties().apply {
-                load(FileInputStream(keystorePropertiesFile))
-            }
+        val keystorePropertiesFile = project.rootDir.resolve(scope.releaseKeyFile)
+        if (keystorePropertiesFile.exists()) {
             try {
-                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-                keyAlias = keystoreProperties["keyAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
+                val properties = Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
+                storeFile = project.rootDir.resolve(properties["storeFile"].toString())
+                storePassword = properties["storePassword"].toString()
+                keyAlias = properties["keyAlias"].toString()
+                keyPassword = properties["keyPassword"].toString()
             } catch (e: Exception) {
-                System.err.println("📜 release.signing.properties file is malformed")
+                System.err.println("> File $keystorePropertiesFile is malformed or error.")
+                System.err.println("> ${e.message}.")
             }
+        } else {
+            System.err.println("> Missing $keystorePropertiesFile file for release signing.")
         }
     }
     getByName("debug") {
-        val rootProject = project.rootProject
-        val keystorePropertiesFile = rootProject.file(scope.debugKeyFile)
-        if (!keystorePropertiesFile.exists()) {
-            System.err.println("📜 Missing release.signing.properties file for release signing")
-        } else {
-            val keystoreProperties = Properties().apply {
-                load(FileInputStream(keystorePropertiesFile))
-            }
+        val keystorePropertiesFile = project.rootDir.resolve(scope.debugKeyFile)
+        if (keystorePropertiesFile.exists()) {
             try {
-                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-                keyAlias = keystoreProperties["keyAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
+                val properties = Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
+                storeFile = project.rootDir.resolve(properties["storeFile"].toString())
+                storePassword = properties["storePassword"].toString()
+                keyAlias = properties["keyAlias"].toString()
+                keyPassword = properties["keyPassword"].toString()
             } catch (e: Exception) {
-                System.err.println("📜 release.signing.properties file is malformed")
+                System.err.println("> File $keystorePropertiesFile is malformed or error.")
+                System.err.println("> ${e.message}.")
             }
+        } else {
+            System.err.println("> Missing $keystorePropertiesFile file for release signing.")
         }
     }
 }
