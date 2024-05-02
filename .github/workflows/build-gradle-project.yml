@@ -18,7 +18,7 @@ jobs:
       # check out sources
       - name: Checkout project sources
         id: checkout_project
-        uses:  actions/checkout@v4
+        uses:  actions/checkout@v4.1.4
       # build docker todo
       #- name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
         #uses: banool/gp-docker-action@1.0.2
@@ -29,7 +29,7 @@ jobs:
       # setup jdk 17
       - name: Set up JDK 17
         id: setup_java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v4.2.1
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -37,7 +37,7 @@ jobs:
       # setup gradle
       - name: Setup Gradle
         id: setup_gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3.3.2
       # be sure it is executable
       - name: Grant execute permission for gradlew
         id: grant_gradle
@@ -66,7 +66,7 @@ jobs:
       # publish github release
       - name: Create Release
         id: release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.14.0
         with:
           name: Release v ${{ env.GITHUB_APP_VERSION_NAME }}
           allowUpdates: true
