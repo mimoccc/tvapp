@@ -76,8 +76,9 @@ jobs:
       # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
-        uses: OrlovM/Wiki-Action@v1
-        with:
-          path: 'documentation'
-          token: ${{ secrets.TOKEN }}
+        run: ${{ github.action_path }}/update-wiki.sh
+        shell: bash
+        env:
+            WIKI_DIR: './documentation'
+            GH_TOKEN: ${{ secrets.TOKEN }}
 # done
