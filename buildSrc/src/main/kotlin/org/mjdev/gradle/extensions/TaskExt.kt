@@ -18,7 +18,6 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.StartParameter
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
-import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.logging.Logger
@@ -27,11 +26,10 @@ import org.gradle.api.plugins.AppliedPlugin
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.gradle.api.tasks.TaskContainer
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.plugin.config.base.BuildConfigs
+import org.mjdev.gradle.tasks.CleanProjectTask
 import java.io.File
 import kotlin.reflect.KClass
 
@@ -61,12 +59,6 @@ val Task.taskName: String
 
 val Task.tasks: TaskContainer
     get() = project.tasks
-
-val Task.cleanTask: Task
-    get() = tasks.byName<Task>("clean")
-
-val Task.tasksTask : Task
-    get() = tasks.byName<Task>("tasks")
 
 val Task.taskGroup: String
     get() = this.group.toString()
@@ -263,11 +255,15 @@ inline fun <reified T : Task> Task.shouldRunAfter() = tasks.forEach { task ->
 }
 
 fun Task.runAfterAssembleTask() {
-    project.assembleTasks.forEach { t -> t.finalizedBy(this) }
+    project.assembleTasks.forEach { t ->
+        t.finalizedBy(this)
+    }
+    mustRunAfter(assembleTasks)
 }
 
 fun Task.runAfterCleanTask() {
-    cleanTask.finalizedBy(this)
+    cleanTask().finalizedBy(this)
+    mustRunAfter(cleanTask())
 }
 
 inline fun <reified T : Task> TaskContainer.byName(name: String): T =
@@ -315,10 +311,16 @@ fun <T : Plugin<*>> Task.apply(type: KClass<T>): T =
 fun Task.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit) =
     project.kotlinCompileOptions(scoped)
 
-fun Task.detektTask(scoped: Detekt.() -> Unit) =
+fun Task.cleanTask(scoped: Task.() -> Unit = {}) =
+    project.cleanTask(scoped)
+
+fun Task.cleanProjectTask(scoped: CleanProjectTask.() -> Unit = {}) =
+    project.cleanProjectTask(scoped)
+
+fun Task.detektTask(scoped: Detekt.() -> Unit = {}) =
     project.detektTask(scoped)
 
-fun Task.dokkaTask(scoped: DokkaTask.() -> Unit) =
+fun Task.dokkaTask(scoped: DokkaTask.() -> Unit = {}) =
     project.dokkaTask(scoped)
 
 fun Task.println(message: String) = this.log.lifecycle("> $message")

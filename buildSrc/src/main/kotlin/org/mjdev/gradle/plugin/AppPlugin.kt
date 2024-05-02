@@ -24,7 +24,6 @@ import org.mjdev.gradle.base.BasePlugin
 import org.mjdev.gradle.extensions.addSyncProviderAuthString
 import org.mjdev.gradle.extensions.asInt
 import org.mjdev.gradle.extensions.registerTask
-import org.mjdev.gradle.extensions.runAfterCleanTask
 import org.mjdev.gradle.extensions.runAfterAssembleTask
 import org.mjdev.gradle.extensions.buildConfigString
 import org.mjdev.gradle.extensions.extension
@@ -54,8 +53,11 @@ import org.mjdev.gradle.plugin.config.AppConfig
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.CreatePropsTask
+import org.mjdev.gradle.tasks.CheckNewLibsTask
+import org.mjdev.gradle.tasks.CleanProjectTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.extensions.assembleTasks
+import org.mjdev.gradle.extensions.cleanProjectTask
 import org.mjdev.gradle.extensions.markDownToHtmlTask
 import org.mjdev.gradle.extensions.variants
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
@@ -79,20 +81,18 @@ class AppPlugin : BasePlugin() {
         apply(MarkdownPlugin::class)
         apply(DetektPlugin::class)
         apply(KotlinterPlugin::class)
+        registerTask<CleanProjectTask>()
+        registerTask<CheckNewLibsTask>() {
+            mustRunAfter(cleanProjectTask())
+        }
         registerTask<CreatePropsTask> {
             propsFilePath = AppConfig.configPropertiesFile
             propsClass = AppConfig::class.java
-            runAfterCleanTask()
+            mustRunAfter(cleanProjectTask())
         }
-        registerTask<ReleaseNotesCreateTask>() {
-            mustRunAfter(assembleTasks)
-        }
-        registerTask<WebServiceCreateTask>() {
-            mustRunAfter(assembleTasks)
-        }
-        registerTask<ZipReleaseCreateTask>() {
-            mustRunAfter(assembleTasks)
-        }
+        registerTask<ReleaseNotesCreateTask>()
+        registerTask<WebServiceCreateTask>()
+        registerTask<ZipReleaseCreateTask>()
         configure<ApplicationExtension> {
             namespace = appConfig.namespace
             compileSdk = AppConfig.compileSdk
@@ -222,7 +222,6 @@ class AppPlugin : BasePlugin() {
                     noAndroidSdkLink.set(false)
                 }
                 if (appConfig.createDocumentation) {
-                    mustRunAfter(assembleTasks)
                     runAfterAssembleTask()
                 }
             }

@@ -38,6 +38,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.mjdev.gradle.tasks.CreatePropsTask
+import org.mjdev.gradle.tasks.CleanProjectTask
 import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
@@ -229,6 +230,7 @@ fun Project.loadBuildPropertiesFile(
     if (exposeToExtra) project.extra else null
 )
 
+@Suppress("UnusedReceiverParameter")
 fun Project.loadPropertiesFile(
     propertiesFile: File,
     exposeToExtra: ExtraPropertiesExtension?
@@ -236,6 +238,7 @@ fun Project.loadPropertiesFile(
     try {
         load(FileInputStream(propertiesFile))
     } catch (e: Exception) {
+        // ignored
     }
 }.apply {
     if (exposeToExtra != null) {
@@ -293,8 +296,23 @@ inline fun <reified T : Task> Project.task(scoped: T.() -> Unit = {}): T {
     return task
 }
 
+inline fun <reified T : Task> Project.task(
+    name: String,
+    scoped: T.() -> Unit = {}
+): T {
+    val task = tasks.named(name).get() as T
+    scoped(task)
+    return task
+}
+
 fun Project.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit = {}) =
     task<KotlinCompile>(scoped)
+
+fun Project.cleanTask(scoped: Task.() -> Unit = {}) =
+    task(name = "clean", scoped = scoped)
+
+fun Project.cleanProjectTask(scoped: CleanProjectTask.() -> Unit = {}) =
+    task<CleanProjectTask>(scoped)
 
 fun Project.detektTask(scoped: Detekt.() -> Unit = {}) =
     task<Detekt>(scoped)
@@ -364,21 +382,6 @@ fun Project.fileTree(directory: String, inc: String, exc: String): List<File> {
         setIncludes(listOf(inc))
     }.toList()
 }
-
-//inline fun <reified T> Project.runConfigured(crossinline function: T.() -> Unit) {
-//    afterEvaluate {
-//        val config = project.extension<T>()
-//        if (config is BuildConfigs) {
-//            project.androidExtension.buildTypes.forEach { bt ->
-//                println("> Configuring build : ${bt.name}")
-////                val btConfig = config.buildTypes[bt.name.lowercase()]
-////                println ("> Config: $btConfig")
-////                btConfig?.invoke(bt)
-//            }
-//        }
-//        function(config)
-//    }
-//}
 
 fun Project.androidComponents(
     block: AndroidComponentsExtension<*, *, *>.() -> Unit

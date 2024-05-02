@@ -41,7 +41,6 @@ open class CreatePropsTask : BaseTask() {
     private fun printInfo() {
         println("---------------------------------------------------------------------")
         println("Configuration for project :${project.name} ")
-        println("class : $propsClass")
         println("file : $propsFile")
         println("---------------------------------------------------------------------")
         val props = Properties()

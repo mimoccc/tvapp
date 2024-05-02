@@ -39,7 +39,6 @@ import org.mjdev.gradle.extensions.fromBuildPropertiesFile
 import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
-import org.mjdev.gradle.extensions.runAfterCleanTask
 import org.mjdev.gradle.tasks.CreatePropsTask
 
 @Suppress("UnstableApiUsage")
@@ -62,7 +61,6 @@ class LibPlugin : BasePlugin() {
         registerTask<CreatePropsTask> {
             propsFilePath = LibConfig.configPropertiesFile
             propsClass = LibConfig::class.java
-            runAfterCleanTask()
         }
         configure<LibraryExtension> {
             namespace = libConfig.namespace

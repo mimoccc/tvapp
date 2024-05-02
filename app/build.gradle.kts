@@ -14,8 +14,8 @@ appConfig {
     namespace = "org.mjdev.tvapp"
     description = "Smart TV android app for any android device"
 
-    createDocumentation = true // ok
-    createWebApp = true // todo, false does not affect
+    createDocumentation = true
+    createWebApp = true
     createWebSiteFromGit = false
 
     // todo
