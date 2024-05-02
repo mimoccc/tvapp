@@ -3,6 +3,10 @@
 [![Build & Publish Release APK](https://github.com/mimoccc/tvapp/actions/workflows/build-gradle-project.yml/badge.svg)](https://github.com/mimoccc/tvapp/actions/workflows/build-gradle-project.yml)
 [![GitHub all releases](https://img.shields.io/github/downloads/mimoccc/tvapp/total)](https://github.com/mimoccc/tvapp/releases)
 
+## Download
+
+[Apk file](https://github.com/mimoccc/tvapp/releases/download/release-1.2.9/app-release.apk)
+
 ## Stats
 
 [![Last commit](https://img.shields.io/github/last-commit/mimoccc/tvapp?color=FFC877)](#)
