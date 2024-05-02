@@ -272,6 +272,15 @@ class AppPlugin : BasePlugin() {
                 if (appConfig.createReleaseNotes) {
                     mustRunAfter(releaseNotesCreateTask())
                 }
+                if (appConfig.createWebApp) {
+                    mustRunAfter(webServiceCreateTask())
+                }
+                if (appConfig.createDocumentation) {
+                    mustRunAfter(dokkaTask())
+                }
+                if (appConfig.autoCorrectCode) {
+                    mustRunAfter(detektTask())
+                }
             }
             kotlinCompileOptions {
                 kotlinOptions {

@@ -56,7 +56,7 @@ open class ReleaseNotesCreateTask : BaseTask() {
         println("Creating release notes")
         StringBuilder().apply {
             @Suppress("DEPRECATION")
-            append("** Release notes $projectVersion - ${Date().toLocaleString()}\n")
+            append("## Release notes $projectVersion - ${Date().toLocaleString()}\n")
             branches.forEach { ref ->
                 if (ref.name.endsWith(branchName)) {
                     val commits = git.log().all().call().sortedByDescending {

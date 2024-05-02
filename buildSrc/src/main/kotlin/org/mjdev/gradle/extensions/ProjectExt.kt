@@ -276,8 +276,9 @@ inline fun <reified T : Task> Project.registerTask(
     name: String? = null,
     fn: T.() -> Unit = {}
 ): T {
-    val taskName = name
-        ?: T::class.java.simpleName.replace("Task", "").unCapitalize()
+    val taskName = name ?: T::class.java.simpleName
+            .replace("Task", "")
+            .unCapitalize()
     tasks.register(taskName, T::class.java)
     return tasks.findByName(taskName).let { task ->
         task as T

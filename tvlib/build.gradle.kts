@@ -13,8 +13,4 @@ plugins {
 libConfig {
     namespace = "org.mjdev.tvlib"
     description = "Smart TV android app lib for android applications running on any android device"
-
-    autoCorrectCode = true
-    createDocumentation = true
-    minify = false
 }

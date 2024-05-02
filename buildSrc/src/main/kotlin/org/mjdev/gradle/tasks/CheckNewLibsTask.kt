@@ -34,13 +34,13 @@ open class CheckNewLibsTask : BaseTask() {
 
     @Optional
     @Input
-    var reportFilePath = "dependencies.txt"
+    var reportFilePath = "dependencies.md"
 
     private val tomlFile
-        get() = project.buildDirectory.resolve(tomlFilePath)
+        get() = project.rootDir.resolve(tomlFilePath)
 
     private val reportFile
-        get() = project.buildDirectory.resolve(reportFilePath)
+        get() = project.rootDir.resolve(reportFilePath)
 
     private val isTomlFileExists
         get() = tomlFile.exists()
@@ -67,7 +67,7 @@ open class CheckNewLibsTask : BaseTask() {
 
     init {
         group = "mjdev"
-        description = "This task configure properties in project."
+        description = "This task check new libraries versions in project."
         outputs.upToDateWhen { false }
     }
 
@@ -96,10 +96,20 @@ open class CheckNewLibsTask : BaseTask() {
 
     private fun printInfo() {
         StringBuilder().apply {
-            appendLine("New libs detected for project :${project.name} ")
-            newLibs.forEach { line ->  appendLine(line) }
-            println("Missing version.ref - Need to check manually")
-            missingLibs.forEach { line ->  appendLine(line) }
+            appendLine("## Project libraries check")
+            if (newLibs.size == 0 && missingLibs.size == 0) {
+                appendLine("* No new libs detected for project.")
+                appendLine("* All libs up to date.")
+            } else {
+                if (newLibs.size > 0) {
+                    appendLine("* New libs detected for project:")
+                    newLibs.forEach { line -> appendLine(" - $line") }
+                }
+                if (missingLibs.size > 0) {
+                    println("* Missing version.ref - Need to check manually")
+                    missingLibs.forEach { line -> appendLine(" - $line") }
+                }
+            }
         }.toString().writeToFile(reportFile)
     }
 

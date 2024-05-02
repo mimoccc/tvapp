@@ -19,9 +19,11 @@ open class ZipReleaseCreateTask : BaseTask() {
     @Suppress("DEPRECATION")
     private val files = mutableListOf(
         project.rootDir
-            .resolve("documentation"),
-        project.rootDir
             .resolve("readme.md"),
+        project.rootDir
+            .resolve("dependencies.md"),
+        project.rootDir
+            .resolve("documentation"),
         project.rootDir
             .resolve("reports"),
         project.rootDir
