@@ -18,7 +18,7 @@ jobs:
       # check out sources
       - name: Checkout project sources
         id: checkout_project
-        uses: actions/checkout@v3
+        uses:  actions/checkout@v4
       # build docker todo
       #- name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
         #uses: banool/gp-docker-action@1.0.2
@@ -29,7 +29,7 @@ jobs:
       # setup jdk 17
       - name: Set up JDK 17
         id: setup_java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
