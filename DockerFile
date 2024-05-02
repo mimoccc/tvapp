@@ -1,0 +1,42 @@
+FROM ubuntu:22.04
+LABEL maintainer="mimoccc@mjdev.org"
+LABEL version="1.0"
+LABEL description="This is a custom Docker Image for android app build."
+ENV ANDROID_SDK_TOOLS 11076708
+ENV ANDROID_SDK_URL https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+ENV ANDROID_BUILD_TOOLS_VERSION 34.0.0
+ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV ANDROID_VERSION 34
+ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/bin
+USER root
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+RUN apt-get upgrade -y && \
+# Install required
+RUN apt-get install -y --no-install-recommends zip unzip curl gradle && \
+    mkdir "$ANDROID_HOME" .android && \
+    cd "$ANDROID_HOME" && \
+    curl -o sdk.zip $ANDROID_SDK_URL && \
+    unzip sdk.zip && \
+    rm sdk.zip && \
+# Download Android SDK
+    yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME && \
+    sdkmanager --update --sdk_root=$ANDROID_HOME && \
+    sdkmanager --sdk_root=$ANDROID_HOME "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+    "platforms;android-${ANDROID_VERSION}" \
+    "platform-tools" \
+    "extras;android;m2repository" \
+    "extras;google;m2repository" && \
+ # Install Fastlane
+     apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby-full && \
+     gem install rake && \
+     gem install fastlane && \
+     gem install bundler && \
+     gem install screengrab && \
+# Clean up
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    apt-get autoclean
+#COPY entrypoint.sh /entrypoint.sh
+#ENTRYPOINT ["/entrypoint.sh"]
