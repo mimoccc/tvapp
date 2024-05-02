@@ -1,7 +1,0 @@
-//[tvlib](../../../index.md)/[org.mjdev.tvlib.webscrapper.base](../index.md)/[CustomChromeClient](index.md)/[CustomChromeClient](-custom-chrome-client.md)
-
-# CustomChromeClient
-
-[androidJvm]\
-constructor(context: [Context](https://developer.android.com/reference/kotlin/android/content/Context.html), userAgent: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;Mozilla/5.0 (X11; Linux x86_64) &quot; +
-            &quot;AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36&quot;, popupEnabled: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = true, onError: ([Exception](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html)) -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) = { e -&gt; Timber.e(e) }, onIconReceived: ([Bitmap](https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html)?) -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)? = null, onTitleReceived: ([String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?) -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)? = null, onProgress: ([Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)) -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)? = null)
