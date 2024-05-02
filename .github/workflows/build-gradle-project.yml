@@ -8,19 +8,25 @@ on:
 jobs:
   build-gradle-project:
     runs-on: ubuntu-latest
-# permissions
+    # permissions
     permissions:
       contents: write
       deployments: write
       pages: write
-# job steps
+    # job steps
     steps:
-      - name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
-        uses: banool/gp-docker-action@1.0.2
+      # check out sources
       - name: Checkout project sources
         id: checkout_project
         uses: actions/checkout@v3
-# setup jdk 17
+      # build docker
+      - name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
+        uses: banool/gp-docker-action@1.0.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: mjdev-android
+          extract-git-tag: true
+      # setup jdk 17
       - name: Set up JDK 17
         id: setup_java
         uses: actions/setup-java@v3
@@ -28,15 +34,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
-# setup gradle
+      # setup gradle
       - name: Setup Gradle
         id: setup_gradle
         uses: gradle/gradle-build-action@v2
-# be sure it is executable
+      # be sure it is executable
       - name: Grant execute permission for gradlew
         id: grant_gradle
         run: chmod +x gradlew
-# generate version number to env
+      # generate version number to env
       - name: Prepare Version Number
         id: prepare_version
         run: |
@@ -53,11 +59,11 @@ jobs:
           export APP_VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
           echo "Release Version : $APP_VERSION"
           echo "GITHUB_APP_VERSION_NAME=$(echo $APP_VERSION)" >> $GITHUB_ENV
-# build apk for release
+      # build apk for release
       - name: Build Release APK
         id: build_release_apk
         run: ./gradlew clean assembleRelease
-# publish github release
+      # publish github release
       - name: Create Release
         id: release
         uses: ncipollo/release-action@v1
@@ -67,7 +73,7 @@ jobs:
           token: ${{ secrets.TOKEN }}
           tag: release-${{ env.GITHUB_APP_VERSION_NAME }}
           artifacts: './app/build/outputs/apk/release/app-release.apk, ./documentation/release-notes-$APP_VERSION.md, ./release.zip'
-# update wiki pages
+      # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
         uses: OrlovM/Wiki-Action@v1
