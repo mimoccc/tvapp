@@ -30,6 +30,8 @@ cd "$TEMP_REPO_DIR" || exit
 git rm -rf .
 git clean -fxd
 git update-ref -d refs/heads/master
+git push
+git pull
 cd "$old_dir" || exit
 echo "Copying edited wiki"
 cp -a "$WIKI_DIR/." "$TEMP_REPO_DIR"
