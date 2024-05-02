@@ -24,6 +24,13 @@ echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
 #
 git clone "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$TEMP_REPO_DIR"
 # Copy wikis
+echo "Removing old wiki"
+old_dir=$(pwd)
+cd "$TEMP_REPO_DIR" || exit
+git rm -rf .
+git clean -fxd
+git update-ref -d refs/heads/master
+cd "$old_dir" || exit
 echo "Copying edited wiki"
 cp -a "$WIKI_DIR/." "$TEMP_REPO_DIR"
 # Get commit details
