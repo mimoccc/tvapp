@@ -4,8 +4,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/mimoccc/tvapp/total)](https://github.com/mimoccc/tvapp/releases)
 
 ## Download
-[![name](./design/pictures/android-app-button.png =215x)](https://github.com/mimoccc/tvapp/releases/download/release-1.2.9/app-release.apk)
-[Apk file](https://github.com/mimoccc/tvapp/releases/download/release-1.2.9/app-release.apk)
+[<img src="./design/pictures/android-app-button.png" title="Apk Download" width="215"/>](https://github.com/mimoccc/tvapp/releases/download/release-1.2.9/app-release.apk)
 
 ## Stats
 
