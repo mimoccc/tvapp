@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.gradle.ktlint) apply false
     alias(libs.plugins.gradle.versions) apply true
     alias(libs.plugins.gradle.catalogs.update) apply true
+    //alias(libs.plugins.gradle.node) apply true
 }
 
 buildscript {
@@ -34,6 +35,7 @@ buildscript {
         classpath(libs.gradle.dokka.plugin)
         classpath(libs.gradle.markdown.plugin)
         classpath(libs.gradle.ospackage.plugin)
+        //classpath(libs.gradle.node.plugin)
     }
 
     configurations.classpath {
