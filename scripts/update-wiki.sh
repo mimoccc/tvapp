@@ -25,11 +25,11 @@ echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
 git clone "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$TEMP_REPO_DIR"
 # Copy wikis
 echo "Copying edited wiki"
-cp -R "$WIKI_DIR/*.*" "$TEMP_REPO_DIR"
+cp -R "$WIKI_DIR" "$TEMP_REPO_DIR"
 # Get commit details
-author=`git log -1 --format="%an"`
-email=`git log -1 --format="%ae"`
-message=`git log -1 --format="%s"`
+author=$(git log -1 --format="%an")
+email=$(git log -1 --format="%ae")
+message=$(git log -1 --format="%s")
 # Changes check
 echo "Checking if wiki has changes"
 cd "$TEMP_REPO_DIR" || exit
