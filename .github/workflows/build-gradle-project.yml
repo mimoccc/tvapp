@@ -19,13 +19,13 @@ jobs:
       - name: Checkout project sources
         id: checkout_project
         uses: actions/checkout@v3
-      # build docker
-      - name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
-        uses: banool/gp-docker-action@1.0.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          image-name: mjdev-android
-          build-context: ./
+      # build docker todo
+      #- name: Build and publish Docker Image to GitHub Registry with custom Dockerfile
+        #uses: banool/gp-docker-action@1.0.2
+        #with:
+          #github-token: ${{ secrets.GITHUB_TOKEN }}
+          #image-name: mjdev-android
+          #build-context: ./
       # setup jdk 17
       - name: Set up JDK 17
         id: setup_java
@@ -72,7 +72,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.TOKEN }}
           tag: release-${{ env.GITHUB_APP_VERSION_NAME }}
-          artifacts: './app/build/outputs/apk/release/app-release.apk, ./documentation/release-notes-$APP_VERSION.md, ./release.zip'
+          artifacts: './app/build/outputs/apk/release/app-release.apk, ./documentation/release-notes-*.md, ./release.zip, ./dependencies.md'
       # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
