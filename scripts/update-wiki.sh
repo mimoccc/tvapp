@@ -32,7 +32,7 @@ email=`git log -1 --format="%ae"`
 message=`git log -1 --format="%s"`
 # Changes check
 echo "Checking if wiki has changes"
-cd "$TEMP_WIKI_DIR"
+cd "$TEMP_REPO_DIR" || exit
 git config --local user.email "$email"
 git config --local user.name "$author"
 git add .
