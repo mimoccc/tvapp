@@ -25,7 +25,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           image-name: mjdev-android
-          extract-git-tag: true
+          #extract-git-tag: true
       # setup jdk 17
       - name: Set up JDK 17
         id: setup_java
