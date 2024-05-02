@@ -8,7 +8,7 @@
 #
 set -eu
 #
-TEMP_REPO_DIR="$GITHUB_REPOSITORY_$GITHUB_SHA"
+TEMP_REPO_DIR="$GITHUB_REPOSITORY$GITHUB_SHA"
 #
 if [ -z "$WIKI_DIR" ]; then
     echo "Wiki location is not specified, using default wiki/"
