@@ -76,7 +76,7 @@ jobs:
       # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
-        run: ./scripts/update-wiki.sh
+        run: chmod a+x ./scripts/update-wiki.sh && ./scripts/update-wiki.sh
         shell: bash
         env:
             WIKI_DIR: './documentation'
