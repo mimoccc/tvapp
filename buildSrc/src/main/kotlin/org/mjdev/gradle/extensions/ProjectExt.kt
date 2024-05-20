@@ -25,6 +25,7 @@ import org.gradle.api.Task
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.plugins.ExtraPropertiesExtension
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
@@ -34,6 +35,7 @@ import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
+import org.gradle.plugin.use.PluginDependency
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -287,9 +289,16 @@ inline fun <reified T : Task> Project.registerTask(
     }
 }
 
-fun <T : Plugin<*>> Project.apply(type: KClass<T>): T = plugins.apply(type.java)
+inline fun <reified T : Plugin<Project>> Project.applyPlugin(): T =
+    plugins.apply(T::class.java)
 
-fun Project.apply(id: String): Plugin<*> = plugins.apply(id)
+fun <T:Plugin<Project>> Project.applyPlugin(type: KClass<T>): T =
+    plugins.apply(type.java)
+
+fun Project.applyPlugin(type: Provider<PluginDependency>) =
+    applyPlugin(type.get().pluginId)
+
+fun Project.applyPlugin(id: String): Plugin<*> = plugins.apply(id)
 
 inline fun <reified T : Task> Project.task(scoped: T.() -> Unit = {}): T {
     val task = tasks.withType<T>().first()

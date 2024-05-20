@@ -14,7 +14,6 @@ import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.dokka.Platform
@@ -44,7 +43,7 @@ import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
 import org.mjdev.gradle.extensions.releaseNotesCreateTask
-import org.mjdev.gradle.extensions.apply
+import org.mjdev.gradle.extensions.applyPlugin
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.webServiceCreateTask
 import org.mjdev.gradle.extensions.loadRootPropertiesFile
@@ -69,20 +68,21 @@ class AppPlugin : BasePlugin() {
         val appConfig: AppConfig = extension<AppConfig>(AppConfig.configFieldName)
         fromBuildPropertiesFile(appConfig, AppConfig.configPropertiesFile)
         loadRootPropertiesFile(appConfig.versionPropertiesFile)
-        apply(plugin = "com.android.application")
-        apply(plugin = "kotlin-kapt")
-        apply(plugin = "kotlin-android")
-        apply(plugin = "kotlin-parcelize")
-        apply(plugin = "com.google.devtools.ksp")
-        apply(plugin = "com.google.dagger.hilt.android")
-        apply(plugin = "dagger.hilt.android.plugin")
-        apply(plugin = "io.objectbox")
-        apply(plugin = "org.jetbrains.dokka")
-        apply(MarkdownPlugin::class)
-        apply(DetektPlugin::class)
-        apply(KotlinterPlugin::class)
+        applyPlugin(libs.plugins.android.application)
+        applyPlugin(libs.plugins.kotlin.kapt)
+        applyPlugin(libs.plugins.kotlin.android)
+        applyPlugin(libs.plugins.kotlin.parcelize)
+        applyPlugin(libs.plugins.google.devtools.ksp)
+        applyPlugin(libs.plugins.google.dagger.hilt.android)
+        applyPlugin(libs.plugins.dagger.hilt.android)
+        applyPlugin(libs.plugins.objectbox)
+        applyPlugin(libs.plugins.gradle.dokka)
+        applyPlugin(libs.plugins.kotlin.compose.compiler)
+        applyPlugin<MarkdownPlugin>()
+        applyPlugin<DetektPlugin>()
+        applyPlugin<KotlinterPlugin>()
         registerTask<CleanProjectTask>()
-        registerTask<CheckNewLibsTask>() {
+        registerTask<CheckNewLibsTask> {
             mustRunAfter(cleanProjectTask())
         }
         registerTask<CreatePropsTask> {
@@ -109,7 +109,7 @@ class AppPlugin : BasePlugin() {
                 targetCompatibility = AppConfig.javaVersion
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerVersion
+//                enableStrongSkippingMode = true
             }
             defaultConfig {
                 applicationId = appConfig.namespace
@@ -283,6 +283,7 @@ class AppPlugin : BasePlugin() {
                 }
             }
             kotlinCompileOptions {
+                @Suppress("DEPRECATION")
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
                     jvmTarget = AppConfig.javaVersion.toString()

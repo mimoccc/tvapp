@@ -42,7 +42,6 @@ open class LibConfig : BuildConfigs() {
         const val compileSdk = 34
         const val minSdk = 21
 
-        const val kotlinCompilerVersion = "1.5.8"
         const val jacocoVersion = "0.8.8"
 
         val javaVersion = JavaVersion.VERSION_17

@@ -195,12 +195,14 @@ class CustomChromeClient(
         return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
     }
 
+    @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onConsoleMessage(message: String?, lineNumber: Int, sourceID: String?) {
         onError(JSMessage(message, lineNumber, sourceID))
         super.onConsoleMessage(message, lineNumber, sourceID)
     }
 
+    @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onExceededDatabaseQuota(
         url: String?,
@@ -221,12 +223,14 @@ class CustomChromeClient(
         )
     }
 
+    @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onJsTimeout(): Boolean {
         onError(JSTimeoutException())
         return super.onJsTimeout()
     }
 
+    @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onShowCustomView(
         view: View?,

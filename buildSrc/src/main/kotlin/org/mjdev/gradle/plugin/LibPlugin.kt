@@ -13,7 +13,6 @@ import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.dokka.Platform
@@ -34,12 +33,12 @@ import org.mjdev.gradle.extensions.ksp
 import org.mjdev.gradle.extensions.kotlinCompileOptions
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
-import org.mjdev.gradle.extensions.apply
 import org.mjdev.gradle.extensions.fromBuildPropertiesFile
 import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
 import org.mjdev.gradle.tasks.CreatePropsTask
+import org.mjdev.gradle.extensions.applyPlugin
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -47,17 +46,19 @@ class LibPlugin : BasePlugin() {
         val libConfig: LibConfig = extension<LibConfig>(LibConfig.configFieldName)
         fromBuildPropertiesFile(libConfig, LibConfig.configPropertiesFile)
         loadRootPropertiesFile(libConfig.versionPropertiesFile)
-        apply(plugin = "kotlin-android")
-        apply(plugin = "com.android.library")
-        apply(plugin = "kotlin-kapt")
-        apply(plugin = "kotlin-parcelize")
-        apply(plugin = "com.google.devtools.ksp")
-        apply(plugin = "com.google.dagger.hilt.android")
-        apply(plugin = "dagger.hilt.android.plugin")
-        apply(plugin = "io.objectbox")
-        apply("org.jetbrains.dokka")
-        apply(DetektPlugin::class)
-        apply(KotlinterPlugin::class)
+        applyPlugin(libs.plugins.android.library)
+        applyPlugin(libs.plugins.kotlin.kapt)
+        applyPlugin(libs.plugins.kotlin.android)
+        applyPlugin(libs.plugins.kotlin.parcelize)
+        applyPlugin(libs.plugins.google.devtools.ksp)
+        applyPlugin(libs.plugins.google.devtools.ksp)
+        applyPlugin(libs.plugins.google.dagger.hilt.android)
+        applyPlugin(libs.plugins.dagger.hilt.android)
+        applyPlugin(libs.plugins.objectbox)
+        applyPlugin(libs.plugins.gradle.dokka)
+        applyPlugin(libs.plugins.kotlin.compose.compiler)
+        applyPlugin<DetektPlugin>()
+        applyPlugin<KotlinterPlugin>()
         registerTask<CreatePropsTask> {
             propsFilePath = LibConfig.configPropertiesFile
             propsClass = LibConfig::class.java
@@ -74,7 +75,7 @@ class LibPlugin : BasePlugin() {
                 buildConfig = LibConfig.buildConfigEnabled
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = LibConfig.kotlinCompilerVersion
+//                enableStrongSkippingMode = true
             }
             defaultConfig {
                 minSdk = LibConfig.minSdk
@@ -148,6 +149,7 @@ class LibPlugin : BasePlugin() {
                 }
             }
             kotlinCompileOptions {
+                @Suppress("DEPRECATION")
                 kotlinOptions {
                     freeCompilerArgs += "-Xjsr305=strict"
                     jvmTarget = LibConfig.javaVersion.toString()

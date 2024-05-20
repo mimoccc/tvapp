@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.kotlin.mockito)
     implementation(libs.junit)
+    implementation(libs.kotlin.compose.compiler)
 //    implementation(libs.apk.parser)
 //    implementation(libs.gradle.docker.plugin)
 //    implementation(libs.korim.jvm)

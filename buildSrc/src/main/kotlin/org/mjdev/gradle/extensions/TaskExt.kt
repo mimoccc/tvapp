@@ -18,6 +18,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.StartParameter
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
+import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.logging.Logger
@@ -305,8 +306,8 @@ fun Task.mustRunAfter(taskScope: () -> Task) {
     mustRunAfter(taskScope())
 }
 
-fun <T : Plugin<*>> Task.apply(type: KClass<T>): T =
-    project.apply(type)
+fun <T : Plugin<Project>> Task.apply(type: KClass<T>) =
+    project.applyPlugin(type)
 
 fun Task.kotlinCompileOptions(scoped: KotlinCompile.() -> Unit) =
     project.kotlinCompileOptions(scoped)

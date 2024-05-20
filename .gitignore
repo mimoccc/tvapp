@@ -69,3 +69,18 @@ google-services.json
 /web/app.nginx
 /web/app.service
 /web/package.json
+
+# kotlin v 2.0
+.kotlin
+.kotlin/
+/.kotlin/
+
+dependencies.md
+
+documentation/app
+documentation/app/
+/documentation/app/
+
+documentation/lib
+/documentation/lib
+/documentation/lib/
