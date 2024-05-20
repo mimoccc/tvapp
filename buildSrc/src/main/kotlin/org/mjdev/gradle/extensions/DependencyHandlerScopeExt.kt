@@ -18,7 +18,6 @@ private const val IMPLEMENTATION = "implementation"
 private const val DEBUG_IMPLEMENTATION = "debugImplementation"
 private const val ANDROID_TEST_IMPLEMENTATION = "androidTestImplementation"
 private const val TEST_IMPLEMENTATION = "testImplementation"
-private const val KAPT_IMPLEMENTATION = "kapt"
 private const val KSP_IMPLEMENTATION = "ksp"
 
 fun DependencyHandlerScope.implementation(
@@ -61,10 +60,4 @@ fun DependencyHandlerScope.ksp(
     dependency: Provider<MinimalExternalModuleDependency>
 ) {
     add(KSP_IMPLEMENTATION, dependency.get())
-}
-
-fun DependencyHandlerScope.kapt(
-    dependency: Provider<MinimalExternalModuleDependency>
-) {
-    add(KAPT_IMPLEMENTATION, dependency.get())
 }

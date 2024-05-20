@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -144,9 +144,6 @@ class DailyMotionVideoView @JvmOverloads constructor(
                         // omit
                     }
                 }
-            }
-            if (q == null || q.trim { it <= ' ' }.isEmpty()) {
-                q = File(filePath).name.substringBeforeLast(".")
             }
             ThreadOnce.runInThreadOnce {
                 try {

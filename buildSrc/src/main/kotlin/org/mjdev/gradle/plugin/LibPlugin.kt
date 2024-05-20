@@ -26,7 +26,6 @@ import org.mjdev.gradle.extensions.extension
 import org.mjdev.gradle.extensions.libs
 import org.mjdev.gradle.extensions.implementation
 import org.mjdev.gradle.extensions.debugImplementation
-import org.mjdev.gradle.extensions.kapt
 import org.mjdev.gradle.extensions.testImplementation
 import org.mjdev.gradle.extensions.androidTestImplementation
 import org.mjdev.gradle.extensions.ksp
@@ -47,7 +46,6 @@ class LibPlugin : BasePlugin() {
         fromBuildPropertiesFile(libConfig, LibConfig.configPropertiesFile)
         loadRootPropertiesFile(libConfig.versionPropertiesFile)
         applyPlugin(libs.plugins.android.library)
-        applyPlugin(libs.plugins.kotlin.kapt)
         applyPlugin(libs.plugins.kotlin.android)
         applyPlugin(libs.plugins.kotlin.parcelize)
         applyPlugin(libs.plugins.google.devtools.ksp)
@@ -75,7 +73,7 @@ class LibPlugin : BasePlugin() {
                 buildConfig = LibConfig.buildConfigEnabled
             }
             composeOptions {
-//                enableStrongSkippingMode = true
+                useLiveLiterals = true
             }
             defaultConfig {
                 minSdk = LibConfig.minSdk
@@ -207,9 +205,9 @@ class LibPlugin : BasePlugin() {
             // dagger hilt
             implementation(libs.dagger.hilt.android)
             implementation(libs.androidx.compose.hilt.navigation)
-            kapt(libs.dagger.compiler)
-            kapt(libs.dagger.android.processor)
-            kapt(libs.dagger.hilt.compiler)
+            ksp(libs.dagger.compiler)
+            ksp(libs.dagger.android.processor)
+            ksp(libs.dagger.hilt.compiler)
             // moshi
             implementation(libs.moshi)
             implementation(libs.moshi.retrofit.converter)
