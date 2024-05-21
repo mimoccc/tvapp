@@ -128,7 +128,7 @@ object HiltExt {
     @InstallIn(ActivityComponent::class)
     internal interface ActivityCreatorEntryPoint {
         @get:HiltViewModelMap.KeySet
-        val viewModelKeys: Set<String?>
+        val viewModelKeys: Map<Class<*>, Boolean>
         val viewModelComponentBuilder: ViewModelComponentBuilder
     }
 

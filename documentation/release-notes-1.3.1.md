@@ -1,7 +1,12 @@
-## Release notes 1.0.0 - 20. 5. 2024, 16:01:59
+## Release notes 1.0.0 - 22. 5. 2024, 1:09:41
+
+* 22.05.2024
+
+* [milan jurkulák] : update libs 
 
 * 20.05.2024
 
+* [milan jurkulák] : kapt removal 
 * [milan jurkulák] : new compose & kotlin 2 
 
 * 02.05.2024

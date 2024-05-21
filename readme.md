@@ -81,6 +81,7 @@ Technologies that will be used:
 - Automatic release
 - Toml dependencies
 - Gradle plugins
+- Kotlin K2
 - Screenshots auto creation (coming soon)
 - AI test auto creation (coming soon)
 
