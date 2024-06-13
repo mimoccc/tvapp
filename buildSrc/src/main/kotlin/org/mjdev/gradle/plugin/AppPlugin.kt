@@ -56,6 +56,7 @@ import org.mjdev.gradle.tasks.CleanProjectTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.extensions.assembleTasks
 import org.mjdev.gradle.extensions.cleanProjectTask
+import org.mjdev.gradle.extensions.isAndroidStudio
 import org.mjdev.gradle.extensions.markDownToHtmlTask
 import org.mjdev.gradle.extensions.variants
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
@@ -71,8 +72,6 @@ class AppPlugin : BasePlugin() {
         applyPlugin(libs.plugins.kotlin.android)
         applyPlugin(libs.plugins.kotlin.parcelize)
         applyPlugin(libs.plugins.google.devtools.ksp)
-        applyPlugin(libs.plugins.google.dagger.hilt.android)
-        applyPlugin(libs.plugins.dagger.hilt.android)
         applyPlugin(libs.plugins.objectbox)
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
@@ -332,21 +331,16 @@ class AppPlugin : BasePlugin() {
             debugImplementation(libs.androidx.customview.poolingcontainer)
             // foundation
             implementation(libs.androidx.foundation)
-            // dagger
-            implementation(libs.dagger)
-            // dagger android
-            implementation(libs.dagger.android)
-            implementation(libs.dagger.android.support)
-            // dagger hilt
-            implementation(libs.dagger.hilt.android)
-            implementation(libs.androidx.compose.hilt.navigation)
-            // dagger annotations
-            ksp(libs.dagger.compiler)
-            ksp(libs.dagger.android.processor)
-            ksp(libs.dagger.hilt.compiler)
+            // moshi
             implementation(libs.moshi)
             implementation(libs.moshi.retrofit.converter)
             ksp(libs.moshi.kotlin.codegen)
+            // Kodein DI
+            implementation(libs.kodein.di)
+            implementation(libs.kodein.di.framework.compose)
+            implementation(libs.kodein.di.framework.android.x)
+            implementation(libs.kodein.di.framework.android.x.viewmodel)
+            implementation(libs.kodein.di.framework.android.x.viewmodel.savedstate)
             // okhttp
             implementation(platform(libs.okhttp3.bom))
             implementation(libs.okhttp3)
@@ -420,8 +414,8 @@ class AppPlugin : BasePlugin() {
             // anr
             implementation(libs.anrwatchdog)
             // oauth
-            implementation(libs.auth0)
-            implementation(libs.android.jwtdecode)
+//            implementation(libs.auth0)
+//            implementation(libs.android.jwtdecode)
         }
     }
 }

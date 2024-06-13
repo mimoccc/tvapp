@@ -1,9 +1,9 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 @file:Suppress("MoveVariableDeclarationIntoWhen")
@@ -18,11 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
+import org.kodein.di.compose.rememberInstance
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.extensions.ListExt.indexOf
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.navigation.AnyType
@@ -49,12 +49,8 @@ class GalleryScreen : Screen() {
     @Previews
     @Composable
     override fun Content() {
-        val viewModel: DetailViewModel = appViewModel { context ->
-            DetailViewModel.mock(context)
-        }
-
+        val viewModel: DetailViewModel by rememberInstance()
         val data: Any? = remember(args) { args[data] }
-
         val dataList = remember(data) {
             viewModel.mediaItemsFor(data)
         }
@@ -66,7 +62,6 @@ class GalleryScreen : Screen() {
             list = dataList,
             index = dataList.indexOf<Any?> { item -> item.uri == data.uri },
         )
-
     }
 
 }

@@ -125,12 +125,12 @@ inline fun <reified T : Task> Task.registerTask(
 fun Task.files(vararg paths: Any): ConfigurableFileCollection =
     project.files(paths)
 
-@Suppress("UnstableApiUsage")
-fun Task.finalizeDsl(block: CommonExtension<*, *, *, *, *>.() -> Unit) {
-    androidComponents.finalizeDsl { android ->
-        block(android)
-    }
-}
+//@Suppress("UnstableApiUsage")
+//fun Task.finalizeDsl(block: CommonExtension<*, *, *, *, *>.() -> Unit) {
+//    androidComponents.finalizeDsl { android ->
+//        block(android)
+//    }
+//}
 
 //fun Task.registerSourceDirectory(
 //    dir: File

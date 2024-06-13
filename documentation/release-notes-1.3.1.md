@@ -1,8 +1,8 @@
-## Release notes 1.0.0 - 22. 5. 2024, 1:09:41
+## Release notes 1.0.0 - 13. 6. 2024, 10:34:19
 
 * 22.05.2024
 
-* [milan jurkulák] : update libs 
+* [milan jurkulák] : update libs  update libs 
 
 * 20.05.2024
 

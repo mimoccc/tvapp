@@ -20,30 +20,37 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.annotation.Keep
-import dagger.hilt.android.AndroidEntryPoint
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvapp.repository.ApiService
 import timber.log.Timber
-import javax.inject.Inject
 
 @Suppress("MemberVisibilityCanBePrivate")
 @Keep
-@AndroidEntryPoint
-class SyncService : Service() {
+class SyncService : Service(), DIAware {
 
-    @Inject
-    lateinit var apiService: ApiService
+    override val di by DI.lazy {
+        bind<Context>() with singleton { applicationContext }
+        bind<DAO>() with singleton { (applicationContext as Application).DAO }
+        import(MainModule)
+    }
 
-    @Inject
-    lateinit var dao: DAO
+    val apiService: ApiService by instance()
+    val dao: DAO by instance()
 
     override fun onCreate() {
         super.onCreate()
         synchronized(sSyncAdapterLock) {
             sSyncAdapter = sSyncAdapter ?: SyncAdapter(
-                context = this,
+                context = applicationContext,
                 apiService = apiService,
                 dao = dao
             )
@@ -80,8 +87,6 @@ class SyncService : Service() {
                         } else {
                             printError("Can not create sync account")
                         }
-                    } else {
-//                        printError("Account already exists.")
                     }
                 }
             } catch (e: Throwable) {
@@ -100,7 +105,7 @@ class SyncService : Service() {
             Timber.e("Sync resources : ${getString(R.string.sync_auth)}")
         }
 
-        fun Context.printError(message:String) {
+        fun Context.printError(message: String) {
             printError(Exception(message))
         }
 

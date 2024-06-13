@@ -8,8 +8,10 @@
 
 package org.mjdev.tvlib.viewmodel
 
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -21,9 +23,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@Suppress("unused")
-open class BaseViewModel() : ViewModel() {
-
+@Suppress("unused", "StaticFieldLeak")
+open class BaseViewModel(
+    context: Context
+) : AndroidViewModel(context.applicationContext as Application) {
     val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
 
     private var errorHandler: (error: Throwable) -> Unit = { e -> Timber.e(e) }

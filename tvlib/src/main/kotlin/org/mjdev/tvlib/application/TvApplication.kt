@@ -15,11 +15,9 @@ import com.google.android.material.color.DynamicColors
 import org.mjdev.tvlib.events.EventBusInitializer
 
 open class TvApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
         EventBusInitializer.init(this)
     }
-
 }

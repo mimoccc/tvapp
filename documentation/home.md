@@ -39,7 +39,7 @@ Documentation contains all the classes in project.
 Just an test app to skills showcase of coding skills, using
 
 - Compose
-- Dagger/Hilt
+- Kodein inject
 - ViewModels MVVM pattern
 - Glide
 - Kotlin

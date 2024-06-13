@@ -30,7 +30,6 @@ class MainScreen : ScreenWithPages() {
     override val immersive: Boolean = false
 
     override val pages: (PagerScope.() -> Unit) = {
-
         page(SearchPage(), menuGravity = Top)
 
         page(MainPage(), isStartPage = true)
@@ -38,7 +37,6 @@ class MainScreen : ScreenWithPages() {
         page(PluginsPage())
 
         page(AboutPage(), menuGravity = Bottom)
-
     }
 
     @Previews

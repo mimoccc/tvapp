@@ -6,6 +6,8 @@
  *  w: https://mjdev.org
  */
 
+import org.mjdev.gradle.extensions.isAndroidStudio
+
 plugins {
     id("LibPlugin")
 }
@@ -13,4 +15,5 @@ plugins {
 libConfig {
     namespace = "org.mjdev.tvlib"
     description = "Smart TV android app lib for android applications running on any android device"
+    createDocumentation = !isAndroidStudio
 }

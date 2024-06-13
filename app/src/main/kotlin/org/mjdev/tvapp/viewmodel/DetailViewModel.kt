@@ -6,75 +6,63 @@
  *  w: https://mjdev.org
  */
 
-@file:Suppress("unused")
-
 package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
-import dagger.hilt.android.lifecycle.HiltViewModel
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
-import javax.inject.Inject
+import kotlin.reflect.KClass
 
-@Suppress("MemberVisibilityCanBePrivate")
-@HiltViewModel
-class DetailViewModel @Inject constructor() : BaseViewModel() {
+class DetailViewModel(
+    context: Context
+) : BaseViewModel(context), DIAware {
 
-//    private val cache = mutableMapOf<KClass<*>, List<*>>()
+    override val di by DI.lazy {
+        bind<Context>() with singleton { context }
+        bind<DAO>() with singleton { (context.applicationContext as Application).DAO }
+        import(MainModule)
+    }
 
-    @Inject
-    lateinit var dao: DAO
+    private val cache = mutableMapOf<KClass<*>, List<*>>()
 
-    @Inject
-    lateinit var localAudioCursor: AudioCursor
+    val dao: DAO by instance()
 
-    @Inject
-    lateinit var localVideoCursor: VideoCursor
-
-    @Inject
-    lateinit var localPhotoCursor: PhotoCursor
+    private val localAudioCursor: AudioCursor by instance()
+    private val localVideoCursor: VideoCursor by instance()
+    private val localPhotoCursor: PhotoCursor by instance()
 
     // todo : improve on changes
-    inline fun <reified T> getCachedList(creator: () -> List<*>): List<*> {
-//        if (!cache.containsKey(T::class)) {
-//            creator().let { list ->
-//                cache[T::class] = list
-//            }
-//        }
-//        return cache[T::class] ?: emptyList<Any>()
-        return creator()
+    private inline fun <reified T> getCachedList(creator: () -> List<T>): List<*> {
+        if (!cache.containsKey(T::class)) {
+            creator().let { list ->
+                cache[T::class] = list
+            }
+        }
+        return cache[T::class] ?: emptyList<T>()
     }
 
     fun mediaItemsFor(
         data: Any?
     ): List<Any?> = when (data) {
-        is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
-        is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
-        is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
-        is Media -> getCachedList<Media> { dao.allMediaItems }
+        is ItemAudio -> getCachedList { localAudioCursor }
+        is ItemVideo -> getCachedList { localVideoCursor }
+        is ItemPhoto -> getCachedList { localPhotoCursor }
+        is Media -> getCachedList { dao.allMediaItems }
         else -> listOf(data.mediaItem)
     }
-
-    companion object {
-
-        @Suppress("unused")
-        fun mock(
-            context: Context
-        ): DetailViewModel = DetailViewModel().apply {
-            dao = DAO(context, true)
-            localAudioCursor = AudioCursor(context)
-            localVideoCursor = VideoCursor(context)
-            localPhotoCursor = PhotoCursor(context)
-        }
-
-    }
-
 }

@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.kodein.di.compose.rememberInstance
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
@@ -32,7 +33,6 @@ import org.mjdev.tvapp.data.events.SyncEvent
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSync
 import org.mjdev.tvlib.data.local.User
 import org.mjdev.tvlib.auth.AuthManager.Companion.rememberAuthManager
-import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.tv.AppsRow
 import org.mjdev.tvlib.ui.components.tv.BrowseView
@@ -60,11 +60,7 @@ class MainPage : Page() {
     @Composable
     override fun Content() {
         val navController = rememberNavControllerEx()
-
-        val viewModel: MainViewModel = appViewModel { context ->
-            MainViewModel.mock(context)
-        }
-
+        val viewModel: MainViewModel by rememberInstance()
         val syncEvents by observedEvents<SyncEvent>()
         // refresh every 32 items, todo improve
         val needRefresh by remember {
@@ -112,6 +108,7 @@ class MainPage : Page() {
             }
         }
 
+        // todo move to viewmodel and events
         viewModel.handleError { error ->
             errorState.value = error
         }

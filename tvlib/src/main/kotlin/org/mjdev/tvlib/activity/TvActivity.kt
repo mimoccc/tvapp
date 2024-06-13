@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -18,6 +18,8 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
 import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -31,7 +33,7 @@ import timber.log.Timber
 @Suppress("MemberVisibilityCanBePrivate", "PreviewShouldNotBeCalledRecursively")
 open class TvActivity : ComposableActivity(), View.OnApplyWindowInsetsListener {
 
-    open val backgroundColor : Color? = null
+    open val backgroundColor: Color? = null
 
     open var background: Drawable? = null
         get() = field ?: backgroundColor?.let { ColorDrawable(it.toArgb()) }
@@ -58,6 +60,16 @@ open class TvActivity : ComposableActivity(), View.OnApplyWindowInsetsListener {
                 ((configuration?.screenWidthDp ?: 0) > (configuration?.screenHeightDp ?: 0))
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                Color.Transparent.toArgb(),
+                Color.Transparent.toArgb()
+            ),
+            navigationBarStyle = SystemBarStyle.auto(
+                Color.Transparent.toArgb(),
+                Color.Transparent.toArgb()
+            )
+        )
         decorView.setOnApplyWindowInsetsListener(this)
         if (background == null) {
             try {

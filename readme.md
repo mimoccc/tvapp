@@ -59,7 +59,7 @@ Components should be responsive to display size.
 Technologies that will be used:
 
 - Compose
-- Dagger/Hilt
+- Kodein inject
 - ViewModels MVVM pattern
 - Glide
 - Kotlin

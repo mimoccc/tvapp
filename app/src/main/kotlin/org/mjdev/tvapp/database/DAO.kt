@@ -9,7 +9,6 @@
 package org.mjdev.tvapp.database
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
@@ -24,7 +23,6 @@ import org.mjdev.tvapp.data.local.TVChannel
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class DAO(
-    @ApplicationContext
     val context: Context,
     val isDebug: Boolean = false,
     // todo

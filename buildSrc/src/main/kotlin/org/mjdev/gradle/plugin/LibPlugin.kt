@@ -50,8 +50,6 @@ class LibPlugin : BasePlugin() {
         applyPlugin(libs.plugins.kotlin.parcelize)
         applyPlugin(libs.plugins.google.devtools.ksp)
         applyPlugin(libs.plugins.google.devtools.ksp)
-        applyPlugin(libs.plugins.google.dagger.hilt.android)
-        applyPlugin(libs.plugins.dagger.hilt.android)
         applyPlugin(libs.plugins.objectbox)
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
@@ -197,17 +195,12 @@ class LibPlugin : BasePlugin() {
             debugImplementation(libs.androidx.customview.poolingcontainer)
             // foundation
             implementation(libs.androidx.foundation)
-            // dagger
-            implementation(libs.dagger)
-            // dagger android
-            implementation(libs.dagger.android)
-            implementation(libs.dagger.android.support)
-            // dagger hilt
-            implementation(libs.dagger.hilt.android)
-            implementation(libs.androidx.compose.hilt.navigation)
-            ksp(libs.dagger.compiler)
-            ksp(libs.dagger.android.processor)
-            ksp(libs.dagger.hilt.compiler)
+            // Kodein DI
+            implementation(libs.kodein.di)
+            implementation(libs.kodein.di.framework.compose)
+            implementation(libs.kodein.di.framework.android.x)
+            implementation(libs.kodein.di.framework.android.x.viewmodel)
+            implementation(libs.kodein.di.framework.android.x.viewmodel.savedstate)
             // moshi
             implementation(libs.moshi)
             implementation(libs.moshi.retrofit.converter)
@@ -263,7 +256,7 @@ class LibPlugin : BasePlugin() {
             implementation(libs.zxing.core)
             // svg
             implementation(libs.androidsvg.aar)
-            // pallette
+            // palette
             implementation(libs.androidx.palette.ktx)
             // lottie
             implementation(libs.compose.lottie)
@@ -284,8 +277,8 @@ class LibPlugin : BasePlugin() {
             // anr
             implementation(libs.anrwatchdog)
             // oauth
-            implementation(libs.auth0)
-            implementation(libs.android.jwtdecode)
+//            implementation(libs.auth0)
+//            implementation(libs.android.jwtdecode)
         }
     }
 }

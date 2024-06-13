@@ -44,7 +44,7 @@ fun ApplicationVariantDimension.stringRes(
 }
 
 fun ApplicationVariantDimension.addSyncProviderAuthString(
-    applicationId:String,
+    applicationId: String,
     name: String = "sync_auth",
     suffix: String = "sync"
 ) {
@@ -53,7 +53,7 @@ fun ApplicationVariantDimension.addSyncProviderAuthString(
 }
 
 fun ApplicationVariantDimension.stringResWithPackageName(
-    applicationId:String,
+    applicationId: String,
     vararg fields: Pair<String, String>
 ) {
     fields.forEach { pair ->
@@ -74,11 +74,7 @@ fun ApplicationVariantDimension.buildConfigStringWithPackageName(
 }
 
 fun ApplicationVariantDimension.manifestPlaceholders(
-    vararg fields: Pair<String, Any>
+    vararg placeholders: Pair<String, Any>
 ) {
-    manifestPlaceholders.apply {
-        fields.forEach { pair ->
-            put(pair.first, pair.second)
-        }
-    }
+    placeholders.forEach { pair -> manifestPlaceholders.put(pair.first, pair.second) }
 }

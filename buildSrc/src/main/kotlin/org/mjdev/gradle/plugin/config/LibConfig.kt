@@ -60,5 +60,4 @@ open class LibConfig : BuildConfigs() {
     }
 
     override fun toMap(): Map<*, *> = toHashMap()
-
 }

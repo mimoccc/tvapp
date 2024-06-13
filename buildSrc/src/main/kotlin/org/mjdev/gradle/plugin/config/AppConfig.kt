@@ -14,7 +14,6 @@ import org.mjdev.gradle.plugin.config.base.BuildConfigs
 
 @Suppress("unused")
 open class AppConfig : BuildConfigs() {
-
     open var namespace = "org.mjdev.tvapp"
     open var description = ""
 
@@ -74,5 +73,4 @@ open class AppConfig : BuildConfigs() {
     }
 
     override fun toMap(): Map<*, *> = toHashMap()
-
 }

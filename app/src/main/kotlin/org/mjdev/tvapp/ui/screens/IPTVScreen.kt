@@ -1,9 +1,9 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 @file:Suppress("UnusedReceiverParameter")
@@ -19,11 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
+import org.kodein.di.compose.rememberInstance
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.Previews
-import org.mjdev.tvlib.extensions.HiltExt.appViewModel
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
@@ -53,17 +53,11 @@ class IPTVScreen : Screen() {
     @Previews
     @Composable
     override fun Content() {
-
-        val viewModel: IPTVViewModel = appViewModel { context ->
-            IPTVViewModel.mock(context)
-        }
-
+        val viewModel: IPTVViewModel by rememberInstance()
         val data: Any? = args[data]
-
         val dataList: List<MediaItem> = remember(data) {
             viewModel.mediaItemsFor(data)
         }
-
         val index = remember(data) {
             dataList.indexOf<Any?> { item -> item.uri == data.uri }
         }

@@ -37,19 +37,29 @@
 -dontwarn java.beans.IntrospectionException
 -dontwarn java.beans.Introspector
 -dontwarn java.beans.PropertyDescriptor
+
 -dontwarn javax.imageio.ImageIO
 -dontwarn javax.imageio.ImageReader
 -dontwarn javax.imageio.stream.ImageInputStream
+
 -dontwarn javax.lang.model.SourceVersion
+
 -dontwarn javax.naming.InvalidNameException
 -dontwarn javax.naming.NamingException
 -dontwarn javax.naming.directory.Attribute
 -dontwarn javax.naming.directory.Attributes
 -dontwarn javax.naming.ldap.LdapName
 -dontwarn javax.naming.ldap.Rdn
+
 -dontwarn org.ietf.jgss.GSSContext
 -dontwarn org.ietf.jgss.GSSCredential
 -dontwarn org.ietf.jgss.GSSException
 -dontwarn org.ietf.jgss.GSSManager
 -dontwarn org.ietf.jgss.GSSName
 -dontwarn org.ietf.jgss.Oid
+
+-keep, allowobfuscation, allowoptimization class org.kodein.type.TypeReference
+-keep, allowobfuscation, allowoptimization class org.kodein.type.JVMAbstractTypeToken$Companion$WrappingTest
+
+-keep, allowobfuscation, allowoptimization class * extends org.kodein.type.TypeReference
+-keep, allowobfuscation, allowoptimization class * extends org.kodein.type.JVMAbstractTypeToken$Companion$WrappingTest

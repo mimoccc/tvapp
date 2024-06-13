@@ -12,43 +12,45 @@ package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
 import androidx.media3.common.MediaItem
-import dagger.hilt.android.lifecycle.HiltViewModel
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.network.NetworkConnectivityService
-import javax.inject.Inject
 import kotlin.reflect.KClass
 
-@Suppress("MemberVisibilityCanBePrivate")
-@HiltViewModel
-class IPTVViewModel @Inject constructor() : BaseViewModel() {
+class IPTVViewModel (
+    context: Context
+) : BaseViewModel(context), DIAware {
 
-    @Inject
-    lateinit var dao: DAO
+    override val di by DI.lazy {
+        bind<Context>() with singleton { context }
+        bind<DAO>() with singleton { (context.applicationContext as Application).DAO }
+        import(MainModule)
+    }
 
-    @Inject
-    lateinit var networkInfo: NetworkConnectivityService
+    val dao: DAO by instance()
+    val networkInfo: NetworkConnectivityService by instance()
 
-    @Inject
-    lateinit var localAudioCursor: AudioCursor
+    private val localAudioCursor: AudioCursor by instance()
+    private val localVideoCursor: VideoCursor by instance()
+    private val localPhotoCursor: PhotoCursor by instance()
 
-    @Inject
-    lateinit var localVideoCursor: VideoCursor
-
-    @Inject
-    lateinit var localPhotoCursor: PhotoCursor
-
-    val mediaItems: List<Any> get() = dao.movieDao.all
-
-    val cache = mutableMapOf<KClass<*>, List<MediaItem>>()
+    private val mediaItems: List<Any> get() = dao.movieDao.all
+    private val cache = mutableMapOf<KClass<*>, List<MediaItem>>()
 
     fun mediaItemsFor(
         data: Any?
@@ -61,6 +63,7 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
                 (listItem as? Media?)?.category == data.category
             }
         }
+
         else -> listOf(data.mediaItem)
     }
 
@@ -72,20 +75,4 @@ class IPTVViewModel @Inject constructor() : BaseViewModel() {
         }
         return cache[T::class] ?: emptyList()
     }
-
-    companion object {
-
-        @Suppress("unused")
-        fun mock(
-            context: Context
-        ): IPTVViewModel = IPTVViewModel().apply {
-            dao = DAO(context, true)
-            networkInfo = NetworkConnectivityService(context)
-            localAudioCursor = AudioCursor(context)
-            localVideoCursor = VideoCursor(context)
-            localPhotoCursor = PhotoCursor(context)
-        }
-
-    }
-
 }

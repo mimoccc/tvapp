@@ -49,7 +49,6 @@ class SplashScreen : Screen() {
     @Previews
     @Composable
     override fun Content() {
-
         val isEdit = isEditMode()
         val scale = remember(isEdit) { Animatable(if (isEdit) 1f else 0f) }
 //        val alpha = remember(isEdit) { Animatable(0.5f) }

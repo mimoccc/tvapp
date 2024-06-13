@@ -10,26 +10,37 @@ package org.mjdev.tvapp.viewmodel
 
 import android.content.ComponentName
 import android.content.Context
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.activity.MainActivity
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.extensions.ListExt.takeIf
 import org.mjdev.tvlib.interfaces.ItemWithImage.Companion.hasImage
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor() : BaseViewModel() {
+class MainViewModel(
+    context: Context
+) : BaseViewModel(context), DIAware {
+
+    override val di by DI.lazy {
+        bind<Context>() with singleton { context }
+        bind<DAO>() with singleton { (context.applicationContext as Application).DAO }
+        import(MainModule)
+    }
 
     @Suppress("PrivatePropertyName")
     private val ITEMS_FROM_CATEGORY = 3
@@ -39,22 +50,10 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         MainActivity::class.java.name
     )
 
-    @ApplicationContext
-    @Inject
-    lateinit var context: Context
-
-    @Inject
-    lateinit var dao: DAO
-
-    @Inject
-    lateinit var localAudioCursor: AudioCursor
-
-    @Inject
-    lateinit var localVideoCursor: VideoCursor
-
-    @Inject
-    lateinit var localPhotoCursor: PhotoCursor
-
+    val dao: DAO by instance()
+    val localAudioCursor: AudioCursor by instance()
+    val localVideoCursor: VideoCursor by instance()
+    val localPhotoCursor: PhotoCursor by instance()
 //    // todo : move to cursor
 //    val apps
 //        get() = appsManager(context, excludedActivity).stateInViewModel()
@@ -98,19 +97,5 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         get() = flow {
             emit(dao.countriesDao.all)
         }.flowOn(Dispatchers.IO).stateInViewModel()
-
-    companion object {
-
-        @Suppress("unused")
-        fun mock(
-            context: Context
-        ): MainViewModel = MainViewModel().apply {
-            dao = DAO(context, true)
-            localAudioCursor = AudioCursor(context)
-            localVideoCursor = VideoCursor(context)
-            localPhotoCursor = PhotoCursor(context)
-        }
-
-    }
 
 }

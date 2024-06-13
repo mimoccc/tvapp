@@ -6,6 +6,9 @@
  *  w: https://mjdev.org
  */
 
+import org.mjdev.gradle.extensions.isAndroidStudio
+
+
 plugins {
     id("AppPlugin")
 }
@@ -13,6 +16,7 @@ plugins {
 appConfig {
     namespace = "org.mjdev.tvapp"
     description = "Smart TV android app for any android device"
+    createDocumentation = !isAndroidStudio
 
     // todo
     default {
