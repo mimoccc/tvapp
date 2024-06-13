@@ -22,9 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
-import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.NonInteractiveSurfaceDefaults
 import androidx.tv.material3.Surface
+import androidx.tv.material3.SurfaceDefaults
 import com.github.anrwatchdog.ANRWatchDog
 import org.mjdev.tvlib.BuildConfig
 import org.mjdev.tvlib.annotations.Previews
@@ -128,7 +127,6 @@ open class ComposableActivity : ComponentActivity() {
     }
 
     @Previews
-    @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     @CallSuper
     open fun Compose() {
@@ -145,7 +143,7 @@ open class ComposableActivity : ComponentActivity() {
                         }
                     ),
                 shape = RectangleShape,
-                colors = NonInteractiveSurfaceDefaults.colors(
+                colors = SurfaceDefaults.colors(
                     containerColor = Color.Companion.Transparent
                     // MaterialTheme.colorScheme.background
                 )

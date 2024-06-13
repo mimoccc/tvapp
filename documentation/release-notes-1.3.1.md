@@ -1,4 +1,8 @@
-## Release notes 1.0.0 - 13. 6. 2024, 10:34:19
+## Release notes 1.0.0 - 13. 6. 2024, 11:27:13
+
+* 13.06.2024
+
+* [milan jurkulák] : dagger removal, kodein pre-implementation  
 
 * 22.05.2024
 

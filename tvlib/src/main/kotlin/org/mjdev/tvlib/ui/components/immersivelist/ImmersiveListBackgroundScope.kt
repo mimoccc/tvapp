@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -20,11 +20,12 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.ImmersiveListDefaults
 
 @Immutable
 @ExperimentalTvMaterial3Api
-class ImmersiveListBackgroundScope internal constructor(boxScope: BoxScope) : BoxScope by boxScope {
+class ImmersiveListBackgroundScope(
+    boxScope: BoxScope
+) : BoxScope by boxScope {
 
     @Suppress("unused")
     @Composable

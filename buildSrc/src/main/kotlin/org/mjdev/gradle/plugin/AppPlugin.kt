@@ -388,12 +388,11 @@ class AppPlugin : BasePlugin() {
             implementation(libs.aescrypt)
             // permission
             implementation(libs.accompanist.permissions)
-            // another
             // zxing
             implementation(libs.zxing.core)
             // svg
             implementation(libs.androidsvg.aar)
-            // pallette
+            // palette
             implementation(libs.androidx.palette.ktx)
             // lottie
             implementation(libs.compose.lottie)
