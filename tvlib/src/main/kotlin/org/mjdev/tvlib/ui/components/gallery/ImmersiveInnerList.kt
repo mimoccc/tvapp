@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -30,8 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ComposeExt
 import org.mjdev.tvlib.extensions.ComposeExt.createVerticalColorBrush
-import org.mjdev.tvlib.extensions.ModifierExt.conditional
-import org.mjdev.tvlib.helpers.brush.BrushBuilder
 import org.mjdev.tvlib.ui.components.immersivelist.ImmersiveListScope
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -42,7 +39,7 @@ fun ImmersiveListScope.ImmersiveInnerList(
     backgroundColor: Color = Color.Transparent,
     enter: EnterTransition = fadeIn() + slideInVertically(initialOffsetY = { it / 2 }),
     exit: ExitTransition = fadeOut() + slideOutVertically(targetOffsetY = { it / 2 }),
-    list: @Composable ImmersiveListScope.() -> Unit = {},
+    content: @Composable ImmersiveListScope.() -> Unit = {},
 ) {
     val background: State<Brush> = remember(backgroundColor) {
         derivedStateOf {
@@ -68,10 +65,9 @@ fun ImmersiveListScope.ImmersiveInnerList(
         exit = exit
     ) {
         Box(
-            modifier = modifier
-                .background(background.value)
+            modifier = modifier.background(background.value)
         ) {
-            list()
+            content()
         }
     }
 }

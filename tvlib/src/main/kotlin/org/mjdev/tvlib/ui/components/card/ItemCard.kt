@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -28,7 +28,6 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardGlow
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
@@ -41,7 +40,6 @@ import org.mjdev.tvlib.ui.components.complex.FocusableCard
 import org.mjdev.tvlib.ui.components.image.ImageAny
 
 @SuppressLint("ModifierParameter")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun ItemCard(

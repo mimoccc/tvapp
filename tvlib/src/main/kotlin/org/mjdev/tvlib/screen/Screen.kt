@@ -29,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.onlyPortrait
@@ -80,7 +79,6 @@ open class Screen {
         }
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     @Composable
     open fun Content() {
         Column(

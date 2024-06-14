@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -31,7 +31,6 @@ import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.ButtonGlow
 import androidx.tv.material3.ButtonScale
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberFocusState
@@ -39,7 +38,6 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 
 @Suppress("UNUSED_PARAMETER", "PreviewShouldNotBeCalledRecursively")
 @SuppressLint("ModifierParameter")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun Button(
@@ -57,6 +55,7 @@ fun Button(
     glow: ButtonGlow = ButtonDefaults.NO_GLOW,
     scale: ButtonScale = ButtonDefaults.NO_SCALE,
     focusState: MutableState<FocusState> = rememberFocusState(),
+    onClick: (() -> Unit)? = null,
     content: @Composable RowScope.() -> Unit = {
         TextAny(
             text = text,
@@ -64,8 +63,7 @@ fun Button(
             textAlign = TextAlign.Center,
             maxLines = 1
         )
-    },
-    onClick: (() -> Unit)? = null,
+    }
 ) = Button(
     modifier = modifier
         .border(BorderStroke(borderSize, borderColor), shape)
@@ -79,7 +77,6 @@ fun Button(
     content = content
 )
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 val ButtonDefaults.NO_GLOW
     get() = glow(
         glow = Glow.None,
@@ -87,7 +84,6 @@ val ButtonDefaults.NO_GLOW
         pressedGlow = Glow.None
     )
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 val ButtonDefaults.NO_SCALE
     get() = scale(
         scale = 1f,

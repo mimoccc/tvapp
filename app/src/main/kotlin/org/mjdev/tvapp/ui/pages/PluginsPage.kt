@@ -1,9 +1,9 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
+ *  Copyright (c) Milan Jurkulák 2024.
+ *  Contact:
+ *  e: mimoccc@gmail.com
+ *  e: mj@mjdev.org
+ *  w: https://mjdev.org
  */
 
 package org.mjdev.tvapp.ui.pages
@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.card.CardContent
@@ -35,7 +34,6 @@ class PluginsPage : Page() {
     override val title: Int = R.string.title_plugins
     override val icon: ImageVector = Icons.Default.SettingsInputComponent
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     @Previews
     @Composable
     override fun Content() {

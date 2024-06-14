@@ -56,7 +56,6 @@ import org.mjdev.gradle.tasks.CleanProjectTask
 import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.extensions.assembleTasks
 import org.mjdev.gradle.extensions.cleanProjectTask
-import org.mjdev.gradle.extensions.isAndroidStudio
 import org.mjdev.gradle.extensions.markDownToHtmlTask
 import org.mjdev.gradle.extensions.variants
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
@@ -325,8 +324,6 @@ class AppPlugin : BasePlugin() {
             implementation(libs.androidx.compose.lifecycle.viewmodel)
             // navigation
             implementation(libs.androidx.compose.navigation)
-            // todo remove, dynamic background & colors
-            implementation(libs.androidx.material3)
             // previews
             debugImplementation(libs.androidx.customview.poolingcontainer)
             // foundation
@@ -400,8 +397,6 @@ class AppPlugin : BasePlugin() {
             implementation(libs.jsoup)
             // dm
             implementation(libs.dailymotion.sdk.android)
-            // dynamic theme
-            implementation(libs.android.material)
             // widget
             implementation(libs.androidx.glance.appwidget)
             implementation(libs.androidx.glance.material)

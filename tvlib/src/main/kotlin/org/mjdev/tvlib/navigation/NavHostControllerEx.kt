@@ -32,7 +32,6 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.navigation.NavHostController
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.extensions.ListExt.addUnique
 import java.io.Serializable
 
@@ -44,10 +43,8 @@ class NavHostControllerEx(
     context
 ), LifecycleOwner, DefaultLifecycleObserver {
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val settingsDrawerState: DrawerState = DrawerState(DrawerValue.Closed)
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val menuDrawerState: DrawerState = DrawerState(DrawerValue.Closed)
 
     val menuState: MutableState<Boolean> = mutableStateOf(true)
@@ -122,22 +119,18 @@ class NavHostControllerEx(
         }
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     fun openSettings() {
         settingsDrawerState.setValue(DrawerValue.Open)
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     fun closeSettings() {
         settingsDrawerState.setValue(DrawerValue.Closed)
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     fun openMenu() {
         menuDrawerState.setValue(DrawerValue.Open)
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     fun closeMenu() {
         menuDrawerState.setValue(DrawerValue.Closed)
     }

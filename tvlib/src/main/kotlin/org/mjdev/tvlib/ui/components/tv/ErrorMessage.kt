@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -21,8 +21,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -38,14 +36,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import org.mjdev.tvlib.ui.components.button.Button
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.ui.components.text.TextAny
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun ErrorMessage(
@@ -94,11 +90,11 @@ fun ErrorMessage(
                 softWrap = false,
                 color = color
             )
-            HorizontalDivider(
+            Box(
                 modifier = Modifier
                     .width(1.dp)
-                    .height(24.dp),
-                color = Color.White
+                    .height(24.dp)
+                    .background(Color.White),
             )
             TextAny(
                 modifier = Modifier

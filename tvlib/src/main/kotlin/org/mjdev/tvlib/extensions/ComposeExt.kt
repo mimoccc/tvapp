@@ -190,11 +190,9 @@ object ComposeExt {
         else -> Exception(this.toString())
     }
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val DrawerState.isOpen: Boolean
         get() = currentValue == DrawerValue.Open
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val DrawerState.isClosed: Boolean
         get() = currentValue == DrawerValue.Closed
 

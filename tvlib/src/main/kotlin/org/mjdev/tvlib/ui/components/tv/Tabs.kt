@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
@@ -40,7 +39,6 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 
 // todo from user
 @SuppressLint("AutoboxingStateValueProperty")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun Tabs(

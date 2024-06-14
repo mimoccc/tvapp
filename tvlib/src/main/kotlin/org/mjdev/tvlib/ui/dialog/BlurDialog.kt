@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +32,14 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import org.mjdev.tvlib.ui.toolkit.blur.legacyBackgroundBlur
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.ui.components.text.TextAny
 import org.mjdev.tvlib.ui.toolkit.ImageBrush
 import org.mjdev.tvlib.ui.toolkit.shadow.shadow
 import org.mjdev.tvlib.ui.toolkit.visualEffect
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun BlurDialog(
@@ -109,7 +107,7 @@ fun BlurDialog(
                     .background(backgroundColor.copy(0.98f))
                     .padding(8.dp)
             ) {
-                Text(
+                TextAny(
                     text = title,
                     color = textColor
                 )

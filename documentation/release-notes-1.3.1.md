@@ -1,7 +1,8 @@
-## Release notes 1.0.0 - 13. 6. 2024, 11:27:13
+## Release notes 1.0.0 - 14. 6. 2024, 9:32:29
 
 * 13.06.2024
 
+* [milan jurkulák] : tv lib update 
 * [milan jurkulák] : dagger removal, kodein pre-implementation  
 
 * 22.05.2024

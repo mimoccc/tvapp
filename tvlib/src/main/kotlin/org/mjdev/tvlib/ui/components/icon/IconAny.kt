@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.LocalContentColor
 import com.skydoves.landscapist.ImageOptions
@@ -34,7 +33,6 @@ import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.DrawableExt.asImageBitmap
 import java.net.URL
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @SuppressLint("ModifierParameter")
 @Previews
 @Composable

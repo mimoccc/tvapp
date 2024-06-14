@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -40,13 +40,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.tv.material3.ColorScheme
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.darkColorScheme
 import androidx.tv.material3.lightColorScheme
 import org.mjdev.tvlib.extensions.ComposeExt.isTV
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun ThemeHelper(
     useDarkTheme: Boolean = isSystemInDarkTheme() || isTV(),
@@ -122,12 +120,10 @@ class ThemeProvider {
     val detailsTextColor: Color = Color.White
     val detailTextBackgroundColor: Color = Color.Black
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTitleTextStyle: TextStyle
         @Composable
         get() = MaterialTheme.typography.headlineSmall
 
-    @OptIn(ExperimentalTvMaterial3Api::class)
     val detailsTextStyle: TextStyle
         @Composable
         get() = MaterialTheme.typography.bodySmall
@@ -163,7 +159,6 @@ object ThemeHelper {
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-@OptIn(ExperimentalTvMaterial3Api::class)
 fun dynamicDarkColorScheme(context: Context): ColorScheme {
     val tonalPalette = dynamicTonalPalette(context)
     return darkColorScheme(
@@ -193,7 +188,6 @@ fun dynamicDarkColorScheme(context: Context): ColorScheme {
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-@OptIn(ExperimentalTvMaterial3Api::class)
 fun dynamicLightColorScheme(context: Context): ColorScheme {
     val tonalPalette = dynamicTonalPalette(context)
     return lightColorScheme(

@@ -29,7 +29,6 @@ class LoadingScreen : Screen() {
     override val immersive: Boolean = true
     override val showOnce: Boolean = true
 
-//    @OptIn(ExperimentalTvMaterial3Api::class)
     @Previews
     @Composable
     override fun Content() {

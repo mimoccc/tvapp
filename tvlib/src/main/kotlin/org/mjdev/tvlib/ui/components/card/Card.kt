@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -34,7 +34,6 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardGlow
 import androidx.tv.material3.CardScale
 import androidx.tv.material3.CardShape
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Glow
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.rememberMutableInteractionSource
@@ -42,7 +41,6 @@ import org.mjdev.tvlib.extensions.ModifierExt.conditional
 import org.mjdev.tvlib.extensions.ModifierExt.tvAspectRatio
 
 @SuppressLint("ModifierParameter")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Previews
 @Composable
 fun Card(
@@ -84,7 +82,6 @@ fun Card(
     )
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 val CardDefaults.NO_BORDER: CardBorder
     @Composable
     get() = border(
@@ -94,7 +91,6 @@ val CardDefaults.NO_BORDER: CardBorder
     )
 
 @Suppress("unused")
-@OptIn(ExperimentalTvMaterial3Api::class)
 val CardDefaults.NO_GLOW: CardGlow
     @Composable
     get() = glow(
@@ -103,7 +99,6 @@ val CardDefaults.NO_GLOW: CardGlow
         pressedGlow = Glow.None
     )
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CardDefaults.colorFocusGlow(
     focusColor: Color = Color.Green,
@@ -125,7 +120,6 @@ fun CardDefaults.colorFocusGlow(
 )
 
 @Suppress("UNUSED_PARAMETER")
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CardDefaults.colorFocusBorder(
     colorFocused: Color = Color.Green,
