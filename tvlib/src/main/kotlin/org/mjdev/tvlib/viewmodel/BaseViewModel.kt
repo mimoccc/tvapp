@@ -8,10 +8,9 @@
 
 package org.mjdev.tvlib.viewmodel
 
-import android.app.Application
 import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -21,16 +20,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.kodein.di.DI
 import org.kodein.di.DIAware
 import timber.log.Timber
 
-@Suppress("unused", "StaticFieldLeak")
 open class BaseViewModel(
     context: Context
-) : AndroidViewModel(context.applicationContext as Application), DIAware {
+) : ViewModel(), DIAware {
 
-    override val di
-        get() = (getApplication() as DIAware).di
+    override val di by lazy {
+        if (context is DIAware) (context as DIAware).di else mockDI(context)
+    }
 
     val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
 
@@ -95,6 +95,10 @@ open class BaseViewModel(
             }
         }
         return result
+    }
+
+    open fun mockDI(context: Context): DI {
+        throw (RuntimeException("No mocked DI defined. please override method mockDI()"))
     }
 
 }

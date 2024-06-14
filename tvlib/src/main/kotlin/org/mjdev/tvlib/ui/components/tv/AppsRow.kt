@@ -8,6 +8,7 @@
 
 package org.mjdev.tvlib.ui.components.tv
 
+import android.content.ComponentName
 import android.content.Context
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -40,7 +41,10 @@ fun AppsRow(
     startApp: Context.(app: App?) -> Unit = { app ->
         startActivity(app?.intent)
     },
-    apps: State<List<App>> = rememberAppsManager().collectAsState(emptyList()),
+    excludedActivities:List<ComponentName> = emptyList(),
+    apps: State<List<App>> = rememberAppsManager(
+        excluded = excludedActivities.toTypedArray()
+    ).collectAsState(emptyList()),
     cardWidth: Dp = computeCardWidth(3f)
 ) {
     val context: Context = LocalContext.current

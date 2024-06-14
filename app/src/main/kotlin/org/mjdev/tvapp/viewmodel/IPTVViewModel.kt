@@ -12,13 +12,17 @@ package org.mjdev.tvapp.viewmodel
 
 import android.content.Context
 import androidx.media3.common.MediaItem
+import org.kodein.di.DI
+import org.kodein.di.bind
 import org.kodein.di.instance
+import org.kodein.di.singleton
 import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvlib.extensions.MediaItemExt.mediaItem
 import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
@@ -63,4 +67,11 @@ class IPTVViewModel (
         }
         return cache[T::class] ?: emptyList()
     }
+
+    override fun mockDI(context: Context): DI = DI.lazy(allowSilentOverride = true) {
+        bind<Context>() with singleton { context }
+        bind<DAO>() with singleton { DAO(context) }
+        import(MainModule)
+    }
+
 }

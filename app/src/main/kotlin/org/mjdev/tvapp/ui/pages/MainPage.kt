@@ -9,7 +9,7 @@
 package org.mjdev.tvapp.ui.pages
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.ComponentName
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,17 +25,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
+import org.mjdev.tvapp.activity.MainActivity
 import org.mjdev.tvapp.data.events.SyncEvent
-import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.module.ViewModelsModule
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSync
 import org.mjdev.tvlib.data.local.User
 import org.mjdev.tvlib.auth.AuthManager.Companion.rememberAuthManager
@@ -59,16 +54,6 @@ import java.net.URL
 @SuppressLint("ComposableNaming")
 class MainPage : Page() {
 
-    // todo
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun diMock(
-        context: Context
-    ) = DI.lazy(allowSilentOverride = true) {
-        bind<Context>() with singleton { context }
-        bind<DAO>() with singleton { DAO(context) }
-        import(ViewModelsModule)
-    }
-
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
@@ -77,9 +62,7 @@ class MainPage : Page() {
     @Composable
     override fun Content() {
         val navController = rememberNavControllerEx()
-        val viewModel: MainViewModel by rememberInstance {
-            diMock(LocalContext.current)
-        }
+        val viewModel: MainViewModel by rememberInstance()
         val syncEvents by observedEvents<SyncEvent>()
         // refresh every 32 items, todo improve
         val needRefresh by remember {
@@ -161,7 +144,14 @@ class MainPage : Page() {
                 },
                 customRows = mutableListOf<@Composable () -> Unit>().apply {
                     add {
-                        AppsRow()
+                        AppsRow(
+                            excludedActivities = listOf(
+                                ComponentName(
+                                    BuildConfig.APPLICATION_ID,
+                                    MainActivity::class.java.name
+                                )
+                            )
+                        )
                     }
                     if (viewModel.localAudioCursor.count > 0) add {
                         LocalAudioRow(
