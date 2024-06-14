@@ -27,11 +27,15 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import org.kodein.di.DIAware
 import org.mjdev.tvlib.annotations.Previews
 import timber.log.Timber
 
 @Suppress("MemberVisibilityCanBePrivate", "PreviewShouldNotBeCalledRecursively")
-open class TvActivity : ComposableActivity(), View.OnApplyWindowInsetsListener {
+open class TvActivity : ComposableActivity(), View.OnApplyWindowInsetsListener, DIAware {
+
+    override val di
+        get() = (applicationContext as DIAware).di
 
     open val backgroundColor: Color? = null
 

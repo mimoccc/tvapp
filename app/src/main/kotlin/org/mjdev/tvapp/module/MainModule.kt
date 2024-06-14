@@ -23,6 +23,7 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
+import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.repository.ApiService
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
@@ -39,6 +40,7 @@ val MainModule = DI.Module("MainModule") {
     val baseUrl = BuildConfig.IPTV_API_URL
 
     bind<String>() with singleton { String() }
+    bind<DAO>() with singleton { DAO(instance(), BuildConfig.DEBUG) }
 
     bindSingleton<NetworkConnectivityService> { NetworkConnectivityService(instance()) }
     bindSingleton<HttpLoggingInterceptor> {

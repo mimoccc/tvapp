@@ -14,33 +14,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import org.kodein.di.DI
-import org.kodein.di.DIAware
-import org.kodein.di.bind
 import org.kodein.di.instance
-import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.activity.MainActivity
-import org.mjdev.tvapp.app.Application
 import org.mjdev.tvlib.helpers.cursor.AudioCursor
 import org.mjdev.tvlib.helpers.cursor.PhotoCursor
 import org.mjdev.tvlib.helpers.cursor.VideoCursor
 import org.mjdev.tvlib.viewmodel.BaseViewModel
 import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvlib.extensions.ListExt.asMap
 import org.mjdev.tvlib.extensions.ListExt.takeIf
 import org.mjdev.tvlib.interfaces.ItemWithImage.Companion.hasImage
 
-class MainViewModel(
-    context: Context
-) : BaseViewModel(context), DIAware {
-
-    override val di by DI.lazy {
-        bind<Context>() with singleton { context }
-        bind<DAO>() with singleton { (context.applicationContext as Application).DAO }
-        import(MainModule)
-    }
+class MainViewModel(context: Context) : BaseViewModel(context) {
 
     @Suppress("PrivatePropertyName")
     private val ITEMS_FROM_CATEGORY = 3

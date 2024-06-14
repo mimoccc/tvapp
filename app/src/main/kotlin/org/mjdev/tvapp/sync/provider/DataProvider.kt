@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -15,20 +15,22 @@ import android.database.Cursor
 import android.net.Uri
 import androidx.annotation.Keep
 import com.squareup.moshi.Moshi
+import org.kodein.di.DIAware
+import org.kodein.di.instance
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.data.local.Media
 import org.mjdev.tvapp.database.DAO
-import javax.inject.Inject
 
 @Keep
 @Suppress("MemberVisibilityCanBePrivate")
-class DataProvider : ContentProvider() {
+class DataProvider : ContentProvider(), DIAware {
 
-    @Inject
-    lateinit var dao: DAO
+    override val di
+        get() = (context?.applicationContext as DIAware).di
 
-    @Inject
-    lateinit var moshi: Moshi
+    val dao: DAO by instance()
+
+    val moshi: Moshi by instance()
 
     companion object {
 

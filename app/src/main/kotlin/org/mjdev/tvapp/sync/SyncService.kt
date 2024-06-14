@@ -20,16 +20,11 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.annotation.Keep
-import org.kodein.di.DI
 import org.kodein.di.DIAware
-import org.kodein.di.bind
 import org.kodein.di.instance
-import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
-import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.database.DAO
-import org.mjdev.tvapp.module.MainModule
 import org.mjdev.tvapp.repository.ApiService
 import timber.log.Timber
 
@@ -37,11 +32,8 @@ import timber.log.Timber
 @Keep
 class SyncService : Service(), DIAware {
 
-    override val di by DI.lazy {
-        bind<Context>() with singleton { applicationContext }
-        bind<DAO>() with singleton { (applicationContext as Application).DAO }
-        import(MainModule)
-    }
+    override val di
+        get() = (applicationContext as DIAware).di
 
     val apiService: ApiService by instance()
     val dao: DAO by instance()

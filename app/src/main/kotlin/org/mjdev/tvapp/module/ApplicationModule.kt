@@ -9,11 +9,8 @@
 package org.mjdev.tvapp.module
 
 import org.kodein.di.DI
-import org.kodein.di.bindSingleton
-import org.kodein.di.instance
-import org.mjdev.tvapp.BuildConfig
-import org.mjdev.tvapp.database.DAO
 
 val ApplicationModule = DI.Module("ApplicationModule") {
-    bindSingleton<DAO> { DAO(instance(), BuildConfig.DEBUG) }
+    import(MainModule)
+    import(ViewModelsModule)
 }

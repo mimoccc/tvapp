@@ -22,8 +22,7 @@ import java.util.Date
 object ContextExt {
 
     val Context.isEink: Boolean
-        get() =
-            Build.DEVICE == "Mudita Kompakt"
+        get() = Build.DEVICE == "Mudita Kompakt"
 
     val Context.isTV: Boolean
         get() = runCatching {

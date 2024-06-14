@@ -21,12 +21,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.kodein.di.DIAware
 import timber.log.Timber
 
 @Suppress("unused", "StaticFieldLeak")
 open class BaseViewModel(
     context: Context
-) : AndroidViewModel(context.applicationContext as Application) {
+) : AndroidViewModel(context.applicationContext as Application), DIAware {
+
+    override val di
+        get() = (getApplication() as DIAware).di
+
     val error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
 
     private var errorHandler: (error: Throwable) -> Unit = { e -> Timber.e(e) }

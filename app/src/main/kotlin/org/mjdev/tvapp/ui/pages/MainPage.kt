@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.ui.pages
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,12 +25,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import org.kodein.di.compose.rememberInstance
+import androidx.compose.ui.platform.LocalContext
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
 import org.mjdev.tvapp.data.events.SyncEvent
+import org.mjdev.tvapp.database.DAO
+import org.mjdev.tvapp.module.ViewModelsModule
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSync
 import org.mjdev.tvlib.data.local.User
 import org.mjdev.tvlib.auth.AuthManager.Companion.rememberAuthManager
@@ -42,6 +48,7 @@ import org.mjdev.tvlib.ui.components.tv.LocalVideoRow
 import org.mjdev.tvapp.viewmodel.MainViewModel
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.observedEvents
+import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvlib.extensions.NavExt.rememberNavControllerEx
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemWithBackground
@@ -52,6 +59,16 @@ import java.net.URL
 @SuppressLint("ComposableNaming")
 class MainPage : Page() {
 
+    // todo
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun diMock(
+        context: Context
+    ) = DI.lazy(allowSilentOverride = true) {
+        bind<Context>() with singleton { context }
+        bind<DAO>() with singleton { DAO(context) }
+        import(ViewModelsModule)
+    }
+
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
@@ -60,7 +77,9 @@ class MainPage : Page() {
     @Composable
     override fun Content() {
         val navController = rememberNavControllerEx()
-        val viewModel: MainViewModel by rememberInstance()
+        val viewModel: MainViewModel by rememberInstance {
+            diMock(LocalContext.current)
+        }
         val syncEvents by observedEvents<SyncEvent>()
         // refresh every 32 items, todo improve
         val needRefresh by remember {

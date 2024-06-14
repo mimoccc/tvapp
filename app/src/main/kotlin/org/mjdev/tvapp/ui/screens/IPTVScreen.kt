@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
-import org.kodein.di.compose.rememberInstance
+import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
