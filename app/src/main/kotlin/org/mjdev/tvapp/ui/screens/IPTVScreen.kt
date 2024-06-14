@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
 import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvapp.R
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.Previews
@@ -53,7 +55,9 @@ class IPTVScreen : Screen() {
     @Previews
     @Composable
     override fun Content() {
-        val viewModel: IPTVViewModel by rememberInstance()
+        val viewModel: IPTVViewModel by rememberInstance {
+            Application.getDI(LocalContext.current)
+        }
         val data: Any? = args[data]
         val dataList: List<MediaItem> = remember(data) {
             viewModel.mediaItemsFor(data)

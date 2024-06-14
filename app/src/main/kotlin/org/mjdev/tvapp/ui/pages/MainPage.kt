@@ -25,11 +25,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
 import org.mjdev.tvapp.activity.IPTVActivity.Companion.IPTV_DATA
 import org.mjdev.tvapp.activity.MainActivity
+import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.data.events.SyncEvent
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSync
 import org.mjdev.tvlib.data.local.User
@@ -62,7 +64,9 @@ class MainPage : Page() {
     @Composable
     override fun Content() {
         val navController = rememberNavControllerEx()
-        val viewModel: MainViewModel by rememberInstance()
+        val viewModel: MainViewModel by rememberInstance {
+            Application.getDI(LocalContext.current)
+        }
         val syncEvents by observedEvents<SyncEvent>()
         // refresh every 32 items, todo improve
         val needRefresh by remember {

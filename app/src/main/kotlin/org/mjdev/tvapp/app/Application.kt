@@ -13,27 +13,17 @@ import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.androidXContextTranslators
 import org.kodein.di.bind
-import org.kodein.di.instance
 import org.kodein.di.singleton
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.cast.CastService
-import org.mjdev.tvapp.database.DAO
 import org.mjdev.tvapp.module.ApplicationModule
 import org.mjdev.tvapp.sync.SyncService.Companion.createAccountAndSync
 import org.mjdev.tvlib.application.TvApplication
 import timber.log.Timber
 
-@Suppress("PropertyName")
 class Application : TvApplication(), DIAware {
 
-    override val di by DI.lazy {
-        import(androidXContextTranslators)
-        bind<Application>() with singleton { applicationContext as Application }
-        bind<Context>() with singleton { applicationContext }
-        import(ApplicationModule)
-    }
-
-    val DAO : DAO by instance()
+    override val di by lazy { getDI(this) }
 
     override fun onCreate() {
         super.onCreate()
@@ -42,6 +32,14 @@ class Application : TvApplication(), DIAware {
         }
         createAccountAndSync()
         CastService.start(this)
+    }
+
+    companion object {
+        fun getDI(context: Context): DI = DI.lazy {
+            import(androidXContextTranslators)
+            bind<Context>() with singleton { context }
+            import(ApplicationModule)
+        }
     }
 
 }
