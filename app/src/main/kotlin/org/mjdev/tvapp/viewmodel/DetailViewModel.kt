@@ -24,9 +24,7 @@ import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import kotlin.reflect.KClass
 
-class DetailViewModel(
-    context: Context
-) : BaseViewModel(context) {
+class DetailViewModel(context: Context) : BaseViewModel(context) {
 
     private val cache = mutableMapOf<KClass<*>, List<*>>()
 

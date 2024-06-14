@@ -1,7 +1,9 @@
-## Release notes 1.0.0 - 14. 6. 2024, 12:57:53
+## Release notes 1.0.0 - 14. 6. 2024, 13:21:36
 
 * 14.06.2024
 
+* [milan jurkulák] : kodein improvements 
+* [milan jurkulák] : kodein improvements 
 * [milan jurkulák] : kodein improvements 
 * [milan jurkulák] : code cleanup 
 * [milan jurkulák] : code cleanup 

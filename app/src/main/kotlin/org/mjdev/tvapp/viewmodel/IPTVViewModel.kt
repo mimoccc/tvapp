@@ -28,9 +28,7 @@ import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.network.NetworkConnectivityService
 import kotlin.reflect.KClass
 
-class IPTVViewModel (
-    context: Context
-) : BaseViewModel(context) {
+class IPTVViewModel(context: Context) : BaseViewModel(context) {
 
     val dao: DAO by instance()
     val networkInfo: NetworkConnectivityService by instance()
