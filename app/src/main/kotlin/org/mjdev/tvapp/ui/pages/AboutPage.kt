@@ -27,9 +27,9 @@ import androidx.tv.material3.CardDefaults
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.card.Card
-import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.card.CardContent
 import org.mjdev.tvlib.ui.components.image.CircleImage
+import org.mjdev.tvlib.ui.components.page.Page
 import org.mjdev.tvlib.ui.components.text.TextAny
 
 class AboutPage : Page() {

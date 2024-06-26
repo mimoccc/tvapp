@@ -8,19 +8,34 @@
 
 package org.mjdev.gradle.tasks
 
-import com.squareup.kotlinpoet.FileSpec
-import org.gradle.api.Project
+//import com.google.devtools.ksp.impl.CommandLineKSPLogger
+//import com.google.devtools.ksp.impl.KotlinSymbolProcessing
+//import com.google.devtools.ksp.processing.KSPJvmConfig
+//import com.google.devtools.ksp.processor.AbstractTestProcessor
+//import org.jetbrains.kotlin.cli.jvm.K2JVMCompiler
+//import org.jetbrains.kotlin.cli.jvm.config.javaSourceRoots
+//import org.jetbrains.kotlin.cli.jvm.config.jvmClasspathRoots
+//import org.jetbrains.kotlin.cli.jvm.config.jvmModularRoots
+//import org.jetbrains.kotlin.config.JVMConfigurationKeys
+//import org.jetbrains.kotlin.config.languageVersionSettings
+//import org.jetbrains.kotlin.test.compileJavaFiles
+//import org.jetbrains.kotlin.test.kotlinPathsForDistDirectoryForTests
+//import org.jetbrains.kotlin.test.model.FrontendKinds
+//import org.jetbrains.kotlin.test.model.TestModule
+//import org.jetbrains.kotlin.test.services.JUnit5Assertions
+//import org.jetbrains.kotlin.test.services.TestServices
+//import org.jetbrains.kotlin.test.services.compilerConfigurationProvider
+//import org.jetbrains.kotlin.test.services.isKtFile
+//import org.jetbrains.kotlin.test.util.KtTestUtil
+//import org.jetbrains.kotlin.utils.PathUtil
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.allFiles
-import org.mjdev.gradle.extensions.unitTestDir
-import org.mjdev.gradle.extensions.asTestFile
-import java.io.File
+import org.mjdev.gradle.extensions.file
 
-@Suppress("unused", "PrivatePropertyName")
+@Suppress("unused")
 open class TestClassesGeneratorTask : BaseTask() {
-    private val GH_API_KEY = "0f2d28811bd14776b5c6fd4a84798d5b.96b1d61fc593b1ba"
-    private val GH_API_URL = "https://api-beta.copilot.com"
+//    private val GH_API_KEY = "0f2d28811bd14776b5c6fd4a84798d5b.96b1d61fc593b1ba"
+//    private val GH_API_URL = "https://api-beta.copilot.com"
 
     //curl \
     //  -X POST \
@@ -35,8 +50,7 @@ open class TestClassesGeneratorTask : BaseTask() {
         p.file("src").file("main").allFiles("kt")
     }
 
-    private val worker = GithubClassWorker()
-
+//    private val worker = GithubClassWorker()
 
     init {
         group = "mjdev"
@@ -44,48 +58,52 @@ open class TestClassesGeneratorTask : BaseTask() {
         outputs.upToDateWhen { false }
     }
 
-    private fun createTestFile(
-        project: Project,
-        file: File
-    ) {
-        makeTestFile(
-            file,
-            File(project.unitTestDir, file.asTestFile.name)
-        )
-    }
+//    private fun createTestFile(
+//        project: Project,
+//        file: File
+//    ) {
+//        makeTestFile(
+//            file,
+//            File(project.unitTestDir, file.asTestFile.name)
+//        )
+//    }
 
-    @Suppress("SpellCheckingInspection")
-    private fun makeTestFile(
-        srcFile: File,
-        destfile: File
-    ) {
-        worker.makeTestClass(srcFile).also { createdClass ->
-            createdClass?.writeTo(destfile)
-        }
-    }
+//    @Suppress("SpellCheckingInspection")
+//    private fun makeTestFile(
+//        srcFile: File,
+//        destfile: File
+//    ) {
+//        worker.makeTestClass(srcFile).also { createdClass ->
+//            createdClass?.writeTo(destfile)
+//        }
+//    }
 
-    interface ClassWorker {
-        fun makeTestClass(file: File): FileSpec?
-    }
+//    interface ClassWorker {
+//        fun makeTestClass(file: File): FileSpec?
+//    }
 
     // todo
 
-    class GithubClassWorker : ClassWorker {
-        override fun makeTestClass(file: File): FileSpec? = null
-    }
+//    class GithubClassWorker : ClassWorker {
+//        override fun makeTestClass(file: File): FileSpec? = null
+//    }
 
     override fun onClean() {
     }
 
     override fun onAssemble() {
-        println("> Got files:")
-        fileMap.keys.forEach { project ->
-            val files = fileMap[project] ?: emptyList()
-            files.forEach { file ->
-                println("> ${project.name} > $file")
-                createTestFile(project, file)
-            }
-        }
+//        val kspConfig = KSPJvmConfig.Builder().apply {
+//             All configurations happen here.
+//        }.build()
+//        val exitCode = KotlinSymbolProcessing(kspConfig, listOfProcessors, kspLoggerImpl).execute()
+//        println("> Got files:")
+//        fileMap.keys.forEach { project ->
+//            val files = fileMap[project] ?: emptyList()
+//            files.forEach { file ->
+//                println("> ${project.name} > $file")
+//                createTestFile(project, file)
+//            }
+//        }
     }
 
 }

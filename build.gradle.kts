@@ -15,10 +15,10 @@ plugins {
 
 buildscript {
     repositories {
+        google()
         mavenCentral()
         maven("https://storage.googleapis.com/r8-releases/raw")
         maven("https://mvn.dailymotion.com/repository/releases/")
-        google()
     }
 
     dependencies {

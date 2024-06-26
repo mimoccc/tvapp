@@ -16,49 +16,50 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
+import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.base.BasePlugin
 import org.mjdev.gradle.extensions.addSyncProviderAuthString
-import org.mjdev.gradle.extensions.asInt
-import org.mjdev.gradle.extensions.registerTask
-import org.mjdev.gradle.extensions.runAfterAssembleTask
-import org.mjdev.gradle.extensions.buildConfigString
-import org.mjdev.gradle.extensions.extension
-import org.mjdev.gradle.extensions.libs
-import org.mjdev.gradle.extensions.manifestPlaceholders
-import org.mjdev.gradle.extensions.implementation
-import org.mjdev.gradle.extensions.debugImplementation
-import org.mjdev.gradle.extensions.testImplementation
 import org.mjdev.gradle.extensions.androidTestImplementation
 import org.mjdev.gradle.extensions.applicationId
-import org.mjdev.gradle.extensions.ksp
-import org.mjdev.gradle.extensions.setSigningConfigs
-import org.mjdev.gradle.extensions.stringRes
-import org.mjdev.gradle.extensions.versionCode
-import org.mjdev.gradle.extensions.versionName
-import org.mjdev.gradle.extensions.kotlinCompileOptions
+import org.mjdev.gradle.extensions.applyPlugin
+import org.mjdev.gradle.extensions.asInt
+import org.mjdev.gradle.extensions.assembleTasks
+import org.mjdev.gradle.extensions.buildConfigString
+import org.mjdev.gradle.extensions.cleanProjectTask
+import org.mjdev.gradle.extensions.debugImplementation
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
-import org.mjdev.gradle.extensions.releaseNotesCreateTask
-import org.mjdev.gradle.extensions.applyPlugin
-import org.mjdev.gradle.extensions.projectName
-import org.mjdev.gradle.extensions.webServiceCreateTask
-import org.mjdev.gradle.extensions.loadRootPropertiesFile
+import org.mjdev.gradle.extensions.extension
 import org.mjdev.gradle.extensions.fromBuildPropertiesFile
+import org.mjdev.gradle.extensions.implementation
+import org.mjdev.gradle.extensions.kotlinCompileOptions
+import org.mjdev.gradle.extensions.ksp
+import org.mjdev.gradle.extensions.libs
+import org.mjdev.gradle.extensions.loadRootPropertiesFile
+import org.mjdev.gradle.extensions.manifestPlaceholders
+import org.mjdev.gradle.extensions.markDownToHtmlTask
+import org.mjdev.gradle.extensions.projectName
+import org.mjdev.gradle.extensions.registerTask
+import org.mjdev.gradle.extensions.releaseNotesCreateTask
+import org.mjdev.gradle.extensions.runAfterAssembleTask
+import org.mjdev.gradle.extensions.setSigningConfigs
+import org.mjdev.gradle.extensions.stringRes
+import org.mjdev.gradle.extensions.testImplementation
+import org.mjdev.gradle.extensions.variants
+import org.mjdev.gradle.extensions.versionCode
+import org.mjdev.gradle.extensions.versionName
+import org.mjdev.gradle.extensions.webServiceCreateTask
+import org.mjdev.gradle.extensions.zipReleaseCreateTask
 import org.mjdev.gradle.plugin.config.AppConfig
-import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
-import org.mjdev.gradle.tasks.WebServiceCreateTask
-import org.mjdev.gradle.tasks.CreatePropsTask
 import org.mjdev.gradle.tasks.CheckNewLibsTask
 import org.mjdev.gradle.tasks.CleanProjectTask
-import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
-import org.mjdev.gradle.extensions.assembleTasks
-import org.mjdev.gradle.extensions.cleanProjectTask
-import org.mjdev.gradle.extensions.markDownToHtmlTask
-import org.mjdev.gradle.extensions.variants
-import org.mjdev.gradle.extensions.zipReleaseCreateTask
+import org.mjdev.gradle.tasks.CreatePropsTask
+import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
+import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 
 @Suppress("UnstableApiUsage")
@@ -74,6 +75,8 @@ class AppPlugin : BasePlugin() {
         applyPlugin(libs.plugins.objectbox)
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
+        applyPlugin(libs.plugins.gradle.paparazzi.plugin)
+//        applyPlugin(libs.plugins.kotlin.reflekt)
         applyPlugin<MarkdownPlugin>()
         applyPlugin<DetektPlugin>()
         applyPlugin<KotlinterPlugin>()
@@ -407,6 +410,9 @@ class AppPlugin : BasePlugin() {
             androidTestImplementation(libs.androidx.espresso.core)
             // anr
             implementation(libs.anrwatchdog)
+            // own ksp
+            implementation(project(":annotations"))
+            ksp(project(":processor"))
             // oauth
 //            implementation(libs.auth0)
 //            implementation(libs.android.jwtdecode)

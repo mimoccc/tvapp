@@ -15,29 +15,30 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
 import org.mjdev.gradle.base.BasePlugin
-import org.mjdev.gradle.plugin.config.LibConfig
-import org.mjdev.gradle.extensions.asInt
-import org.mjdev.gradle.extensions.runAfterAssembleTask
-import org.mjdev.gradle.extensions.extension
-import org.mjdev.gradle.extensions.libs
-import org.mjdev.gradle.extensions.implementation
-import org.mjdev.gradle.extensions.debugImplementation
-import org.mjdev.gradle.extensions.testImplementation
 import org.mjdev.gradle.extensions.androidTestImplementation
-import org.mjdev.gradle.extensions.ksp
-import org.mjdev.gradle.extensions.kotlinCompileOptions
+import org.mjdev.gradle.extensions.applyPlugin
+import org.mjdev.gradle.extensions.asInt
+import org.mjdev.gradle.extensions.debugImplementation
 import org.mjdev.gradle.extensions.detektTask
 import org.mjdev.gradle.extensions.dokkaTask
+import org.mjdev.gradle.extensions.extension
 import org.mjdev.gradle.extensions.fromBuildPropertiesFile
+import org.mjdev.gradle.extensions.implementation
+import org.mjdev.gradle.extensions.kotlinCompileOptions
+import org.mjdev.gradle.extensions.ksp
+import org.mjdev.gradle.extensions.libs
 import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
+import org.mjdev.gradle.extensions.runAfterAssembleTask
+import org.mjdev.gradle.extensions.testImplementation
+import org.mjdev.gradle.plugin.config.LibConfig
 import org.mjdev.gradle.tasks.CreatePropsTask
-import org.mjdev.gradle.extensions.applyPlugin
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -53,6 +54,8 @@ class LibPlugin : BasePlugin() {
         applyPlugin(libs.plugins.objectbox)
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
+        applyPlugin(libs.plugins.gradle.paparazzi.plugin)
+//        applyPlugin(libs.plugins.kotlin.reflekt)
         applyPlugin<DetektPlugin>()
         applyPlugin<KotlinterPlugin>()
         registerTask<CreatePropsTask> {
@@ -272,6 +275,9 @@ class LibPlugin : BasePlugin() {
             androidTestImplementation(libs.androidx.espresso.core)
             // anr
             implementation(libs.anrwatchdog)
+            // own ksp
+            implementation(project(":annotations"))
+            ksp(project(":processor"))
             // oauth
 //            implementation(libs.auth0)
 //            implementation(libs.android.jwtdecode)

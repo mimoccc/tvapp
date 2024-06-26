@@ -16,10 +16,12 @@ repositories {
     maven(url = "https://plugins.gradle.org/m2/")
     maven(url = "https://oss.sonatype.org/content/repositories/public")
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+    maven(url = uri("https://packages.jetbrains.team/maven/p/reflekt/reflekt"))
 }
 
 plugins {
     `kotlin-dsl`
+//    id("org.jetbrains.reflekt") version "1.5.30"
 }
 
 dependencies {
@@ -45,6 +47,9 @@ dependencies {
     implementation(libs.kotlin.mockito)
     implementation(libs.junit)
     implementation(libs.kotlin.compose.compiler)
+    implementation(libs.symbol.processing.api)
+//    implementation(libs.kotlin.reflekt.dsl)
+//    implementation(libs.symbol.processing.embeddable)
 //    implementation(libs.apk.parser)
 //    implementation(libs.gradle.docker.plugin)
 //    implementation(libs.korim.jvm)

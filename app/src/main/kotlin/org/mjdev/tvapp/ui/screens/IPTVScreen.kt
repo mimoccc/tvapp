@@ -20,17 +20,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
-import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.IPTVViewModel
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
+import org.mjdev.tvlib.extensions.ListExt.indexOf
+import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.navigation.AnyType
 import org.mjdev.tvlib.screen.Screen
 import org.mjdev.tvlib.ui.components.media.MediaPlayerContainer
-import org.mjdev.tvlib.extensions.MediaItemExt.uri
-import org.mjdev.tvlib.extensions.ListExt.indexOf
 import org.mjdev.tvlib.ui.components.media.MediaPlayerState.Companion.rememberMediaPlayerState
 import timber.log.Timber
 
@@ -93,5 +93,3 @@ class IPTVScreen : Screen() {
     }
 
 }
-
-

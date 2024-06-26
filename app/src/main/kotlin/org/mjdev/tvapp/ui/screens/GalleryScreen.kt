@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.navArgument
-import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvapp.viewmodel.DetailViewModel
 import org.mjdev.tvlib.annotations.Previews
+import org.mjdev.tvlib.extensions.KodeinExt.rememberInstance
 import org.mjdev.tvlib.extensions.ListExt.indexOf
 import org.mjdev.tvlib.extensions.MediaItemExt.uri
 import org.mjdev.tvlib.navigation.AnyType

@@ -41,6 +41,6 @@ class MainScreen : ScreenWithPages() {
 
     @Previews
     @Composable
-    override fun Content()  = super.Content()
+    override fun Content() = super.Content()
 
 }

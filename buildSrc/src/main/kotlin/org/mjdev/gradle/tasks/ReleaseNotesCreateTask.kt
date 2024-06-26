@@ -10,14 +10,14 @@ package org.mjdev.gradle.tasks
 
 import org.gradle.internal.impldep.org.eclipse.jgit.api.Git
 import org.gradle.internal.impldep.org.eclipse.jgit.internal.storage.file.FileRepository
+import org.mjdev.gradle.base.BaseTask
+import org.mjdev.gradle.extensions.file
+import org.mjdev.gradle.extensions.projectVersion
 import org.mjdev.gradle.extensions.toDateString
+import org.mjdev.gradle.extensions.writeText
 import java.io.File
 import java.util.Date
 import java.util.Locale
-import org.mjdev.gradle.extensions.file
-import org.mjdev.gradle.extensions.writeText
-import org.mjdev.gradle.extensions.projectVersion
-import org.mjdev.gradle.base.BaseTask
 
 open class ReleaseNotesCreateTask : BaseTask() {
 
@@ -53,7 +53,6 @@ open class ReleaseNotesCreateTask : BaseTask() {
     }
 
     override fun onAssemble() {
-        println("Creating release notes")
         StringBuilder().apply {
             @Suppress("DEPRECATION")
             append("## Release notes $projectVersion - ${Date().toLocaleString()}\n")

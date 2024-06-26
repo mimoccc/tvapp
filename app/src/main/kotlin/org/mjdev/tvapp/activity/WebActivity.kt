@@ -11,13 +11,13 @@ package org.mjdev.tvapp.activity
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvapp.ui.screens.WebScreen
 import org.mjdev.tvlib.activity.TvActivity
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.NavControllerExt.openAsTop
 import org.mjdev.tvlib.extensions.NavGraphBuilderExt.startScreen
 import org.mjdev.tvlib.extensions.StringExt.parseUri
+import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
 
 @Suppress("PreviewShouldNotBeCalledRecursively")

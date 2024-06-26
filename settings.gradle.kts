@@ -11,9 +11,9 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven(url = "https://www.jitpack.io")
         @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
         jcenter()
+        maven(url = "https://www.jitpack.io")
         maven(url = "https://plugins.gradle.org/m2/")
         maven(url = "https://mvn.dailymotion.com/repository/releases/")
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
@@ -28,9 +28,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven(url = "https://www.jitpack.io")
         @Suppress("JcenterRepositoryObsolete", "DEPRECATION")
         jcenter()
+        maven(url = "https://www.jitpack.io")
         maven(url = "https://plugins.gradle.org/m2/")
         maven(url = "https://mvn.dailymotion.com/repository/releases/")
         maven(url = "https://dl.bintray.com/kotlin/ktor")
@@ -38,5 +38,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TvApp"
+
+include(":annotations")
+include(":processor")
+
 include(":app")
 include(":tvlib")

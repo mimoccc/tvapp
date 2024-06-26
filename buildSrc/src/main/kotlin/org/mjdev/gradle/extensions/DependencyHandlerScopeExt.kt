@@ -61,3 +61,9 @@ fun DependencyHandlerScope.ksp(
 ) {
     add(KSP_IMPLEMENTATION, dependency.get())
 }
+
+fun DependencyHandlerScope.ksp(
+    dependency: Dependency
+) {
+    add(KSP_IMPLEMENTATION, dependency)
+}
