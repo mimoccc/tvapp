@@ -63,7 +63,7 @@ abstract class BaseTask : DefaultTask() {
             .toURL()
 
     @get:Internal
-    val restDependencies
+    val resDependencies
         get() = variant
             .getCompileClasspath(null)
             .files

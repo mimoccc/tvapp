@@ -8,15 +8,30 @@
 
 import org.mjdev.gradle.extensions.isAndroidStudio
 
-
 plugins {
-    id("AppPlugin")
+    AppPlugin
 }
 
 appConfig {
     namespace = "org.mjdev.tvapp"
     description = "Smart TV android app for any android device"
+
+    autoCorrectCode = true
+    ignoreCodeFailures = isAndroidStudio
+
     createDocumentation = !isAndroidStudio
+    reportUndocumentedFiles = !isAndroidStudio
+    failOnDocumentationWarning = false
+
+    createReleaseNotes = !isAndroidStudio
+    createZipRelease = !isAndroidStudio
+
+    createWebApp = !isAndroidStudio
+    createWebSiteFromGit = false
+
+    renameApkOutputByAppID = false
+    createInfoClass = false
+    launcherIconByBuildType = false
 
     // todo
     default {

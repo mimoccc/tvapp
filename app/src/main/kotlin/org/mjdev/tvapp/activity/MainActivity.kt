@@ -9,6 +9,7 @@
 package org.mjdev.tvapp.activity
 
 import androidx.compose.runtime.Composable
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.ui.screens.MainScreen
 import org.mjdev.tvapp.ui.screens.SplashScreen
 import org.mjdev.tvlib.activity.TvActivity
@@ -20,6 +21,7 @@ import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 @Suppress("PreviewShouldNotBeCalledRecursively")
 class MainActivity : TvActivity() {
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Compose() = super.Compose()

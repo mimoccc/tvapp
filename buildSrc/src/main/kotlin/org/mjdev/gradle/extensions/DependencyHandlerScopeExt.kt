@@ -19,6 +19,25 @@ private const val DEBUG_IMPLEMENTATION = "debugImplementation"
 private const val ANDROID_TEST_IMPLEMENTATION = "androidTestImplementation"
 private const val TEST_IMPLEMENTATION = "testImplementation"
 private const val KSP_IMPLEMENTATION = "ksp"
+private const val COMPILE = "compile"
+
+fun DependencyHandlerScope.compile(
+    dependency: Provider<MinimalExternalModuleDependency>
+) {
+    add(COMPILE, dependency.get())
+}
+
+fun DependencyHandlerScope.compile(
+    dependency: Dependency
+) {
+    add(COMPILE, dependency)
+}
+
+fun DependencyHandlerScope.compile(
+    dependency: ExternalModuleDependencyFactory.DependencyNotationSupplier
+) {
+    add(COMPILE, dependency.asProvider().get())
+}
 
 fun DependencyHandlerScope.implementation(
     dependency: Provider<MinimalExternalModuleDependency>
@@ -34,6 +53,12 @@ fun DependencyHandlerScope.implementation(
 
 fun DependencyHandlerScope.implementation(
     dependency: Dependency
+) {
+    add(IMPLEMENTATION, dependency)
+}
+
+fun DependencyHandlerScope.implementation(
+    dependency: Any
 ) {
     add(IMPLEMENTATION, dependency)
 }

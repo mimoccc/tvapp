@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.navArgument
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
 import org.mjdev.tvlib.annotations.Previews
@@ -39,6 +40,7 @@ class WebScreen : Screen() {
         }
     )
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() {

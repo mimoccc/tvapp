@@ -6,7 +6,8 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.annotations
+package org.mjdev.gradle.ksp.base
 
-@Target(AnnotationTarget.FUNCTION)
-annotation class CreateScreenShot
+interface  IProcessor {
+    fun addBuilder(builder: ITestBuilder)
+}

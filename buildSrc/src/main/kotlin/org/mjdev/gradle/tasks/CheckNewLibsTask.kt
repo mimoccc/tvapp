@@ -14,8 +14,6 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.internal.impldep.org.tomlj.Toml
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.extensions.buildDirectory
-import org.mjdev.gradle.extensions.println
 import org.mjdev.gradle.extensions.writeToFile
 import org.xml.sax.InputSource
 import java.io.FileReader
@@ -106,7 +104,7 @@ open class CheckNewLibsTask : BaseTask() {
                     newLibs.forEach { line -> appendLine(" - $line") }
                 }
                 if (missingLibs.size > 0) {
-                    println("* Missing version.ref - Need to check manually")
+                    appendLine("* Missing version.ref - Need to check manually")
                     missingLibs.forEach { line -> appendLine(" - $line") }
                 }
             }

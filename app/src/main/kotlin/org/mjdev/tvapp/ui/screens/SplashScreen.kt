@@ -30,6 +30,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.delay
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
@@ -46,6 +47,7 @@ class SplashScreen : Screen() {
     override val immersive: Boolean = true
 
     @OptIn(ExperimentalPermissionsApi::class)
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() {

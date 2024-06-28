@@ -26,6 +26,7 @@ import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.navigation.NavGraphBuilderEx
 import org.mjdev.tvlib.navigation.NavHostControllerEx
+import org.mjdev.gradle.annotations.CreateScreenShot
 import java.net.URL
 
 @Suppress("PreviewShouldNotBeCalledRecursively")
@@ -33,6 +34,7 @@ class IPTVActivity : TvActivity() {
 
     override val backgroundColor: Color = Color.Black
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Compose() = super.Compose()

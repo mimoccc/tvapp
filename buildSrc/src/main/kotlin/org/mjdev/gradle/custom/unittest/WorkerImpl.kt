@@ -17,7 +17,7 @@ import org.mjdev.gradle.custom.unittest.writers.TestFileWriterImpl
 import java.net.URL
 
 internal class WorkerImpl(
-    private val urls: Array<URL>,
+    private val urls: List<URL>,
     private val sourceDirectoryList: List<String>,
     private val exclude: List<String>,
     private val filePathHelper: FilePathHelper = FilePathHelperImpl(sourceDirectoryList, exclude),

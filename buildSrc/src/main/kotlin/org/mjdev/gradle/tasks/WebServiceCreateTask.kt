@@ -9,7 +9,6 @@
 package org.mjdev.gradle.tasks
 
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.TaskAction
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.extensions.file
 import org.mjdev.gradle.extensions.writeText

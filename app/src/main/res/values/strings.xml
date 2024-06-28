@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-/*
- * Copyright (c) Milan Jurkulák 2023.
- * Contact:
- * e: mimoccc@gmail.com
- * e: mj@mjdev.org
- * w: https://mjdev.org
- */
--->
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (c) Milan Jurkulák 2024.
+  ~  Contact:
+  ~  e: mimoccc@gmail.com
+  ~  e: mj@mjdev.org
+  ~  w: https://mjdev.org
+  -->
 <resources>
 
 <!--    <string name="app_name" translatable="false">TVApp</string>-->

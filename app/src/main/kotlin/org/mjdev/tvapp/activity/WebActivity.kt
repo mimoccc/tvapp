@@ -11,6 +11,7 @@ package org.mjdev.tvapp.activity
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.ui.screens.WebScreen
 import org.mjdev.tvlib.activity.TvActivity
 import org.mjdev.tvlib.annotations.Previews
@@ -25,6 +26,7 @@ class WebActivity : TvActivity() {
 
     override val backgroundColor: Color = Color.Black
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Compose() = super.Compose()

@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.media3.common.MediaItem
 import androidx.navigation.navArgument
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.app.Application
 import org.mjdev.tvapp.sync.SyncAdapter.Companion.pauseSyncUntilGone
@@ -52,6 +53,7 @@ class IPTVScreen : Screen() {
         }
     )
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() {

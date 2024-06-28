@@ -13,9 +13,9 @@ import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
+import org.gradle.kotlin.dsl.PluginDependenciesSpecScope
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.project
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
@@ -36,9 +36,11 @@ import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
 import org.mjdev.gradle.extensions.runAfterAssembleTask
+import org.mjdev.gradle.extensions.runBeforeAssemble
 import org.mjdev.gradle.extensions.testImplementation
 import org.mjdev.gradle.plugin.config.LibConfig
 import org.mjdev.gradle.tasks.CreatePropsTask
+import org.mjdev.gradle.tasks.TestClassesGeneratorTask
 
 @Suppress("UnstableApiUsage")
 class LibPlugin : BasePlugin() {
@@ -50,18 +52,17 @@ class LibPlugin : BasePlugin() {
         applyPlugin(libs.plugins.kotlin.android)
         applyPlugin(libs.plugins.kotlin.parcelize)
         applyPlugin(libs.plugins.google.devtools.ksp)
-        applyPlugin(libs.plugins.google.devtools.ksp)
         applyPlugin(libs.plugins.objectbox)
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
         applyPlugin(libs.plugins.gradle.paparazzi.plugin)
-//        applyPlugin(libs.plugins.kotlin.reflekt)
         applyPlugin<DetektPlugin>()
         applyPlugin<KotlinterPlugin>()
         registerTask<CreatePropsTask> {
             propsFilePath = LibConfig.configPropertiesFile
             propsClass = LibConfig::class.java
         }
+        registerTask<TestClassesGeneratorTask>()
         configure<LibraryExtension> {
             namespace = libConfig.namespace
             compileSdk = LibConfig.compileSdk
@@ -79,6 +80,11 @@ class LibPlugin : BasePlugin() {
             defaultConfig {
                 minSdk = LibConfig.minSdk
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//                buildToolsVersion = LibConfig.buildToolsVersion
+                vectorDrawables {
+                    useSupportLibrary = false
+                    generatedDensities()
+                }
             }
             packaging.resources.excludes.addAll(LibConfig.projectExcludes)
             buildTypes {
@@ -124,6 +130,8 @@ class LibPlugin : BasePlugin() {
             detektTask {
                 if (libConfig.autoCorrectCode) {
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             dokkaTask {
@@ -145,6 +153,8 @@ class LibPlugin : BasePlugin() {
                 }
                 if (libConfig.createDocumentation) {
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             kotlinCompileOptions {
@@ -169,6 +179,7 @@ class LibPlugin : BasePlugin() {
             lockMode.set(LockMode.STRICT)
         }
         dependencies {
+            implementation(files("$rootDir/buildSrc/build/libs/buildSrc.jar"))
             // core
             implementation(libs.androidx.ktx)
             implementation(libs.kotlinx.coroutines.android)
@@ -276,8 +287,7 @@ class LibPlugin : BasePlugin() {
             // anr
             implementation(libs.anrwatchdog)
             // own ksp
-            implementation(project(":annotations"))
-            ksp(project(":processor"))
+//            ksp(project(":processor"))
             // oauth
 //            implementation(libs.auth0)
 //            implementation(libs.android.jwtdecode)

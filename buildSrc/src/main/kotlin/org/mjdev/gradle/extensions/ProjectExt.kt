@@ -22,6 +22,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.plugins.ExtraPropertiesExtension
@@ -30,7 +31,6 @@ import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.gradle.api.tasks.SourceSetContainer
-import org.gradle.internal.impldep.jakarta.xml.bind.DatatypeConverter.parseBoolean
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.the
@@ -162,6 +162,18 @@ val Project.androidComponents: AndroidComponentsExtension<*, *, *>
 val Project.buildDirectory: File
     get() = layout.buildDirectory.asFile.get()
 
+val Project.generatedDir: File
+    get() = buildDirectory.resolve("generated")
+
+val Project.generatedResDir: File
+    get() = buildDirectory.resolve("generated").resolve("res")
+
+val Project.generatedKspDir: File
+    get() = buildDirectory.resolve("generated").resolve("ksp")
+
+val Project.generatedKspCachesDir: File
+    get() = buildDirectory.resolve("kspCaches")
+
 val Project.sourceSets
     get() = properties["sourceSets"] as SourceSetContainer
 
@@ -215,6 +227,10 @@ val Project.log: Logger
 //        configurationAction.execute(this)
 //    })
 //}
+
+fun Project.addSourceFiles(files: ConfigurableFileCollection) {
+    mainSourceSet?.compileClasspath?.plus(files)
+}
 
 fun Project.loadRootPropertiesFile(
     path: String,
@@ -279,8 +295,8 @@ inline fun <reified T : Task> Project.registerTask(
     fn: T.() -> Unit = {}
 ): T {
     val taskName = name ?: T::class.java.simpleName
-            .replace("Task", "")
-            .unCapitalize()
+        .replace("Task", "")
+        .unCapitalize()
     tasks.register(taskName, T::class.java)
     return tasks.findByName(taskName).let { task ->
         task as T
@@ -292,7 +308,7 @@ inline fun <reified T : Task> Project.registerTask(
 inline fun <reified T : Plugin<Project>> Project.applyPlugin(): T =
     plugins.apply(T::class.java)
 
-fun <T:Plugin<Project>> Project.applyPlugin(type: KClass<T>): T =
+fun <T : Plugin<Project>> Project.applyPlugin(type: KClass<T>): T =
     plugins.apply(type.java)
 
 fun Project.applyPlugin(type: Provider<PluginDependency>) =

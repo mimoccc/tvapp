@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.annotations
+package org.mjdev.gradle.annotations
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 annotation class CreateAndroidUnitTest

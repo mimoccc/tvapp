@@ -6,15 +6,15 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.processor.builders
+package org.mjdev.gradle.ksp.builders
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
-import org.mjdev.processor.base.ITestBuilder
-import org.mjdev.processor.base.ITestBuilder.Companion.file
-import org.mjdev.processor.base.ITestBuilder.Companion.fileFromPackageName
 import java.io.File
+import org.mjdev.gradle.ksp.base.ITestBuilder
+import org.mjdev.gradle.ksp.base.ITestBuilder.Companion.fileFromPackageName
+import org.mjdev.gradle.ksp.base.ITestBuilder.Companion.file
 
 class PaparazziTestBuilder(
     private val projectDir: File

@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.screen.Screen
@@ -29,6 +30,7 @@ class LoadingScreen : Screen() {
     override val immersive: Boolean = true
     override val showOnce: Boolean = true
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() {

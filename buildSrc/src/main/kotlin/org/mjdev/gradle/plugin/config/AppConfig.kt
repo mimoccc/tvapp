@@ -12,10 +12,10 @@ import org.gradle.api.JavaVersion
 import org.mjdev.gradle.extensions.toHashMap
 import org.mjdev.gradle.plugin.config.base.BuildConfigs
 
-@Suppress("unused")
+@Suppress("unused", "ConstPropertyName")
 open class AppConfig : BuildConfigs() {
     open var namespace = "org.mjdev.tvapp"
-    open var description = ""
+    open var description = "Android tv and streaming application for any android lollipop+ device"
 
     open var autoCorrectCode = true
     open var ignoreCodeFailures = true
@@ -52,6 +52,8 @@ open class AppConfig : BuildConfigs() {
 
         const val compileSdk = 34
         const val minSdk = 21
+
+//        const val buildToolsVersion = "34.0.0-rc3"
 
         const val jacocoVersion = "0.8.8"
 

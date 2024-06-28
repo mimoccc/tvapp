@@ -18,6 +18,7 @@ import org.mjdev.gradle.extensions.writeText
 import java.io.File
 import java.util.Date
 import java.util.Locale
+import org.mjdev.gradle.extensions.println
 
 open class ReleaseNotesCreateTask : BaseTask() {
 
@@ -82,7 +83,7 @@ open class ReleaseNotesCreateTask : BaseTask() {
             }
         }.toString().let { text ->
             outputFiles.forEach { of ->
-                println("> Creating release file: ${of.absolutePath}")
+                println("Creating release file: ${of.absolutePath}")
                 of.writeText(text)
             }
         }

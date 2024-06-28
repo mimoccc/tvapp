@@ -15,7 +15,10 @@ import org.mjdev.gradle.custom.unittest.WorkerImpl
 abstract class TestCaseGeneratorTask : BaseTask() {
 
     private val urls
-        get() = restDependencies + javaCompiledClasses + kotlinCompiledClasses
+        get() = mutableListOf(
+            javaCompiledClasses,
+            kotlinCompiledClasses,
+        ).apply { addAll(resDependencies) }
 
     private val sourceDirectoryList
         get() = listOf(

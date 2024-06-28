@@ -9,7 +9,6 @@
 package org.mjdev.gradle.tasks
 
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.extensions.projectVersion
 import org.mjdev.gradle.extensions.zipArchive
 
 open class ZipReleaseCreateTask : BaseTask() {

@@ -16,6 +16,7 @@ import java.io.File
 import org.mjdev.gradle.base.BaseTask
 import org.mjdev.gradle.extensions.write
 import org.mjdev.gradle.extensions.registerSourceDirectory
+import org.mjdev.gradle.extensions.println
 
 open class InAppInfoCreateTask : BaseTask() {
 
@@ -49,7 +50,7 @@ open class InAppInfoCreateTask : BaseTask() {
                 }
             }
         }.write(srcOutputDir) {
-            println("> Writing generated file: ${srcOutputDir}/${this.name}.kt")
+            println("Writing generated file: ${srcOutputDir}/${this.name}.kt")
         }
     }
 

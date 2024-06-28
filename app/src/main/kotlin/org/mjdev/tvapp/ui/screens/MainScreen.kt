@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.ui.pages.AboutPage
 import org.mjdev.tvapp.ui.pages.MainPage
@@ -39,6 +40,7 @@ class MainScreen : ScreenWithPages() {
         page(AboutPage(), menuGravity = Bottom)
     }
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() = super.Content()

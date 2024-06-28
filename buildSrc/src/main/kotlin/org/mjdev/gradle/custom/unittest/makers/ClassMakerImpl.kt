@@ -24,7 +24,7 @@ import java.nio.file.Path
 
 @Suppress("PrivatePropertyName")
 internal class ClassMakerImpl(
-    private var urls: Array<URL>
+    private var urls: List<URL>
 ) : ClassMaker {
     private val ANDROID_DIRECTORY = "ANDROID_SDK_DIRECTORY"
     private val ANDROID_JAR = "android.jar"
@@ -56,7 +56,7 @@ internal class ClassMakerImpl(
             val ANDROID = URL(FILE_URL_PREFIX + SDKLocation + DIRECTORY_SEPARATOR + ANDROID_JAR)
             urls += ANDROID
         }
-        classloader = URLClassLoader(urls, Thread.currentThread().contextClassLoader)
+        classloader = URLClassLoader(urls.toTypedArray(), Thread.currentThread().contextClassLoader)
     }
 
     override fun makeClass(path: Path): Class<*>? = runCatching {

@@ -6,7 +6,7 @@
  *  w: https://mjdev.org
  */
 
-package org.mjdev.processor.base
+package org.mjdev.gradle.ksp.base
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import java.io.File

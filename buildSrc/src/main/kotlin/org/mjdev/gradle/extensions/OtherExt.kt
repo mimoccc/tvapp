@@ -8,7 +8,9 @@
 
 package org.mjdev.gradle.extensions
 
+import org.gradle.api.initialization.Settings
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import java.lang.reflect.Modifier
 import java.util.Locale
 
@@ -87,3 +89,15 @@ fun parseDouble(value: Any): Double? = when (value) {
     is Number -> value.toDouble()
     else -> null
 }
+
+//fun <T : ExtensionAware> T.ifCi(action: T.() -> Unit) {
+//    if (ci) {
+//        action()
+//    }
+//}
+
+//fun <T : ExtensionAware> T.ifLocal(action: T.() -> Unit) {
+//    if (!ci) {
+//        action()
+//    }
+//}

@@ -12,6 +12,7 @@ import org.gradle.api.JavaVersion
 import org.mjdev.gradle.extensions.toHashMap
 import org.mjdev.gradle.plugin.config.base.BuildConfigs
 
+@Suppress("ConstPropertyName")
 open class LibConfig : BuildConfigs() {
     open var namespace = "org.mjdev.tvlib"
     open var description = "Smart TV android app lib for android applications running on any android device"
@@ -41,6 +42,8 @@ open class LibConfig : BuildConfigs() {
 
         const val compileSdk = 34
         const val minSdk = 21
+
+//        const val buildToolsVersion = "34.0.0-rc3"
 
         const val jacocoVersion = "0.8.8"
 

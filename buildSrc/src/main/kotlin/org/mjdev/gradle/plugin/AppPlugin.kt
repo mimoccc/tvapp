@@ -16,7 +16,6 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.project
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
@@ -46,6 +45,7 @@ import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
 import org.mjdev.gradle.extensions.releaseNotesCreateTask
 import org.mjdev.gradle.extensions.runAfterAssembleTask
+import org.mjdev.gradle.extensions.runBeforeAssemble
 import org.mjdev.gradle.extensions.setSigningConfigs
 import org.mjdev.gradle.extensions.stringRes
 import org.mjdev.gradle.extensions.testImplementation
@@ -55,10 +55,12 @@ import org.mjdev.gradle.extensions.versionName
 import org.mjdev.gradle.extensions.webServiceCreateTask
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
 import org.mjdev.gradle.plugin.config.AppConfig
+import org.mjdev.gradle.plugin.config.LibConfig
 import org.mjdev.gradle.tasks.CheckNewLibsTask
 import org.mjdev.gradle.tasks.CleanProjectTask
 import org.mjdev.gradle.tasks.CreatePropsTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
+import org.mjdev.gradle.tasks.TestClassesGeneratorTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
 
@@ -76,7 +78,6 @@ class AppPlugin : BasePlugin() {
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
         applyPlugin(libs.plugins.gradle.paparazzi.plugin)
-//        applyPlugin(libs.plugins.kotlin.reflekt)
         applyPlugin<MarkdownPlugin>()
         applyPlugin<DetektPlugin>()
         applyPlugin<KotlinterPlugin>()
@@ -92,6 +93,7 @@ class AppPlugin : BasePlugin() {
         registerTask<ReleaseNotesCreateTask>()
         registerTask<WebServiceCreateTask>()
         registerTask<ZipReleaseCreateTask>()
+        registerTask<TestClassesGeneratorTask>()
         configure<ApplicationExtension> {
             namespace = appConfig.namespace
             compileSdk = AppConfig.compileSdk
@@ -114,9 +116,14 @@ class AppPlugin : BasePlugin() {
                 applicationId = appConfig.namespace
                 minSdk = AppConfig.minSdk
                 targetSdk = AppConfig.compileSdk
+//                buildToolsVersion = AppConfig.buildToolsVersion
                 versionCode = project.versionCode
                 versionName = project.versionName
                 multiDexEnabled = AppConfig.multiDexEnabled
+                vectorDrawables {
+                    useSupportLibrary = false
+                    generatedDensities()
+                }
                 // todo : move
                 buildConfigString(
                     "IPTV_API_URL" to "https://iptv-org.github.io/api/",
@@ -178,7 +185,9 @@ class AppPlugin : BasePlugin() {
                 }
             }
             sourceSets {
-                getByName("main") { jniLibs.srcDirs() }
+                getByName("main") {
+                    jniLibs.srcDirs()
+                }
             }
             lint {
                 checkReleaseBuilds = true
@@ -201,6 +210,8 @@ class AppPlugin : BasePlugin() {
                 if (appConfig.autoCorrectCode) {
                     mustRunAfter(assembleTasks)
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             dokkaTask {
@@ -222,6 +233,8 @@ class AppPlugin : BasePlugin() {
                 }
                 if (appConfig.createDocumentation) {
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             markDownToHtmlTask {
@@ -250,6 +263,8 @@ class AppPlugin : BasePlugin() {
             releaseNotesCreateTask {
                 if (appConfig.createReleaseNotes) {
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             webServiceCreateTask {
@@ -261,24 +276,28 @@ class AppPlugin : BasePlugin() {
                 serviceLicense = ""
                 if (appConfig.createWebApp) {
                     runAfterAssembleTask()
+                } else {
+                    enabled = false
                 }
             }
             zipReleaseCreateTask {
                 // todo files here
                 if (appConfig.createZipRelease) {
                     runAfterAssembleTask()
-                }
-                if (appConfig.createReleaseNotes) {
-                    mustRunAfter(releaseNotesCreateTask())
-                }
-                if (appConfig.createWebApp) {
-                    mustRunAfter(webServiceCreateTask())
-                }
-                if (appConfig.createDocumentation) {
-                    mustRunAfter(dokkaTask())
-                }
-                if (appConfig.autoCorrectCode) {
-                    mustRunAfter(detektTask())
+                    if (appConfig.createReleaseNotes) {
+                        mustRunAfter(releaseNotesCreateTask())
+                    }
+                    if (appConfig.createWebApp) {
+                        mustRunAfter(webServiceCreateTask())
+                    }
+                    if (appConfig.createDocumentation) {
+                        mustRunAfter(dokkaTask())
+                    }
+                    if (appConfig.autoCorrectCode) {
+                        mustRunAfter(detektTask())
+                    }
+                } else {
+                    enabled = false
                 }
             }
             kotlinCompileOptions {
@@ -314,6 +333,7 @@ class AppPlugin : BasePlugin() {
         }
         dependencies {
             implementation(project(mapOf("path" to ":tvlib")))
+            implementation(files("$rootDir/buildSrc/build/libs/buildSrc.jar"))
             // compose
             implementation(platform(libs.androidx.compose.bom))
             implementation(libs.androidx.compose.ui.tooling)
@@ -404,18 +424,18 @@ class AppPlugin : BasePlugin() {
             implementation(libs.androidx.glance.appwidget)
             implementation(libs.androidx.glance.material)
             implementation(libs.androidx.glance.material3)
+            // anr
+            implementation(libs.anrwatchdog)
+            // oauth
+//            implementation(libs.auth0)
+//            implementation(libs.android.jwtdecode)
             // test
             testImplementation(libs.junit)
             androidTestImplementation(libs.androidx.junit)
             androidTestImplementation(libs.androidx.espresso.core)
-            // anr
-            implementation(libs.anrwatchdog)
             // own ksp
-            implementation(project(":annotations"))
-            ksp(project(":processor"))
-            // oauth
-//            implementation(libs.auth0)
-//            implementation(libs.android.jwtdecode)
+//            implementation(project(":annotations"))
+//            ksp(project(":processor"))
         }
     }
 }

@@ -37,10 +37,16 @@ dependencyResolutionManagement {
     }
 }
 
+fun Settings.includeAllModules() {
+    rootDir.walk().maxDepth(1).filter { file ->
+        val isBuildSrc = file.name == "buildSrc"
+        val isDirectory = file.isDirectory
+        val hasBuildScriptFile = file.resolve("build.gradle.kts").exists()
+        !isBuildSrc && isDirectory && hasBuildScriptFile
+    }.forEach {
+        include(":${it.name}")
+    }
+}
+
 rootProject.name = "TvApp"
-
-include(":annotations")
-include(":processor")
-
-include(":app")
-include(":tvlib")
+includeAllModules()

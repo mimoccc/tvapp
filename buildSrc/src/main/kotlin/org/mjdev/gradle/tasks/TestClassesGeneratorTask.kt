@@ -8,29 +8,20 @@
 
 package org.mjdev.gradle.tasks
 
-//import com.google.devtools.ksp.impl.CommandLineKSPLogger
-//import com.google.devtools.ksp.impl.KotlinSymbolProcessing
-//import com.google.devtools.ksp.processing.KSPJvmConfig
-//import com.google.devtools.ksp.processor.AbstractTestProcessor
-//import org.jetbrains.kotlin.cli.jvm.K2JVMCompiler
-//import org.jetbrains.kotlin.cli.jvm.config.javaSourceRoots
-//import org.jetbrains.kotlin.cli.jvm.config.jvmClasspathRoots
-//import org.jetbrains.kotlin.cli.jvm.config.jvmModularRoots
-//import org.jetbrains.kotlin.config.JVMConfigurationKeys
-//import org.jetbrains.kotlin.config.languageVersionSettings
-//import org.jetbrains.kotlin.test.compileJavaFiles
-//import org.jetbrains.kotlin.test.kotlinPathsForDistDirectoryForTests
-//import org.jetbrains.kotlin.test.model.FrontendKinds
-//import org.jetbrains.kotlin.test.model.TestModule
-//import org.jetbrains.kotlin.test.services.JUnit5Assertions
-//import org.jetbrains.kotlin.test.services.TestServices
-//import org.jetbrains.kotlin.test.services.compilerConfigurationProvider
-//import org.jetbrains.kotlin.test.services.isKtFile
-//import org.jetbrains.kotlin.test.util.KtTestUtil
-//import org.jetbrains.kotlin.utils.PathUtil
+import com.google.devtools.ksp.impl.KotlinSymbolProcessing
+import com.google.devtools.ksp.processing.KSPJvmConfig
+import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import org.gradle.api.Project
 import org.mjdev.gradle.base.BaseTask
-import org.mjdev.gradle.extensions.allFiles
-import org.mjdev.gradle.extensions.file
+import org.mjdev.gradle.extensions.buildDirectory
+import org.mjdev.gradle.extensions.generatedKspDir
+import org.mjdev.gradle.extensions.generatedKspCachesDir
+import org.mjdev.gradle.extensions.generatedResDir
+import org.gradle.api.JavaVersion
+import org.mjdev.gradle.extensions.println
+import org.mjdev.gradle.extensions.runBeforeAssemble
+import org.mjdev.gradle.ksp.log.LoggerKsp
+import org.mjdev.gradle.ksp.processor.screenshots.ScreenshotProcessorProvider
 
 @Suppress("unused")
 open class TestClassesGeneratorTask : BaseTask() {
@@ -44,13 +35,11 @@ open class TestClassesGeneratorTask : BaseTask() {
     //  --data '<Replace this with a json request body as needed>' \
     //  https://api-beta.copilot.com/v1/<Replace this with a resource>
 
-    private val subprojects = project.rootProject.subprojects
+    private val generatedDir
+        get() = project.buildDirectory.resolve("generated")
 
-    private val fileMap = subprojects.associateWith { p ->
-        p.file("src").file("main").allFiles("kt")
-    }
-
-//    private val worker = GithubClassWorker()
+    //    private val worker = GithubClassWorker()
+    private val screenshotKSPProvider by lazy { ScreenshotProcessorProvider() }
 
     init {
         group = "mjdev"
@@ -71,10 +60,10 @@ open class TestClassesGeneratorTask : BaseTask() {
 //    @Suppress("SpellCheckingInspection")
 //    private fun makeTestFile(
 //        srcFile: File,
-//        destfile: File
+//        destFile: File
 //    ) {
 //        worker.makeTestClass(srcFile).also { createdClass ->
-//            createdClass?.writeTo(destfile)
+//            createdClass?.writeTo(destFile)
 //        }
 //    }
 
@@ -89,21 +78,68 @@ open class TestClassesGeneratorTask : BaseTask() {
 //    }
 
     override fun onClean() {
+//        val pkg = project.packageName
+//        val annotation = CreateScreenShot::class.java.canonicalName
+//        ClassGraph()
+//            .verbose()
+//            .enableAllInfo()
+//            .enableClassInfo()
+//            .enableFieldInfo()
+//            .enableMethodInfo()
+//            .enableAnnotationInfo()
+//            .ignoreClassVisibility()
+//            .ignoreFieldVisibility()
+//            .ignoreMethodVisibility()
+//            .acceptPackages(pkg)
+//            .scan().use { scanResult ->
+//                scanResult.getClassesWithAnnotation(annotation).forEach { classInfo ->
+//                    val annotationInfo = classInfo.getAnnotationInfo(annotation)
+//                    val paramValues: List<AnnotationParameterValue> = annotationInfo.parameterValues
+//                    val ann = paramValues[0].value as String
+//                    println("${classInfo.name} is annotated with $ann")
+//                }
+//            }
+//        processKsp(project, screenshotKSPProvider)
     }
 
     override fun onAssemble() {
-//        val kspConfig = KSPJvmConfig.Builder().apply {
-//             All configurations happen here.
-//        }.build()
-//        val exitCode = KotlinSymbolProcessing(kspConfig, listOfProcessors, kspLoggerImpl).execute()
-//        println("> Got files:")
-//        fileMap.keys.forEach { project ->
-//            val files = fileMap[project] ?: emptyList()
-//            files.forEach { file ->
-//                println("> ${project.name} > $file")
-//                createTestFile(project, file)
-//            }
-//        }
+        processKsp(project, screenshotKSPProvider)
+    }
+
+    private fun processKsp(
+        project: Project,
+        processorProvider: SymbolProcessorProvider
+    ) {
+        println("processing symbols for : ${project.name}")
+        KotlinSymbolProcessing(
+            KSPJvmConfig.Builder().apply {
+                moduleName = project.projectDir.name
+                projectBaseDir = project.projectDir
+                outputBaseDir = project.projectDir
+                sourceRoots = listOf(project.projectDir)
+                javaOutputDir = project.generatedKspDir
+                kotlinOutputDir = project.generatedKspDir
+                cachesDir = project.generatedKspCachesDir
+                classOutputDir = project.generatedKspDir
+                resourceOutputDir = project.generatedResDir
+                jvmTarget = JavaVersion.VERSION_17.toString()
+                incremental = false
+                incrementalLog = false
+                allWarningsAsErrors = true
+                mapAnnotationArgumentsInJava = false
+                languageVersion = "2.0.0"
+                apiVersion = "1.0.22"
+                modifiedSources = emptyList()
+                removedSources = emptyList()
+                changedClasses = emptyList()
+                processorOptions = emptyMap()
+                commonSourceRoots = emptyList()
+            }.build(),
+            listOf(processorProvider),
+            LoggerKsp(logger)
+        ).execute().let { code ->
+            println("Kotlin processor ends with exit code: $code")
+        }
     }
 
 }

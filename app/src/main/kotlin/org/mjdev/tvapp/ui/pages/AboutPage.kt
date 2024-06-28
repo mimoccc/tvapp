@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CardDefaults
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.ui.components.card.Card
@@ -37,6 +38,7 @@ class AboutPage : Page() {
     override val title: Int = R.string.title_about
     override val icon: ImageVector = Icons.Default.Info
 
+    @CreateScreenShot
     @Previews
     @Composable
     override fun Content() {

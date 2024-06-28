@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import org.mjdev.gradle.annotations.CreateScreenShot
 import org.mjdev.tvapp.BuildConfig
 import org.mjdev.tvapp.R
 import org.mjdev.tvapp.activity.IPTVActivity
@@ -59,6 +60,7 @@ class MainPage : Page() {
     override val title: Int = R.string.title_home
     override val icon: ImageVector = Icons.Default.Home
 
+    @CreateScreenShot
     @SuppressLint("OpaqueUnitKey")
     @Previews
     @Composable

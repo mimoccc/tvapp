@@ -6,8 +6,9 @@
  *  w: https://mjdev.org
  */
 
-@Suppress("DEPRECATION", "JcenterRepositoryObsolete")
 repositories {
+    //noinspection JcenterRepositoryObsolete
+    @Suppress("DEPRECATION")
     jcenter()
     google()
     mavenCentral()
@@ -16,19 +17,19 @@ repositories {
     maven(url = "https://plugins.gradle.org/m2/")
     maven(url = "https://oss.sonatype.org/content/repositories/public")
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
-    maven(url = uri("https://packages.jetbrains.team/maven/p/reflekt/reflekt"))
 }
 
 plugins {
     `kotlin-dsl`
-//    id("org.jetbrains.reflekt") version "1.5.30"
 }
 
 dependencies {
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+
     implementation(gradleApi())
     implementation(gradleKotlinDsl())
-    implementation(kotlin("reflect"))
+
+    implementation(libs.kotlin.reflect)
     implementation(libs.gradle.api)
     implementation(libs.gradle)
     implementation(libs.gradle.kotlin.plugin)
@@ -47,15 +48,22 @@ dependencies {
     implementation(libs.kotlin.mockito)
     implementation(libs.junit)
     implementation(libs.kotlin.compose.compiler)
-    implementation(libs.symbol.processing.api)
-//    implementation(libs.kotlin.reflekt.dsl)
-//    implementation(libs.symbol.processing.embeddable)
+
+    implementation(libs.ksp)
+    implementation(libs.ksp.api)
+    implementation(libs.ksp.commonDeps)
+    implementation(libs.ksp.aaEmbeddable)
+    implementation(libs.aalto.xml)
+
+//    implementation(libs.classgraph)
+
 //    implementation(libs.apk.parser)
 //    implementation(libs.gradle.docker.plugin)
 //    implementation(libs.korim.jvm)
 //    implementation(libs.photofilter)
 //    implementation(libs.dependency.analysis.gradle.plugin)
 //    implementation(libs.google.api.services.androidpublisher)
+
 //    implementation(libs.ini4j)
 }
 
@@ -73,5 +81,24 @@ gradlePlugin {
             description = "Common library plugin to handle all stuffs needed."
             implementationClass = "org.mjdev.gradle.plugin.LibPlugin"
         }
+    }
+}
+
+tasks {
+    val sourcesJar by creating(Jar::class) {
+        dependsOn(JavaPlugin.CLASSES_TASK_NAME)
+        archiveClassifier = "sources"
+        from(java.sourceSets["main"].allSource)
+    }
+
+    val javadocJar by creating(Jar::class) {
+        dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
+        archiveClassifier = "javadoc"
+        from(java.docsDir)
+    }
+
+    artifacts {
+        add("archives", sourcesJar)
+        add("archives", javadocJar)
     }
 }
