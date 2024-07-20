@@ -1,0 +1,47 @@
+site_name: Compose TV App and Lib
+docs_dir: documentation
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+repo_name: mimoccc/tvapp
+repo_url: https://github.com/mimoccc/tvapp
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+  - def_list
+
+plugins:
+  - glightbox
+
+nav:
+  - Home: home.md
+  - Release Notes: release-notes-1.3.1.md
+  - Code:
+      - Lib: documentation/lib/index.md
+      - App: documentation/app/index.md

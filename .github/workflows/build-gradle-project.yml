@@ -3,18 +3,22 @@ name: Build Gradle project
 on:
   push:
     branches:
+      - master
       - main
+# permissions
+permissions:
+  contents: write
+  deployments: write
+  pages: write
 # jobs
 jobs:
   build-gradle-project:
     runs-on: ubuntu-latest
-    # permissions
-    permissions:
-      contents: write
-      deployments: write
-      pages: write
     # job steps
     steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
       # check out sources
       - name: Checkout project sources
         id: checkout_project
@@ -73,6 +77,13 @@ jobs:
           token: ${{ secrets.TOKEN }}
           tag: release-${{ env.GITHUB_APP_VERSION_NAME }}
           artifacts: './app/build/outputs/apk/release/app-release.apk, ./documentation/release-notes-*.md, ./release.zip, ./dependencies.md'
+      - uses: actions/cache@v2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install mkdocs-material
+      - run: pip install mkdocs-glightbox
+      - run: mkdocs gh-deploy --force
       # update wiki pages
       - name: Update wiki pages
         id: update_wiki_pages
