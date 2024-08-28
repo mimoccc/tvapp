@@ -8,12 +8,14 @@
 
 package org.mjdev.tvlib.activity
 
+import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
@@ -162,6 +164,15 @@ open class TvActivity : ComposableActivity(), View.OnApplyWindowInsetsListener, 
             v.onApplyWindowInsets(insets)
         }
         return insets
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        return runCatching {
+            super.dispatchKeyEvent(event)
+        }.onFailure { e ->
+            Timber.e(e)
+        }.getOrDefault(false)
     }
 
     @Previews
