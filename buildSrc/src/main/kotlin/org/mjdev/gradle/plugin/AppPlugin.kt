@@ -19,7 +19,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.dokka.Platform
 import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.KotlinterPlugin
-import org.kordamp.gradle.plugin.markdown.MarkdownPlugin
 import org.mjdev.gradle.base.BasePlugin
 import org.mjdev.gradle.extensions.addSyncProviderAuthString
 import org.mjdev.gradle.extensions.androidTestImplementation
@@ -40,12 +39,10 @@ import org.mjdev.gradle.extensions.ksp
 import org.mjdev.gradle.extensions.libs
 import org.mjdev.gradle.extensions.loadRootPropertiesFile
 import org.mjdev.gradle.extensions.manifestPlaceholders
-import org.mjdev.gradle.extensions.markDownToHtmlTask
 import org.mjdev.gradle.extensions.projectName
 import org.mjdev.gradle.extensions.registerTask
 import org.mjdev.gradle.extensions.releaseNotesCreateTask
 import org.mjdev.gradle.extensions.runAfterAssembleTask
-import org.mjdev.gradle.extensions.runBeforeAssemble
 import org.mjdev.gradle.extensions.setSigningConfigs
 import org.mjdev.gradle.extensions.stringRes
 import org.mjdev.gradle.extensions.testImplementation
@@ -55,7 +52,6 @@ import org.mjdev.gradle.extensions.versionName
 import org.mjdev.gradle.extensions.webServiceCreateTask
 import org.mjdev.gradle.extensions.zipReleaseCreateTask
 import org.mjdev.gradle.plugin.config.AppConfig
-import org.mjdev.gradle.plugin.config.LibConfig
 import org.mjdev.gradle.tasks.CheckNewLibsTask
 import org.mjdev.gradle.tasks.CleanProjectTask
 import org.mjdev.gradle.tasks.CreatePropsTask
@@ -78,7 +74,7 @@ class AppPlugin : BasePlugin() {
         applyPlugin(libs.plugins.gradle.dokka)
         applyPlugin(libs.plugins.kotlin.compose.compiler)
         applyPlugin(libs.plugins.gradle.paparazzi.plugin)
-        applyPlugin<MarkdownPlugin>()
+//        applyPlugin<MarkdownPlugin>()
         applyPlugin<DetektPlugin>()
         applyPlugin<KotlinterPlugin>()
         registerTask<CleanProjectTask>()
@@ -237,7 +233,7 @@ class AppPlugin : BasePlugin() {
                     enabled = false
                 }
             }
-            markDownToHtmlTask {
+//            markDownToHtmlTask {
 //            enabled = appConfig.createWebSiteFromGit
 //                sourceDir = rootDir
 //                outputDir = rootDir.resolve("web")
@@ -259,7 +255,7 @@ class AppPlugin : BasePlugin() {
 //                if(createWebSiteFromGit) {
 //                    runAfterAssembleTask()
 //                }
-            }
+//            }
             releaseNotesCreateTask {
                 if (appConfig.createReleaseNotes) {
                     runAfterAssembleTask()

@@ -47,7 +47,7 @@ object MediaItemExt {
             is ItemVideo -> this.uri.toString()
             is ItemPhoto -> this.uri.toString()
             else -> this.toString()
-        }
+        }.trim()
 
     val Any?.mediaType: Int
         get() = when (this) {

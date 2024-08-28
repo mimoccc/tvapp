@@ -41,7 +41,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.mjdev.gradle.tasks.CreatePropsTask
 import org.mjdev.gradle.tasks.CleanProjectTask
-import org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask
 import org.mjdev.gradle.tasks.ReleaseNotesCreateTask
 import org.mjdev.gradle.tasks.WebServiceCreateTask
 import org.mjdev.gradle.tasks.ZipReleaseCreateTask
@@ -358,8 +357,8 @@ fun Project.zipReleaseCreateTask(scoped: ZipReleaseCreateTask.() -> Unit = {}) =
 fun Project.dokkaTask(scoped: DokkaTask.() -> Unit) =
     task<DokkaTask>(scoped)
 
-fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) =
-    task<MarkdownToHtmlTask>(scoped)
+//fun Project.markDownToHtmlTask(scoped: MarkdownToHtmlTask.() -> Unit) =
+//    task<MarkdownToHtmlTask>(scoped)
 
 fun Project.registerSources(outDir: File, variant: BaseVariant) {
     if (outDir.absolutePath.contains("generated/source")) {

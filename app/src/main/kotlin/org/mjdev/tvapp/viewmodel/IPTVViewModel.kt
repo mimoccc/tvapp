@@ -26,7 +26,6 @@ import org.mjdev.tvlib.interfaces.ItemAudio
 import org.mjdev.tvlib.interfaces.ItemPhoto
 import org.mjdev.tvlib.interfaces.ItemVideo
 import org.mjdev.tvlib.network.NetworkConnectivityService
-import kotlin.reflect.KClass
 
 class IPTVViewModel(context: Context) : BaseViewModel(context) {
 
@@ -38,30 +37,18 @@ class IPTVViewModel(context: Context) : BaseViewModel(context) {
     private val localPhotoCursor: PhotoCursor by instance()
 
     private val mediaItems: List<Any> get() = dao.movieDao.all
-    private val cache = mutableMapOf<KClass<*>, List<MediaItem>>()
 
     fun mediaItemsFor(
         data: Any?
     ): List<MediaItem> = when (data) {
-        is ItemAudio -> getCachedList<ItemAudio> { localAudioCursor }
-        is ItemVideo -> getCachedList<ItemVideo> { localVideoCursor }
-        is ItemPhoto -> getCachedList<ItemPhoto> { localPhotoCursor }
-        is Media -> getCachedList<Media> {
-            mediaItems.filter { listItem ->
-                (listItem as? Media?)?.category == data.category
-            }
-        }
+        is ItemAudio -> localAudioCursor.map { item -> item.mediaItem }
+        is ItemVideo -> localVideoCursor.map { item -> item.mediaItem }
+        is ItemPhoto -> localPhotoCursor.map { item -> item.mediaItem }
+        is Media -> mediaItems.filter { listItem ->
+            (listItem as? Media?)?.category.contentEquals(data.category)
+        }.map { item -> item.mediaItem }
 
         else -> listOf(data.mediaItem)
-    }
-
-    private inline fun <reified T> getCachedList(creator: () -> List<*>): List<MediaItem> {
-        if (!cache.containsKey(T::class)) {
-            creator().let { list ->
-                cache[T::class] = list.map { item -> item.mediaItem }
-            }
-        }
-        return cache[T::class] ?: emptyList()
     }
 
     override fun mockDI(context: Context): DI = Application.getDI(context)

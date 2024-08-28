@@ -61,11 +61,18 @@ class IPTVScreen : Screen() {
             Application.getDI(LocalContext.current)
         }
         val data: Any? = args[data]
+        val dataUri = data.uri
         val dataList: List<MediaItem> = remember(data) {
             viewModel.mediaItemsFor(data)
         }
         val index = remember(data) {
-            dataList.indexOf<Any?> { item -> item.uri == data.uri }
+            dataList.indexOf<Any?> { item ->
+                item.uri.contentEquals(dataUri)
+            }
+        }
+
+        if (index < 0) {
+            throw (RuntimeException("Can not find index of media item."))
         }
 
         pauseSyncUntilGone()

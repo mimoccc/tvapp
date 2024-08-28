@@ -34,7 +34,7 @@ buildscript {
         classpath(libs.gradle.paparazzi.plugin)
         classpath(libs.gradle.kotlinter)
         classpath(libs.gradle.dokka.plugin)
-        classpath(libs.gradle.markdown.plugin)
+//        classpath(libs.gradle.markdown.plugin)
 //        classpath(libs.gradle.ospackage.plugin)
     }
 

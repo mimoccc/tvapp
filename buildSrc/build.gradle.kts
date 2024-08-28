@@ -35,7 +35,7 @@ dependencies {
     implementation(libs.gradle.kotlin.plugin)
     implementation(libs.gradle.detekt.plugin)
     implementation(libs.gradle.dokka.plugin)
-    implementation(libs.gradle.markdown.plugin)
+//    implementation(libs.gradle.markdown.plugin)
     implementation(libs.gradle.kotlinter)
     implementation(libs.jsoup)
     implementation(libs.kotlin.stdlib.jdk8)
