@@ -1,0 +1,825 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+    
+    
+      
+        <title>Index - Compose TV App and Lib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#package-level-declarations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Compose TV App and Lib" class="md-header__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compose TV App and Lib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Compose TV App and Lib" class="md-nav__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Compose TV App and Lib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes-1.3.1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/lib/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/app/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>//<a href="../../">tvlib</a>/<a href="./">org.mjdev.tvlib.ui.toolkit</a></p>
+<h1 id="package-level-declarations">Package-level declarations</h1>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-image-brush/">ImageBrush</a></td>
+<td>[androidJvm]<br>sealed interface <a href="-image-brush/">ImageBrush</a></td>
+</tr>
+<tr>
+<td><a href="-text/">Text</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Immutable.html">Immutable</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html">Stable</a><br>sealed interface <a href="-text/">Text</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="activity/">activity</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="activity/">activity</a>: <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>?<br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ReadOnlyComposable.html">ReadOnlyComposable</a><br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ProvidableCompositionLocal.html">ProvidableCompositionLocal</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&gt;.<a href="activity/">activity</a>: <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>?</td>
+</tr>
+<tr>
+<td><a href="-amber/">Amber</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-amber/">Amber</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-azure-blue/">AzureBlue</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-azure-blue/">AzureBlue</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-black-olive/">BlackOlive</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-black-olive/">BlackOlive</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-blue-lilac/">BlueLilac</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-blue-lilac/">BlueLilac</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-capri-blue/">CapriBlue</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-capri-blue/">CapriBlue</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-claret-violet/">ClaretViolet</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-claret-violet/">ClaretViolet</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-dahlia-yellow/">DahliaYellow</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-dahlia-yellow/">DahliaYellow</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="get/">get</a></td>
+<td>[androidJvm]<br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>val <a href="-text/">Text</a>.<a href="get/">get</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="-ivory/">Ivory</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-ivory/">Ivory</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-jet-black/">JetBlack</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-jet-black/">JetBlack</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-light-blue/">LightBlue</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-light-blue/">LightBlue</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-magenta/">Magenta</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-magenta/">Magenta</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-metro-green/">MetroGreen</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-metro-green/">MetroGreen</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-metro-green2/">MetroGreen2</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-metro-green2/">MetroGreen2</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-olive-yellow/">OliveYellow</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-olive-yellow/">OliveYellow</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-orange/">Orange</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-orange/">Orange</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-orient-red/">OrientRed</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-orient-red/">OrientRed</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="raw/">raw</a></td>
+<td>[androidJvm]<br>val <a href="-text/">Text</a>.<a href="raw/">raw</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></td>
+</tr>
+<tr>
+<td><a href="-red-violet/">RedViolet</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-red-violet/">RedViolet</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="resources/">resources</a></td>
+<td>[androidJvm]<br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ReadOnlyComposable.html">ReadOnlyComposable</a><br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ProvidableCompositionLocal.html">ProvidableCompositionLocal</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&gt;.<a href="resources/">resources</a>: <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a></td>
+</tr>
+<tr>
+<td><a href="-rose/">Rose</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-rose/">Rose</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-sepia-brown/">SepiaBrown</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-sepia-brown/">SepiaBrown</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-signal-white/">SignalWhite</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-signal-white/">SignalWhite</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-sky-blue/">SkyBlue</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-sky-blue/">SkyBlue</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-traffic-black/">TrafficBlack</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-traffic-black/">TrafficBlack</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-traffic-yellow/">TrafficYellow</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-traffic-yellow/">TrafficYellow</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="-umbra-grey/">UmbraGrey</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.Companion.html">Color.Companion</a>.<a href="-umbra-grey/">UmbraGrey</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></td>
+</tr>
+<tr>
+<td><a href="value/">value</a></td>
+<td>[androidJvm]<br>@get:<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>val <a href="-text/">Text</a>.<a href="value/">value</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="acquire-focus-on-interaction/">acquireFocusOnInteraction</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="acquire-focus-on-interaction/">~~acquireFocusOnInteraction~~</a>(interactionSource: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a>? = null, indication: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/Indication.html">Indication</a>? = null): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="blend/">blend</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>.<a href="blend/">blend</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)ratio: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><br>Blend between two <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>s using the given ratio. A blend ratio of 0.0 will result in color1, 0.5 will give an even blend, 1.0 will result in color2.</td>
+</tr>
+<tr>
+<td><a href="build-html-resource/">buildHtmlResource</a></td>
+<td>[androidJvm]<br>fun <a href="build-html-resource/">buildHtmlResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="-text/">Text</a></td>
+</tr>
+<tr>
+<td><a href="build-plural-resource/">buildPluralResource</a></td>
+<td>[androidJvm]<br>fun <a href="build-plural-resource/">buildPluralResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="-text/">Text</a><br>fun <a href="build-plural-resource/">buildPluralResource</a>(id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg formatArgs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="-text/">Text</a></td>
+</tr>
+<tr>
+<td><a href="build-text/">buildText</a></td>
+<td>[androidJvm]<br>fun <a href="build-text/">buildText</a>(value: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a>): <a href="-text/">Text</a><br>fun <a href="build-text/">buildText</a>(builder: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): <a href="-text/">Text</a><br>fun <a href="build-text/">buildText</a>(value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="-text/">Text</a></td>
+</tr>
+<tr>
+<td><a href="build-text-resource/">buildTextResource</a></td>
+<td>[androidJvm]<br>fun <a href="build-text-resource/">buildTextResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="-text/">Text</a><br>fun <a href="build-text-resource/">buildTextResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg formatArgs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="-text/">Text</a></td>
+</tr>
+<tr>
+<td><a href="calculate/">calculate</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ReadOnlyComposable.html">ReadOnlyComposable</a><br>fun <a href="calculate/">calculate</a>(calculation: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)</td>
+</tr>
+<tr>
+<td><a href="cast-to/">castTo</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="cast-to/">T</a>&gt; <a href="cast-to/">castTo</a>(anything: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="cast-to/">T</a></td>
+</tr>
+<tr>
+<td><a href="composable-or-null/">composableOrNull</a></td>
+<td>[androidJvm]<br>fun <a href="composable-or-null/">composableOrNull</a>(condition: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, content: @<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): @<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>?</td>
+</tr>
+<tr>
+<td><a href="contrast-against/">contrastAgainst</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>.<a href="contrast-against/">contrastAgainst</a>(background: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></td>
+</tr>
+<tr>
+<td><a href="draw-horizontal-divider/">drawHorizontalDivider</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="draw-horizontal-divider/">drawHorizontalDivider</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, thickness: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 1.dp, indent: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a> = PaddingValues(0.dp)): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="draw-vertical-divider/">drawVerticalDivider</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="draw-vertical-divider/">drawVerticalDivider</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, thickness: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 1.dp, indent: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a> = PaddingValues(0.dp)): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="fade-edge/">fadeEdge</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="fade-edge/">fadeEdge</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, state: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, horizontal: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, length: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = DEFAULT_FADING_EDGE_LENGTH): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="find-activity/">findActivity</a></td>
+<td>[androidJvm]<br>tailrec fun <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="find-activity/">findActivity</a>(): <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>?</td>
+</tr>
+<tr>
+<td><a href="foreground/">foreground</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html">Stable</a><br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="foreground/">foreground</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, shape: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shape.html">Shape</a> = RectangleShape): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html">Stable</a><br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="foreground/">foreground</a>(brush: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a>, shape: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shape.html">Shape</a> = RectangleShape, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = 1.0f): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="get-quantity-text/">getQuantityText</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-quantity-text/">getQuantityText</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="get-quantity-text2/">getQuantityText2</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-quantity-text2/">getQuantityText2</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-quantity-text2/">getQuantityText2</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="get-text/">getText</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-text/">getText</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="get-text2/">getText2</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-text2/">getText2</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-text2/">getText2</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="get-text-array2/">getTextArray2</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a>.<a href="get-text-array2/">getTextArray2</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/ArrayRes.html">ArrayRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="gradient/">gradient</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="gradient/">gradient</a>(vertical: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, colors: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>&gt; = listOf(         Color.Transparent,         Color.Black,     )): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><br>inline fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="gradient/">~~gradient~~</a>(colors: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>&gt;, crossinline provider: (<a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/geometry/Size.html">Size</a>) -&gt; <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="gradient/">gradient</a>(radius: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, colors: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>&gt; = listOf(         Color.Transparent,         Color.Black     ), center: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/geometry/Offset.html">Offset</a> = Offset.Unspecified, tileMode: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/TileMode.html">TileMode</a> = TileMode.Clamp): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="horizontal-fading-edge/">horizontalFadingEdge</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="horizontal-fading-edge/">horizontalFadingEdge</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, state: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, length: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = DEFAULT_FADING_EDGE_LENGTH): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="hsl/">hsl</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>.<a href="hsl/">hsl</a>(hue: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>? = null, saturation: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>? = null, lightness: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>? = null, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>? = null): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><br>Return a copy of <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> from <a href="hsl/">hue</a>, <a href="hsl/">saturation</a>, and <a href="hsl/">lightness</a> (HSL representation).</td>
+</tr>
+<tr>
+<td><a href="lerp/">lerp</a></td>
+<td>[androidJvm]<br>fun <a href="lerp/">lerp</a>(startValue: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, endValue: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)fraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><br>fun <a href="lerp/">lerp</a>(startColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, endColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)startFraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)endFraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)fraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><br>fun <a href="lerp/">lerp</a>(startValue: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, endValue: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)startFraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)endFraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)fraction: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></td>
+</tr>
+<tr>
+<td><a href="-lock-screen-orientation/">LockScreenOrientation</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="-lock-screen-orientation/">LockScreenOrientation</a>(orientation: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="noise/">noise</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="noise/">noise</a>(alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="plural-text-resource/">pluralTextResource</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="plural-text-resource/">pluralTextResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="plural-text-resource/">pluralTextResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/PluralsRes.html">PluralsRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, quantity: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="plus/">plus</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>operator fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a>.<a href="plus/">plus</a>(value: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a></td>
+</tr>
+<tr>
+<td><a href="remember-state/">rememberState</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun &lt;<a href="remember-state/">T</a>&gt; <a href="remember-state/">rememberState</a>(initial: <a href="remember-state/">T</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState.html">MutableState</a>&lt;<a href="remember-state/">T</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="remember-vector-painter/">rememberVectorPainter</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="remember-vector-painter/">rememberVectorPainter</a>(image: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/vector/ImageVector.html">ImageVector</a>, defaultWidth: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = image.defaultWidth, defaultHeight: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = image.defaultHeight, viewportWidth: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = image.viewportWidth, viewportHeight: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = image.viewportHeight, name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = image.name, tintColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = image.tintColor, tintBlendMode: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/BlendMode.html">BlendMode</a> = image.tintBlendMode, autoMirror: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = image.autoMirror): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/vector/VectorPainter.html">VectorPainter</a></td>
+</tr>
+<tr>
+<td><a href="rotate/">rotate</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotate/">rotate</a>(clockwise: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="rotate-transform/">rotateTransform</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotate-transform/">rotateTransform</a>(clockwise: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="run-catching/">runCatching</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="run-catching/">R</a>&gt; <a href="run-catching/">runCatching</a>(block: () -&gt; <a href="run-catching/">R</a>): <a href="run-catching/">R</a>?</td>
+</tr>
+<tr>
+<td><a href="safe-use/">safeUse</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="safe-use/">T</a> : <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html">Closeable</a>?, <a href="safe-use/">R</a>&gt; <a href="safe-use/">T</a>.<a href="safe-use/">safeUse</a>(block: (<a href="safe-use/">T</a>) -&gt; <a href="safe-use/">R</a>): <a href="safe-use/">R</a>?</td>
+</tr>
+<tr>
+<td><a href="-staggered-grid/">StaggeredGrid</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="-staggered-grid/">StaggeredGrid</a>(modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, rows: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, content: @<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)</td>
+</tr>
+<tr>
+<td><a href="string-html-resource/">stringHtmlResource</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ReadOnlyComposable.html">ReadOnlyComposable</a><br>fun <a href="string-html-resource/">~~stringHtmlResource~~</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a></td>
+</tr>
+<tr>
+<td><a href="string-resource/">stringResource</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="string-resource/">stringResource</a>(value: <a href="-text/">Text</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html">JvmName</a>(name = &quot;stringResource1&quot;)<br>fun <a href="string-resource/">stringResource</a>(value: <a href="-text/">Text</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>?</td>
+</tr>
+<tr>
+<td><a href="suggest-content-color-for/">suggestContentColorFor</a></td>
+<td>[androidJvm]<br>fun <a href="suggest-content-color-for/">suggestContentColorFor</a>(backgroundColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><br>Suggest Color Generates a color that can be represented on provided background <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> based on the luminance</td>
+</tr>
+<tr>
+<td><a href="synchronised/">synchronised</a></td>
+<td>[androidJvm]<br>inline suspend fun &lt;<a href="synchronised/">T</a>&gt; <a href="synchronised/">synchronised</a>(lock: Mutex, action: () -&gt; <a href="synchronised/">T</a>): <a href="synchronised/">T</a></td>
+</tr>
+<tr>
+<td><a href="text-array-resource/">textArrayResource</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="text-array-resource/">textArrayResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/ArrayRes.html">ArrayRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="text-resource/">textResource</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="text-resource/">textResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="text-resource/">textResource</a>(@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="vertical-fading-edge/">verticalFadingEdge</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="vertical-fading-edge/">verticalFadingEdge</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>, state: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, length: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = DEFAULT_FADING_EDGE_LENGTH): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="-vertical-grid/">VerticalGrid</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="-vertical-grid/">VerticalGrid</a>(modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, columns: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, content: @<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)</td>
+</tr>
+<tr>
+<td><a href="visual-effect/">visualEffect</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="visual-effect/">visualEffect</a>(brush: <a href="-image-brush/">ImageBrush</a>, @<a href="https://developer.android.com/reference/kotlin/androidx/annotation/FloatRange.html">FloatRange</a>(from = 0.0, to = 1.0)alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = 1.0f, overlay: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, blendMode: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/BlendMode.html">BlendMode</a> = BlendMode.Overlay): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></td>
+</tr>
+<tr>
+<td><a href="with-paragraph-style/">withParagraphStyle</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="with-paragraph-style/">R</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.<a href="with-paragraph-style/">withParagraphStyle</a>(textAlign: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextAlign.html">TextAlign</a> = TextAlign.Left, textDirection: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextDirection.html">TextDirection</a> = TextDirection.Ltr, lineHeight: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/TextUnit.html">TextUnit</a> = TextUnit.Unspecified, textIndent: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextIndent.html">TextIndent</a>? = null, platformStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/PlatformParagraphStyle.html">PlatformParagraphStyle</a>? = null, lineHeightStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/LineHeightStyle.html">LineHeightStyle</a>? = null, lineBreak: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/LineBreak.html">LineBreak</a> = LineBreak.Simple, hyphens: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/Hyphens.html">Hyphens</a> = Hyphens.None, textMotion: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextMotion.html">TextMotion</a>? = null, crossinline block: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.() -&gt; <a href="with-paragraph-style/">R</a>): <a href="with-paragraph-style/">R</a></td>
+</tr>
+<tr>
+<td><a href="with-span-style/">withSpanStyle</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="with-span-style/">R</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.<a href="with-span-style/">withSpanStyle</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = Color.Unspecified, fontSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/TextUnit.html">TextUnit</a> = TextUnit.Unspecified, fontWeight: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontWeight.html">FontWeight</a>? = null, fontStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontStyle.html">FontStyle</a>? = null, fontSynthesis: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontSynthesis.html">FontSynthesis</a>? = null, fontFamily: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontFamily.html">FontFamily</a>? = null, fontFeatureSettings: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, letterSpacing: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/TextUnit.html">TextUnit</a> = TextUnit.Unspecified, baselineShift: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/BaselineShift.html">BaselineShift</a>? = null, textGeometricTransform: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextGeometricTransform.html">TextGeometricTransform</a>? = null, localeList: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/intl/LocaleList.html">LocaleList</a>? = null, background: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = Color.Unspecified, textDecoration: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextDecoration.html">TextDecoration</a>? = null, shadow: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shadow.html">Shadow</a>? = null, platformStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/PlatformSpanStyle.html">PlatformSpanStyle</a>? = null, drawStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/drawscope/DrawStyle.html">DrawStyle</a>? = null, block: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.() -&gt; <a href="with-span-style/">R</a>): <a href="with-span-style/">R</a><br>inline fun &lt;<a href="with-span-style/">R</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.<a href="with-span-style/">withSpanStyle</a>(brush: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a>?, alpha: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = Float.NaN, fontSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/TextUnit.html">TextUnit</a> = TextUnit.Unspecified, fontWeight: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontWeight.html">FontWeight</a>? = null, fontStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontStyle.html">FontStyle</a>? = null, fontSynthesis: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontSynthesis.html">FontSynthesis</a>? = null, fontFamily: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontFamily.html">FontFamily</a>? = null, fontFeatureSettings: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, letterSpacing: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/TextUnit.html">TextUnit</a> = TextUnit.Unspecified, baselineShift: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/BaselineShift.html">BaselineShift</a>? = null, textGeometricTransform: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextGeometricTransform.html">TextGeometricTransform</a>? = null, localeList: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/intl/LocaleList.html">LocaleList</a>? = null, background: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = Color.Unspecified, textDecoration: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextDecoration.html">TextDecoration</a>? = null, shadow: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shadow.html">Shadow</a>? = null, platformStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/PlatformSpanStyle.html">PlatformSpanStyle</a>? = null, drawStyle: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/drawscope/DrawStyle.html">DrawStyle</a>? = null, block: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.() -&gt; <a href="with-span-style/">R</a>): <a href="with-span-style/">R</a></td>
+</tr>
+<tr>
+<td><a href="with-style/">withStyle</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="with-style/">R</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.<a href="with-style/">withStyle</a>(style: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextStyle.html">TextStyle</a>, crossinline block: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.Builder.html">AnnotatedString.Builder</a>.() -&gt; <a href="with-style/">R</a>): <a href="with-style/">R</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.footer", "navigation.top"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.af256bd8.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

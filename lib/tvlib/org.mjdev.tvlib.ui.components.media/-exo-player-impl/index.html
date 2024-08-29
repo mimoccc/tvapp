@@ -1,0 +1,1076 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+    
+    
+      
+        <title>Index - Compose TV App and Lib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#exoplayerimpl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-header__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compose TV App and Lib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-nav__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Compose TV App and Lib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../release-notes-1.3.1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/lib/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/app/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>//<a href="../../../">tvlib</a>/<a href="../">org.mjdev.tvlib.ui.components.media</a>/<a href="./">ExoPlayerImpl</a></p>
+<h1 id="exoplayerimpl">ExoPlayerImpl</h1>
+<p>[androidJvm]\
+@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a></p>
+<p>class <a href="./">ExoPlayerImpl</a>(val context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>) : <a href="../-i-media-player/">IMediaPlayer</a>, <a href="https://developer.android.com/reference/kotlin/androidx/media3/ui/PlayerNotificationManager.MediaDescriptionAdapter.html">PlayerNotificationManager.MediaDescriptionAdapter</a>, <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.Callback.html">MediaSession.Callback</a></p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-exo-player-impl/">ExoPlayerImpl</a></td>
+<td>[androidJvm]<br>constructor(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="context/">context</a></td>
+<td>[androidJvm]<br>open override val <a href="context/">context</a>: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="add-listener/">addListener</a></td>
+<td>[androidJvm]<br>open override fun <a href="add-listener/">addListener</a>(listener: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Listener.html">Player.Listener</a>)</td>
+</tr>
+<tr>
+<td><a href="add-media-item/">addMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="add-media-item/">addMediaItem</a>(mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>)<br>open override fun <a href="add-media-item/">addMediaItem</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>)</td>
+</tr>
+<tr>
+<td><a href="add-media-items/">addMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="add-media-items/">addMediaItems</a>(mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;)<br>open override fun <a href="add-media-items/">addMediaItems</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;)</td>
+</tr>
+<tr>
+<td><a href="can-advertise-session/">canAdvertiseSession</a></td>
+<td>[androidJvm]<br>open override fun <a href="can-advertise-session/">canAdvertiseSession</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="clear-media-items/">clearMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="clear-media-items/">clearMediaItems</a>()</td>
+</tr>
+<tr>
+<td><a href="clear-video-surface/">clearVideoSurface</a></td>
+<td>[androidJvm]<br>open override fun <a href="clear-video-surface/">clearVideoSurface</a>()<br>open override fun <a href="clear-video-surface/">clearVideoSurface</a>(surface: <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a>?)</td>
+</tr>
+<tr>
+<td><a href="clear-video-surface-holder/">clearVideoSurfaceHolder</a></td>
+<td>[androidJvm]<br>open override fun <a href="clear-video-surface-holder/">clearVideoSurfaceHolder</a>(surfaceHolder: <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceHolder.html">SurfaceHolder</a>?)</td>
+</tr>
+<tr>
+<td><a href="clear-video-surface-view/">clearVideoSurfaceView</a></td>
+<td>[androidJvm]<br>open override fun <a href="clear-video-surface-view/">clearVideoSurfaceView</a>(surfaceView: <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a>?)</td>
+</tr>
+<tr>
+<td><a href="clear-video-texture-view/">clearVideoTextureView</a></td>
+<td>[androidJvm]<br>open override fun <a href="clear-video-texture-view/">clearVideoTextureView</a>(textureView: <a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a>?)</td>
+</tr>
+<tr>
+<td><a href="create-current-content-intent/">createCurrentContentIntent</a></td>
+<td>[androidJvm]<br>open override fun <a href="create-current-content-intent/">createCurrentContentIntent</a>(player: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a>): <a href="https://developer.android.com/reference/kotlin/android/app/PendingIntent.html">PendingIntent</a>?</td>
+</tr>
+<tr>
+<td><a href="decrease-device-volume/">decreaseDeviceVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="decrease-device-volume/">~~decreaseDeviceVolume~~</a>()<br>open override fun <a href="decrease-device-volume/">decreaseDeviceVolume</a>(flags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="dispose/">dispose</a></td>
+<td>[androidJvm]<br>open override fun <a href="dispose/">dispose</a>()</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a></td>
+<td>[androidJvm]<br>open operator fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="get-application-looper/">getApplicationLooper</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-application-looper/">getApplicationLooper</a>(): <a href="https://developer.android.com/reference/kotlin/android/os/Looper.html">Looper</a></td>
+</tr>
+<tr>
+<td><a href="get-audio-attributes/">getAudioAttributes</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-audio-attributes/">getAudioAttributes</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/AudioAttributes.html">AudioAttributes</a></td>
+</tr>
+<tr>
+<td><a href="get-available-commands/">getAvailableCommands</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-available-commands/">getAvailableCommands</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a></td>
+</tr>
+<tr>
+<td><a href="get-buffered-percentage/">getBufferedPercentage</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-buffered-percentage/">getBufferedPercentage</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-buffered-position/">getBufferedPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-buffered-position/">getBufferedPosition</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-content-buffered-position/">getContentBufferedPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-content-buffered-position/">getContentBufferedPosition</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-content-duration/">getContentDuration</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-content-duration/">getContentDuration</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-content-position/">getContentPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-content-position/">getContentPosition</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-current-ad-group-index/">getCurrentAdGroupIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-ad-group-index/">getCurrentAdGroupIndex</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-current-ad-index-in-ad-group/">getCurrentAdIndexInAdGroup</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-ad-index-in-ad-group/">getCurrentAdIndexInAdGroup</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-current-content-text/">getCurrentContentText</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-content-text/">getCurrentContentText</a>(player: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="get-current-content-title/">getCurrentContentTitle</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-content-title/">getCurrentContentTitle</a>(player: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="get-current-cues/">getCurrentCues</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-cues/">getCurrentCues</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/text/CueGroup.html">CueGroup</a></td>
+</tr>
+<tr>
+<td><a href="get-current-large-icon/">getCurrentLargeIcon</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-large-icon/">getCurrentLargeIcon</a>(player: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a>, callback: <a href="https://developer.android.com/reference/kotlin/androidx/media3/ui/PlayerNotificationManager.BitmapCallback.html">PlayerNotificationManager.BitmapCallback</a>): <a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a>?</td>
+</tr>
+<tr>
+<td><a href="get-current-live-offset/">getCurrentLiveOffset</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-live-offset/">getCurrentLiveOffset</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-current-manifest/">getCurrentManifest</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-manifest/">getCurrentManifest</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?</td>
+</tr>
+<tr>
+<td><a href="get-current-media-item/">getCurrentMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-media-item/">getCurrentMediaItem</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>?</td>
+</tr>
+<tr>
+<td><a href="get-current-media-item-index/">getCurrentMediaItemIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-media-item-index/">getCurrentMediaItemIndex</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-current-period-index/">getCurrentPeriodIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-period-index/">getCurrentPeriodIndex</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-current-position/">getCurrentPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-position/">getCurrentPosition</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="./#1304131359%2FFunctions%2F-1596939238">getCurrentSubText</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html">Nullable</a><br>open fun <a href="./#1304131359%2FFunctions%2F-1596939238">getCurrentSubText</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>?</td>
+</tr>
+<tr>
+<td><a href="get-current-timeline/">getCurrentTimeline</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-timeline/">getCurrentTimeline</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Timeline.html">Timeline</a></td>
+</tr>
+<tr>
+<td><a href="get-current-tracks/">getCurrentTracks</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-tracks/">getCurrentTracks</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Tracks.html">Tracks</a></td>
+</tr>
+<tr>
+<td><a href="get-current-window-index/">getCurrentWindowIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-current-window-index/">~~getCurrentWindowIndex~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-device-info/">getDeviceInfo</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-device-info/">getDeviceInfo</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/DeviceInfo.html">DeviceInfo</a></td>
+</tr>
+<tr>
+<td><a href="get-device-volume/">getDeviceVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-device-volume/">getDeviceVolume</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-duration/">getDuration</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-duration/">getDuration</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-max-seek-to-previous-position/">getMaxSeekToPreviousPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-max-seek-to-previous-position/">getMaxSeekToPreviousPosition</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-media-item-at/">getMediaItemAt</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-media-item-at/">getMediaItemAt</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a></td>
+</tr>
+<tr>
+<td><a href="get-media-item-count/">getMediaItemCount</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-media-item-count/">getMediaItemCount</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-media-metadata/">getMediaMetadata</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-media-metadata/">getMediaMetadata</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a></td>
+</tr>
+<tr>
+<td><a href="get-next-media-item-index/">getNextMediaItemIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-next-media-item-index/">getNextMediaItemIndex</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-next-window-index/">getNextWindowIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-next-window-index/">~~getNextWindowIndex~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-playback-parameters/">getPlaybackParameters</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-playback-parameters/">getPlaybackParameters</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackParameters.html">PlaybackParameters</a></td>
+</tr>
+<tr>
+<td><a href="get-playback-state/">getPlaybackState</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-playback-state/">getPlaybackState</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-playback-suppression-reason/">getPlaybackSuppressionReason</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-playback-suppression-reason/">getPlaybackSuppressionReason</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-player-error/">getPlayerError</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-player-error/">getPlayerError</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackException.html">PlaybackException</a>?</td>
+</tr>
+<tr>
+<td><a href="-get-player-view/">GetPlayerView</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a><br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>open override fun <a href="-get-player-view/">GetPlayerView</a>()</td>
+</tr>
+<tr>
+<td><a href="get-playlist-metadata/">getPlaylistMetadata</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-playlist-metadata/">getPlaylistMetadata</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a></td>
+</tr>
+<tr>
+<td><a href="get-play-when-ready/">getPlayWhenReady</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-play-when-ready/">getPlayWhenReady</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="get-previous-media-item-index/">getPreviousMediaItemIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-previous-media-item-index/">getPreviousMediaItemIndex</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-previous-window-index/">getPreviousWindowIndex</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-previous-window-index/">~~getPreviousWindowIndex~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-repeat-mode/">getRepeatMode</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-repeat-mode/">getRepeatMode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="get-seek-back-increment/">getSeekBackIncrement</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-seek-back-increment/">getSeekBackIncrement</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-seek-forward-increment/">getSeekForwardIncrement</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-seek-forward-increment/">getSeekForwardIncrement</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-shuffle-mode-enabled/">getShuffleModeEnabled</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-shuffle-mode-enabled/">getShuffleModeEnabled</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="get-surface-size/">getSurfaceSize</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-surface-size/">getSurfaceSize</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/Size.html">Size</a></td>
+</tr>
+<tr>
+<td><a href="get-total-buffered-duration/">getTotalBufferedDuration</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-total-buffered-duration/">getTotalBufferedDuration</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></td>
+</tr>
+<tr>
+<td><a href="get-track-selection-parameters/">getTrackSelectionParameters</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-track-selection-parameters/">getTrackSelectionParameters</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/TrackSelectionParameters.html">TrackSelectionParameters</a></td>
+</tr>
+<tr>
+<td><a href="get-video-size/">getVideoSize</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-video-size/">getVideoSize</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/VideoSize.html">VideoSize</a></td>
+</tr>
+<tr>
+<td><a href="get-volume/">getVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="get-volume/">getVolume</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="has-next/">hasNext</a></td>
+<td>[androidJvm]<br>open operator override fun <a href="has-next/">~~hasNext~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="has-next-media-item/">hasNextMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="has-next-media-item/">hasNextMediaItem</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="has-next-window/">hasNextWindow</a></td>
+<td>[androidJvm]<br>open override fun <a href="has-next-window/">~~hasNextWindow~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="has-previous/">hasPrevious</a></td>
+<td>[androidJvm]<br>open override fun <a href="has-previous/">~~hasPrevious~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="has-previous-media-item/">hasPreviousMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="has-previous-media-item/">hasPreviousMediaItem</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="has-previous-window/">hasPreviousWindow</a></td>
+<td>[androidJvm]<br>open override fun <a href="has-previous-window/">~~hasPreviousWindow~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="increase-device-volume/">increaseDeviceVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="increase-device-volume/">~~increaseDeviceVolume~~</a>()<br>open override fun <a href="increase-device-volume/">increaseDeviceVolume</a>(flags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="is-command-available/">isCommandAvailable</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-command-available/">isCommandAvailable</a>(command: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-media-item-dynamic/">isCurrentMediaItemDynamic</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-media-item-dynamic/">isCurrentMediaItemDynamic</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-media-item-live/">isCurrentMediaItemLive</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-media-item-live/">isCurrentMediaItemLive</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-media-item-seekable/">isCurrentMediaItemSeekable</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-media-item-seekable/">isCurrentMediaItemSeekable</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-window-dynamic/">isCurrentWindowDynamic</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-window-dynamic/">~~isCurrentWindowDynamic~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-window-live/">isCurrentWindowLive</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-window-live/">~~isCurrentWindowLive~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-current-window-seekable/">isCurrentWindowSeekable</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-current-window-seekable/">~~isCurrentWindowSeekable~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-device-muted/">isDeviceMuted</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-device-muted/">isDeviceMuted</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-loading/">isLoading</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-loading/">isLoading</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-playing/">isPlaying</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-playing/">isPlaying</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="is-playing-ad/">isPlayingAd</a></td>
+<td>[androidJvm]<br>open override fun <a href="is-playing-ad/">isPlayingAd</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="move-media-item/">moveMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="move-media-item/">moveMediaItem</a>(currentIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, newIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="move-media-items/">moveMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="move-media-items/">moveMediaItems</a>(fromIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, toIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, newIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="next/">next</a></td>
+<td>[androidJvm]<br>open operator override fun <a href="next/">~~next~~</a>()</td>
+</tr>
+<tr>
+<td><a href="./#999790050%2FFunctions%2F-1596939238">onAddMediaItems</a></td>
+<td>[androidJvm]<br>open fun <a href="./#999790050%2FFunctions%2F-1596939238">onAddMediaItems</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;): ListenableFuture&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;&gt;</td>
+</tr>
+<tr>
+<td><a href="./#-641489538%2FFunctions%2F-1596939238">onConnect</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-641489538%2FFunctions%2F-1596939238">onConnect</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>): <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ConnectionResult.html">MediaSession.ConnectionResult</a></td>
+</tr>
+<tr>
+<td><a href="./#-1883796832%2FFunctions%2F-1596939238">onCustomCommand</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1883796832%2FFunctions%2F-1596939238">onCustomCommand</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/SessionCommand.html">SessionCommand</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>): ListenableFuture&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/session/SessionResult.html">SessionResult</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="./#-1375389491%2FFunctions%2F-1596939238">onDisconnected</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1375389491%2FFunctions%2F-1596939238">onDisconnected</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>)</td>
+</tr>
+<tr>
+<td><a href="./#1638170667%2FFunctions%2F-1596939238">onMediaButtonEvent</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a><br>open fun <a href="./#1638170667%2FFunctions%2F-1596939238">onMediaButtonEvent</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="./#-690928447%2FFunctions%2F-1596939238">onPlaybackResumption</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a><br>open fun <a href="./#-690928447%2FFunctions%2F-1596939238">onPlaybackResumption</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>): ListenableFuture&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.MediaItemsWithStartPosition.html">MediaSession.MediaItemsWithStartPosition</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="./#-601853126%2FFunctions%2F-1596939238">onPlayerCommandRequest</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-601853126%2FFunctions%2F-1596939238">~~onPlayerCommandRequest~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="./#1248652718%2FFunctions%2F-1596939238">onPlayerInteractionFinished</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a><br>open fun <a href="./#1248652718%2FFunctions%2F-1596939238">onPlayerInteractionFinished</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a>)</td>
+</tr>
+<tr>
+<td><a href="./#1747821118%2FFunctions%2F-1596939238">onPostConnect</a></td>
+<td>[androidJvm]<br>open fun <a href="./#1747821118%2FFunctions%2F-1596939238">onPostConnect</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-144922700%2FFunctions%2F-1596939238">onSetMediaItems</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html">UnstableApi</a><br>open fun <a href="./#-144922700%2FFunctions%2F-1596939238">onSetMediaItems</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>): ListenableFuture&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.MediaItemsWithStartPosition.html">MediaSession.MediaItemsWithStartPosition</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="./#-1094175450%2FFunctions%2F-1596939238">onSetRating</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1094175450%2FFunctions%2F-1596939238">onSetRating</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Rating.html">Rating</a>): ListenableFuture&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/session/SessionResult.html">SessionResult</a>&gt;<br>open fun <a href="./#507698059%2FFunctions%2F-1596939238">onSetRating</a>(p0: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.html">MediaSession</a>, p1: <a href="https://developer.android.com/reference/kotlin/androidx/media3/session/MediaSession.ControllerInfo.html">MediaSession.ControllerInfo</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p3: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Rating.html">Rating</a>): ListenableFuture&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/session/SessionResult.html">SessionResult</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="pause/">pause</a></td>
+<td>[androidJvm]<br>open override fun <a href="pause/">pause</a>()</td>
+</tr>
+<tr>
+<td><a href="play/">play</a></td>
+<td>[androidJvm]<br>open override fun <a href="play/">play</a>()</td>
+</tr>
+<tr>
+<td><a href="prepare/">prepare</a></td>
+<td>[androidJvm]<br>open override fun <a href="prepare/">prepare</a>()</td>
+</tr>
+<tr>
+<td><a href="previous/">previous</a></td>
+<td>[androidJvm]<br>open override fun <a href="previous/">~~previous~~</a>()</td>
+</tr>
+<tr>
+<td><a href="release/">release</a></td>
+<td>[androidJvm]<br>open override fun <a href="release/">release</a>()</td>
+</tr>
+<tr>
+<td><a href="remove-listener/">removeListener</a></td>
+<td>[androidJvm]<br>open override fun <a href="remove-listener/">removeListener</a>(listener: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Listener.html">Player.Listener</a>)</td>
+</tr>
+<tr>
+<td><a href="remove-media-item/">removeMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="remove-media-item/">removeMediaItem</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="remove-media-items/">removeMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="remove-media-items/">removeMediaItems</a>(fromIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, toIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="replace-media-item/">replaceMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="replace-media-item/">replaceMediaItem</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>)</td>
+</tr>
+<tr>
+<td><a href="replace-media-items/">replaceMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="replace-media-items/">replaceMediaItems</a>(fromIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, toIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;)</td>
+</tr>
+<tr>
+<td><a href="resume/">resume</a></td>
+<td>[androidJvm]<br>open override fun <a href="resume/">resume</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-back/">seekBack</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-back/">seekBack</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-forward/">seekForward</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-forward/">seekForward</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to/">seekTo</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to/">seekTo</a>(value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)<br>open override fun <a href="seek-to/">seekTo</a>(mediaItemIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, positionMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)</td>
+</tr>
+<tr>
+<td><a href="seek-to-default-position/">seekToDefaultPosition</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-default-position/">seekToDefaultPosition</a>()<br>open override fun <a href="seek-to-default-position/">seekToDefaultPosition</a>(mediaItemIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="seek-to-next/">seekToNext</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-next/">seekToNext</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to-next-media-item/">seekToNextMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-next-media-item/">seekToNextMediaItem</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to-next-window/">seekToNextWindow</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-next-window/">~~seekToNextWindow~~</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to-previous/">seekToPrevious</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-previous/">seekToPrevious</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to-previous-media-item/">seekToPreviousMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-previous-media-item/">seekToPreviousMediaItem</a>()</td>
+</tr>
+<tr>
+<td><a href="seek-to-previous-window/">seekToPreviousWindow</a></td>
+<td>[androidJvm]<br>open override fun <a href="seek-to-previous-window/">~~seekToPreviousWindow~~</a>()</td>
+</tr>
+<tr>
+<td><a href="set-audio-attributes/">setAudioAttributes</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-audio-attributes/">setAudioAttributes</a>(audioAttributes: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/AudioAttributes.html">AudioAttributes</a>, handleAudioFocus: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)</td>
+</tr>
+<tr>
+<td><a href="set-device-muted/">setDeviceMuted</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-device-muted/">~~setDeviceMuted~~</a>(muted: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<br>open override fun <a href="set-device-muted/">setDeviceMuted</a>(muted: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, flags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="set-device-volume/">setDeviceVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-device-volume/">~~setDeviceVolume~~</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<br>open override fun <a href="set-device-volume/">setDeviceVolume</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, flags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="set-media-item/">setMediaItem</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-media-item/">setMediaItem</a>(mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>)<br>open override fun <a href="set-media-item/">setMediaItem</a>(mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>, resetPosition: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<br>open override fun <a href="set-media-item/">setMediaItem</a>(mediaItem: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>, startPositionMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)</td>
+</tr>
+<tr>
+<td><a href="set-media-items/">setMediaItems</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-media-items/">setMediaItems</a>(mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;)<br>open override fun <a href="set-media-items/">setMediaItems</a>(mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;, resetPosition: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<br>open override fun <a href="set-media-items/">setMediaItems</a>(mediaItems: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>&gt;, startIndex: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, startPositionMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)</td>
+</tr>
+<tr>
+<td><a href="set-media-uri/">setMediaUri</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-media-uri/">setMediaUri</a>(uri: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>)</td>
+</tr>
+<tr>
+<td><a href="set-playback-parameters/">setPlaybackParameters</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-playback-parameters/">setPlaybackParameters</a>(playbackParameters: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackParameters.html">PlaybackParameters</a>)</td>
+</tr>
+<tr>
+<td><a href="set-playback-speed/">setPlaybackSpeed</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-playback-speed/">setPlaybackSpeed</a>(speed: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>)</td>
+</tr>
+<tr>
+<td><a href="set-playlist-metadata/">setPlaylistMetadata</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-playlist-metadata/">setPlaylistMetadata</a>(mediaMetadata: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a>)</td>
+</tr>
+<tr>
+<td><a href="set-play-when-ready/">setPlayWhenReady</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-play-when-ready/">setPlayWhenReady</a>(playWhenReady: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)</td>
+</tr>
+<tr>
+<td><a href="set-repeat-mode/">setRepeatMode</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-repeat-mode/">setRepeatMode</a>(repeatMode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="set-shuffle-mode-enabled/">setShuffleModeEnabled</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-shuffle-mode-enabled/">setShuffleModeEnabled</a>(shuffleModeEnabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)</td>
+</tr>
+<tr>
+<td><a href="set-track-selection-parameters/">setTrackSelectionParameters</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-track-selection-parameters/">setTrackSelectionParameters</a>(parameters: <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/TrackSelectionParameters.html">TrackSelectionParameters</a>)</td>
+</tr>
+<tr>
+<td><a href="set-video-surface/">setVideoSurface</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-video-surface/">setVideoSurface</a>(surface: <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a>?)</td>
+</tr>
+<tr>
+<td><a href="set-video-surface-holder/">setVideoSurfaceHolder</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-video-surface-holder/">setVideoSurfaceHolder</a>(surfaceHolder: <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceHolder.html">SurfaceHolder</a>?)</td>
+</tr>
+<tr>
+<td><a href="set-video-surface-view/">setVideoSurfaceView</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-video-surface-view/">setVideoSurfaceView</a>(surfaceView: <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a>?)</td>
+</tr>
+<tr>
+<td><a href="set-video-texture-view/">setVideoTextureView</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-video-texture-view/">setVideoTextureView</a>(textureView: <a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a>?)</td>
+</tr>
+<tr>
+<td><a href="set-volume/">setVolume</a></td>
+<td>[androidJvm]<br>open override fun <a href="set-volume/">setVolume</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>)</td>
+</tr>
+<tr>
+<td><a href="stop/">stop</a></td>
+<td>[androidJvm]<br>open override fun <a href="stop/">stop</a>()</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.footer", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.af256bd8.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

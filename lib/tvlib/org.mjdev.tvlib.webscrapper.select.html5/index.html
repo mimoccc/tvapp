@@ -1,0 +1,949 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+    
+    
+      
+        <title>Index - Compose TV App and Lib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#package-level-declarations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Compose TV App and Lib" class="md-header__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compose TV App and Lib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Compose TV App and Lib" class="md-nav__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Compose TV App and Lib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes-1.3.1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/lib/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/app/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>//<a href="../../">tvlib</a>/<a href="./">org.mjdev.tvlib.webscrapper.select.html5</a></p>
+<h1 id="package-level-declarations">Package-level declarations</h1>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="a/">a</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="a/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="a/">a</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="a/">T</a>): <a href="a/">T</a></td>
+</tr>
+<tr>
+<td><a href="abbr/">abbr</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="abbr/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="abbr/">abbr</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="abbr/">T</a>): <a href="abbr/">T</a></td>
+</tr>
+<tr>
+<td><a href="address/">address</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="address/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="address/">address</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="address/">T</a>): <a href="address/">T</a></td>
+</tr>
+<tr>
+<td><a href="applet/">applet</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="applet/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="applet/">applet</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="applet/">T</a>): <a href="applet/">T</a></td>
+</tr>
+<tr>
+<td><a href="area/">area</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="area/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="area/">area</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="area/">T</a>): <a href="area/">T</a></td>
+</tr>
+<tr>
+<td><a href="article/">article</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="article/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="article/">article</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="article/">T</a>): <a href="article/">T</a></td>
+</tr>
+<tr>
+<td><a href="aside/">aside</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="aside/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="aside/">aside</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="aside/">T</a>): <a href="aside/">T</a></td>
+</tr>
+<tr>
+<td><a href="audio/">audio</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="audio/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="audio/">audio</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="audio/">T</a>): <a href="audio/">T</a></td>
+</tr>
+<tr>
+<td><a href="b/">b</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="b/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="b/">b</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="b/">T</a>): <a href="b/">T</a></td>
+</tr>
+<tr>
+<td><a href="base/">base</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="base/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="base/">base</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="base/">T</a>): <a href="base/">T</a></td>
+</tr>
+<tr>
+<td><a href="bdi/">bdi</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="bdi/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="bdi/">bdi</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="bdi/">T</a>): <a href="bdi/">T</a></td>
+</tr>
+<tr>
+<td><a href="bdo/">bdo</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="bdo/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="bdo/">bdo</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="bdo/">T</a>): <a href="bdo/">T</a></td>
+</tr>
+<tr>
+<td><a href="blockquote/">blockquote</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="blockquote/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="blockquote/">blockquote</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="blockquote/">T</a>): <a href="blockquote/">T</a></td>
+</tr>
+<tr>
+<td><a href="body/">body</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="body/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="body/">body</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="body/">T</a>): <a href="body/">T</a></td>
+</tr>
+<tr>
+<td><a href="br/">br</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="br/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="br/">br</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="br/">T</a>): <a href="br/">T</a></td>
+</tr>
+<tr>
+<td><a href="button/">button</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="button/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="button/">button</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="button/">T</a>): <a href="button/">T</a></td>
+</tr>
+<tr>
+<td><a href="canvas/">canvas</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="canvas/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="canvas/">canvas</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="canvas/">T</a>): <a href="canvas/">T</a></td>
+</tr>
+<tr>
+<td><a href="caption/">caption</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="caption/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="caption/">caption</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="caption/">T</a>): <a href="caption/">T</a></td>
+</tr>
+<tr>
+<td><a href="cite/">cite</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="cite/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="cite/">cite</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="cite/">T</a>): <a href="cite/">T</a></td>
+</tr>
+<tr>
+<td><a href="code/">code</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="code/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="code/">code</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="code/">T</a>): <a href="code/">T</a></td>
+</tr>
+<tr>
+<td><a href="col/">col</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="col/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="col/">col</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="col/">T</a>): <a href="col/">T</a></td>
+</tr>
+<tr>
+<td><a href="colgroup/">colgroup</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="colgroup/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="colgroup/">colgroup</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="colgroup/">T</a>): <a href="colgroup/">T</a></td>
+</tr>
+<tr>
+<td><a href="content/">content</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="content/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="content/">content</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="content/">T</a>): <a href="content/">T</a></td>
+</tr>
+<tr>
+<td><a href="custom-tag/">customTag</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="custom-tag/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="custom-tag/">customTag</a>(tag: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="custom-tag/">T</a>): <a href="custom-tag/">T</a></td>
+</tr>
+<tr>
+<td><a href="data/">data</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="data/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="data/">data</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="data/">T</a>): <a href="data/">T</a></td>
+</tr>
+<tr>
+<td><a href="datalist/">datalist</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="datalist/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="datalist/">datalist</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="datalist/">T</a>): <a href="datalist/">T</a></td>
+</tr>
+<tr>
+<td><a href="dd/">dd</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dd/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dd/">dd</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dd/">T</a>): <a href="dd/">T</a></td>
+</tr>
+<tr>
+<td><a href="del/">del</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="del/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="del/">del</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="del/">T</a>): <a href="del/">T</a></td>
+</tr>
+<tr>
+<td><a href="details/">details</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="details/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="details/">details</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="details/">T</a>): <a href="details/">T</a></td>
+</tr>
+<tr>
+<td><a href="dfn/">dfn</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dfn/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dfn/">dfn</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dfn/">T</a>): <a href="dfn/">T</a></td>
+</tr>
+<tr>
+<td><a href="dialog/">dialog</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dialog/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dialog/">dialog</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dialog/">T</a>): <a href="dialog/">T</a></td>
+</tr>
+<tr>
+<td><a href="dir/">dir</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dir/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dir/">dir</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dir/">T</a>): <a href="dir/">T</a></td>
+</tr>
+<tr>
+<td><a href="div/">div</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="div/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="div/">div</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="div/">T</a>): <a href="div/">T</a></td>
+</tr>
+<tr>
+<td><a href="dl/">dl</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dl/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dl/">dl</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dl/">T</a>): <a href="dl/">T</a></td>
+</tr>
+<tr>
+<td><a href="dt/">dt</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="dt/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="dt/">dt</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="dt/">T</a>): <a href="dt/">T</a></td>
+</tr>
+<tr>
+<td><a href="em/">em</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="em/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="em/">em</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="em/">T</a>): <a href="em/">T</a></td>
+</tr>
+<tr>
+<td><a href="embed/">embed</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="embed/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="embed/">embed</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="embed/">T</a>): <a href="embed/">T</a></td>
+</tr>
+<tr>
+<td><a href="fieldset/">fieldset</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="fieldset/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="fieldset/">fieldset</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="fieldset/">T</a>): <a href="fieldset/">T</a></td>
+</tr>
+<tr>
+<td><a href="figcaption/">figcaption</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="figcaption/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="figcaption/">figcaption</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="figcaption/">T</a>): <a href="figcaption/">T</a></td>
+</tr>
+<tr>
+<td><a href="figure/">figure</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="figure/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="figure/">figure</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="figure/">T</a>): <a href="figure/">T</a></td>
+</tr>
+<tr>
+<td><a href="footer/">footer</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="footer/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="footer/">footer</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="footer/">T</a>): <a href="footer/">T</a></td>
+</tr>
+<tr>
+<td><a href="form/">form</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="form/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="form/">form</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="form/">T</a>): <a href="form/">T</a></td>
+</tr>
+<tr>
+<td><a href="h1/">h1</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h1/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h1/">h1</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h1/">T</a>): <a href="h1/">T</a></td>
+</tr>
+<tr>
+<td><a href="h2/">h2</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h2/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h2/">h2</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h2/">T</a>): <a href="h2/">T</a></td>
+</tr>
+<tr>
+<td><a href="h3/">h3</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h3/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h3/">h3</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h3/">T</a>): <a href="h3/">T</a></td>
+</tr>
+<tr>
+<td><a href="h4/">h4</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h4/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h4/">h4</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h4/">T</a>): <a href="h4/">T</a></td>
+</tr>
+<tr>
+<td><a href="h5/">h5</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h5/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h5/">h5</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h5/">T</a>): <a href="h5/">T</a></td>
+</tr>
+<tr>
+<td><a href="h6/">h6</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="h6/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="h6/">h6</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="h6/">T</a>): <a href="h6/">T</a></td>
+</tr>
+<tr>
+<td><a href="head/">head</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="head/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="head/">head</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="head/">T</a>): <a href="head/">T</a></td>
+</tr>
+<tr>
+<td><a href="header/">header</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="header/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="header/">header</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="header/">T</a>): <a href="header/">T</a></td>
+</tr>
+<tr>
+<td><a href="hr/">hr</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="hr/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="hr/">hr</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="hr/">T</a>): <a href="hr/">T</a></td>
+</tr>
+<tr>
+<td><a href="html/">html</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="html/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="html/">html</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="html/">T</a>): <a href="html/">T</a></td>
+</tr>
+<tr>
+<td><a href="i/">i</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="i/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="i/">i</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="i/">T</a>): <a href="i/">T</a></td>
+</tr>
+<tr>
+<td><a href="iframe/">iframe</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="iframe/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="iframe/">iframe</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="iframe/">T</a>): <a href="iframe/">T</a></td>
+</tr>
+<tr>
+<td><a href="img/">img</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="img/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="img/">img</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="img/">T</a>): <a href="img/">T</a></td>
+</tr>
+<tr>
+<td><a href="input/">input</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="input/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="input/">input</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="input/">T</a>): <a href="input/">T</a></td>
+</tr>
+<tr>
+<td><a href="ins/">ins</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="ins/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="ins/">ins</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="ins/">T</a>): <a href="ins/">T</a></td>
+</tr>
+<tr>
+<td><a href="kbd/">kbd</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="kbd/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="kbd/">kbd</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="kbd/">T</a>): <a href="kbd/">T</a></td>
+</tr>
+<tr>
+<td><a href="label/">label</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="label/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="label/">label</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="label/">T</a>): <a href="label/">T</a></td>
+</tr>
+<tr>
+<td><a href="legend/">legend</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="legend/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="legend/">legend</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="legend/">T</a>): <a href="legend/">T</a></td>
+</tr>
+<tr>
+<td><a href="li/">li</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="li/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="li/">li</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="li/">T</a>): <a href="li/">T</a></td>
+</tr>
+<tr>
+<td><a href="link/">link</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="link/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="link/">link</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="link/">T</a>): <a href="link/">T</a></td>
+</tr>
+<tr>
+<td><a href="main/">main</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="main/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="main/">main</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="main/">T</a>): <a href="main/">T</a></td>
+</tr>
+<tr>
+<td><a href="map/">map</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="map/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="map/">map</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="map/">T</a>): <a href="map/">T</a></td>
+</tr>
+<tr>
+<td><a href="mark/">mark</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="mark/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="mark/">mark</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="mark/">T</a>): <a href="mark/">T</a></td>
+</tr>
+<tr>
+<td><a href="menu/">menu</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="menu/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="menu/">menu</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="menu/">T</a>): <a href="menu/">T</a></td>
+</tr>
+<tr>
+<td><a href="menuitem/">menuitem</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="menuitem/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="menuitem/">menuitem</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="menuitem/">T</a>): <a href="menuitem/">T</a></td>
+</tr>
+<tr>
+<td><a href="meta/">meta</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="meta/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="meta/">meta</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="meta/">T</a>): <a href="meta/">T</a></td>
+</tr>
+<tr>
+<td><a href="meter/">meter</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="meter/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="meter/">meter</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="meter/">T</a>): <a href="meter/">T</a></td>
+</tr>
+<tr>
+<td><a href="nav/">nav</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="nav/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="nav/">nav</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="nav/">T</a>): <a href="nav/">T</a></td>
+</tr>
+<tr>
+<td><a href="noembed/">noembed</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="noembed/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="noembed/">noembed</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="noembed/">T</a>): <a href="noembed/">T</a></td>
+</tr>
+<tr>
+<td><a href="noscript/">noscript</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="noscript/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="noscript/">noscript</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="noscript/">T</a>): <a href="noscript/">T</a></td>
+</tr>
+<tr>
+<td><a href="object/">object</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="object/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="object/">object</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="object/">T</a>): <a href="object/">T</a></td>
+</tr>
+<tr>
+<td><a href="ol/">ol</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="ol/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="ol/">ol</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="ol/">T</a>): <a href="ol/">T</a></td>
+</tr>
+<tr>
+<td><a href="optgroup/">optgroup</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="optgroup/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="optgroup/">optgroup</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="optgroup/">T</a>): <a href="optgroup/">T</a></td>
+</tr>
+<tr>
+<td><a href="option/">option</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="option/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="option/">option</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="option/">T</a>): <a href="option/">T</a></td>
+</tr>
+<tr>
+<td><a href="output/">output</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="output/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="output/">output</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="output/">T</a>): <a href="output/">T</a></td>
+</tr>
+<tr>
+<td><a href="p/">p</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="p/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="p/">p</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="p/">T</a>): <a href="p/">T</a></td>
+</tr>
+<tr>
+<td><a href="param/">param</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="param/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="param/">param</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="param/">T</a>): <a href="param/">T</a></td>
+</tr>
+<tr>
+<td><a href="picture/">picture</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="picture/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="picture/">picture</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="picture/">T</a>): <a href="picture/">T</a></td>
+</tr>
+<tr>
+<td><a href="pre/">pre</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="pre/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="pre/">pre</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="pre/">T</a>): <a href="pre/">T</a></td>
+</tr>
+<tr>
+<td><a href="progress/">progress</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="progress/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="progress/">progress</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="progress/">T</a>): <a href="progress/">T</a></td>
+</tr>
+<tr>
+<td><a href="q/">q</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="q/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="q/">q</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="q/">T</a>): <a href="q/">T</a></td>
+</tr>
+<tr>
+<td><a href="rb/">rb</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="rb/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="rb/">rb</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="rb/">T</a>): <a href="rb/">T</a></td>
+</tr>
+<tr>
+<td><a href="rtc/">rtc</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="rtc/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="rtc/">rtc</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="rtc/">T</a>): <a href="rtc/">T</a></td>
+</tr>
+<tr>
+<td><a href="ruby/">ruby</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="ruby/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="ruby/">ruby</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="ruby/">T</a>): <a href="ruby/">T</a></td>
+</tr>
+<tr>
+<td><a href="s/">s</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="s/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="s/">s</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="s/">T</a>): <a href="s/">T</a></td>
+</tr>
+<tr>
+<td><a href="samp/">samp</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="samp/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="samp/">samp</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="samp/">T</a>): <a href="samp/">T</a></td>
+</tr>
+<tr>
+<td><a href="script/">script</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="script/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="script/">script</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="script/">T</a>): <a href="script/">T</a></td>
+</tr>
+<tr>
+<td><a href="section/">section</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="section/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="section/">section</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="section/">T</a>): <a href="section/">T</a></td>
+</tr>
+<tr>
+<td><a href="select/">select</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="select/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="select/">select</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="select/">T</a>): <a href="select/">T</a></td>
+</tr>
+<tr>
+<td><a href="shadow/">shadow</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="shadow/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="shadow/">shadow</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="shadow/">T</a>): <a href="shadow/">T</a></td>
+</tr>
+<tr>
+<td><a href="slot/">slot</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="slot/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="slot/">slot</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="slot/">T</a>): <a href="slot/">T</a></td>
+</tr>
+<tr>
+<td><a href="small/">small</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="small/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="small/">small</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="small/">T</a>): <a href="small/">T</a></td>
+</tr>
+<tr>
+<td><a href="source/">source</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="source/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="source/">source</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="source/">T</a>): <a href="source/">T</a></td>
+</tr>
+<tr>
+<td><a href="span/">span</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="span/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="span/">span</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="span/">T</a>): <a href="span/">T</a></td>
+</tr>
+<tr>
+<td><a href="strong/">strong</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="strong/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="strong/">strong</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="strong/">T</a>): <a href="strong/">T</a></td>
+</tr>
+<tr>
+<td><a href="style/">style</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="style/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="style/">style</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="style/">T</a>): <a href="style/">T</a></td>
+</tr>
+<tr>
+<td><a href="sub/">sub</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="sub/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="sub/">sub</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="sub/">T</a>): <a href="sub/">T</a></td>
+</tr>
+<tr>
+<td><a href="summary/">summary</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="summary/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="summary/">summary</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="summary/">T</a>): <a href="summary/">T</a></td>
+</tr>
+<tr>
+<td><a href="sup/">sup</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="sup/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="sup/">sup</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="sup/">T</a>): <a href="sup/">T</a></td>
+</tr>
+<tr>
+<td><a href="table/">table</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="table/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="table/">table</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="table/">T</a>): <a href="table/">T</a></td>
+</tr>
+<tr>
+<td><a href="tbody/">tbody</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="tbody/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="tbody/">tbody</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="tbody/">T</a>): <a href="tbody/">T</a></td>
+</tr>
+<tr>
+<td><a href="td/">td</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="td/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="td/">td</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="td/">T</a>): <a href="td/">T</a></td>
+</tr>
+<tr>
+<td><a href="template/">template</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="template/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="template/">template</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="template/">T</a>): <a href="template/">T</a></td>
+</tr>
+<tr>
+<td><a href="textarea/">textarea</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="textarea/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="textarea/">textarea</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="textarea/">T</a>): <a href="textarea/">T</a></td>
+</tr>
+<tr>
+<td><a href="tfoot/">tfoot</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="tfoot/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="tfoot/">tfoot</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="tfoot/">T</a>): <a href="tfoot/">T</a></td>
+</tr>
+<tr>
+<td><a href="th/">th</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="th/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="th/">th</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="th/">T</a>): <a href="th/">T</a></td>
+</tr>
+<tr>
+<td><a href="thead/">thead</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="thead/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="thead/">thead</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="thead/">T</a>): <a href="thead/">T</a></td>
+</tr>
+<tr>
+<td><a href="time/">time</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="time/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="time/">time</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="time/">T</a>): <a href="time/">T</a></td>
+</tr>
+<tr>
+<td><a href="title/">title</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="title/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="title/">title</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="title/">T</a>): <a href="title/">T</a></td>
+</tr>
+<tr>
+<td><a href="tr/">tr</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="tr/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="tr/">tr</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="tr/">T</a>): <a href="tr/">T</a></td>
+</tr>
+<tr>
+<td><a href="track/">track</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="track/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="track/">track</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="track/">T</a>): <a href="track/">T</a></td>
+</tr>
+<tr>
+<td><a href="tt/">tt</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="tt/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="tt/">tt</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="tt/">T</a>): <a href="tt/">T</a></td>
+</tr>
+<tr>
+<td><a href="u/">u</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="u/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="u/">u</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="u/">T</a>): <a href="u/">T</a></td>
+</tr>
+<tr>
+<td><a href="ul/">ul</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="ul/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="ul/">ul</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="ul/">T</a>): <a href="ul/">T</a></td>
+</tr>
+<tr>
+<td><a href="var/">var</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="var/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="var/">var</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="var/">T</a>): <a href="var/">T</a></td>
+</tr>
+<tr>
+<td><a href="video/">video</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="video/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="video/">video</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="video/">T</a>): <a href="video/">T</a></td>
+</tr>
+<tr>
+<td><a href="wbr/">wbr</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="wbr/">T</a>&gt; <a href="../org.mjdev.tvlib.webscrapper.select/-css-selectable/">CssSelectable</a>.<a href="wbr/">wbr</a>(cssSelector: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, init: <a href="../org.mjdev.tvlib.webscrapper.select/-css-selector/">CssSelector</a>.() -&gt; <a href="wbr/">T</a>): <a href="wbr/">T</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.footer", "navigation.top"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.af256bd8.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

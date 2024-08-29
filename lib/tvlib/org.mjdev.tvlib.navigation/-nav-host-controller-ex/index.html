@@ -1,0 +1,795 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+    
+    
+      
+        <title>Index - Compose TV App and Lib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#navhostcontrollerex" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-header__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compose TV App and Lib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-nav__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Compose TV App and Lib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../release-notes-1.3.1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/lib/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/app/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>//<a href="../../../">tvlib</a>/<a href="../">org.mjdev.tvlib.navigation</a>/<a href="./">NavHostControllerEx</a></p>
+<h1 id="navhostcontrollerex">NavHostControllerEx</h1>
+<p>[androidJvm]\
+class <a href="./">NavHostControllerEx</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html">NavHostController</a>, <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>, <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/DefaultLifecycleObserver.html">DefaultLifecycleObserver</a></p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-nav-host-controller-ex/">NavHostControllerEx</a></td>
+<td>[androidJvm]<br>constructor(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="background-state/">backgroundState</a></td>
+<td>[androidJvm]<br>val <a href="background-state/">backgroundState</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState.html">MutableState</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?&gt;</td>
+</tr>
+<tr>
+<td><a href="./#201077652%2FProperties%2F-1596939238">context</a></td>
+<td>[androidJvm]<br>val <a href="./#201077652%2FProperties%2F-1596939238">context</a>: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="./#-366907281%2FProperties%2F-1596939238">currentBackStack</a></td>
+<td>[androidJvm]<br>val <a href="./#-366907281%2FProperties%2F-1596939238">currentBackStack</a>: StateFlow&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a>&gt;&gt;</td>
+</tr>
+<tr>
+<td><a href="./#1593015865%2FProperties%2F-1596939238">currentBackStackEntry</a></td>
+<td>[androidJvm]<br>open val <a href="./#1593015865%2FProperties%2F-1596939238">currentBackStackEntry</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a>?</td>
+</tr>
+<tr>
+<td><a href="./#-92447061%2FProperties%2F-1596939238">currentBackStackEntryFlow</a></td>
+<td>[androidJvm]<br>val <a href="./#-92447061%2FProperties%2F-1596939238">currentBackStackEntryFlow</a>: Flow&lt;<a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="./#2050571810%2FProperties%2F-1596939238">currentDestination</a></td>
+<td>[androidJvm]<br>open val <a href="./#2050571810%2FProperties%2F-1596939238">currentDestination</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDestination.html">NavDestination</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/current-route/">currentRoute</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html">NavHostController</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/current-route/">currentRoute</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?</td>
+</tr>
+<tr>
+<td><a href="./#-273671595%2FProperties%2F-1596939238">graph</a></td>
+<td>[androidJvm]<br>open var <a href="./#-273671595%2FProperties%2F-1596939238">graph</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavGraph.html">NavGraph</a></td>
+</tr>
+<tr>
+<td><a href="lifecycle/">lifecycle</a></td>
+<td>[androidJvm]<br>open override val <a href="lifecycle/">lifecycle</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.html">Lifecycle</a></td>
+</tr>
+<tr>
+<td><a href="menu-click-listeners/">menuClickListeners</a></td>
+<td>[androidJvm]<br>val <a href="menu-click-listeners/">menuClickListeners</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="../-menu-item-click-listener/">MenuItemClickListener</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="menu-drawer-state/">menuDrawerState</a></td>
+<td>[androidJvm]<br>val <a href="menu-drawer-state/">menuDrawerState</a>: <a href="https://developer.android.com/reference/kotlin/androidx/tv/material3/DrawerState.html">DrawerState</a></td>
+</tr>
+<tr>
+<td><a href="menu-items/">menuItems</a></td>
+<td>[androidJvm]<br>val <a href="menu-items/">menuItems</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/snapshots/SnapshotStateList.html">SnapshotStateList</a>&lt;<a href="../-menu-item/">MenuItem</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="menu-state/">menuState</a></td>
+<td>[androidJvm]<br>val <a href="menu-state/">menuState</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState.html">MutableState</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="./#-860850565%2FProperties%2F-1596939238">navigatorProvider</a></td>
+<td>[androidJvm]<br>open var <a href="./#-860850565%2FProperties%2F-1596939238">navigatorProvider</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavigatorProvider.html">NavigatorProvider</a></td>
+</tr>
+<tr>
+<td><a href="./#-348174955%2FProperties%2F-1596939238">navInflater</a></td>
+<td>[androidJvm]<br>open val <a href="./#-348174955%2FProperties%2F-1596939238">navInflater</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavInflater.html">NavInflater</a></td>
+</tr>
+<tr>
+<td><a href="./#1252066159%2FProperties%2F-1596939238">previousBackStackEntry</a></td>
+<td>[androidJvm]<br>open val <a href="./#1252066159%2FProperties%2F-1596939238">previousBackStackEntry</a>: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a>?</td>
+</tr>
+<tr>
+<td><a href="selected-menu-item/">selectedMenuItem</a></td>
+<td>[androidJvm]<br>val <a href="selected-menu-item/">selectedMenuItem</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableIntState.html">MutableIntState</a></td>
+</tr>
+<tr>
+<td><a href="settings-drawer-state/">settingsDrawerState</a></td>
+<td>[androidJvm]<br>val <a href="settings-drawer-state/">settingsDrawerState</a>: <a href="https://developer.android.com/reference/kotlin/androidx/tv/material3/DrawerState.html">DrawerState</a></td>
+</tr>
+<tr>
+<td><a href="./#-23554983%2FProperties%2F-1596939238">visibleEntries</a></td>
+<td>[androidJvm]<br>val <a href="./#-23554983%2FProperties%2F-1596939238">visibleEntries</a>: StateFlow&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a>&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="add-menu-click-listener/">addMenuClickListener</a></td>
+<td>[androidJvm]<br>fun <a href="add-menu-click-listener/">addMenuClickListener</a>(vararg listener: <a href="../-menu-item-click-listener/">MenuItemClickListener</a>)</td>
+</tr>
+<tr>
+<td><a href="add-menu-item/">addMenuItem</a></td>
+<td>[androidJvm]<br>fun <a href="add-menu-item/">addMenuItem</a>(vararg item: <a href="../-menu-item/">MenuItem</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-244783732%2FFunctions%2F-1596939238">addOnDestinationChangedListener</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-244783732%2FFunctions%2F-1596939238">addOnDestinationChangedListener</a>(listener: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavController.OnDestinationChangedListener.html">NavController.OnDestinationChangedListener</a>)</td>
+</tr>
+<tr>
+<td><a href="add-unique-menu-item/">addUniqueMenuItem</a></td>
+<td>[androidJvm]<br>fun <a href="add-unique-menu-item/">addUniqueMenuItem</a>(item: <a href="../-menu-item/">MenuItem</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-1378413407%2FFunctions%2F-1596939238">clearBackStack</a></td>
+<td>[androidJvm]<br>fun <a href="./#-1378413407%2FFunctions%2F-1596939238">clearBackStack</a>(destinationId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>fun <a href="./#1796371233%2FFunctions%2F-1596939238">clearBackStack</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="clear-click-listeners/">clearClickListeners</a></td>
+<td>[androidJvm]<br>fun <a href="clear-click-listeners/">clearClickListeners</a>()</td>
+</tr>
+<tr>
+<td><a href="clear-menu-items/">clearMenuItems</a></td>
+<td>[androidJvm]<br>fun <a href="clear-menu-items/">clearMenuItems</a>()</td>
+</tr>
+<tr>
+<td><a href="close-menu/">closeMenu</a></td>
+<td>[androidJvm]<br>fun <a href="close-menu/">closeMenu</a>()</td>
+</tr>
+<tr>
+<td><a href="close-settings/">closeSettings</a></td>
+<td>[androidJvm]<br>fun <a href="close-settings/">closeSettings</a>()</td>
+</tr>
+<tr>
+<td><a href="./#992977013%2FFunctions%2F-1596939238">createDeepLink</a></td>
+<td>[androidJvm]<br>open fun <a href="./#992977013%2FFunctions%2F-1596939238">createDeepLink</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDeepLinkBuilder.html">NavDeepLinkBuilder</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-nav-ext/create-graph/">createGraph</a></td>
+<td>[androidJvm]<br>inline fun <a href="./">NavHostControllerEx</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-ext/create-graph/">createGraph</a>(navController: <a href="./">NavHostControllerEx</a>, route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, startRoute: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, builder: <a href="../-nav-graph-builder-ex/">NavGraphBuilderEx</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavGraph.html">NavGraph</a></td>
+</tr>
+<tr>
+<td><a href="./#-733006361%2FFunctions%2F-1596939238">enableOnBackPressed</a></td>
+<td>[androidJvm]<br>override fun <a href="./#-733006361%2FFunctions%2F-1596939238">enableOnBackPressed</a>(enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a></td>
+<td>[androidJvm]<br>open operator fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="./#-2026995316%2FFunctions%2F-1596939238">findDestination</a></td>
+<td>[androidJvm]<br>fun <a href="./#-2026995316%2FFunctions%2F-1596939238">findDestination</a>(destinationId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDestination.html">NavDestination</a>?<br>fun <a href="./#-1344382378%2FFunctions%2F-1596939238">findDestination</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDestination.html">NavDestination</a>?</td>
+</tr>
+<tr>
+<td><a href="for-each-menu-item/">forEachMenuItem</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a><br>fun <a href="for-each-menu-item/">forEachMenuItem</a>(block: @<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>(index: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, menuItem: <a href="../-menu-item/">MenuItem</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)</td>
+</tr>
+<tr>
+<td><a href="./#569687898%2FFunctions%2F-1596939238">getBackStackEntry</a></td>
+<td>[androidJvm]<br>open fun <a href="./#569687898%2FFunctions%2F-1596939238">getBackStackEntry</a>(destinationId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a><br>fun <a href="./#-210722360%2FFunctions%2F-1596939238">getBackStackEntry</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavBackStackEntry.html">NavBackStackEntry</a></td>
+</tr>
+<tr>
+<td><a href="./#-1031401611%2FFunctions%2F-1596939238">getViewModelStoreOwner</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1031401611%2FFunctions%2F-1596939238">getViewModelStoreOwner</a>(navGraphId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModelStoreOwner.html">ViewModelStoreOwner</a></td>
+</tr>
+<tr>
+<td><a href="./#-743002006%2FFunctions%2F-1596939238">handleDeepLink</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-743002006%2FFunctions%2F-1596939238">handleDeepLink</a>(intent: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="index-of-menu-item/">indexOfMenuItem</a></td>
+<td>[androidJvm]<br>fun <a href="index-of-menu-item/">indexOfMenuItem</a>(item: <a href="../-menu-item/">MenuItem</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.events.util/launch-when-state-at-least/">launchWhenStateAtLeast</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="../../org.mjdev.tvlib.events.util/launch-when-state-at-least/">T</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>.<a href="../../org.mjdev.tvlib.events.util/launch-when-state-at-least/">launchWhenStateAtLeast</a>(minState: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.State.html">Lifecycle.State</a>, block: suspend CoroutineScope.() -&gt; <a href="../../org.mjdev.tvlib.events.util/launch-when-state-at-least/">T</a>): Job</td>
+</tr>
+<tr>
+<td><a href="menu-item/">menuItem</a></td>
+<td>[androidJvm]<br>fun <a href="menu-item/">menuItem</a>(id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="../-menu-item/">MenuItem</a></td>
+</tr>
+<tr>
+<td><a href="./#-1206503040%2FFunctions%2F-1596939238">navigate</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1206503040%2FFunctions%2F-1596939238">navigate</a>(deepLink: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>)<br>open fun <a href="./#1898939243%2FFunctions%2F-1596939238">navigate</a>(request: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDeepLinkRequest.html">NavDeepLinkRequest</a>)<br>open fun <a href="./#1336586426%2FFunctions%2F-1596939238">navigate</a>(directions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDirections.html">NavDirections</a>)<br>open fun <a href="./#1566161828%2FFunctions%2F-1596939238">navigate</a>(resId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<br>open fun <a href="./#-1293799884%2FFunctions%2F-1596939238">navigate</a>(deepLink: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?)<br>open fun <a href="./#-777974753%2FFunctions%2F-1596939238">navigate</a>(request: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDeepLinkRequest.html">NavDeepLinkRequest</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?)<br>open fun <a href="./#-977584786%2FFunctions%2F-1596939238">navigate</a>(directions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDirections.html">NavDirections</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?)<br>open fun <a href="./#1762503670%2FFunctions%2F-1596939238">navigate</a>(directions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDirections.html">NavDirections</a>, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>)<br>open fun <a href="./#-1460340247%2FFunctions%2F-1596939238">navigate</a>(resId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, args: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>fun <a href="./#1215677829%2FFunctions%2F-1596939238">navigate</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, builder: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptionsBuilder.html">NavOptionsBuilder</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<br>open fun <a href="./#2069396391%2FFunctions%2F-1596939238">navigate</a>(deepLink: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>?)<br>open fun <a href="./#-185822894%2FFunctions%2F-1596939238">navigate</a>(request: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavDeepLinkRequest.html">NavDeepLinkRequest</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>?)<br>open fun <a href="./#373099165%2FFunctions%2F-1596939238">navigate</a>(resId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, args: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?)<br>fun <a href="./#1867371749%2FFunctions%2F-1596939238">navigate</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>?)<br>open fun <a href="./#-787234480%2FFunctions%2F-1596939238">navigate</a>(resId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, args: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>?, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/navigate/">navigate</a></td>
+<td>[androidJvm]<br>fun <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavController.html">NavController</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/navigate/">navigate</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, args: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>, navOptions: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavOptions.html">NavOptions</a>? = null, navigatorExtras: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/Navigator.Extras.html">Navigator.Extras</a>? = null)</td>
+</tr>
+<tr>
+<td><a href="./#848957675%2FFunctions%2F-1596939238">navigateUp</a></td>
+<td>[androidJvm]<br>open fun <a href="./#848957675%2FFunctions%2F-1596939238">navigateUp</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.events.observe/observe-event/">observeEvent</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a><br>inline fun &lt;<a href="../../org.mjdev.tvlib.events.observe/observe-event/">T</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>.<a href="../../org.mjdev.tvlib.events.observe/observe-event/">observeEvent</a>(dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate, minActiveState: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.State.html">Lifecycle.State</a> = Lifecycle.State.STARTED, isSticky: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false, noinline onReceived: (<a href="../../org.mjdev.tvlib.events.observe/observe-event/">T</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): Job</td>
+</tr>
+<tr>
+<td><a href="./#139941652%2FFunctions%2F-1596939238">onCreate</a></td>
+<td>[androidJvm]<br>open fun <a href="./#139941652%2FFunctions%2F-1596939238">onCreate</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="on-destroy/">onDestroy</a></td>
+<td>[androidJvm]<br>open override fun <a href="on-destroy/">onDestroy</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="on-menu-item-click/">onMenuItemClick</a></td>
+<td>[androidJvm]<br>fun <a href="on-menu-item-click/">onMenuItemClick</a>(item: <a href="../-menu-item/">MenuItem</a>)</td>
+</tr>
+<tr>
+<td><a href="./#187777572%2FFunctions%2F-1596939238">onPause</a></td>
+<td>[androidJvm]<br>open fun <a href="./#187777572%2FFunctions%2F-1596939238">onPause</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-1807945979%2FFunctions%2F-1596939238">onResume</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1807945979%2FFunctions%2F-1596939238">onResume</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="./#1240777104%2FFunctions%2F-1596939238">onStart</a></td>
+<td>[androidJvm]<br>open fun <a href="./#1240777104%2FFunctions%2F-1596939238">onStart</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="./#487071706%2FFunctions%2F-1596939238">onStop</a></td>
+<td>[androidJvm]<br>open fun <a href="./#487071706%2FFunctions%2F-1596939238">onStop</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open/">open</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a><br>inline fun &lt;<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open/">T</a> : <a href="../../org.mjdev.tvlib.screen/-screen/">Screen</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html">NavHostController</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open/">open</a>(vararg values: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?)<br>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a><br>fun <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html">NavHostController</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open/">open</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open-as-top/">openAsTop</a></td>
+<td>[androidJvm]<br>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a><br>inline fun &lt;<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open-as-top/">T</a> : <a href="../../org.mjdev.tvlib.screen/-screen/">Screen</a>&gt; <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html">NavHostController</a>.<a href="../../org.mjdev.tvlib.extensions/-nav-controller-ext/open-as-top/">openAsTop</a>(vararg values: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?)</td>
+</tr>
+<tr>
+<td><a href="open-menu/">openMenu</a></td>
+<td>[androidJvm]<br>fun <a href="open-menu/">openMenu</a>()</td>
+</tr>
+<tr>
+<td><a href="open-settings/">openSettings</a></td>
+<td>[androidJvm]<br>fun <a href="open-settings/">openSettings</a>()</td>
+</tr>
+<tr>
+<td><a href="./#-14136249%2FFunctions%2F-1596939238">popBackStack</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-14136249%2FFunctions%2F-1596939238">popBackStack</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open fun <a href="./#1379380159%2FFunctions%2F-1596939238">popBackStack</a>(destinationId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, inclusive: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open fun <a href="./#-1253174811%2FFunctions%2F-1596939238">popBackStack</a>(destinationId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, inclusive: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, saveState: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>fun <a href="./#198895325%2FFunctions%2F-1596939238">popBackStack</a>(route: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, inclusive: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, saveState: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="remove-menu-click-listener/">removeMenuClickListener</a></td>
+<td>[androidJvm]<br>fun <a href="remove-menu-click-listener/">removeMenuClickListener</a>(vararg listener: <a href="../-menu-item-click-listener/">MenuItemClickListener</a>)</td>
+</tr>
+<tr>
+<td><a href="remove-menu-item/">removeMenuItem</a></td>
+<td>[androidJvm]<br>fun <a href="remove-menu-item/">removeMenuItem</a>(vararg item: <a href="../-menu-item/">MenuItem</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-1354530115%2FFunctions%2F-1596939238">removeOnDestinationChangedListener</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1354530115%2FFunctions%2F-1596939238">removeOnDestinationChangedListener</a>(listener: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavController.OnDestinationChangedListener.html">NavController.OnDestinationChangedListener</a>)</td>
+</tr>
+<tr>
+<td><a href="./#560880098%2FFunctions%2F-1596939238">restoreState</a></td>
+<td>[androidJvm]<br>open fun <a href="./#560880098%2FFunctions%2F-1596939238">restoreState</a>(navState: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="./#800590415%2FFunctions%2F-1596939238">saveState</a></td>
+<td>[androidJvm]<br>open fun <a href="./#800590415%2FFunctions%2F-1596939238">saveState</a>(): <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?</td>
+</tr>
+<tr>
+<td><a href="set-background/">setBackground</a></td>
+<td>[androidJvm]<br>fun <a href="set-background/">setBackground</a>(drawable: <a href="https://developer.android.com/reference/kotlin/android/graphics/drawable/Drawable.html">Drawable</a>)<br>fun <a href="set-background/">setBackground</a>(color: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a>)<br>fun <a href="set-background/">setBackground</a>(imageVector: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/vector/ImageVector.html">ImageVector</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-81501911%2FFunctions%2F-1596939238">setGraph</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-81501911%2FFunctions%2F-1596939238">setGraph</a>(graphResId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<br>open fun <a href="./#-2070237438%2FFunctions%2F-1596939238">setGraph</a>(graph: <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavGraph.html">NavGraph</a>, startDestinationArgs: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>open fun <a href="./#-1188391868%2FFunctions%2F-1596939238">setGraph</a>(graphResId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, startDestinationArgs: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="./#738177088%2FFunctions%2F-1596939238">setLifecycleOwner</a></td>
+<td>[androidJvm]<br>override fun <a href="./#738177088%2FFunctions%2F-1596939238">setLifecycleOwner</a>(owner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>)</td>
+</tr>
+<tr>
+<td><a href="./#563987131%2FFunctions%2F-1596939238">setOnBackPressedDispatcher</a></td>
+<td>[androidJvm]<br>override fun <a href="./#563987131%2FFunctions%2F-1596939238">setOnBackPressedDispatcher</a>(dispatcher: <a href="https://developer.android.com/reference/kotlin/androidx/activity/OnBackPressedDispatcher.html">OnBackPressedDispatcher</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-1229291328%2FFunctions%2F-1596939238">setViewModelStore</a></td>
+<td>[androidJvm]<br>override fun <a href="./#-1229291328%2FFunctions%2F-1596939238">setViewModelStore</a>(viewModelStore: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModelStore.html">ViewModelStore</a>)</td>
+</tr>
+<tr>
+<td><a href="start-activity/">startActivity</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="start-activity/">T</a> : <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&gt; <a href="start-activity/">startActivity</a>(vararg params: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html">Serializable</a>?&gt;)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.footer", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.af256bd8.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

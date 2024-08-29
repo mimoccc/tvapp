@@ -1,0 +1,1087 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+    
+    
+      
+        <title>Index - Compose TV App and Lib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tvapplication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-header__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compose TV App and Lib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Compose TV App and Lib" class="md-nav__button md-logo" aria-label="Compose TV App and Lib" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Compose TV App and Lib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mimoccc/tvapp" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mimoccc/tvapp
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../release-notes-1.3.1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/lib/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../documentation/app/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>//<a href="../../../">tvlib</a>/<a href="../">org.mjdev.tvlib.application</a>/<a href="./">TvApplication</a></p>
+<h1 id="tvapplication">TvApplication</h1>
+<p>[androidJvm]\
+open class <a href="./">TvApplication</a> : <a href="https://developer.android.com/reference/kotlin/android/app/Application.html">Application</a></p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-tv-application/">TvApplication</a></td>
+<td>[androidJvm]<br>constructor()</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../org.mjdev.tvlib.ui.toolkit/activity/">activity</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.ui.toolkit/activity/">activity</a>: <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-context-ext/date-as-string/">dateAsString</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-context-ext/date-as-string/">dateAsString</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-context-ext/is-eink/">isEink</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-context-ext/is-eink/">isEink</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-context-ext/is-t-v/">isTV</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-context-ext/is-t-v/">isTV</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-media-item-ext/metadata-retriever/">metadataRetriever</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-media-item-ext/metadata-retriever/">metadataRetriever</a>: <a href="../../org.mjdev.tvlib.helpers.media/-metadata-retriever/">MetadataRetriever</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-context-ext/time-as-string/">timeAsString</a></td>
+<td>[androidJvm]<br>val <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-context-ext/time-as-string/">timeAsString</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../org.mjdev.tvlib.extensions/-context-ext/activity/">activity</a></td>
+<td>[androidJvm]<br>inline fun &lt;<a href="../../org.mjdev.tvlib.extensions/-context-ext/activity/">T</a> : <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&gt; <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.extensions/-context-ext/activity/">activity</a>(messageBlock: (context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = { ctx -&gt;             &quot;Expected an activity context but instead found: $ctx&quot;         }): <a href="../../org.mjdev.tvlib.extensions/-context-ext/activity/">T</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#926130332%2FFunctions%2F-1596939238">bindIsolatedService</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.service/-playback-service/#926130332%2FFunctions%2F-1596939238">bindIsolatedService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/Context.BindServiceFlags.html">Context.BindServiceFlags</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p3: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a>, p4: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-936523269%2FFunctions%2F-1596939238">bindIsolatedService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p3: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a>, p4: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#446529550%2FFunctions%2F-1596939238">bindService</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#446529550%2FFunctions%2F-1596939238">bindService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/content/Context.BindServiceFlags.html">Context.BindServiceFlags</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#2022335150%2FFunctions%2F-1596939238">bindService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1220120143%2FFunctions%2F-1596939238">bindService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/Context.BindServiceFlags.html">Context.BindServiceFlags</a>, p2: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-764880913%2FFunctions%2F-1596939238">bindService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-158488848%2FFunctions%2F-1596939238">bindServiceAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-158488848%2FFunctions%2F-1596939238">bindServiceAsUser</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/content/Context.BindServiceFlags.html">Context.BindServiceFlags</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-365950384%2FFunctions%2F-1596939238">bindServiceAsUser</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-315710025%2FFunctions%2F-1596939238">checkCallingOrSelfPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-315710025%2FFunctions%2F-1596939238">checkCallingOrSelfPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#832829402%2FFunctions%2F-1596939238">checkCallingOrSelfUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#832829402%2FFunctions%2F-1596939238">checkCallingOrSelfUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1013919811%2FFunctions%2F-1596939238">checkCallingOrSelfUriPermissions</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1013919811%2FFunctions%2F-1596939238">checkCallingOrSelfUriPermissions</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&gt;, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#893466952%2FFunctions%2F-1596939238">checkCallingPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#893466952%2FFunctions%2F-1596939238">checkCallingPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1348946283%2FFunctions%2F-1596939238">checkCallingUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1348946283%2FFunctions%2F-1596939238">checkCallingUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1966715980%2FFunctions%2F-1596939238">checkCallingUriPermissions</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1966715980%2FFunctions%2F-1596939238">checkCallingUriPermissions</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&gt;, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1698615512%2FFunctions%2F-1596939238">checkPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1698615512%2FFunctions%2F-1596939238">checkPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1389999028%2FFunctions%2F-1596939238">checkSelfPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1389999028%2FFunctions%2F-1596939238">checkSelfPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#2104701707%2FFunctions%2F-1596939238">checkUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#2104701707%2FFunctions%2F-1596939238">checkUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1290765996%2FFunctions%2F-1596939238">checkUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>?, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1934262484%2FFunctions%2F-1596939238">checkUriPermissions</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1934262484%2FFunctions%2F-1596939238">checkUriPermissions</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&gt;, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1564108334%2FFunctions%2F-1596939238">clearWallpaper</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1564108334%2FFunctions%2F-1596939238">~~clearWallpaper~~</a>()</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1250560058%2FFunctions%2F-1596939238">createAttributionContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1250560058%2FFunctions%2F-1596939238">createAttributionContext</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1154826084%2FFunctions%2F-1596939238">createConfigurationContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1154826084%2FFunctions%2F-1596939238">createConfigurationContext</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/res/Configuration.html">Configuration</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1358229057%2FFunctions%2F-1596939238">createContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1358229057%2FFunctions%2F-1596939238">createContext</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ContextParams.html">ContextParams</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1654585621%2FFunctions%2F-1596939238">createContextForSplit</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1654585621%2FFunctions%2F-1596939238">createContextForSplit</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1549365964%2FFunctions%2F-1596939238">createDeviceContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1549365964%2FFunctions%2F-1596939238">createDeviceContext</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2131343837%2FFunctions%2F-1596939238">createDeviceProtectedStorageContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2131343837%2FFunctions%2F-1596939238">createDeviceProtectedStorageContext</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-296982170%2FFunctions%2F-1596939238">createDisplayContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-296982170%2FFunctions%2F-1596939238">createDisplayContext</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/view/Display.html">Display</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#212314043%2FFunctions%2F-1596939238">createPackageContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#212314043%2FFunctions%2F-1596939238">createPackageContext</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1685281025%2FFunctions%2F-1596939238">createWindowContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1685281025%2FFunctions%2F-1596939238">createWindowContext</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#291506760%2FFunctions%2F-1596939238">createWindowContext</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/view/Display.html">Display</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2015717810%2FFunctions%2F-1596939238">databaseList</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2015717810%2FFunctions%2F-1596939238">databaseList</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1521633731%2FFunctions%2F-1596939238">deleteDatabase</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1521633731%2FFunctions%2F-1596939238">deleteDatabase</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1794089596%2FFunctions%2F-1596939238">deleteFile</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1794089596%2FFunctions%2F-1596939238">deleteFile</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1249690503%2FFunctions%2F-1596939238">deleteSharedPreferences</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1249690503%2FFunctions%2F-1596939238">deleteSharedPreferences</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-373876383%2FFunctions%2F-1596939238">enforceCallingOrSelfPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-373876383%2FFunctions%2F-1596939238">enforceCallingOrSelfPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1996391077%2FFunctions%2F-1596939238">enforceCallingOrSelfUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1996391077%2FFunctions%2F-1596939238">enforceCallingOrSelfUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#577330480%2FFunctions%2F-1596939238">enforceCallingPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#577330480%2FFunctions%2F-1596939238">enforceCallingPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#370165494%2FFunctions%2F-1596939238">enforceCallingUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#370165494%2FFunctions%2F-1596939238">enforceCallingUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1911070116%2FFunctions%2F-1596939238">enforcePermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1911070116%2FFunctions%2F-1596939238">enforcePermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2129139702%2FFunctions%2F-1596939238">enforceUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2129139702%2FFunctions%2F-1596939238">enforceUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#355973580%2FFunctions%2F-1596939238">enforceUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>?, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p6: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a></td>
+<td>[androidJvm]<br>open operator fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#585090901%2FFunctions%2F-1596939238">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1346241261%2FFunctions%2F-1596939238">fileList</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1346241261%2FFunctions%2F-1596939238">fileList</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.ui.toolkit/find-activity/">findActivity</a></td>
+<td>[androidJvm]<br>tailrec fun <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>.<a href="../../org.mjdev.tvlib.ui.toolkit/find-activity/">findActivity</a>(): <a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#720574270%2FFunctions%2F-1596939238">getApplicationContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#720574270%2FFunctions%2F-1596939238">getApplicationContext</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#875309695%2FFunctions%2F-1596939238">getApplicationInfo</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#875309695%2FFunctions%2F-1596939238">getApplicationInfo</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/pm/ApplicationInfo.html">ApplicationInfo</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#929224314%2FFunctions%2F-1596939238">getAssets</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#929224314%2FFunctions%2F-1596939238">getAssets</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/res/AssetManager.html">AssetManager</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#745115299%2FFunctions%2F-1596939238">getAttributionSource</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#745115299%2FFunctions%2F-1596939238">getAttributionSource</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/AttributionSource.html">AttributionSource</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2059689374%2FFunctions%2F-1596939238">getAttributionTag</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2059689374%2FFunctions%2F-1596939238">getAttributionTag</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1836627711%2FFunctions%2F-1596939238">getBaseContext</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1836627711%2FFunctions%2F-1596939238">getBaseContext</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-803358382%2FFunctions%2F-1596939238">getCacheDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-803358382%2FFunctions%2F-1596939238">getCacheDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1242041746%2FFunctions%2F-1596939238">getClassLoader</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1242041746%2FFunctions%2F-1596939238">getClassLoader</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassLoader.html">ClassLoader</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1138511077%2FFunctions%2F-1596939238">getCodeCacheDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1138511077%2FFunctions%2F-1596939238">getCodeCacheDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1612713529%2FFunctions%2F-1596939238">getColor</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1612713529%2FFunctions%2F-1596939238">getColor</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#49622702%2FFunctions%2F-1596939238">getColorStateList</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#49622702%2FFunctions%2F-1596939238">getColorStateList</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/res/ColorStateList.html">ColorStateList</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1924753378%2FFunctions%2F-1596939238">getContentResolver</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1924753378%2FFunctions%2F-1596939238">getContentResolver</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html">ContentResolver</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1182335943%2FFunctions%2F-1596939238">getDatabasePath</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1182335943%2FFunctions%2F-1596939238">getDatabasePath</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#666732474%2FFunctions%2F-1596939238">getDataDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#666732474%2FFunctions%2F-1596939238">getDataDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1895269292%2FFunctions%2F-1596939238">getDeviceId</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1895269292%2FFunctions%2F-1596939238">getDeviceId</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#264472777%2FFunctions%2F-1596939238">getDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#264472777%2FFunctions%2F-1596939238">getDir</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#488073307%2FFunctions%2F-1596939238">getDisplay</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#488073307%2FFunctions%2F-1596939238">getDisplay</a>(): <a href="https://developer.android.com/reference/kotlin/android/view/Display.html">Display</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-953197380%2FFunctions%2F-1596939238">getDrawable</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-953197380%2FFunctions%2F-1596939238">getDrawable</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/graphics/drawable/Drawable.html">Drawable</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#544398023%2FFunctions%2F-1596939238">getExternalCacheDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#544398023%2FFunctions%2F-1596939238">getExternalCacheDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1262724320%2FFunctions%2F-1596939238">getExternalCacheDirs</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1262724320%2FFunctions%2F-1596939238">getExternalCacheDirs</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1987272293%2FFunctions%2F-1596939238">getExternalFilesDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1987272293%2FFunctions%2F-1596939238">getExternalFilesDir</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2070683431%2FFunctions%2F-1596939238">getExternalFilesDirs</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2070683431%2FFunctions%2F-1596939238">getExternalFilesDirs</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1078368190%2FFunctions%2F-1596939238">getExternalMediaDirs</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1078368190%2FFunctions%2F-1596939238">getExternalMediaDirs</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2018610489%2FFunctions%2F-1596939238">getFilesDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2018610489%2FFunctions%2F-1596939238">getFilesDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1523976920%2FFunctions%2F-1596939238">getFileStreamPath</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1523976920%2FFunctions%2F-1596939238">getFileStreamPath</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1205639281%2FFunctions%2F-1596939238">getMainExecutor</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1205639281%2FFunctions%2F-1596939238">getMainExecutor</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#400244339%2FFunctions%2F-1596939238">getMainLooper</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#400244339%2FFunctions%2F-1596939238">getMainLooper</a>(): <a href="https://developer.android.com/reference/kotlin/android/os/Looper.html">Looper</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1811406884%2FFunctions%2F-1596939238">getNoBackupFilesDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1811406884%2FFunctions%2F-1596939238">getNoBackupFilesDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#252787007%2FFunctions%2F-1596939238">getObbDir</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#252787007%2FFunctions%2F-1596939238">getObbDir</a>(): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#812717416%2FFunctions%2F-1596939238">getObbDirs</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#812717416%2FFunctions%2F-1596939238">getObbDirs</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a>&gt;</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-814243443%2FFunctions%2F-1596939238">getOpPackageName</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-814243443%2FFunctions%2F-1596939238">getOpPackageName</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1681869883%2FFunctions%2F-1596939238">getPackageCodePath</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1681869883%2FFunctions%2F-1596939238">getPackageCodePath</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#224992758%2FFunctions%2F-1596939238">getPackageManager</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#224992758%2FFunctions%2F-1596939238">getPackageManager</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/pm/PackageManager.html">PackageManager</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1158183924%2FFunctions%2F-1596939238">getPackageName</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1158183924%2FFunctions%2F-1596939238">getPackageName</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#512700484%2FFunctions%2F-1596939238">getPackageResourcePath</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#512700484%2FFunctions%2F-1596939238">getPackageResourcePath</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-417920553%2FFunctions%2F-1596939238">getParams</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-417920553%2FFunctions%2F-1596939238">getParams</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/ContextParams.html">ContextParams</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#464732248%2FFunctions%2F-1596939238">getResources</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#464732248%2FFunctions%2F-1596939238">getResources</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1470789827%2FFunctions%2F-1596939238">getSharedPreferences</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1470789827%2FFunctions%2F-1596939238">getSharedPreferences</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/SharedPreferences.html">SharedPreferences</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1083071447%2FFunctions%2F-1596939238">getString</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1083071447%2FFunctions%2F-1596939238">getString</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1906424039%2FFunctions%2F-1596939238">getString</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, vararg p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1033418729%2FFunctions%2F-1596939238">getSystemService</a></td>
+<td>[androidJvm]<br>fun &lt;<a href="../../org.mjdev.tvlib.service/-playback-service/#-1033418729%2FFunctions%2F-1596939238">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="../../org.mjdev.tvlib.service/-playback-service/#-1033418729%2FFunctions%2F-1596939238">getSystemService</a>(p0: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a>&lt;<a href="../../org.mjdev.tvlib.service/-playback-service/#-1033418729%2FFunctions%2F-1596939238">T</a>&gt;): <a href="../../org.mjdev.tvlib.service/-playback-service/#-1033418729%2FFunctions%2F-1596939238">T</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1204794803%2FFunctions%2F-1596939238">getSystemService</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1607307550%2FFunctions%2F-1596939238">getSystemServiceName</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1607307550%2FFunctions%2F-1596939238">getSystemServiceName</a>(p0: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a>&lt;*&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1417941683%2FFunctions%2F-1596939238">getText</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1417941683%2FFunctions%2F-1596939238">getText</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1761986252%2FFunctions%2F-1596939238">getTheme</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1761986252%2FFunctions%2F-1596939238">getTheme</a>(): <a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.Theme.html">Resources.Theme</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-721579237%2FFunctions%2F-1596939238">getWallpaper</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-721579237%2FFunctions%2F-1596939238">~~getWallpaper~~</a>(): <a href="https://developer.android.com/reference/kotlin/android/graphics/drawable/Drawable.html">Drawable</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-662155776%2FFunctions%2F-1596939238">getWallpaperDesiredMinimumHeight</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-662155776%2FFunctions%2F-1596939238">~~getWallpaperDesiredMinimumHeight~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#295343597%2FFunctions%2F-1596939238">getWallpaperDesiredMinimumWidth</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#295343597%2FFunctions%2F-1596939238">~~getWallpaperDesiredMinimumWidth~~</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#715282874%2FFunctions%2F-1596939238">grantUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#715282874%2FFunctions%2F-1596939238">grantUriPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1794629105%2FFunctions%2F-1596939238">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1565618010%2FFunctions%2F-1596939238">isDeviceProtectedStorage</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1565618010%2FFunctions%2F-1596939238">isDeviceProtectedStorage</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1776278686%2FFunctions%2F-1596939238">isRestricted</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1776278686%2FFunctions%2F-1596939238">isRestricted</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#2131014658%2FFunctions%2F-1596939238">isUiContext</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#2131014658%2FFunctions%2F-1596939238">isUiContext</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1531556325%2FFunctions%2F-1596939238">moveDatabaseFrom</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1531556325%2FFunctions%2F-1596939238">moveDatabaseFrom</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-336755131%2FFunctions%2F-1596939238">moveSharedPreferencesFrom</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-336755131%2FFunctions%2F-1596939238">moveSharedPreferencesFrom</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1790084466%2FFunctions%2F-1596939238">obtainStyledAttributes</a></td>
+<td>[androidJvm]<br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1790084466%2FFunctions%2F-1596939238">obtainStyledAttributes</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a>): <a href="https://developer.android.com/reference/kotlin/android/content/res/TypedArray.html">TypedArray</a><br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1642243463%2FFunctions%2F-1596939238">obtainStyledAttributes</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a>?, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a>): <a href="https://developer.android.com/reference/kotlin/android/content/res/TypedArray.html">TypedArray</a><br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1436889597%2FFunctions%2F-1596939238">obtainStyledAttributes</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a>): <a href="https://developer.android.com/reference/kotlin/android/content/res/TypedArray.html">TypedArray</a><br>fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1344552345%2FFunctions%2F-1596939238">obtainStyledAttributes</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a>?, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/res/TypedArray.html">TypedArray</a></td>
+</tr>
+<tr>
+<td><a href="./#2125011770%2FFunctions%2F-1596939238">onConfigurationChanged</a></td>
+<td>[androidJvm]<br>open override fun <a href="./#2125011770%2FFunctions%2F-1596939238">onConfigurationChanged</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/res/Configuration.html">Configuration</a>)</td>
+</tr>
+<tr>
+<td><a href="on-create/">onCreate</a></td>
+<td>[androidJvm]<br>open override fun <a href="on-create/">onCreate</a>()</td>
+</tr>
+<tr>
+<td><a href="./#-1282504717%2FFunctions%2F-1596939238">onLowMemory</a></td>
+<td>[androidJvm]<br>open override fun <a href="./#-1282504717%2FFunctions%2F-1596939238">onLowMemory</a>()</td>
+</tr>
+<tr>
+<td><a href="./#-192747385%2FFunctions%2F-1596939238">onTerminate</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-192747385%2FFunctions%2F-1596939238">onTerminate</a>()</td>
+</tr>
+<tr>
+<td><a href="./#1298973069%2FFunctions%2F-1596939238">onTrimMemory</a></td>
+<td>[androidJvm]<br>open override fun <a href="./#1298973069%2FFunctions%2F-1596939238">onTrimMemory</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-436133483%2FFunctions%2F-1596939238">openFileInput</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-436133483%2FFunctions%2F-1596939238">openFileInput</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileInputStream.html">FileInputStream</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1288028519%2FFunctions%2F-1596939238">openFileOutput</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1288028519%2FFunctions%2F-1596939238">openFileOutput</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileOutputStream.html">FileOutputStream</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-352848248%2FFunctions%2F-1596939238">openOrCreateDatabase</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-352848248%2FFunctions%2F-1596939238">openOrCreateDatabase</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/database/sqlite/SQLiteDatabase.CursorFactory.html">SQLiteDatabase.CursorFactory</a>): <a href="https://developer.android.com/reference/kotlin/android/database/sqlite/SQLiteDatabase.html">SQLiteDatabase</a><br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1846808329%2FFunctions%2F-1596939238">openOrCreateDatabase</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/database/sqlite/SQLiteDatabase.CursorFactory.html">SQLiteDatabase.CursorFactory</a>, p3: <a href="https://developer.android.com/reference/kotlin/android/database/DatabaseErrorHandler.html">DatabaseErrorHandler</a>?): <a href="https://developer.android.com/reference/kotlin/android/database/sqlite/SQLiteDatabase.html">SQLiteDatabase</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1166010676%2FFunctions%2F-1596939238">peekWallpaper</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1166010676%2FFunctions%2F-1596939238">~~peekWallpaper~~</a>(): <a href="https://developer.android.com/reference/kotlin/android/graphics/drawable/Drawable.html">Drawable</a></td>
+</tr>
+<tr>
+<td><a href="./#-1368197058%2FFunctions%2F-1596939238">registerActivityLifecycleCallbacks</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-1368197058%2FFunctions%2F-1596939238">registerActivityLifecycleCallbacks</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/app/Application.ActivityLifecycleCallbacks.html">Application.ActivityLifecycleCallbacks</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-2101686504%2FFunctions%2F-1596939238">registerComponentCallbacks</a></td>
+<td>[androidJvm]<br>open override fun <a href="./#-2101686504%2FFunctions%2F-1596939238">registerComponentCallbacks</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ComponentCallbacks.html">ComponentCallbacks</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#221277319%2FFunctions%2F-1596939238">registerDeviceIdChangeListener</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#221277319%2FFunctions%2F-1596939238">registerDeviceIdChangeListener</a>(p0: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executor.html">Executor</a>, p1: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/IntConsumer.html">IntConsumer</a>)</td>
+</tr>
+<tr>
+<td><a href="./#1637269184%2FFunctions%2F-1596939238">registerOnProvideAssistDataListener</a></td>
+<td>[androidJvm]<br>open fun <a href="./#1637269184%2FFunctions%2F-1596939238">registerOnProvideAssistDataListener</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/app/Application.OnProvideAssistDataListener.html">Application.OnProvideAssistDataListener</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#369060837%2FFunctions%2F-1596939238">registerReceiver</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#369060837%2FFunctions%2F-1596939238">registerReceiver</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p1: <a href="https://developer.android.com/reference/kotlin/android/content/IntentFilter.html">IntentFilter</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#180699224%2FFunctions%2F-1596939238">registerReceiver</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p1: <a href="https://developer.android.com/reference/kotlin/android/content/IntentFilter.html">IntentFilter</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1896280668%2FFunctions%2F-1596939238">registerReceiver</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p1: <a href="https://developer.android.com/reference/kotlin/android/content/IntentFilter.html">IntentFilter</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?): <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-444475007%2FFunctions%2F-1596939238">registerReceiver</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p1: <a href="https://developer.android.com/reference/kotlin/android/content/IntentFilter.html">IntentFilter</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1734837009%2FFunctions%2F-1596939238">removeStickyBroadcast</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1734837009%2FFunctions%2F-1596939238">~~removeStickyBroadcast~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#588277431%2FFunctions%2F-1596939238">removeStickyBroadcastAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#588277431%2FFunctions%2F-1596939238">~~removeStickyBroadcastAsUser~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#71314554%2FFunctions%2F-1596939238">revokeSelfPermissionOnKill</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.service/-playback-service/#71314554%2FFunctions%2F-1596939238">revokeSelfPermissionOnKill</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1222544766%2FFunctions%2F-1596939238">revokeSelfPermissionsOnKill</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1222544766%2FFunctions%2F-1596939238">revokeSelfPermissionsOnKill</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/index.html">MutableCollection</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1459364395%2FFunctions%2F-1596939238">revokeUriPermission</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1459364395%2FFunctions%2F-1596939238">revokeUriPermission</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-401097840%2FFunctions%2F-1596939238">revokeUriPermission</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#689861098%2FFunctions%2F-1596939238">sendBroadcast</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#689861098%2FFunctions%2F-1596939238">sendBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#281415540%2FFunctions%2F-1596939238">sendBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#839382041%2FFunctions%2F-1596939238">sendBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#288711986%2FFunctions%2F-1596939238">sendBroadcastAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#288711986%2FFunctions%2F-1596939238">sendBroadcastAsUser</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#546382636%2FFunctions%2F-1596939238">sendBroadcastAsUser</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#298882104%2FFunctions%2F-1596939238">sendBroadcastWithMultiplePermissions</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.service/-playback-service/#298882104%2FFunctions%2F-1596939238">sendBroadcastWithMultiplePermissions</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2119529981%2FFunctions%2F-1596939238">sendOrderedBroadcast</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2119529981%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#842266922%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#2070291024%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p6: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#165974519%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p4: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p6: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p7: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1131561336%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p4: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p6: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p7: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)<br>open fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1922483713%2FFunctions%2F-1596939238">sendOrderedBroadcast</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p4: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p5: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p6: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p7: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?, p8: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1495784840%2FFunctions%2F-1596939238">sendOrderedBroadcastAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1495784840%2FFunctions%2F-1596939238">sendOrderedBroadcastAsUser</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p4: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p6: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p7: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#112235123%2FFunctions%2F-1596939238">sendStickyBroadcast</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#112235123%2FFunctions%2F-1596939238">~~sendStickyBroadcast~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-118572358%2FFunctions%2F-1596939238">~~sendStickyBroadcast~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-669462981%2FFunctions%2F-1596939238">sendStickyBroadcastAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-669462981%2FFunctions%2F-1596939238">~~sendStickyBroadcastAsUser~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#758100831%2FFunctions%2F-1596939238">sendStickyOrderedBroadcast</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#758100831%2FFunctions%2F-1596939238">~~sendStickyOrderedBroadcast~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p5: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1135629991%2FFunctions%2F-1596939238">sendStickyOrderedBroadcastAsUser</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1135629991%2FFunctions%2F-1596939238">~~sendStickyOrderedBroadcastAsUser~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/UserHandle.html">UserHandle</a>, p2: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>?, p3: <a href="https://developer.android.com/reference/kotlin/android/os/Handler.html">Handler</a>?, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p6: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1324511966%2FFunctions%2F-1596939238">setTheme</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1324511966%2FFunctions%2F-1596939238">setTheme</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-2108598200%2FFunctions%2F-1596939238">setWallpaper</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-2108598200%2FFunctions%2F-1596939238">~~setWallpaper~~</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-659870931%2FFunctions%2F-1596939238">~~setWallpaper~~</a>(p0: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/InputStream.html">InputStream</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1771892602%2FFunctions%2F-1596939238">startActivities</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1771892602%2FFunctions%2F-1596939238">startActivities</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>&gt;)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-259889721%2FFunctions%2F-1596939238">startActivities</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>&gt;, p1: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#901188466%2FFunctions%2F-1596939238">startActivity</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#901188466%2FFunctions%2F-1596939238">startActivity</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#114936667%2FFunctions%2F-1596939238">startActivity</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-291854073%2FFunctions%2F-1596939238">startForegroundService</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-291854073%2FFunctions%2F-1596939238">startForegroundService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>): <a href="https://developer.android.com/reference/kotlin/android/content/ComponentName.html">ComponentName</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1028122110%2FFunctions%2F-1596939238">startInstrumentation</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1028122110%2FFunctions%2F-1596939238">startInstrumentation</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ComponentName.html">ComponentName</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, p2: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1854061746%2FFunctions%2F-1596939238">startIntentSender</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1854061746%2FFunctions%2F-1596939238">startIntentSender</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/IntentSender.html">IntentSender</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1836477951%2FFunctions%2F-1596939238">startIntentSender</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/IntentSender.html">IntentSender</a>, p1: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>?, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p3: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p4: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p5: <a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>?)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1648257764%2FFunctions%2F-1596939238">startService</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1648257764%2FFunctions%2F-1596939238">startService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>): <a href="https://developer.android.com/reference/kotlin/android/content/ComponentName.html">ComponentName</a>?</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#784453104%2FFunctions%2F-1596939238">stopService</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#784453104%2FFunctions%2F-1596939238">stopService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a></td>
+<td>[androidJvm]<br>open fun <a href="../../org.mjdev.tvlib.webscrapper.select/-element-not-found-exception/#1616463040%2FFunctions%2F-1596939238">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#391044623%2FFunctions%2F-1596939238">unbindService</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#391044623%2FFunctions%2F-1596939238">unbindService</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-759989947%2FFunctions%2F-1596939238">unregisterActivityLifecycleCallbacks</a></td>
+<td>[androidJvm]<br>open fun <a href="./#-759989947%2FFunctions%2F-1596939238">unregisterActivityLifecycleCallbacks</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/app/Application.ActivityLifecycleCallbacks.html">Application.ActivityLifecycleCallbacks</a>)</td>
+</tr>
+<tr>
+<td><a href="./#-1963248353%2FFunctions%2F-1596939238">unregisterComponentCallbacks</a></td>
+<td>[androidJvm]<br>open override fun <a href="./#-1963248353%2FFunctions%2F-1596939238">unregisterComponentCallbacks</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ComponentCallbacks.html">ComponentCallbacks</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#-1253598297%2FFunctions%2F-1596939238">unregisterDeviceIdChangeListener</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#-1253598297%2FFunctions%2F-1596939238">unregisterDeviceIdChangeListener</a>(p0: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/IntConsumer.html">IntConsumer</a>)</td>
+</tr>
+<tr>
+<td><a href="./#2008750599%2FFunctions%2F-1596939238">unregisterOnProvideAssistDataListener</a></td>
+<td>[androidJvm]<br>open fun <a href="./#2008750599%2FFunctions%2F-1596939238">unregisterOnProvideAssistDataListener</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/app/Application.OnProvideAssistDataListener.html">Application.OnProvideAssistDataListener</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#1949248458%2FFunctions%2F-1596939238">unregisterReceiver</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#1949248458%2FFunctions%2F-1596939238">unregisterReceiver</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>)</td>
+</tr>
+<tr>
+<td><a href="../../org.mjdev.tvlib.service/-playback-service/#178246991%2FFunctions%2F-1596939238">updateServiceGroup</a></td>
+<td>[androidJvm]<br>open override fun <a href="../../org.mjdev.tvlib.service/-playback-service/#178246991%2FFunctions%2F-1596939238">updateServiceGroup</a>(p0: <a href="https://developer.android.com/reference/kotlin/android/content/ServiceConnection.html">ServiceConnection</a>, p1: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, p2: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.footer", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.af256bd8.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
