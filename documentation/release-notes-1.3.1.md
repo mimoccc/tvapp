@@ -1,4 +1,20 @@
-## Release notes 1.0.0 - 28. 6. 2024, 23:18:07
+## Release notes 1.0.0 - 29. 8. 2024, 9:11:57
+
+* 28.08.2024
+
+* [milan jurkulák] : adblock update 
+* [milan jurkulák] : merge changes from main 
+* [milan jurkulák] : key press exception fix 
+* [milan jurkulák] : lib versions bump 
+
+* 20.07.2024
+
+* [milan jurkulák] : site creator mkdocs 
+* [milan jurkulák] : embedded ksp 
+
+* 29.06.2024
+
+* [milan jurkulák] : embedded ksp 
 
 * 26.06.2024
 

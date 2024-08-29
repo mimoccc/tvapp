@@ -47,7 +47,7 @@ jsoup = "1.17.2"
 junit = "4.13.2"
 #jwtdecode = "2.0.2"
 korim-jvm = "4.0.2"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 kotlinpoet = "1.16.0"
 kotlinter-gradle = "4.3.0"
 kotlinx-coroutines-android = "1.8.1"
@@ -75,7 +75,7 @@ kodein-di = "7.22.0"
 gradle-catalogs-update = "0.8.4"
 gradle-versions = "0.51.0"
 ktlint = "11.3.2"
-ksp = "2.0.0-1.0.22"
+ksp = "2.0.20-1.0.24"
 compose-screenshot="0.0.1-alpha04"
 idea = "242.8057"
 # libraries ########################################################################################
@@ -219,7 +219,7 @@ kotlin-annotationProcessingEmbeddable = { module = "org.jetbrains.kotlin:kotlin-
 kotlin-kapt4 = { module = "org.jetbrains.kotlin:kotlin-annotation-processing-compiler", version.ref = "kotlin" }
 kotlin-scriptingCompiler = { module = "org.jetbrains.kotlin:kotlin-scripting-compiler", version.ref = "kotlin" }
 kotlin-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-aalto-xml={ module="com.fasterxml:aalto-xml" , version="1.3.1"} # todo
+#aalto-xml={ module="com.fasterxml:aalto-xml" , version="1.3.1"} # todo
 #
 #classpath("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.9.22")
 #classpath("org.jetbrains.kotlin:kotlin-scripting-common:1.9.22")

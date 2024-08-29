@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.ksp.api)
     implementation(libs.ksp.commonDeps)
     implementation(libs.ksp.aaEmbeddable)
-    implementation(libs.aalto.xml)
+//    implementation(libs.aalto.xml)
 
 //    implementation(libs.classgraph)
 
