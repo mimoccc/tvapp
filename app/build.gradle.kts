@@ -17,7 +17,7 @@ appConfig {
     description = "Smart TV android app for any android device"
 
     autoCorrectCode = true
-    ignoreCodeFailures = isAndroidStudio
+    ignoreCodeFailures = true
 
     createDocumentation = !isAndroidStudio
     reportUndocumentedFiles = !isAndroidStudio

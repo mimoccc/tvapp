@@ -11,21 +11,21 @@ package org.mjdev.tvlib.ui.components.gridview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.grid.TvGridCells
-import androidx.tv.foundation.lazy.grid.TvLazyGridState
-import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
-import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
-import androidx.tv.foundation.lazy.grid.items
-import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.ComposeExt.isPortraitMode
 import org.mjdev.tvlib.ui.components.card.PhotoCard
+import androidx.compose.foundation.lazy.grid.items
 
 @Previews
 @Composable
@@ -39,7 +39,7 @@ fun TvGridView(
         Unit, Unit, Unit,
         Unit, Unit, Unit
     ),
-    state: TvLazyGridState = rememberTvLazyGridState(),
+    state: LazyGridState = rememberLazyGridState(),
     cardWidth: Dp = computeCardWidth(),
     aspectRatio: Float = 16f / 9f,
     contentScale: ContentScale = ContentScale.Crop,
@@ -60,9 +60,9 @@ fun TvGridView(
 ) {
     val isPortrait = isPortraitMode()
     if (isPortrait) {
-        TvLazyVerticalGrid(
+        LazyVerticalGrid(
             modifier = modifier.fillMaxSize(),
-            columns = TvGridCells.Adaptive(cardWidth),
+            columns = GridCells.Adaptive(cardWidth),
             verticalArrangement = verticalArrangement,
             horizontalArrangement = horizontalArrangement,
             contentPadding = PaddingValues(16.dp),
@@ -77,9 +77,9 @@ fun TvGridView(
         }
     } else {
         val cardHeight = (cardWidth / aspectRatio)
-        TvLazyHorizontalGrid(
+        LazyHorizontalGrid(
             modifier = modifier.fillMaxSize(),
-            rows = TvGridCells.Adaptive(cardHeight),
+            rows = GridCells.Adaptive(cardHeight),
             verticalArrangement = verticalArrangement,
             horizontalArrangement = horizontalArrangement,
             contentPadding = PaddingValues(16.dp),
