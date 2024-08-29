@@ -1,4 +1,8 @@
-## Release notes 1.0.0 - 29. 8. 2024, 9:11:57
+## Release notes 1.0.0 - 29. 8. 2024, 10:22:22
+
+* 29.08.2024
+
+* [milan jurkulák] : ksp libs bump 
 
 * 28.08.2024
 

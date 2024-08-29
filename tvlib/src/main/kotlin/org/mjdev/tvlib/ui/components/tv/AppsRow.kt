@@ -10,6 +10,8 @@ package org.mjdev.tvlib.ui.components.tv
 
 import android.content.ComponentName
 import android.content.Context
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -20,8 +22,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyListState
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.helpers.apps.rememberAppsManager
 import org.mjdev.tvlib.R
@@ -33,7 +33,7 @@ import org.mjdev.tvlib.ui.components.card.ItemCard
 @Composable
 fun AppsRow(
     title: Any? = R.string.title_apps,
-    rowState: TvLazyListState = rememberTvLazyListState(),
+    rowState: LazyListState = rememberLazyListState(),
     padding: Dp = 8.dp,
     backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
     roundCornerSize: Dp = 8.dp,

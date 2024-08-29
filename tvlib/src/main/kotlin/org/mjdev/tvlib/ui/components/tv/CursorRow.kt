@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,8 +35,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyListState
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
 import org.mjdev.tvlib.extensions.CursorExt.getData
@@ -49,7 +49,7 @@ import org.mjdev.tvlib.ui.components.text.TextAny
 @Composable
 fun CursorRow(
     title: Any? = null,
-    rowState: TvLazyListState = rememberTvLazyListState(),
+    rowState: LazyListState = rememberLazyListState(),
     padding: Dp = 16.dp,
     backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
     roundCornerSize: Dp = 8.dp,

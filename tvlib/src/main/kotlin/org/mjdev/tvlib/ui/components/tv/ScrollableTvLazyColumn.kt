@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -13,17 +13,16 @@ import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.PivotOffsets
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.TvLazyListScope
-import androidx.tv.foundation.lazy.list.TvLazyListState
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import kotlinx.coroutines.launch
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ModifierExt.onEditMode
@@ -38,9 +37,8 @@ fun ScrollableTvLazyColumn(
     else Arrangement.Bottom,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     userScrollEnabled: Boolean = true,
-    pivotOffsets: PivotOffsets = PivotOffsets(),
-    state: TvLazyListState = rememberTvLazyListState(),
-    content: TvLazyListScope.() -> Unit = {}
+    state: LazyListState = rememberLazyListState(),
+    content: LazyListScope.() -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
     val scrollDelta: (delta: Float) -> Unit = { delta ->
@@ -48,7 +46,7 @@ fun ScrollableTvLazyColumn(
             state.scrollBy(delta)
         }
     }
-    TvLazyColumn(
+    LazyColumn(
         modifier = modifier
             .onEditMode { fillMaxSize() }
             .pointerInput(Unit) {
@@ -62,7 +60,6 @@ fun ScrollableTvLazyColumn(
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
         userScrollEnabled = userScrollEnabled,
-        pivotOffsets = pivotOffsets,
         content = {
             content.invoke(this)
         }

@@ -162,7 +162,7 @@ class AppPlugin : BasePlugin() {
                     isDebuggable = false
                     isJniDebuggable = false
                     isMinifyEnabled = true
-                    isShrinkResources = true
+                    isShrinkResources = false
                     isCrunchPngs = true
                     signingConfig = signingConfigs[name]
                     // todo : move

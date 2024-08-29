@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,6 +10,8 @@ package org.mjdev.tvlib.ui.components.tv
 
 import android.content.Context
 import android.database.Cursor
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -17,8 +19,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyListState
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import org.mjdev.tvlib.R
 import org.mjdev.tvlib.annotations.Previews
 import org.mjdev.tvlib.extensions.ComposeExt.computeCardWidth
@@ -30,7 +30,7 @@ import org.mjdev.tvlib.helpers.cursor.CachingCursor.Companion.rememberCursor
 @Composable
 fun LocalAudioRow(
     title: Any? = R.string.title_audio_local,
-    rowState: TvLazyListState = rememberTvLazyListState(),
+    rowState: LazyListState = rememberLazyListState(),
     padding: Dp = 8.dp,
     backgroundColor: Color = Color.DarkGray.copy(alpha = 0.3f),
     roundCornerSize: Dp = 8.dp,

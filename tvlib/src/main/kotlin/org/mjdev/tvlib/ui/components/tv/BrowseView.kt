@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Milan Jurkulák 2023.
+ *  Copyright (c) Milan Jurkulák 2024.
  *  Contact:
  *  e: mimoccc@gmail.com
  *  e: mj@mjdev.org
@@ -10,20 +10,21 @@ package org.mjdev.tvlib.ui.components.tv
 
 import android.os.Build
 import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyListState
-import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import kotlinx.coroutines.launch
 import org.mjdev.tvlib.extensions.ComposeExt.isEditMode
 import org.mjdev.tvlib.interfaces.ItemWithTitle
@@ -61,7 +62,7 @@ fun BrowseView(
     onUserPicClicked: (() -> Unit)? = null,
     onItemFocused: ((item: Any?, fromUser: Boolean) -> Unit)? = null,
     onItemClicked: ((item: Any?) -> Unit)? = null,
-    state: TvLazyListState = rememberTvLazyListState(),
+    state: LazyListState = rememberLazyListState(),
     isEdit: Boolean = isEditMode()
 ) {
     val coroutineScope = rememberCoroutineScope()
